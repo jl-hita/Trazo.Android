@@ -19,7 +19,7 @@ class MainActivity:ComponentActivity() {
   super.onCreate(savedInstanceState)
   actionUri=intent?.data
   val baseUrl=BuildConfig.API_BASE_URL
-  require(baseUrl.startsWith("https://")||baseUrl.startsWith("http://10.0.2.2:")||baseUrl.startsWith("http://192.168.")||baseUrl.startsWith("http://127.0.0.1:")) {
+  require(baseUrl.startsWith("https://")||(BuildConfig.DEBUG && baseUrl.startsWith("http://"))) {
    "API_BASE_URL debe ser HTTPS o una dirección local explícita de desarrollo."
   }
   val api=Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build().create(AuthApi::class.java)
