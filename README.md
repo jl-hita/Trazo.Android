@@ -13,7 +13,7 @@ Native Kotlin + Jetpack Compose client for the TRAZO strength-training platform.
 
 ## API endpoint configuration
 
-The debug build defaults to http://10.0.2.2:5000/ (the host computer's localhost from the Android emulator). Start the API on the development computer at port 5000, or override the URL when building:
+The debug build defaults to http://10.0.2.2:5001/ (the host computer's localhost from the Android emulator). Start the API on the development computer at port 5001, or override the URL when building:
 
 gradle --no-daemon :app:assembleDebug -PapiBaseUrl=https://YOUR_TEST_API_HOST/
 
