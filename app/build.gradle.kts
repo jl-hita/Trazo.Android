@@ -12,8 +12,10 @@ android {
   targetSdk = 36
   versionCode = 1
   versionName = "0.1.0"
-  buildConfigField("String", "API_BASE_URL", "\"https://api.example.invalid/\"")
-  buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"\u0024{providers.gradleProperty(\"googleWebClientId\").orNull ?: \"\"}\"")
+  val apiBaseUrl = providers.gradleProperty("apiBaseUrl").orElse("https://api.example.invalid/").get()
+  val googleClientId = providers.gradleProperty("googleWebClientId").orNull ?: ""
+  buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
+  buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleClientId\"")
  }
  buildFeatures { compose = true; buildConfig = true }
  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
