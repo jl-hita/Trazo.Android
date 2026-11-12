@@ -12,17 +12,28 @@ import androidx.credentials.*
 import com.google.android.libraries.identity.googleid.*
 import com.trazo.android.auth.*
 import kotlinx.coroutines.launch
-@Composable fun LoginScreen(repo:AuthRepository,googleClientId:String) {
+@Composable fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=null,actionToken:String?=null) {
  val context= LocalContext.current; val scope= rememberCoroutineScope()
  var email by remember{mutableStateOf("")}; var password by remember{mutableStateOf("")}; var name by remember{mutableStateOf("")}
- var code by remember{mutableStateOf("")}; var challenge by remember{mutableStateOf<String?>(null)}
+ var code by remember{mutableStateOf("")}; var challenge by remember{mutableStateOf<String?>(null)}; var newPassword by remember{mutableStateOf("")}
  var register by remember{mutableStateOf(false)}; var busy by remember{mutableStateOf(false)}
  var signed by remember{mutableStateOf(repo.hasSession())}; var message by remember{mutableStateOf<String?>(null)}
+ LaunchedEffect(actionType,actionToken) {
+  if(actionType=="verify-email"&&!actionToken.isNullOrBlank()) {
+   try { val result=repo.verifyEmail(actionToken); message=if(result.isSuccessful) "Correo verificado. Ya puedes iniciar sesión." else "El enlace no es válido o ha caducado." }
+   catch(e:Exception){message=e.message ?: "No se pudo verificar el correo."}
+  }
+ }
  fun handle(o:Outcome){ when(o){ Outcome.Success->{signed=true;challenge=null;message="Sesión iniciada."};is Outcome.Challenge->{challenge=o.token;message="Introduce tu código de autenticación."};is Outcome.EmailVerificationRequired->message=o.message;is Outcome.Error->message=o.message } }
  Column(Modifier.fillMaxSize().padding(28.dp),verticalArrangement=Arrangement.Center) {
   Text("TRAZO",style=MaterialTheme.typography.headlineLarge); Text("STRENGTH, ENGINEERED.")
   Spacer(Modifier.height(24.dp))
-  if(signed){Text("Sesión iniciada.");TextButton(onClick={repo.logout();signed=false}){Text("Cerrar sesión")}}
+  if(actionType=="reset-password"&&!actionToken.isNullOrBlank()) {
+   Text("Restablecer contraseña",style=MaterialTheme.typography.titleLarge)
+   OutlinedTextField(newPassword,{newPassword=it},label={Text("Nueva contraseña")},visualTransformation=PasswordVisualTransformation(),modifier=Modifier.fillMaxWidth())
+   Button(enabled=!busy&&newPassword.isNotBlank(),onClick={busy=true;scope.launch{try{val result=repo.resetPassword(actionToken,newPassword);message=if(result.isSuccessful) "Contraseña actualizada. Ya puedes iniciar sesión." else "El enlace no es válido o ha caducado."}catch(e:Exception){message=e.message};busy=false}},modifier=Modifier.fillMaxWidth()){Text("Guardar contraseña")}
+  }
+  else if(signed){Text("Sesión iniciada.");TextButton(onClick={repo.logout();signed=false}){Text("Cerrar sesión")}}
   else if(challenge!=null){
    OutlinedTextField(code,{code=it},label={Text("Código 2FA o recuperación")},modifier=Modifier.fillMaxWidth())
    Button(enabled=!busy&&code.isNotBlank(),onClick={busy=true;scope.launch{try{handle(repo.verify(challenge!!,code))}catch(e:Exception){message=e.message};busy=false}},modifier=Modifier.fillMaxWidth()){Text("Verificar")}
