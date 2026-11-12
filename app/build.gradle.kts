@@ -4,7 +4,7 @@ plugins {
  id("org.jetbrains.kotlin.plugin.compose")
 }
 val configuredApiUrl = providers.gradleProperty("apiBaseUrl")
-val debugApiUrl = configuredApiUrl.orElse("http://10.0.2.2:5000/").get().let { if (it.endsWith("/")) it else "$it/" }
+val debugApiUrl = configuredApiUrl.orElse("http://10.0.2.2:5001/").get().let { if (it.endsWith("/")) it else "$it/" }
 val releaseApiUrl = configuredApiUrl.orElse("https://api.example.invalid/").get().let { if (it.endsWith("/")) it else "$it/" }
 android {
  namespace = "com.trazo.android"
