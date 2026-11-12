@@ -3,9 +3,20 @@ plugins {
  id("org.jetbrains.kotlin.android")
  id("org.jetbrains.kotlin.plugin.compose")
 }
-val configuredApiUrl = providers.gradleProperty("apiBaseUrl")
-val debugApiUrl = configuredApiUrl.orElse("http://10.0.2.2:5001/").get().let { if (it.endsWith("/")) it else "$it/" }
-val releaseApiUrl = configuredApiUrl.orElse("https://api.example.invalid/").get().let { if (it.endsWith("/")) it else "$it/" }
+val explicitApiBaseUrl = providers.gradleProperty("apiBaseUrl").orNull?.let { if (it.endsWith("/")) it else "$it/" }
+val configuredApiHost = providers.gradleProperty("apiHost").orNull
+val apiScheme = providers.gradleProperty("apiScheme").orElse("http").get()
+val apiHost = configuredApiHost ?: "10.0.2.2"
+val apiPort = providers.gradleProperty("apiPort").orElse("5001").get()
+val apiBasePath = providers.gradleProperty("apiBasePath").orElse("/").get().let {
+ if (it.startsWith("/")) it else "/$it"
+}.let { if (it.endsWith("/")) it else "$it/" }
+val composedApiUrl = "$apiScheme://$apiHost:$apiPort$apiBasePath"
+val debugApiUrl = explicitApiBaseUrl ?: composedApiUrl
+val hasExplicitReleaseEndpoint = configuredApiHost != null ||
+ providers.gradleProperty("apiPort").isPresent ||
+ providers.gradleProperty("apiScheme").isPresent
+val releaseApiUrl = explicitApiBaseUrl ?: if (hasExplicitReleaseEndpoint) composedApiUrl else "https://api.example.invalid/"
 android {
  namespace = "com.trazo.android"
  compileSdk = 36
