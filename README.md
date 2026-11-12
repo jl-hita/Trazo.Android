@@ -2,6 +2,10 @@
 
 Native Kotlin + Jetpack Compose client for the TRAZO strength-training platform. The API and Angular administration app live in jl-hita/Trazo.
 
+## Configuration
+
+See [docs/configuration.md](docs/configuration.md) for all Gradle properties, API endpoint examples, emulator/physical-device setup, Google OAuth, deep links and release builds.
+
 ## Authentication
 
 - Email/password registration and login.
