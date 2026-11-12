@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  var code by remember{mutableStateOf("")}; var challenge by remember{mutableStateOf<String?>(null)}
  var register by remember{mutableStateOf(false)}; var busy by remember{mutableStateOf(false)}
  var signed by remember{mutableStateOf(repo.hasSession())}; var message by remember{mutableStateOf<String?>(null)}
- fun handle(o:Outcome){ when(o){ Outcome.Success->{signed=true;challenge=null;message="Sesión iniciada."};is Outcome.Challenge->{challenge=o.token;message="Introduce tu código de autenticación."};is Outcome.Error->message=o.message } }
+ fun handle(o:Outcome){ when(o){ Outcome.Success->{signed=true;challenge=null;message="Sesión iniciada."};is Outcome.Challenge->{challenge=o.token;message="Introduce tu código de autenticación."};is Outcome.EmailVerificationRequired->message=o.message;is Outcome.Error->message=o.message } }
  Column(Modifier.fillMaxSize().padding(28.dp),verticalArrangement=Arrangement.Center) {
   Text("TRAZO",style=MaterialTheme.typography.headlineLarge); Text("STRENGTH, ENGINEERED.")
   Spacer(Modifier.height(24.dp))
@@ -33,6 +33,8 @@ import kotlinx.coroutines.launch
    Spacer(Modifier.height(12.dp))
    Button(enabled=!busy&&email.isNotBlank()&&password.isNotBlank(),onClick={busy=true;scope.launch{try{handle(if(register)repo.register(email,password,name) else repo.login(email,password))}catch(e:Exception){message=e.message?: "Error de conexión"};busy=false}},modifier=Modifier.fillMaxWidth()){Text(if(register)"Crear cuenta" else "Entrar")}
    TextButton(onClick={register=!register}){Text(if(register)"Ya tengo cuenta" else "Crear cuenta")}
+   TextButton(enabled=email.isNotBlank(),onClick={scope.launch{try{repo.resendVerification(email);message="Si la cuenta existe y falta verificarla, recibirás un correo."}catch(e:Exception){message=e.message?: "No se pudo solicitar el correo."}}}){Text("Reenviar verificación")}
+   TextButton(enabled=email.isNotBlank(),onClick={scope.launch{try{repo.forgotPassword(email);message="Si existe una cuenta compatible, recibirás instrucciones."}catch(e:Exception){message=e.message?: "No se pudo solicitar el restablecimiento."}}}){Text("He olvidado mi contraseña")}
    if(googleClientId.isNotBlank())Button(enabled=!busy,onClick={busy=true;scope.launch{try{
     val option=GetGoogleIdOption.Builder().setServerClientId(googleClientId).setFilterByAuthorizedAccounts(false).build()
     val req=GetCredentialRequest.Builder().addCredentialOption(option).build()
