@@ -1,11 +1,15 @@
 package com.trazo.android.ui
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -20,6 +24,7 @@ import com.google.android.libraries.identity.googleid.*
 import com.trazo.android.BuildConfig
 import com.trazo.android.R
 import com.trazo.android.auth.*
+import com.trazo.android.ui.theme.*
 import kotlinx.coroutines.launch
 
 @Composable
@@ -60,14 +65,16 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
   }
  }
 
- Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(28.dp),verticalArrangement=Arrangement.Center) {
+ Surface(Modifier.fillMaxSize(),color=TrazoPalette.Background,contentColor=TrazoPalette.Text) {
+ Column(Modifier.fillMaxSize().safeDrawingPadding().verticalScroll(rememberScrollState()).padding(16.dp),verticalArrangement=Arrangement.Center,horizontalAlignment=Alignment.CenterHorizontally) {
+ Column(Modifier.widthIn(max=440.dp).fillMaxWidth().border(1.dp,TrazoPalette.Border,RoundedCornerShape(10.dp)).background(TrazoPalette.Card,RoundedCornerShape(10.dp)).padding(24.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
   Image(painterResource(R.drawable.trazo_wordmark_dark),contentDescription="TRAZO",modifier=Modifier.height(64.dp))
-  Text("ENTRENA · MEJORA · AVANZA",style=MaterialTheme.typography.labelMedium)
+  Eyebrow("ENTRENA · MEJORA · AVANZA")
   Spacer(Modifier.height(24.dp))
   if(actionType=="reset-password"&&!actionToken.isNullOrBlank()) {
    Text("Restablecer contraseña",style=MaterialTheme.typography.titleLarge)
-   OutlinedTextField(newPassword,{newPassword=it},label={Text("Nueva contraseña")},visualTransformation=PasswordVisualTransformation(),modifier=Modifier.fillMaxWidth())
-   Button(enabled=!busy&&newPassword.length>=12,onClick={
+   TrazoField(newPassword,{newPassword=it},label={Text("Nueva contraseña")},visualTransformation=PasswordVisualTransformation(),modifier=Modifier.fillMaxWidth())
+   TrazoButton(enabled=!busy&&newPassword.length>=12,onClick={
     busy=true
     scope.launch { try { val response=repo.resetPassword(actionToken,newPassword);message=if(response.isSuccessful)"Contraseña actualizada. Ya puedes iniciar sesión." else "El enlace no es válido o ha caducado." } catch(_:Exception){message="No se pudo restablecer la contraseña."} finally{busy=false} }
    },modifier=Modifier.fillMaxWidth()){Text("Guardar contraseña")}
@@ -81,13 +88,13 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
    }
    Spacer(Modifier.height(12.dp))
    if(user?.twoFactorEnabled==true) {
-    OutlinedTextField(code,{code=it},label={Text("Código para desactivar 2FA")},modifier=Modifier.fillMaxWidth())
-    Button(enabled=!busy&&code.isNotBlank(),onClick={
+    TrazoField(code,{code=it},label={Text("Código para desactivar 2FA")},modifier=Modifier.fillMaxWidth())
+    TrazoButton(enabled=!busy&&code.isNotBlank(),onClick={
      busy=true
      scope.launch { try { repo.disableTwoFactor(code);code="";user=repo.currentUser();message="Autenticación en dos pasos desactivada." } catch(e:Exception){message=e.message?: "No se pudo desactivar 2FA."} finally{busy=false} }
     },modifier=Modifier.fillMaxWidth()){Text("Desactivar 2FA")}
    } else {
-    Button(enabled=!busy,onClick={
+    TrazoButton(enabled=!busy,onClick={
      busy=true
      scope.launch { try { setup=repo.setupTwoFactor();message="Añade la clave o URI a tu aplicación autenticadora y confirma el código." } catch(e:Exception){message=e.message?: "No se pudo iniciar 2FA."} finally{busy=false} }
     },modifier=Modifier.fillMaxWidth()){Text("Configurar 2FA")}
@@ -96,8 +103,8 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
      Text(details.secret)
      Text("URI de configuración:",style=MaterialTheme.typography.titleSmall)
      Text(details.provisioningUri,style=MaterialTheme.typography.bodySmall)
-     OutlinedTextField(code,{code=it},label={Text("Código de 6 dígitos")},modifier=Modifier.fillMaxWidth())
-     Button(enabled=!busy&&code.isNotBlank(),onClick={
+     TrazoField(code,{code=it},label={Text("Código de 6 dígitos")},modifier=Modifier.fillMaxWidth())
+     TrazoButton(enabled=!busy&&code.isNotBlank(),onClick={
       busy=true
       scope.launch { try { recoveryCodes=repo.enableTwoFactor(code).recoveryCodes;setup=null;code="";user=repo.currentUser();message="2FA activado. Guarda los códigos de recuperación: solo se muestran ahora." } catch(e:Exception){message=e.message?: "El código no es válido."} finally{busy=false} }
      },modifier=Modifier.fillMaxWidth()){Text("Activar 2FA")}
@@ -107,34 +114,34 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
     Text("Códigos de recuperación — guárdalos ahora",style=MaterialTheme.typography.titleSmall)
     recoveryCodes.forEach{Text(it)}
    }
-   TextButton(onClick={
+   TrazoLink(onClick={
     busy=true
     scope.launch { try { repo.logout();signed=false;user=null;setup=null;recoveryCodes=emptyList();message="Sesión cerrada." } catch(_:Exception){message="No se pudo cerrar la sesión."} finally{busy=false} }
    }){Text("Cerrar sesión")}
   } else if(challenge!=null) {
-   OutlinedTextField(code,{code=it},label={Text("Código 2FA o recuperación")},modifier=Modifier.fillMaxWidth())
-   Button(enabled=!busy&&code.isNotBlank(),onClick={
+   TrazoField(code,{code=it},label={Text("Código 2FA o recuperación")},modifier=Modifier.fillMaxWidth())
+   TrazoButton(enabled=!busy&&code.isNotBlank(),onClick={
     busy=true
     scope.launch { try{handle(repo.verify(challenge!!,code))}catch(_:Exception){message="No se pudo verificar el código."}finally{busy=false} }
    },modifier=Modifier.fillMaxWidth()){Text("Verificar")}
   } else {
-   if(register)OutlinedTextField(name,{name=it},label={Text("Nombre")},modifier=Modifier.fillMaxWidth())
-   OutlinedTextField(email,{email=it},label={Text("Correo electrónico")},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Email),modifier=Modifier.fillMaxWidth())
-   OutlinedTextField(password,{password=it},label={Text("Contraseña")},visualTransformation=PasswordVisualTransformation(),modifier=Modifier.fillMaxWidth())
+   if(register)TrazoField(name,{name=it},label={Text("Nombre")},modifier=Modifier.fillMaxWidth())
+   TrazoField(email,{email=it},label={Text("Correo electrónico")},keyboardOptions=KeyboardOptions(keyboardType=KeyboardType.Email),modifier=Modifier.fillMaxWidth())
+   TrazoField(password,{password=it},label={Text("Contraseña")},visualTransformation=PasswordVisualTransformation(),modifier=Modifier.fillMaxWidth())
    Spacer(Modifier.height(12.dp))
-   Button(enabled=!busy&&email.isNotBlank()&&password.isNotBlank()&&(!register||name.isNotBlank()),onClick={
+   TrazoButton(enabled=!busy&&email.isNotBlank()&&password.isNotBlank()&&(!register||name.isNotBlank()),onClick={
     busy=true
     scope.launch { try{handle(if(register)repo.register(email,password,name) else repo.login(email,password))}catch(_:Exception){message="No se pudo conectar con TRAZO. Comprueba la URL de la API."}finally{busy=false} }
    },modifier=Modifier.fillMaxWidth()){Text(if(register)"Crear cuenta" else "Entrar")}
-   TextButton(onClick={register=!register;message=null}){Text(if(register)"Ya tengo cuenta" else "Crear cuenta")}
-   TextButton(enabled=email.isNotBlank(),onClick={
+   TrazoLink(onClick={register=!register;message=null}){Text(if(register)"Ya tengo cuenta" else "Crear cuenta")}
+   TrazoLink(enabled=email.isNotBlank(),onClick={
     scope.launch { try{repo.resendVerification(email);message="Si la cuenta existe y falta verificarla, recibirás un correo."}catch(_:Exception){message="No se pudo solicitar la verificación."} }
    }){Text("Reenviar verificación")}
-   TextButton(enabled=email.isNotBlank(),onClick={
+   TrazoLink(enabled=email.isNotBlank(),onClick={
     scope.launch { try{repo.forgotPassword(email);message="Si existe una cuenta compatible, recibirás instrucciones."}catch(_:Exception){message="No se pudo solicitar el restablecimiento."} }
    }){Text("He olvidado mi contraseña")}
    if(googleClientId.isNotBlank()) {
-    Button(enabled=!busy,onClick={
+    TrazoButton(enabled=!busy,onClick={
      busy=true
      scope.launch {
       try {
@@ -150,9 +157,11 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
       catch(_:Exception){message="No se pudo conectar con TRAZO. Comprueba la URL de la API."}
       finally{busy=false}
      }
-    },modifier=Modifier.fillMaxWidth()){Text("Continuar con Google")}
+    },secondary=true,modifier=Modifier.fillMaxWidth()){Text("Continuar con Google")}
    } else Text("Google Sign-In requiere configurar googleWebClientId.",style=MaterialTheme.typography.bodySmall)
   }
   message?.let{Spacer(Modifier.height(12.dp));Text(it)}
+ }
+ }
  }
 }

@@ -4,13 +4,12 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.trazo.android.auth.*
 import com.trazo.android.ui.LoginScreen
+import com.trazo.android.ui.theme.TrazoTheme
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity:ComponentActivity() {
@@ -24,7 +23,7 @@ class MainActivity:ComponentActivity() {
   }
   val api=Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build().create(AuthApi::class.java)
   val repository=AuthRepository(api,SecureTokenStore(applicationContext))
-  setContent { MaterialTheme(colorScheme=darkColorScheme()) {
+  setContent { TrazoTheme {
    val uri=actionUri
    val path=uri?.path.orEmpty()
    LoginScreen(repository,BuildConfig.GOOGLE_WEB_CLIENT_ID,
