@@ -1,4 +1,5 @@
 package com.trazo.android.ui
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -7,11 +8,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.credentials.*
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.*
+import com.trazo.android.BuildConfig
+import com.trazo.android.R
 import com.trazo.android.auth.*
 import kotlinx.coroutines.launch
 
@@ -54,8 +61,8 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
  }
 
  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(28.dp),verticalArrangement=Arrangement.Center) {
-  Text("TRAZO",style=MaterialTheme.typography.headlineLarge)
-  Text("STRENGTH, ENGINEERED.")
+  Image(painterResource(R.drawable.trazo_wordmark_dark),contentDescription="TRAZO",modifier=Modifier.height(64.dp))
+  Text("ENTRENA · MEJORA · AVANZA",style=MaterialTheme.typography.labelMedium)
   Spacer(Modifier.height(24.dp))
   if(actionType=="reset-password"&&!actionToken.isNullOrBlank()) {
    Text("Restablecer contraseña",style=MaterialTheme.typography.titleLarge)
@@ -131,12 +138,16 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
      busy=true
      scope.launch {
       try {
-       val option=GetGoogleIdOption.Builder().setServerClientId(googleClientId).setFilterByAuthorizedAccounts(false).build()
+       val option=GetSignInWithGoogleOption.Builder(googleClientId).build()
        val request=GetCredentialRequest.Builder().addCredentialOption(option).build()
-       val result=CredentialManager.create(context).getCredential(context,request)
-       val idToken=GoogleIdTokenCredential.createFrom(result.credential.data).idToken
-       handle(repo.google(idToken))
-      } catch(_:Exception){message="Google Sign-In no está disponible. Revisa OAuth y los SHA-1 registrados."}
+       val credential=CredentialManager.create(context).getCredential(context,request).credential
+       if(credential is CustomCredential&&credential.type==GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
+        handle(repo.google(GoogleIdTokenCredential.createFrom(credential.data).idToken))
+       } else message="Google devolvió un tipo de credencial inesperado."
+      } catch(_:GetCredentialCancellationException){message=null}
+      catch(e:NoCredentialException){message="No hay ninguna cuenta de Google disponible en este dispositivo."}
+      catch(e:GetCredentialException){message=if(BuildConfig.DEBUG)"Google Sign-In falló (${e.type}): ${e.message}" else "Google Sign-In no está disponible en este momento."}
+      catch(_:Exception){message="No se pudo conectar con TRAZO. Comprueba la URL de la API."}
       finally{busy=false}
      }
     },modifier=Modifier.fillMaxWidth()){Text("Continuar con Google")}
