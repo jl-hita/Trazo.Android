@@ -219,7 +219,8 @@ private fun FinishedScreen(done: FinishState.Done, onExit: () -> Unit) {
             val report = done.result?.adaptation
             if (report != null) {
                 SectionTitle(stringResource(R.string.finish_adaptation))
-                if (report.sessionExplanation.isNotBlank()) Text(report.sessionExplanation)
+                if (report.locked) Notice(stringResource(R.string.finish_adaptation_locked))
+                else if (report.sessionExplanation.isNotBlank()) Text(report.sessionExplanation)
                 report.exercises.forEach { advice ->
                     TrazoCard {
                         Text(advice.explanation)

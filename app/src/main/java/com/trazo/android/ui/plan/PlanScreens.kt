@@ -48,6 +48,7 @@ fun PlanScreen(
     onOverview: () -> Unit,
     onHistory: () -> Unit,
     onCreatePlan: () -> Unit,
+    onPremium: () -> Unit,
     onSendPending: () -> Unit
 ) {
     SecureScreen()
@@ -74,8 +75,11 @@ fun PlanScreen(
                     TrazoButton(onClick = viewModel::startNextPlan, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_next_plan)) }
                 }
                 if (week.timeline == "NotStarted") item { Notice(stringResource(R.string.plan_not_started, formatDate(week.weekStart))) }
-                if (week.timeline == "PremiumRequired") item { Notice(stringResource(R.string.plan_generated_premium_locked)) }
-                if (week.sessions.isEmpty() && week.timeline != "Finished" && week.timeline != "PremiumRequired") item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
+                if (week.locked) item {
+                    Notice(stringResource(R.string.plan_generated_premium_locked))
+                    TrazoButton(onClick = onPremium, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
+                }
+                if (week.sessions.isEmpty() && week.timeline != "Finished" && !week.locked) item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
                 items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }
                 item {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

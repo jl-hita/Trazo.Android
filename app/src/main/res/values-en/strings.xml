@@ -39,7 +39,7 @@
     <string name="plan_deload">deload</string>
     <string name="plan_not_started">Your plan starts on %1$s. This is the first week.</string>
     <string name="plan_finished">You have completed your plan. Create the next one to keep going.</string>
-    <string name="plan_generated_premium_locked">This plan was generated automatically. Premium is required to generate the next block and continue training with it. Your plan and previous workouts are preserved.</string>
+    <string name="plan_generated_premium_locked">This plan was generated automatically and you need Premium to keep using it. You can still read your plan and history, or archive it from your account.</string>
     <string name="plan_no_sessions">There are no sessions planned this week.</string>
     <string name="plan_overview">View the full plan</string>
     <string name="plan_history">Session history</string>
@@ -191,8 +191,8 @@
     <string name="account_signed_as">%1$s · %2$s</string>
 
     <!-- Paywall -->
-    <string name="paywall_title">Subscribe to TRAZO</string>
-    <string name="paywall_text">You need an active subscription to keep using TRAZO.</string>
+    <string name="paywall_title">Go Premium</string>
+    <string name="paywall_text">Premium includes automatically generated plans and automatic adaptation of your workouts based on how each session felt. Manual plans are free.</string>
     <string name="paywall_trial">Free trial included. Cancel any time from Google Play.</string>
     <string name="paywall_price">%1$s · auto-renewing</string>
     <string name="paywall_subscribe">Subscribe</string>
@@ -200,7 +200,9 @@
     <string name="paywall_unavailable">The subscription isn\'t available on Google Play right now. Please try again later.</string>
     <string name="paywall_pending">Your payment is pending. We\'ll grant access when Google Play confirms it.</string>
     <string name="paywall_failed">The purchase couldn\'t be completed. You haven\'t been charged unless you see a Google Play charge.</string>
-    <string name="paywall_logout">Sign out</string>
+    <string name="paywall_close">Not now</string>
+    <string name="premium_get">Get Premium</string>
+    <string name="finish_adaptation_locked">Your workout was saved. Automatic adaptation of your plan is a Premium feature.</string>
 
     <!-- Login -->
     <string name="login_tagline">TRAIN · IMPROVE · ADVANCE</string>

@@ -31,6 +31,7 @@ fun AccountScreen(
     auth: AuthRepository,
     user: UserSummary?,
     onLogout: () -> Unit,
+    onPremium: () -> Unit,
     onPlanArchived: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -69,6 +70,9 @@ fun AccountScreen(
                         if (status.hasAccess) Text(stringResource(R.string.account_access_ok), color = TrazoPalette.Ok)
                     }
                 }
+            }
+            if (state.status?.canUpgrade == true) {
+                TrazoButton(onClick = onPremium, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
             }
             if (state.pendingLogs > 0) {
                 Notice(stringResource(R.string.plan_pending_logs, state.pendingLogs))

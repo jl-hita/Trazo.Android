@@ -25,6 +25,7 @@ fun SessionScreen(
     week: StateFlow<WeekView?>,
     sessionId: String,
     onBack: () -> Unit,
+    onPremium: () -> Unit,
     onStart: () -> Unit,
     onExercise: (String) -> Unit
 ) {
@@ -43,8 +44,11 @@ fun SessionScreen(
             }
             items(session.exercises, key = { it.exerciseId }) { ExercisePrescription(it, onExercise) }
         }
-        if (current?.timeline == "PremiumRequired") {
-            Notice(stringResource(R.string.plan_generated_premium_locked))
+        if (current?.locked == true) {
+            Column(Modifier.padding(16.dp)) {
+                Notice(stringResource(R.string.plan_generated_premium_locked))
+                TrazoButton(onClick = onPremium, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
+            }
         } else if (session.log == null) {
             TrazoButton(onClick = onStart, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.session_start)) }
         } else {
