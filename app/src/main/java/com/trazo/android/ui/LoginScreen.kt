@@ -28,7 +28,7 @@ import com.trazo.android.ui.theme.*
 import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=null,actionToken:String?=null) {
+fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=null,actionToken:String?=null,onSignedIn:()->Unit={}) {
  val context=LocalContext.current
  val scope=rememberCoroutineScope()
  var email by remember{mutableStateOf("")}
@@ -39,17 +39,8 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
  var newPassword by remember{mutableStateOf("")}
  var register by remember{mutableStateOf(false)}
  var busy by remember{mutableStateOf(false)}
- var signed by remember{mutableStateOf(false)}
- var user by remember{mutableStateOf<UserSummary?>(null)}
- var setup by remember{mutableStateOf<TwoFactorSetupResponse?>(null)}
- var recoveryCodes by remember{mutableStateOf<List<String>>(emptyList())}
  var message by remember{mutableStateOf<String?>(null)}
 
- LaunchedEffect(Unit) {
-  signed=repo.restoreSession()
-  if(signed) user=repo.currentUser()
-  if(signed&&user==null) signed=false
- }
  LaunchedEffect(actionType,actionToken) {
   if(actionType=="verify-email"&&!actionToken.isNullOrBlank()) {
    try { val response=repo.verifyEmail(actionToken);message=if(response.isSuccessful)"Correo verificado. Ya puedes iniciar sesión." else "El enlace no es válido o ha caducado." }
@@ -58,7 +49,7 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
  }
  fun handle(result:Outcome) {
   when(result) {
-   Outcome.Success->{signed=true;challenge=null;message="Sesión iniciada.";scope.launch{user=repo.currentUser()}}
+   Outcome.Success->{challenge=null;onSignedIn()}
    is Outcome.Challenge->{challenge=result.token;message="Introduce el código de tu aplicación autenticadora."}
    is Outcome.EmailVerificationRequired->message=result.message
    is Outcome.Error->message=result.message
@@ -78,46 +69,6 @@ fun LoginScreen(repo:AuthRepository,googleClientId:String,actionType:String?=nul
     busy=true
     scope.launch { try { val response=repo.resetPassword(actionToken,newPassword);message=if(response.isSuccessful)"Contraseña actualizada. Ya puedes iniciar sesión." else "El enlace no es válido o ha caducado." } catch(_:Exception){message="No se pudo restablecer la contraseña."} finally{busy=false} }
    },modifier=Modifier.fillMaxWidth()){Text("Guardar contraseña")}
-  } else if(signed) {
-   Text("Sesión activa",style=MaterialTheme.typography.titleLarge)
-   user?.let {
-    Text(it.displayName)
-    Text(it.email,style=MaterialTheme.typography.bodySmall)
-    Text("Rol: ${it.role}")
-    Text(if(it.twoFactorEnabled)"Autenticación en dos pasos: activada" else "Autenticación en dos pasos: desactivada")
-   }
-   Spacer(Modifier.height(12.dp))
-   if(user?.twoFactorEnabled==true) {
-    TrazoField(code,{code=it},label={Text("Código para desactivar 2FA")},modifier=Modifier.fillMaxWidth())
-    TrazoButton(enabled=!busy&&code.isNotBlank(),onClick={
-     busy=true
-     scope.launch { try { repo.disableTwoFactor(code);code="";user=repo.currentUser();message="Autenticación en dos pasos desactivada." } catch(e:Exception){message=e.message?: "No se pudo desactivar 2FA."} finally{busy=false} }
-    },modifier=Modifier.fillMaxWidth()){Text("Desactivar 2FA")}
-   } else {
-    TrazoButton(enabled=!busy,onClick={
-     busy=true
-     scope.launch { try { setup=repo.setupTwoFactor();message="Añade la clave o URI a tu aplicación autenticadora y confirma el código." } catch(e:Exception){message=e.message?: "No se pudo iniciar 2FA."} finally{busy=false} }
-    },modifier=Modifier.fillMaxWidth()){Text("Configurar 2FA")}
-    setup?.let { details->
-     Text("Clave secreta (guárdala de forma segura):",style=MaterialTheme.typography.titleSmall)
-     Text(details.secret)
-     Text("URI de configuración:",style=MaterialTheme.typography.titleSmall)
-     Text(details.provisioningUri,style=MaterialTheme.typography.bodySmall)
-     TrazoField(code,{code=it},label={Text("Código de 6 dígitos")},modifier=Modifier.fillMaxWidth())
-     TrazoButton(enabled=!busy&&code.isNotBlank(),onClick={
-      busy=true
-      scope.launch { try { recoveryCodes=repo.enableTwoFactor(code).recoveryCodes;setup=null;code="";user=repo.currentUser();message="2FA activado. Guarda los códigos de recuperación: solo se muestran ahora." } catch(e:Exception){message=e.message?: "El código no es válido."} finally{busy=false} }
-     },modifier=Modifier.fillMaxWidth()){Text("Activar 2FA")}
-    }
-   }
-   if(recoveryCodes.isNotEmpty()) {
-    Text("Códigos de recuperación — guárdalos ahora",style=MaterialTheme.typography.titleSmall)
-    recoveryCodes.forEach{Text(it)}
-   }
-   TrazoLink(onClick={
-    busy=true
-    scope.launch { try { repo.logout();signed=false;user=null;setup=null;recoveryCodes=emptyList();message="Sesión cerrada." } catch(_:Exception){message="No se pudo cerrar la sesión."} finally{busy=false} }
-   }){Text("Cerrar sesión")}
   } else if(challenge!=null) {
    TrazoField(code,{code=it},label={Text("Código 2FA o recuperación")},modifier=Modifier.fillMaxWidth())
    TrazoButton(enabled=!busy&&code.isNotBlank(),onClick={

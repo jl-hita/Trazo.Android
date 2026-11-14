@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TRAZO</string>
+
+    <!-- Navigation -->
+    <string name="nav_plan">Plan</string>
+    <string name="nav_catalog">Ejercicios</string>
+    <string name="nav_account">Cuenta</string>
+    <string name="back">Volver</string>
+    <string name="retry">Reintentar</string>
+    <string name="loading">Cargando…</string>
+    <string name="cancel">Cancelar</string>
+    <string name="accept">Aceptar</string>
+    <string name="close">Cerrar</string>
+    <string name="continue_label">Continuar</string>
+    <string name="offline_copy">Sin conexión: se muestra la última copia guardada. Se borra sola al cabo de unas horas.</string>
+
+    <!-- Errors -->
+    <string name="err_network">No hay conexión con TRAZO. Comprueba tu conexión e inténtalo de nuevo.</string>
+    <string name="err_server">TRAZO no está disponible ahora mismo. Inténtalo de nuevo en unos minutos.</string>
+    <string name="err_unauthorized">Tu sesión ha caducado. Vuelve a iniciar sesión.</string>
+    <string name="err_subscription">Necesitas una suscripción activa para continuar.</string>
+    <string name="err_not_found">No se ha encontrado lo que buscabas.</string>
+    <string name="err_conflict">La operación no es posible en este momento.</string>
+    <string name="err_validation">Revisa los datos e inténtalo de nuevo.</string>
+    <string name="err_unknown">Ha ocurrido un error inesperado. Inténtalo de nuevo.</string>
+    <string name="err_active_plan_exists">Ya tienes un plan activo. Archívalo desde Cuenta para crear otro.</string>
+    <string name="err_plan_generation_failed">No hemos podido generar un plan con esos datos. Prueba con más material disponible o menos limitaciones.</string>
+    <string name="err_session_out_of_window">Esta sesión ya no se puede registrar: solo se admite durante su semana y la siguiente.</string>
+    <string name="err_session_already_logged">Esta sesión ya estaba registrada.</string>
+    <string name="err_no_active_plan">No tienes un plan activo.</string>
+    <string name="err_purchase_already_linked">Esta compra pertenece a otra cuenta de TRAZO.</string>
+    <string name="err_purchase_account_mismatch">Esta compra la hizo otra cuenta de Google Play.</string>
+
+    <!-- Plan tab -->
+    <string name="plan_title">Tu semana</string>
+    <string name="plan_week_of">Semana %1$d de %2$d</string>
+    <string name="plan_block">Bloque %1$d · %2$s · semana %3$d de %4$d</string>
+    <string name="plan_deload">descarga</string>
+    <string name="plan_not_started">Tu plan empieza el %1$s. Esta es la primera semana.</string>
+    <string name="plan_finished">Has completado tu plan. Archívalo desde Cuenta para crear uno nuevo.</string>
+    <string name="plan_no_sessions">No hay sesiones previstas esta semana.</string>
+    <string name="plan_overview">Ver el plan completo</string>
+    <string name="plan_history">Historial de sesiones</string>
+    <string name="plan_session_minutes">%1$d min</string>
+    <string name="plan_session_exercises">%1$d ejercicios</string>
+    <string name="plan_pending_logs">%1$d entrenamientos esperan conexión para enviarse.</string>
+    <string name="plan_send_now">Enviar ahora</string>
+    <string name="status_planned">Pendiente</string>
+    <string name="status_completed">Hecha</string>
+    <string name="status_partial">Parcial</string>
+    <string name="status_skipped">No realizada</string>
+
+    <!-- Plan overview -->
+    <string name="overview_title">Tu plan</string>
+    <string name="overview_phases">Fases</string>
+    <string name="overview_future_note">Por diseño, solo verás en detalle la semana en curso: el resto de sesiones se genera y adapta a medida que entrenas.</string>
+    <string name="overview_profile">Tu perfil</string>
+    <string name="overview_goal">Objetivo: %1$s</string>
+    <string name="overview_level">Nivel: %1$s</string>
+    <string name="overview_days">Días: %1$s</string>
+    <string name="overview_limitations">Limitaciones: %1$s</string>
+    <string name="overview_none">ninguna</string>
+    <string name="history_title">Historial</string>
+    <string name="history_empty">Todavía no has registrado ninguna sesión.</string>
+    <string name="history_sets">%1$d de %2$d series</string>
+
+    <!-- Onboarding -->
+    <string name="onb_title">Crea tu plan</string>
+    <string name="onb_intro">Cuéntanos cómo entrenas y generaremos un plan personalizado con progresión.</string>
+    <string name="onb_goal">Objetivo</string>
+    <string name="onb_level">Nivel</string>
+    <string name="onb_days">Días de entrenamiento</string>
+    <string name="onb_days_hint">Elige entre %1$d y %2$d días.</string>
+    <string name="onb_minutes">Duración máxima de la sesión: %1$d min</string>
+    <string name="onb_weeks">Duración del plan: %1$d semanas</string>
+    <string name="onb_equipment">Material disponible</string>
+    <string name="onb_equipment_hint">Si no marcas nada, se supone que tienes de todo.</string>
+    <string name="onb_limitations">Molestias o lesiones</string>
+    <string name="onb_limitations_hint">Evitaremos los ejercicios más habituales para esa zona. No es consejo médico: consulta a un profesional si tienes dudas.</string>
+    <string name="onb_create">Generar mi plan</string>
+    <string name="onb_creating">Generando tu plan…</string>
+
+    <!-- Session and workout -->
+    <string name="session_start">Empezar entrenamiento</string>
+    <string name="session_done">Sesión registrada</string>
+    <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
+    <string name="session_rir">RIR %1$s</string>
+    <string name="session_rest">Descanso %1$s</string>
+    <string name="session_target_load">Objetivo: %1$s kg</string>
+    <string name="session_warmup">Calentamiento: %1$d series</string>
+    <string name="session_swapped">Sustituido</string>
+    <string name="session_view_exercise">Ver ejercicio</string>
+    <string name="workout_title">Entrenamiento</string>
+    <string name="workout_set">Serie %1$d</string>
+    <string name="workout_weight">Peso (kg)</string>
+    <string name="workout_reps">Reps</string>
+    <string name="workout_rir">RIR</string>
+    <string name="workout_set_done">Serie %1$d hecha</string>
+    <string name="workout_mark_set">Marcar la serie %1$d como hecha</string>
+    <string name="workout_need_reps">Anota las repeticiones para marcar la serie.</string>
+    <string name="workout_progress">%1$d de %2$d series</string>
+    <string name="workout_rest">Descanso</string>
+    <string name="workout_rest_plus">+15 s</string>
+    <string name="workout_rest_minus">−15 s</string>
+    <string name="workout_rest_skip">Saltar</string>
+    <string name="workout_swap">Cambiar ejercicio</string>
+    <string name="workout_finish">Terminar sesión</string>
+    <string name="workout_alternatives_title">Alternativas</string>
+    <string name="workout_alternatives_empty">No hay alternativas para este ejercicio con tu material y limitaciones.</string>
+    <string name="workout_swap_block">Aplicar también al resto del bloque</string>
+    <string name="workout_leave_title">¿Salir del entrenamiento?</string>
+    <string name="workout_leave_text">Lo que has anotado se guarda en este dispositivo y podrás retomarlo.</string>
+    <string name="workout_leave">Salir</string>
+    <string name="finish_title">Cerrar la sesión</string>
+    <string name="finish_recovery">¿Cómo llegaste de recuperación?</string>
+    <string name="finish_rpe">Esfuerzo de la sesión: %1$s de 10</string>
+    <string name="finish_rpe_unset">sin indicar</string>
+    <string name="finish_pain">He notado dolor</string>
+    <string name="finish_reason">¿Por qué no se completó?</string>
+    <string name="finish_notes">Notas (opcional)</string>
+    <string name="finish_send">Enviar</string>
+    <string name="finish_sending">Enviando…</string>
+    <string name="finish_queued">Sin conexión: guardamos el entrenamiento y lo enviaremos en cuanto haya conexión. No lo pierdes.</string>
+    <string name="finish_sent">Sesión guardada</string>
+    <string name="finish_adaptation">Así se adapta tu plan</string>
+    <string name="finish_notes_title">Avisos</string>
+    <string name="finish_applied">Cambios aplicados</string>
+    <string name="finish_back_to_plan">Volver al plan</string>
+
+    <!-- Catalog -->
+    <string name="catalog_title">Ejercicios</string>
+    <string name="catalog_search">Buscar ejercicio</string>
+    <string name="catalog_filters">Filtros</string>
+    <string name="catalog_clear_filters">Quitar filtros</string>
+    <string name="catalog_empty">No hay ejercicios que coincidan con la búsqueda.</string>
+    <string name="catalog_count">%1$d ejercicios</string>
+    <string name="catalog_pattern">Movimiento</string>
+    <string name="catalog_difficulty">Dificultad</string>
+    <string name="catalog_equipment">Material</string>
+    <string name="catalog_muscle">Músculo</string>
+    <string name="catalog_any">Todos</string>
+    <string name="exercise_instructions">Cómo se hace</string>
+    <string name="exercise_tips">Consejos</string>
+    <string name="exercise_primary">Músculos principales</string>
+    <string name="exercise_secondary">Músculos secundarios</string>
+    <string name="exercise_equipment">Material</string>
+    <string name="exercise_no_equipment">Sin material</string>
+    <string name="exercise_level">Dificultad</string>
+
+    <!-- Account -->
+    <string name="account_title">Cuenta</string>
+    <string name="account_subscription">Suscripción</string>
+    <string name="account_free">TRAZO es gratis por ahora: no necesitas suscripción.</string>
+    <string name="account_access_ok">Tienes acceso completo.</string>
+    <string name="account_status">Estado: %1$s</string>
+    <string name="account_expires">Válida hasta: %1$s</string>
+    <string name="account_plan">Plan de entrenamiento</string>
+    <string name="account_archive">Archivar mi plan actual</string>
+    <string name="account_archive_title">¿Archivar el plan?</string>
+    <string name="account_archive_text">Podrás crear uno nuevo. El historial de sesiones se conserva.</string>
+    <string name="account_archive_confirm">Archivar</string>
+    <string name="account_logout">Cerrar sesión</string>
+    <string name="account_logout_title">¿Cerrar sesión?</string>
+    <string name="account_logout_text">Se borrarán de este dispositivo el plan en caché y los borradores. Los entrenamientos que aún no se hayan enviado se perderán.</string>
+    <string name="account_logout_pending">Tienes %1$d entrenamientos sin enviar; si cierras sesión se perderán.</string>
+    <string name="account_security">Seguridad (2FA)</string>
+    <string name="account_version">TRAZO %1$s</string>
+    <string name="account_signed_as">%1$s · %2$s</string>
+
+    <!-- Paywall -->
+    <string name="paywall_title">Suscríbete a TRAZO</string>
+    <string name="paywall_text">Para seguir usando TRAZO necesitas una suscripción activa.</string>
+    <string name="paywall_trial">Prueba gratis incluida. Cancela cuando quieras desde Google Play.</string>
+    <string name="paywall_price">%1$s · renovación automática</string>
+    <string name="paywall_subscribe">Suscribirme</string>
+    <string name="paywall_restore">Ya me he suscrito: restaurar</string>
+    <string name="paywall_unavailable">La suscripción no está disponible ahora mismo en Google Play. Inténtalo más tarde.</string>
+    <string name="paywall_pending">Tu pago está pendiente. Te daremos acceso cuando Google Play lo confirme.</string>
+    <string name="paywall_failed">No se ha podido completar la compra. No se te ha cobrado si no ves un cargo de Google Play.</string>
+    <string name="paywall_logout">Cerrar sesión</string>
+</resources>

@@ -1,12 +1,13 @@
 package com.trazo.android.auth
-class AuthRepository(private val api:AuthApi,private val store:SecureTokenStore) {
+class AuthRepository(private val api:AuthApi,private val store:TokenStore) {
  suspend fun login(email:String,password:String)=consume(api.login(LoginRequest(email.trim(),password)))
  suspend fun register(email:String,password:String,name:String)=consume(api.register(RegisterRequest(email.trim(),password,name.trim())))
  suspend fun google(idToken:String)=consume(api.google(GoogleLoginRequest(idToken)))
  suspend fun verify(challenge:String,code:String)=consume(api.verifyTwoFactor(TwoFactorVerifyRequest(challenge,code.trim())))
+ fun hasStoredSession():Boolean=store.refresh()!=null
  suspend fun restoreSession():Boolean {
   val token=store.refresh()?:run{store.clear();return false}
-  return try { val response=api.refresh(RefreshRequest(token));if(!response.isSuccessful||response.body()==null){store.clear();false}else{consume(response);store.access()!=null} }
+  return try { val response=api.refresh(RefreshRequest(token));if(!response.isSuccessful||response.body()==null){if(response.code() in 400..499)store.clear();false}else{consume(response);store.access()!=null} }
   catch(_:Exception){false}
  }
  suspend fun currentUser():UserSummary? { val access=store.access()?:return null;val response=api.me("Bearer $access");if(response.code()==401)store.clear();return if(response.isSuccessful)response.body() else null }
