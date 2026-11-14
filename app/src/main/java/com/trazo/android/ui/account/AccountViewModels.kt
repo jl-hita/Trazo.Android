@@ -3,6 +3,8 @@ package com.trazo.android.ui.account
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.trazo.android.data.model.ReviewMessage
+import com.trazo.android.data.model.ReviewRequestView
 import com.trazo.android.data.model.SubscriptionStatus
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
@@ -23,7 +25,13 @@ data class AccountState(
     val archiving: Boolean = false,
     val archived: Boolean = false,
     val archiveError: ApiError? = null,
-    val pendingLogs: Int = 0
+    val pendingLogs: Int = 0,
+    val review: ReviewRequestView? = null,
+    val requestingReview: Boolean = false,
+    val reviewError: ApiError? = null,
+    val threadOpen: Boolean = false,
+    val thread: List<ReviewMessage> = emptyList(),
+    val draft: String = ""
 )
 
 /** Account tab: subscription state, archiving the plan, and the number of workouts waiting to be sent. */
@@ -41,6 +49,12 @@ class AccountViewModel(
 
     fun load() {
         viewModelScope.launch {
+            when (val r = plans.reviewRequest()) {
+                is ApiResult.Success -> _state.update { it.copy(review = r.value) }
+                is ApiResult.Failure -> Unit // no plan yet or offline: keep what the section last showed
+            }
+        }
+        viewModelScope.launch {
             when (val r = subscription.status()) {
                 is ApiResult.Success -> _state.update { it.copy(status = r.value, statusError = null) }
                 is ApiResult.Failure -> _state.update { it.copy(statusError = r.error) }
@@ -54,6 +68,55 @@ class AccountViewModel(
             when (val r = plans.archive()) {
                 is ApiResult.Success -> _state.update { it.copy(archiving = false, archived = true) }
                 is ApiResult.Failure -> _state.update { it.copy(archiving = false, archiveError = r.error) }
+            }
+        }
+    }
+
+    /** Creates the request; the optional note is the first message, and the conversation opens. */
+    fun requestReview(note: String?) {
+        _state.update { it.copy(requestingReview = true, reviewError = null) }
+        viewModelScope.launch {
+            when (val r = plans.requestReview(note)) {
+                is ApiResult.Success -> _state.update {
+                    it.copy(requestingReview = false, review = r.value, thread = r.value.messages.orEmpty(), threadOpen = true)
+                }.also { if (r.value.messages == null) refreshThread() }
+                is ApiResult.Failure -> _state.update { it.copy(requestingReview = false, reviewError = r.error) }
+            }
+        }
+    }
+
+    /** Opens the conversation (and marks the team's messages as read). */
+    fun openThread() {
+        _state.update { it.copy(threadOpen = true, reviewError = null) }
+        refreshThread()
+    }
+
+    fun closeThread() {
+        _state.update { it.copy(threadOpen = false) }
+        load()
+    }
+
+    fun refreshThread() {
+        viewModelScope.launch {
+            when (val r = plans.reviewRequest(messages = true)) {
+                is ApiResult.Success -> _state.update { it.copy(review = r.value, thread = r.value?.messages.orEmpty()) }
+                is ApiResult.Failure -> _state.update { it.copy(reviewError = r.error) }
+            }
+        }
+    }
+
+    fun setDraft(text: String) = _state.update { it.copy(draft = text.take(1000)) }
+
+    fun sendMessage() {
+        val text = _state.value.draft.trim()
+        if (text.isEmpty() || _state.value.requestingReview) return
+        _state.update { it.copy(requestingReview = true, reviewError = null) }
+        viewModelScope.launch {
+            when (val r = plans.sendReviewMessage(text)) {
+                is ApiResult.Success -> _state.update {
+                    it.copy(requestingReview = false, review = r.value, thread = r.value.messages ?: it.thread, draft = "")
+                }.also { if (r.value.messages == null) refreshThread() }
+                is ApiResult.Failure -> _state.update { it.copy(requestingReview = false, reviewError = r.error) }
             }
         }
     }

@@ -96,7 +96,9 @@ fun TrazoField(
     modifier: Modifier = Modifier,
     label: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    singleLine: Boolean = true,
+    minLines: Int = 1
 ) = OutlinedTextField(
     value = value,
     onValueChange = onValueChange,
@@ -104,7 +106,9 @@ fun TrazoField(
     label = label,
     keyboardOptions = keyboardOptions,
     visualTransformation = visualTransformation,
-    singleLine = true,
+    singleLine = singleLine,
+    minLines = if (singleLine) 1 else minLines,
+    maxLines = if (singleLine) 1 else 6,
     shape = RoundedCornerShape(6.dp),
     colors = OutlinedTextFieldDefaults.colors(
         focusedBorderColor = TrazoPalette.Focus,

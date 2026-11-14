@@ -1,5 +1,6 @@
 package com.trazo.android.ui.account
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -35,7 +36,15 @@ fun AccountScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     var confirmLogout by remember { mutableStateOf(false) }
     var confirmArchive by remember { mutableStateOf(false) }
+    var reviewDialog by remember { mutableStateOf(false) }
+    var reviewNote by remember { mutableStateOf("") }
     LaunchedEffect(state.archived) { if (state.archived) { viewModel.consumeArchived(); onPlanArchived() } }
+
+    BackHandler(enabled = state.threadOpen) { viewModel.closeThread() }
+    if (state.threadOpen) {
+        ReviewThread(state, onBack = viewModel::closeThread, onRefresh = viewModel::refreshThread, onDraft = viewModel::setDraft, onSend = viewModel::sendMessage)
+        return
+    }
 
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.account_title))
@@ -72,6 +81,30 @@ fun AccountScreen(
                 Text(stringResource(R.string.account_archive))
             }
 
+            SectionTitle(stringResource(R.string.account_review))
+            TrazoCard {
+                val review = state.review
+                Text(stringResource(R.string.account_review_intro), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                when (review?.status) {
+                    "pending" -> Text(stringResource(R.string.account_review_pending), color = TrazoPalette.Ok)
+                    "in_progress" -> Text(stringResource(R.string.account_review_progress), color = TrazoPalette.Ok)
+                    "reviewed" -> Text(stringResource(R.string.account_review_done, formatDate((review.reviewedAt ?: review.createdAt).take(10))), color = TrazoPalette.Ok)
+                }
+                if ((review?.unread ?: 0) > 0) Text(stringResource(R.string.account_review_unread, review!!.unread), color = TrazoPalette.Ok)
+            }
+            state.reviewError?.let { InlineError(it) }
+            val open = state.review != null && state.review?.status != "reviewed"
+            if (state.review != null) {
+                TrazoButton(onClick = viewModel::openThread, secondary = open.not(), modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
+                    Text(stringResource(R.string.account_review_open))
+                }
+            }
+            if (!open) {
+                TrazoButton(onClick = { reviewDialog = true }, enabled = !state.requestingReview, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
+                    Text(stringResource(R.string.account_review_request))
+                }
+            }
+
             SectionTitle(stringResource(R.string.account_security))
             if (user != null) SecuritySection(auth, user, onLoggedOutEverywhere = onLogout)
 
@@ -81,6 +114,19 @@ fun AccountScreen(
         }
     }
 
+    if (reviewDialog) AlertDialog(
+        onDismissRequest = { reviewDialog = false },
+        title = { Text(stringResource(R.string.account_review_title)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(stringResource(R.string.account_review_text))
+                TrazoField(reviewNote, { if (it.length <= 1000) reviewNote = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.account_review_note)) },
+                    singleLine = false, minLines = 4)
+            }
+        },
+        confirmButton = { TextButton(onClick = { reviewDialog = false; viewModel.requestReview(reviewNote); reviewNote = "" }) { Text(stringResource(R.string.account_review_send)) } },
+        dismissButton = { TextButton(onClick = { reviewDialog = false }) { Text(stringResource(R.string.cancel)) } }
+    )
     if (confirmArchive) AlertDialog(
         onDismissRequest = { confirmArchive = false },
         title = { Text(stringResource(R.string.account_archive_title)) },
