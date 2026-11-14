@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.trazo.android.R
 import com.trazo.android.ui.common.*
+import com.trazo.android.ui.plan.formatDateTime
 import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoField
 import com.trazo.android.ui.theme.TrazoPalette
@@ -32,7 +33,7 @@ internal fun ReviewThread(
     val listState = rememberLazyListState()
     LaunchedEffect(state.thread.size) { if (state.thread.isNotEmpty()) listState.animateScrollToItem(state.thread.lastIndex) }
 
-    Column(Modifier.fillMaxSize()) {
+    Column(Modifier.fillMaxSize().imePadding()) {
         TrazoTopBar(
             stringResource(R.string.account_review),
             onBack = onBack,
@@ -49,7 +50,7 @@ internal fun ReviewThread(
                         TrazoCard(Modifier.fillMaxWidth(0.88f)) {
                             Text(
                                 stringResource(if (mine) R.string.account_review_you else R.string.account_review_team) + " · " +
-                                    message.createdAt.take(16).replace('T', ' '),
+                                    formatDateTime(message.createdAt),
                                 color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall
                             )
                             Text(message.body)

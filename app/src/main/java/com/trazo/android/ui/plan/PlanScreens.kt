@@ -27,6 +27,12 @@ fun formatDate(iso: String): String = runCatching {
     LocalDate.parse(iso).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(appLocale()))
 }.getOrDefault(iso)
 
+/** An ISO instant ("2026-11-14T10:01:00Z") as a short date and time in the device time zone. */
+fun formatDateTime(iso: String): String = runCatching {
+    java.time.OffsetDateTime.parse(iso).atZoneSameInstant(java.time.ZoneId.systemDefault())
+        .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(appLocale()))
+}.getOrDefault(iso.take(16).replace('T', ' '))
+
 @Composable
 private fun statusLabel(status: String) = when (status) {
     "Completed" -> stringResource(R.string.status_completed)

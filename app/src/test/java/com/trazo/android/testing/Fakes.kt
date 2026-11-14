@@ -36,9 +36,11 @@ class FakePlansApi : PlansApi {
     override suspend fun week() = weekResponse()
     override suspend fun history(take: Int): Response<List<HistoryItem>> = Response.success(emptyList())
     override suspend fun archive(): Response<Unit> = Response.success(Unit)
-    override suspend fun reviewRequest(messages: Boolean) = reviewResponse()
+    var messagesResponse: (() -> Response<ReviewRequestView>)? = null
+    override suspend fun reviewRequest(messages: Boolean) = if (messages && messagesResponse != null) messagesResponse!!() else reviewResponse()
     var sentMessage: ReviewMessageBody? = null
-    override suspend fun sendReviewMessage(request: ReviewMessageBody): Response<ReviewRequestView> { sentMessage = request; return Response.success(ReviewRequestView("r1", "in_progress", "2026-11-14T10:00:00Z", messages = listOf(ReviewMessage("m1", "user", request.body, "2026-11-14T10:01:00Z")))) }
+    var sendWithoutMessages = false
+    override suspend fun sendReviewMessage(request: ReviewMessageBody): Response<ReviewRequestView> { sentMessage = request; return Response.success(ReviewRequestView("r1", "in_progress", "2026-11-14T10:00:00Z", messages = if (sendWithoutMessages) null else listOf(ReviewMessage("m1", "user", request.body, "2026-11-14T10:01:00Z")))) }
     override suspend fun requestReview(request: ReviewRequestBody): Response<ReviewRequestView> { reviewedWith = request; return Response.success(ReviewRequestView("r1", "pending", "2026-11-14T10:00:00Z")) }
     override suspend fun log(sessionId: String, request: LogSessionRequest): Response<LogResult> {
         logCalls += sessionId to request

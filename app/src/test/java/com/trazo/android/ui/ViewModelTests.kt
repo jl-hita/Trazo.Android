@@ -340,3 +340,18 @@ class PaywallViewModelTest : ViewModelTestBase() {
         assertTrue(granted)
     }
 }
+
+class AccountReviewViewModelTest : ViewModelTestBase() {
+    @Test fun `sending a message refreshes the conversation when the reply carries none`() = runTest(dispatcher) {
+        val api = FakePlansApi()
+        val vm = com.trazo.android.ui.account.AccountViewModel(SubscriptionRepository(FakeSubscriptionApi()), plansRepo(api))
+        advanceUntilIdle()
+        api.sendWithoutMessages = true
+        vm.setDraft("hola")
+        api.messagesResponse = { Response.success(com.trazo.android.data.model.ReviewRequestView("r1", "in_progress", "2026-11-14T10:00:00Z", messages = listOf(com.trazo.android.data.model.ReviewMessage("m1", "user", "hola", "2026-11-14T10:01:00Z")))) }
+        vm.sendMessage()
+        advanceUntilIdle()
+        assertEquals("", vm.state.value.draft)
+        assertEquals(listOf("hola"), vm.state.value.thread.map { it.body })
+    }
+}

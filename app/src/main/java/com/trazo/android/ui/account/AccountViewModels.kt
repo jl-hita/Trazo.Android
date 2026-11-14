@@ -51,7 +51,7 @@ class AccountViewModel(
         viewModelScope.launch {
             when (val r = plans.reviewRequest()) {
                 is ApiResult.Success -> _state.update { it.copy(review = r.value) }
-                is ApiResult.Failure -> Unit // no plan yet or offline: the section simply offers nothing new
+                is ApiResult.Failure -> Unit // no plan yet or offline: keep what the section last showed
             }
         }
         viewModelScope.launch {
@@ -79,7 +79,7 @@ class AccountViewModel(
             when (val r = plans.requestReview(note)) {
                 is ApiResult.Success -> _state.update {
                     it.copy(requestingReview = false, review = r.value, thread = r.value.messages.orEmpty(), threadOpen = true)
-                }
+                }.also { if (r.value.messages == null) refreshThread() }
                 is ApiResult.Failure -> _state.update { it.copy(requestingReview = false, reviewError = r.error) }
             }
         }
@@ -114,8 +114,8 @@ class AccountViewModel(
         viewModelScope.launch {
             when (val r = plans.sendReviewMessage(text)) {
                 is ApiResult.Success -> _state.update {
-                    it.copy(requestingReview = false, review = r.value, thread = r.value.messages.orEmpty(), draft = "")
-                }
+                    it.copy(requestingReview = false, review = r.value, thread = r.value.messages ?: it.thread, draft = "")
+                }.also { if (r.value.messages == null) refreshThread() }
                 is ApiResult.Failure -> _state.update { it.copy(requestingReview = false, reviewError = r.error) }
             }
         }
