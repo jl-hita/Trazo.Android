@@ -74,7 +74,8 @@ fun PlanScreen(
                     TrazoButton(onClick = viewModel::startNextPlan, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_next_plan)) }
                 }
                 if (week.timeline == "NotStarted") item { Notice(stringResource(R.string.plan_not_started, formatDate(week.weekStart))) }
-                if (week.sessions.isEmpty() && week.timeline != "Finished") item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
+                if (week.timeline == "PremiumRequired") item { Notice(stringResource(R.string.plan_generated_premium_locked)) }
+                if (week.sessions.isEmpty() && week.timeline != "Finished" && week.timeline != "PremiumRequired") item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
                 items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }
                 item {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
