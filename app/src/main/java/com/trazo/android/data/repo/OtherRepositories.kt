@@ -16,7 +16,12 @@ data class ExerciseFilters(
     val active: Boolean get() = movementPattern != null || experience != null || equipment != null || muscle != null
 }
 
-class ExerciseRepository(private val api: ExercisesApi) {
+class ExerciseRepository(private val api: ExercisesApi, private val baseUrl: String = "") {
+    suspend fun images(id: String): ApiResult<ExerciseImageSlots> = apiCall { api.images(id) }
+
+    /** Public image bytes of one slot (0-3); loaded and cached by the image library. */
+    fun imageUrl(id: String, slot: Int): String = "${baseUrl}api/v1/exercises/$id/images/$slot"
+
     suspend fun search(filters: ExerciseFilters, page: Int, pageSize: Int = 30): ApiResult<ExercisePage> = apiCall {
         api.search(
             q = filters.query.trim().ifEmpty { null },

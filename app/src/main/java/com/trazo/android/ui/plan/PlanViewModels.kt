@@ -29,6 +29,14 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
 
     init { load() }
 
+    /** The plan is over: closes it (history is kept) so the onboarding can create the next one. */
+    fun startNextPlan() {
+        viewModelScope.launch {
+            plans.archive()
+            load()
+        }
+    }
+
     fun sendPending() { viewModelScope.launch { if (plans.flushPending() > 0) load() } }
 
     fun load() {

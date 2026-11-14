@@ -10,6 +10,7 @@ data class GoogleLoginRequest(val idToken:String,val deviceName:String="Android"
 data class TwoFactorVerifyRequest(val challengeToken:String,val code:String,val deviceName:String="Android")
 data class RefreshRequest(val refreshToken:String,val deviceName:String="Android")
 data class AuthResponse(val accessToken:String?=null,val refreshToken:String?=null,val twoFactorRequired:Boolean=false,val challengeToken:String?=null,val emailVerificationRequired:Boolean=false,val message:String?=null)
+data class GoogleLinkRequest(val idToken:String)
 data class EmailRequest(val email:String)
 data class EmailTokenRequest(val token:String)
 data class ResetPasswordRequest(val token:String,val newPassword:String)
@@ -25,6 +26,8 @@ interface AuthApi {
  @POST("api/v1/auth/refresh") suspend fun refresh(@Body request:RefreshRequest):Response<AuthResponse>
  @POST("api/v1/auth/logout") suspend fun logout(@Header("Authorization") authorization:String,@Body request:RefreshRequest):Response<Unit>
  @GET("api/v1/auth/me") suspend fun me(@Header("Authorization") authorization:String):Response<UserSummary>
+ @POST("api/v1/auth/logout-all") suspend fun logoutAll(@Header("Authorization") authorization:String):Response<Unit>
+ @POST("api/v1/auth/google/link") suspend fun linkGoogle(@Header("Authorization") authorization:String,@Body request:GoogleLinkRequest):Response<Unit>
  @POST("api/v1/auth/2fa/setup") suspend fun setupTwoFactor(@Header("Authorization") authorization:String):Response<TwoFactorSetupResponse>
  @POST("api/v1/auth/2fa/enable") suspend fun enableTwoFactor(@Header("Authorization") authorization:String,@Body request:TwoFactorCodeRequest):Response<TwoFactorEnableResponse>
  @POST("api/v1/auth/2fa/disable") suspend fun disableTwoFactor(@Header("Authorization") authorization:String,@Body request:TwoFactorCodeRequest):Response<Unit>
