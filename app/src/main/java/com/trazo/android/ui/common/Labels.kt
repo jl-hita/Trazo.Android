@@ -1,5 +1,8 @@
 package com.trazo.android.ui.common
 
+import java.time.DayOfWeek
+import java.time.format.TextStyle
+import java.time.temporal.WeekFields
 import java.util.Locale
 
 /**
@@ -92,6 +95,23 @@ object Labels {
     fun goal(v: String) = lookup(goal, v)
     fun experience(v: String) = lookup(experience, v)
     fun day(v: String) = lookup(day, v)
+
+    /** Three-letter name of a weekday in the app language ("lun", "mié" / "Mon", "Wed"); unknown values fall back to [day]. */
+    fun dayShort(v: String): String {
+        val dow = runCatching { DayOfWeek.valueOf(v.uppercase()) }.getOrNull() ?: return day(v)
+        val locale = if (english()) Locale.ENGLISH else Locale("es")
+        return dow.getDisplayName(TextStyle.SHORT, locale).trimEnd('.').replaceFirstChar { it.uppercase() }
+    }
+
+    /**
+     * Orders weekday names from the first day of the week of the device region (Monday in Spain, Sunday in the US), taken
+     * from the locale and not from the location. Values that are not weekdays keep their place at the end.
+     */
+    fun inWeekOrder(days: List<String>, locale: Locale = Locale.getDefault()): List<String> {
+        val first = WeekFields.of(locale).firstDayOfWeek
+        fun rank(v: String): Int = runCatching { DayOfWeek.valueOf(v.uppercase()) }.getOrNull()?.let { (it.value - first.value + 7) % 7 } ?: 7
+        return days.sortedBy { rank(it) }
+    }
     fun limitation(v: String) = lookup(limitation, v)
     fun recovery(v: String) = lookup(recovery, v)
     fun reason(v: String) = lookup(reason, v)

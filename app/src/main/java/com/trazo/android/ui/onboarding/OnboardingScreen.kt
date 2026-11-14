@@ -35,7 +35,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onCreat
 
                 SectionTitle(stringResource(R.string.onb_days))
                 Text(stringResource(R.string.onb_days_hint, options.minimumTrainingDays, options.maximumTrainingDays), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-                ChipGroup(options.days, state.days, Labels::day, viewModel::toggleDay)
+                DayPicker(options.days, state.days, viewModel::toggleDay)
 
                 Text(stringResource(R.string.onb_minutes, state.sessionMinutes), modifier = Modifier.padding(top = 12.dp))
                 Slider(
