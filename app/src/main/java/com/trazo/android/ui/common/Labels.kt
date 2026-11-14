@@ -109,7 +109,9 @@ object Labels {
     /** The name in the other language, shown as a subtitle. */
     fun otherName(es: String, en: String): String = if (english() && en.isNotBlank()) es else en
 
-    private fun lookup(dict: Dict, value: String): String = dict.of(value) ?: humanize(value)
+    /** The API is not consistent about case ("Intermediate" / "intermediate"), so a capitalised retry is also tried. */
+    private fun lookup(dict: Dict, value: String): String =
+        dict.of(value) ?: dict.of(value.replaceFirstChar { it.uppercase() }) ?: humanize(value)
 
     /** `HorizontalPush` / `pull-up-bar` / `lower_back` → `Horizontal push`, `Pull up bar`, `Lower back`. */
     fun humanize(value: String): String {

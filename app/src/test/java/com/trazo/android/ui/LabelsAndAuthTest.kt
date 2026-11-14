@@ -48,6 +48,9 @@ class LabelsAndAuthTest {
         }
         Locale.setDefault(Locale.ENGLISH)
         assertEquals("Hip hinge", Labels.pattern("Hinge"))
+        assertEquals("Intermediate", Labels.difficulty("intermediate"))
+        Locale.setDefault(Locale("es", "ES"))
+        assertEquals("Intermedio", Labels.difficulty("intermediate"))
     }
 
     @Test fun `logout everywhere revokes on the server and clears the tokens`() = runBlocking {

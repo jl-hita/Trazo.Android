@@ -67,8 +67,11 @@ Marca: datos cifrados en tránsito (HTTPS), y que el usuario puede solicitar el 
 ### Clasificación de contenido
 Cuestionario IARC: sin violencia, sin contenido sexual, sin juegos de azar, sin contenido generado por usuarios, sin compras de objetos virtuales. Previsiblemente «PEGI 3 / Todos». Al ser una app de salud y forma física, responde con cuidado a las preguntas sobre consejos médicos: el plan es orientativo y no sustituye a un profesional (la app y la API incluyen ese aviso).
 
+### Idiomas
+La app viene en español (idioma por defecto) e inglés (`values-en`); cualquier otro idioma del dispositivo ve el español. En Play Console añade ambos idiomas a la ficha (Presencia en la tienda → Fichas de tienda personalizadas) y traduce descripción, capturas y política de privacidad. Android 13+ permite elegir el idioma de la app en Ajustes (`locales_config.xml`). El contenido que envía el servidor (planes, avisos, instrucciones de ejercicios) hoy solo está en español; los nombres de ejercicio se muestran en inglés cuando existe `nameEn`.
+
 ### Ficha de la tienda
-Gráficos disponibles en `store/google-play/` (icono 512 y gráfico de funciones 1024×500). Faltan **capturas de pantalla** (mínimo 2): hazlas con un build debug y `-PsecureScreens=false`, porque en release las pantallas con la rutina bloquean las capturas (`FLAG_SECURE`).
+Gráficos disponibles en `store/google-play/` (icono 512 y gráfico de funciones 1024×500). Las **capturas de pantalla** (es/en) están en `landing-screenshots/` (sirven también para la ficha de Play; mínimo 2 por idioma). Para regenerarlas usa un build debug con `-PsecureScreens=false`, porque en release las pantallas con la rutina bloquean las capturas (`FLAG_SECURE`).
 
 ## 5. Prueba cerrada
 

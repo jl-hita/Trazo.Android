@@ -88,7 +88,7 @@
     <string name="session_rir">RIR %1$s</string>
     <string name="session_rest">Descanso %1$s</string>
     <string name="session_target_load">Objetivo: %1$s kg</string>
-    <string name="session_warmup">Calentamiento: %1$d series</string>
+    <string name="session_warmup">Series de calentamiento: %1$d</string>
     <string name="session_swapped">Sustituido</string>
     <string name="session_view_exercise">Ver ejercicio</string>
     <string name="workout_title">Entrenamiento</string>

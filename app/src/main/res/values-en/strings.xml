@@ -89,7 +89,7 @@
     <string name="session_rir">RIR %1$s</string>
     <string name="session_rest">Rest %1$s</string>
     <string name="session_target_load">Target: %1$s kg</string>
-    <string name="session_warmup">Warm-up: %1$d sets</string>
+    <string name="session_warmup">Warm-up sets: %1$d</string>
     <string name="session_swapped">Swapped</string>
     <string name="session_view_exercise">View exercise</string>
     <string name="workout_title">Workout</string>
