@@ -28,6 +28,12 @@ class LabelsAndAuthTest {
         assertEquals("Monday", Labels.day("Monday"))
     }
 
+    @Test fun `weekdays start on the first day of the locale week`() {
+        val days = listOf("Sunday", "Friday", "Monday", "Wednesday")
+        assertEquals(listOf("Monday", "Wednesday", "Friday", "Sunday"), Labels.inWeekOrder(days, Locale("es", "ES")))
+        assertEquals(listOf("Sunday", "Monday", "Wednesday", "Friday"), Labels.inWeekOrder(days, Locale.US))
+    }
+
     @Test fun `exercise names follow the language and unknown codes stay readable`() {
         Locale.setDefault(Locale("es", "ES"))
         assertEquals("Sentadilla", Labels.localName("Sentadilla", "Squat"))
