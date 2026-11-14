@@ -12,7 +12,7 @@ data class PlanView(
     val startDate: String, val endDate: String, val goal: String, val experience: String, val split: String,
     val trainingDays: List<String>, val maxSessionMinutes: Int, val availableEquipment: List<String>,
     val excludedExerciseIds: List<String>, val limitations: List<String>, val currentPhase: Int?,
-    val macrocycle: MacrocycleView, val disclaimer: String
+    val macrocycle: MacrocycleView, val disclaimer: String, val origin: String? = null
 )
 
 data class ExerciseView(

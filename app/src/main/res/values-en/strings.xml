@@ -39,6 +39,7 @@
     <string name="plan_deload">deload</string>
     <string name="plan_not_started">Your plan starts on %1$s. This is the first week.</string>
     <string name="plan_finished">You have completed your plan. Create the next one to keep going.</string>
+    <string name="plan_generated_premium_locked">This plan was generated automatically. Premium is required to generate the next block and continue training with it. Your plan and previous workouts are preserved.</string>
     <string name="plan_no_sessions">There are no sessions planned this week.</string>
     <string name="plan_overview">View the full plan</string>
     <string name="plan_history">Session history</string>

@@ -43,7 +43,9 @@ fun SessionScreen(
             }
             items(session.exercises, key = { it.exerciseId }) { ExercisePrescription(it, onExercise) }
         }
-        if (session.log == null) {
+        if (current?.timeline == "PremiumRequired") {
+            Notice(stringResource(R.string.plan_generated_premium_locked))
+        } else if (session.log == null) {
             TrazoButton(onClick = onStart, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.session_start)) }
         } else {
             Text(stringResource(R.string.session_done), color = TrazoPalette.Ok, modifier = Modifier.padding(16.dp))
