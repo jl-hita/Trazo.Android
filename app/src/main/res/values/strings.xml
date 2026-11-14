@@ -39,6 +39,7 @@
     <string name="plan_deload">descarga</string>
     <string name="plan_not_started">Tu plan empieza el %1$s. Esta es la primera semana.</string>
     <string name="plan_finished">Has completado tu plan. Crea el siguiente para seguir progresando.</string>
+    <string name="plan_generated_premium_locked">Este plan se creó automáticamente. Para generar el siguiente bloque y seguir entrenando con él necesitas Premium. Tu plan y tus entrenamientos anteriores se conservan.</string>
     <string name="plan_no_sessions">No hay sesiones previstas esta semana.</string>
     <string name="plan_overview">Ver el plan completo</string>
     <string name="plan_history">Historial de sesiones</string>
