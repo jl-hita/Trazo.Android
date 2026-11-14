@@ -48,6 +48,7 @@ fun PlanScreen(
     onOverview: () -> Unit,
     onHistory: () -> Unit,
     onCreatePlan: () -> Unit,
+    onCreateManualPlan: () -> Unit,
     onPremium: () -> Unit,
     onSendPending: () -> Unit
 ) {
@@ -59,7 +60,7 @@ fun PlanScreen(
         val week = state.week
         when {
             state.loading && week == null -> LoadingBox()
-            state.needsOnboarding -> OnboardingPrompt(onCreatePlan)
+            state.needsOnboarding -> OnboardingPrompt(onCreatePlan, onCreateManualPlan)
             state.error != null && week == null -> ErrorBox(state.error!!, viewModel::load)
             week != null -> LazyColumn(
                 Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -93,11 +94,14 @@ fun PlanScreen(
 }
 
 @Composable
-private fun OnboardingPrompt(onCreatePlan: () -> Unit) {
+private fun OnboardingPrompt(onCreatePlan: () -> Unit, onCreateManualPlan: () -> Unit) {
     Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(stringResource(R.string.onb_intro), color = TrazoPalette.TextSecondary)
+        Text(stringResource(R.string.plan_empty_intro), color = TrazoPalette.TextSecondary)
         Spacer(Modifier.height(16.dp))
-        TrazoButton(onClick = onCreatePlan, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title)) }
+        TrazoButton(onClick = onCreateManualPlan, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
+        Text(stringResource(R.string.manual_free_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
+        TrazoButton(onClick = onCreatePlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title)) }
+        Text(stringResource(R.string.generated_premium_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
     }
 }
 

@@ -141,6 +141,9 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, {"hasAccess": True, "enforced": False, "status": "none", "autoRenewing": False})
         if path == "/api/v1/plans/options":
             return self._send(200, OPTIONS)
+        if self.command == "POST" and path == "/api/v1/plans/manual":
+            self.rfile.read(int(self.headers.get("Content-Length") or 0))
+            return self._send(201, plan())
         if path == "/api/v1/plans/current":
             return self._send(200, plan())
         if path == "/api/v1/plans/current/week":

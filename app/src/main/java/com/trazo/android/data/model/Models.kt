@@ -74,6 +74,17 @@ data class PlanOptions(
 
 // Requests.
 
+/** A plan the user writes: their weekly routines, repeated every week. Free; Premium adapts it as they train. */
+data class ManualPlanRequest(
+    val name: String, val totalWeeks: Int, val days: List<ManualDayRequest>, val notes: String? = null,
+    val startDate: String? = null, val goal: String? = null, val experience: String? = null
+)
+data class ManualDayRequest(val day: String, val title: String, val exercises: List<ManualExerciseRequest>)
+data class ManualExerciseRequest(
+    val exerciseId: String, val sets: Int, val minRepetitions: Int, val maxRepetitions: Int, val targetRir: Double? = null,
+    val restSeconds: Int? = null
+)
+
 data class PlanProfileRequest(
     val goal: String, val experience: String, val startDate: String? = null, val totalWeeks: Int? = null,
     val trainingDays: List<String>, val maxSessionMinutes: Int? = null, val availableEquipment: List<String> = emptyList(),

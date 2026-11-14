@@ -192,7 +192,7 @@
 
     <!-- Paywall -->
     <string name="paywall_title">Go Premium</string>
-    <string name="paywall_text">Premium includes automatically generated plans and automatic adaptation of your workouts based on how each session felt. Manual plans are free.</string>
+    <string name="paywall_text">Premium includes automatically generated plans and automatic adaptation of your workouts, manual plans included, based on how each session felt. Creating and using manual plans is free.</string>
     <string name="paywall_trial">Free trial included. Cancel any time from Google Play.</string>
     <string name="paywall_price">%1$s · auto-renewing</string>
     <string name="paywall_subscribe">Subscribe</string>
@@ -266,4 +266,28 @@
     <string name="sec_logout_all">Sign out on all devices</string>
     <string name="sec_logout_all_title">Sign out everywhere?</string>
     <string name="sec_logout_all_text">You\'ll be signed out here and on every other device where you signed in.</string>
+    <!-- Manual plan -->
+    <string name="plan_empty_intro">Build your own plan or let TRAZO generate one for you.</string>
+    <string name="manual_start">Create my own plan</string>
+    <string name="manual_free_hint">Free. With Premium, TRAZO adapts your loads and sets to how you train.</string>
+    <string name="generated_premium_hint">Automatic plan generation is Premium.</string>
+    <string name="manual_title">Manual plan</string>
+    <string name="manual_name">Plan name</string>
+    <string name="manual_weeks">Length: %1$d weeks</string>
+    <string name="manual_days">Training days</string>
+    <string name="manual_days_hint">Each routine repeats every week. With Premium it adapts by itself as you log your workouts.</string>
+    <string name="manual_routine_title">Routine name</string>
+    <string name="manual_add_exercise">Add exercise</string>
+    <string name="manual_remove">Remove</string>
+    <string name="manual_sets">Sets: %1$d</string>
+    <string name="manual_reps">Reps: %1$d–%2$d</string>
+    <string name="manual_less">Less</string>
+    <string name="manual_more">More</string>
+    <string name="manual_no_exercises">No exercises in this routine yet.</string>
+    <string name="manual_search">Search exercise</string>
+    <string name="manual_search_empty">No results.</string>
+    <string name="manual_close">Close</string>
+    <string name="manual_create">Create plan</string>
+    <string name="manual_creating">Creating…</string>
+    <string name="manual_default_routine">Routine %1$d</string>
 </resources>
