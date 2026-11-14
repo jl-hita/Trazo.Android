@@ -1,6 +1,7 @@
 package com.trazo.android.testing
 
 import com.trazo.android.auth.*
+import com.trazo.android.data.api.ExercisesApi
 import com.trazo.android.data.api.PlansApi
 import com.trazo.android.data.api.SubscriptionApi
 import com.trazo.android.data.model.*
@@ -27,11 +28,14 @@ class FakePlansApi : PlansApi {
     var createResponse: (PlanProfileRequest) -> Response<PlanView> = { Response.success(samplePlan()) }
     val logCalls = mutableListOf<Pair<String, LogSessionRequest>>()
     var createdWith: PlanProfileRequest? = null
+    var manualResponse: (ManualPlanRequest) -> Response<PlanView> = { Response.success(samplePlan()) }
+    var manualCreatedWith: ManualPlanRequest? = null
     var reviewResponse: () -> Response<ReviewRequestView> = { httpError(404, problem(404, "no_review_request")) }
     var reviewedWith: ReviewRequestBody? = null
 
     override suspend fun options() = optionsResponse()
     override suspend fun create(request: PlanProfileRequest): Response<PlanView> { createdWith = request; return createResponse(request) }
+    override suspend fun createManual(request: ManualPlanRequest): Response<PlanView> { manualCreatedWith = request; return manualResponse(request) }
     override suspend fun current() = planResponse()
     override suspend fun week() = weekResponse()
     override suspend fun history(take: Int): Response<List<HistoryItem>> = Response.success(emptyList())
@@ -104,3 +108,11 @@ fun sampleOptions() = PlanOptions(
 )
 
 fun logRequest() = LogSessionRequest("Completed", sets = listOf(LogSetRequest("db-bench-press", 1, 22.5, 10, 2.0, true)))
+
+class FakeExercisesApi : ExercisesApi {
+    private val item = ExerciseListItem("db-bench-press", "Press banca con mancuernas", "Dumbbell bench press", "", "Beginner", "dumbbell", listOf("dumbbell"), "HorizontalPush", listOf("Chest"), emptyList(), "Beginner", false, false, 90)
+    override suspend fun search(q: String?, movementPattern: String?, difficulty: String?, experience: String?, equipment: String?, muscle: String?, page: Int, pageSize: Int): Response<ExercisePage> =
+        Response.success(ExercisePage(listOf(item), page, pageSize, 1, 1))
+    override suspend fun detail(id: String): Response<ExerciseDetail> = TODO()
+    override suspend fun images(id: String): Response<ExerciseImageSlots> = TODO()
+}

@@ -189,7 +189,7 @@
 
     <!-- Paywall -->
     <string name="paywall_title">Pásate a Premium</string>
-    <string name="paywall_text">Premium incluye los planes generados automáticamente y la adaptación automática de tus entrenamientos según cómo te sienta cada sesión. Los planes manuales son gratis.</string>
+    <string name="paywall_text">Premium incluye los planes generados automáticamente y la adaptación automática de tus entrenamientos, también en tus planes manuales, según cómo te sienta cada sesión. Crear y usar planes manuales es gratis.</string>
     <string name="paywall_trial">Prueba gratis incluida. Cancela cuando quieras desde Google Play.</string>
     <string name="paywall_price">%1$s · renovación automática</string>
     <string name="paywall_subscribe">Suscribirme</string>
@@ -270,4 +270,28 @@
     <string name="sec_logout_all">Cerrar sesión en todos los dispositivos</string>
     <string name="sec_logout_all_title">¿Cerrar todas las sesiones?</string>
     <string name="sec_logout_all_text">Se cerrará la sesión en este y en el resto de dispositivos donde hayas entrado.</string>
+    <!-- Manual plan -->
+    <string name="plan_empty_intro">Crea tu propio plan o deja que TRAZO te lo genere.</string>
+    <string name="manual_start">Crear mi propio plan</string>
+    <string name="manual_free_hint">Gratis. Con Premium, TRAZO adapta tus cargas y series según cómo entrenas.</string>
+    <string name="generated_premium_hint">La generación automática del plan es Premium.</string>
+    <string name="manual_title">Plan manual</string>
+    <string name="manual_name">Nombre del plan</string>
+    <string name="manual_weeks">Duración: %1$d semanas</string>
+    <string name="manual_days">Días de entrenamiento</string>
+    <string name="manual_days_hint">Cada rutina se repite todas las semanas. Con Premium se adaptará sola mientras registras tus entrenamientos.</string>
+    <string name="manual_routine_title">Nombre de la rutina</string>
+    <string name="manual_add_exercise">Añadir ejercicio</string>
+    <string name="manual_remove">Quitar</string>
+    <string name="manual_sets">Series: %1$d</string>
+    <string name="manual_reps">Repeticiones: %1$d–%2$d</string>
+    <string name="manual_less">Menos</string>
+    <string name="manual_more">Más</string>
+    <string name="manual_no_exercises">Aún no hay ejercicios en esta rutina.</string>
+    <string name="manual_search">Buscar ejercicio</string>
+    <string name="manual_search_empty">Sin resultados.</string>
+    <string name="manual_close">Cerrar</string>
+    <string name="manual_create">Crear plan</string>
+    <string name="manual_creating">Creando…</string>
+    <string name="manual_default_routine">Rutina %1$d</string>
 </resources>

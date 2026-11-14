@@ -55,6 +55,13 @@ class PlanRepository(
         return result
     }
 
+    /** Creates a plan written by the user; free for every account. */
+    suspend fun createManualPlan(request: ManualPlanRequest): ApiResult<PlanView> {
+        val result = apiCall { api.createManual(request) }
+        if (result is ApiResult.Success) { _week.value = null; cache.clear(); cache.savePlan(result.value) }
+        return result
+    }
+
     suspend fun currentPlan(): ApiResult<Fetched<PlanView>> {
         val result = apiCall { api.current() }
         return when {

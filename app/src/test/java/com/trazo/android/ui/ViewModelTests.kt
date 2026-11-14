@@ -343,3 +343,53 @@ class AccountReviewViewModelTest : ViewModelTestBase() {
         assertEquals(listOf("hola"), vm.state.value.thread.map { it.body })
     }
 }
+
+class ManualPlanViewModelTest : ViewModelTestBase() {
+    private val week = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+    private fun vm(api: FakePlansApi) = com.trazo.android.ui.manual.ManualPlanViewModel(plansRepo(api), ExerciseRepository(FakeExercisesApi()))
+
+    @Test fun `a plan needs a name and exercises in every routine`() = runTest(dispatcher) {
+        val vm = vm(FakePlansApi())
+        assertFalse(vm.state.value.canSubmit)
+        vm.setName("Mi plan")
+        vm.toggleDay("Monday", "Empuje")
+        assertFalse(vm.state.value.canSubmit)
+        vm.openPicker("Monday")
+        advanceUntilIdle()
+        vm.pick(vm.state.value.results.first(), "Press banca")
+        assertTrue(vm.state.value.canSubmit)
+    }
+
+    @Test fun `the request keeps the week order and what the user chose`() = runTest(dispatcher) {
+        val api = FakePlansApi()
+        val vm = vm(api)
+        vm.setName("  Fuerza  "); vm.setTotalWeeks(6)
+        vm.toggleDay("Thursday", "Pierna"); vm.toggleDay("Monday", "Empuje")
+        listOf("Thursday", "Monday").forEach { day ->
+            vm.openPicker(day); advanceUntilIdle()
+            vm.pick(vm.state.value.results.first(), "Ejercicio")
+        }
+        vm.changeSets("Monday", vm.state.value.days.getValue("Monday").exercises.first().id, 1)
+        vm.submit(week)
+        advanceUntilIdle()
+        assertTrue(vm.state.value.created)
+        val sent = api.manualCreatedWith!!
+        assertEquals("Fuerza", sent.name)
+        assertEquals(6, sent.totalWeeks)
+        assertEquals(listOf("Monday", "Thursday"), sent.days.map { it.day })
+        assertEquals(4, sent.days.first().exercises.first().sets)
+    }
+
+    @Test fun `an exercise is not added twice and a server rejection is shown`() = runTest(dispatcher) {
+        val api = FakePlansApi().apply { manualResponse = { httpError(409, problem(409, "active_plan_exists")) } }
+        val vm = vm(api)
+        vm.setName("Plan"); vm.toggleDay("Monday", "A")
+        repeat(2) { vm.openPicker("Monday"); advanceUntilIdle(); vm.pick(vm.state.value.results.first(), "X") }
+        assertEquals(1, vm.state.value.days.getValue("Monday").exercises.size)
+        vm.submit(week)
+        advanceUntilIdle()
+        assertFalse(vm.state.value.created)
+        assertEquals("active_plan_exists", vm.state.value.error!!.code)
+    }
+}

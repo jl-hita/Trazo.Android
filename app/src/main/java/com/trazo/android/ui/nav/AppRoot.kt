@@ -43,6 +43,8 @@ import com.trazo.android.ui.common.LoadingBox
 import com.trazo.android.ui.onboarding.OnboardingScreen
 import com.trazo.android.ui.onboarding.OnboardingViewModel
 import com.trazo.android.ui.plan.*
+import com.trazo.android.ui.manual.ManualPlanScreen
+import com.trazo.android.ui.manual.ManualPlanViewModel
 import com.trazo.android.ui.theme.TrazoPalette
 import com.trazo.android.ui.workout.WorkoutScreen
 import com.trazo.android.ui.workout.WorkoutViewModel
@@ -52,6 +54,7 @@ object Routes {
     const val CATALOG = "catalog"
     const val ACCOUNT = "account"
     const val ONBOARDING = "onboarding"
+    const val MANUAL_PLAN = "manual-plan"
     const val PREMIUM = "premium"
     const val OVERVIEW = "overview"
     const val HISTORY = "history"
@@ -133,6 +136,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
                         onOverview = { nav.navigate(Routes.OVERVIEW) },
                         onHistory = { nav.navigate(Routes.HISTORY) },
                         onCreatePlan = { nav.navigate(Routes.ONBOARDING) },
+                        onCreateManualPlan = { nav.navigate(Routes.MANUAL_PLAN) },
                         onPremium = { nav.navigate(Routes.PREMIUM) },
                         onSendPending = { planVm.sendPending() }
                     )
@@ -148,6 +152,10 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
                 composable(Routes.ONBOARDING) {
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
                     OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.PREMIUM) }, onCreated = { planVm.load(); nav.popBackStack() })
+                }
+                composable(Routes.MANUAL_PLAN) {
+                    val vm: ManualPlanViewModel = containerViewModel { ManualPlanViewModel(it.plans, it.exercises) }
+                    ManualPlanScreen(vm, onBack = { nav.popBackStack() }, onCreated = { planVm.load(); nav.popBackStack() })
                 }
                 composable(Routes.PREMIUM) {
                     val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { planVm.load(); nav.popBackStack() }) }

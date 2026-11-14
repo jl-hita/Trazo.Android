@@ -11,6 +11,7 @@ import retrofit2.http.Query
 interface PlansApi {
     @GET("api/v1/plans/options") suspend fun options(): Response<PlanOptions>
     @POST("api/v1/plans") suspend fun create(@Body request: PlanProfileRequest): Response<PlanView>
+    @POST("api/v1/plans/manual") suspend fun createManual(@Body request: ManualPlanRequest): Response<PlanView>
     @GET("api/v1/plans/current") suspend fun current(): Response<PlanView>
     @GET("api/v1/plans/current/week") suspend fun week(): Response<WeekView>
     @GET("api/v1/plans/current/history") suspend fun history(@Query("take") take: Int = 30): Response<List<HistoryItem>>
