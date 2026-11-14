@@ -12,7 +12,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.BuildConfig
 import com.trazo.android.R
 import com.trazo.android.auth.AuthRepository
-import com.trazo.android.auth.UserSummary
+import com.trazo.android.auth.*
+import com.trazo.android.ui.authErrorText
+import com.trazo.android.ui.googleResultText
+import androidx.compose.ui.platform.LocalContext
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.plan.formatDate
 import com.trazo.android.ui.theme.TrazoButton
@@ -70,7 +73,7 @@ fun AccountScreen(
             }
 
             SectionTitle(stringResource(R.string.account_security))
-            if (user != null) TwoFactorSection(auth, user)
+            if (user != null) SecuritySection(auth, user, onLoggedOutEverywhere = onLogout)
 
             Spacer(Modifier.height(16.dp))
             TrazoButton(onClick = { confirmLogout = true }, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.account_logout)) }
@@ -99,56 +102,93 @@ fun AccountScreen(
     )
 }
 
-/** Two-factor setup, as it was on the first login screen of the app: same endpoints, now under Account. */
+/** Two-factor setup, Google linking and "sign out everywhere". Same endpoints the first login screen used. */
 @Composable
-private fun TwoFactorSection(auth: AuthRepository, initialUser: UserSummary) {
+private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLoggedOutEverywhere: () -> Unit) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var user by remember { mutableStateOf(initialUser) }
     var code by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<String?>(null) }
-    var setup by remember { mutableStateOf<com.trazo.android.auth.TwoFactorSetupResponse?>(null) }
+    var setup by remember { mutableStateOf<TwoFactorSetupResponse?>(null) }
     var recovery by remember { mutableStateOf<List<String>>(emptyList()) }
+    var confirmAll by remember { mutableStateOf(false) }
+    fun str(id: Int) = context.getString(id)
+    fun fail(e: Exception, fallback: Int) { message = (e as? AuthException)?.let { authErrorText(context, it.code) } ?: str(fallback) }
 
     TrazoCard {
-        Text(if (user.twoFactorEnabled) "Autenticación en dos pasos: activada" else "Autenticación en dos pasos: desactivada")
+        Text(stringResource(if (user.twoFactorEnabled) R.string.sec_2fa_on else R.string.sec_2fa_off))
         if (user.twoFactorEnabled) {
-            TrazoField(code, { code = it }, Modifier.fillMaxWidth(), { Text("Código para desactivar 2FA") })
+            TrazoField(code, { code = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.sec_2fa_disable_code)) })
             TrazoButton(enabled = !busy && code.isNotBlank(), modifier = Modifier.heightIn(min = MinTouch), onClick = {
                 busy = true
                 scope.launch {
-                    try { auth.disableTwoFactor(code); code = ""; auth.currentUser()?.let { user = it }; message = "Autenticación en dos pasos desactivada." }
-                    catch (e: Exception) { message = e.message ?: "No se pudo desactivar 2FA." } finally { busy = false }
+                    try { auth.disableTwoFactor(code); code = ""; auth.currentUser()?.let { user = it }; message = str(R.string.sec_2fa_disabled) }
+                    catch (e: Exception) { fail(e, R.string.auth_err_2fa_disable) } finally { busy = false }
                 }
-            }) { Text("Desactivar 2FA") }
+            }) { Text(stringResource(R.string.sec_2fa_disable)) }
         } else {
             TrazoButton(enabled = !busy, modifier = Modifier.heightIn(min = MinTouch), onClick = {
                 busy = true
                 scope.launch {
-                    try { setup = auth.setupTwoFactor(); message = "Añade la clave a tu aplicación autenticadora y confirma el código." }
-                    catch (e: Exception) { message = e.message ?: "No se pudo iniciar 2FA." } finally { busy = false }
+                    try { setup = auth.setupTwoFactor(); message = str(R.string.sec_2fa_setup_hint) }
+                    catch (e: Exception) { fail(e, R.string.auth_err_2fa_setup) } finally { busy = false }
                 }
-            }) { Text("Configurar 2FA") }
+            }) { Text(stringResource(R.string.sec_2fa_setup)) }
             setup?.let { details ->
-                Text("Clave secreta (guárdala de forma segura):", style = MaterialTheme.typography.titleSmall)
+                Text(stringResource(R.string.sec_2fa_secret), style = MaterialTheme.typography.titleSmall)
                 Text(details.secret)
-                TrazoField(code, { code = it }, Modifier.fillMaxWidth(), { Text("Código de 6 dígitos") })
+                TrazoField(code, { code = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.sec_2fa_six_digits)) })
                 TrazoButton(enabled = !busy && code.isNotBlank(), modifier = Modifier.heightIn(min = MinTouch), onClick = {
                     busy = true
                     scope.launch {
                         try {
                             recovery = auth.enableTwoFactor(code).recoveryCodes; setup = null; code = ""
                             auth.currentUser()?.let { user = it }
-                            message = "2FA activado. Guarda los códigos de recuperación: solo se muestran ahora."
-                        } catch (e: Exception) { message = e.message ?: "El código no es válido." } finally { busy = false }
+                            message = str(R.string.sec_2fa_enabled)
+                        } catch (e: Exception) { fail(e, R.string.auth_err_2fa_code) } finally { busy = false }
                     }
-                }) { Text("Activar 2FA") }
+                }) { Text(stringResource(R.string.sec_2fa_enable)) }
             }
         }
         if (recovery.isNotEmpty()) {
-            Text("Códigos de recuperación — guárdalos ahora", style = MaterialTheme.typography.titleSmall)
+            Text(stringResource(R.string.sec_2fa_recovery), style = MaterialTheme.typography.titleSmall)
             recovery.forEach { Text(it) }
         }
         message?.let { Text(it, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall) }
     }
+
+    if (BuildConfig.GOOGLE_WEB_CLIENT_ID.isNotBlank()) TrazoButton(
+        enabled = !busy, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch),
+        onClick = {
+            busy = true
+            scope.launch {
+                try {
+                    when (val g = requestGoogleIdToken(context, BuildConfig.GOOGLE_WEB_CLIENT_ID, BuildConfig.DEBUG)) {
+                        is GoogleResult.Token -> { auth.linkGoogle(g.idToken); message = str(R.string.sec_google_linked) }
+                        else -> googleResultText(context, g)?.let { message = it }
+                    }
+                } catch (e: Exception) { fail(e, R.string.auth_err_link_google) } finally { busy = false }
+            }
+        }
+    ) { Text(stringResource(R.string.sec_google_link)) }
+
+    TrazoButton(enabled = !busy, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch), onClick = { confirmAll = true }) {
+        Text(stringResource(R.string.sec_logout_all))
+    }
+    if (confirmAll) AlertDialog(
+        onDismissRequest = { confirmAll = false },
+        title = { Text(stringResource(R.string.sec_logout_all_title)) },
+        text = { Text(stringResource(R.string.sec_logout_all_text)) },
+        confirmButton = {
+            TextButton(onClick = {
+                confirmAll = false
+                scope.launch {
+                    try { auth.logoutAll(); onLoggedOutEverywhere() } catch (e: Exception) { fail(e, R.string.auth_err_logout_all) }
+                }
+            }) { Text(stringResource(R.string.sec_logout_all)) }
+        },
+        dismissButton = { TextButton(onClick = { confirmAll = false }) { Text(stringResource(R.string.cancel)) } }
+    )
 }

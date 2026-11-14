@@ -54,8 +54,13 @@ fun SessionScreen(
 @Composable
 fun ExercisePrescription(ex: ExerciseView, onExercise: (String) -> Unit) {
     TrazoCard {
-        Text(ex.name, style = MaterialTheme.typography.titleMedium)
-        Text(Labels.muscles(ex.primaryMuscles), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            ExerciseThumb(exerciseImageUrl(ex.exerciseId), ex.name, 56.dp)
+            Column {
+                Text(ex.name, style = MaterialTheme.typography.titleMedium)
+                Text(Labels.muscles(ex.primaryMuscles), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+            }
+        }
         val parts = buildList {
             add(stringResource(R.string.session_sets_reps, ex.sets, ex.minRepetitions, ex.maxRepetitions))
             ex.targetRir?.let { add(stringResource(R.string.session_rir, WorkoutViewModel.formatKg(it))) }

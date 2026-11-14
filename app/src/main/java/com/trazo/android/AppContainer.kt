@@ -47,7 +47,7 @@ class AppContainer(context: Context) {
 
     val auth = AuthRepository(network.create(AuthApi::class.java), tokens)
     val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), drafts::clear)
-    val exercises = ExerciseRepository(network.create(ExercisesApi::class.java))
+    val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
     val subscription = SubscriptionRepository(network.create(SubscriptionApi::class.java))
 
     /** Created on first use: nothing talks to Google Play while the backend does not require a subscription. */

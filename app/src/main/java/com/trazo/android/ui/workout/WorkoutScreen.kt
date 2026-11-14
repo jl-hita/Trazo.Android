@@ -48,7 +48,10 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
         LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(state.entries, key = { it.exercise.exerciseId }) { entry ->
                 TrazoCard {
-                    Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                        ExerciseThumb(exerciseImageUrl(entry.exercise.exerciseId), entry.exercise.name, 56.dp)
+                        Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
+                    }
                     val ex = entry.exercise
                     Text(
                         stringResource(R.string.session_sets_reps, ex.sets, ex.minRepetitions, ex.maxRepetitions) +

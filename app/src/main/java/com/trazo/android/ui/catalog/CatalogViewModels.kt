@@ -81,7 +81,13 @@ class CatalogViewModel(private val exercises: ExerciseRepository, private val de
     }
 }
 
-data class ExerciseDetailState(val loading: Boolean = true, val detail: ExerciseDetail? = null, val error: ApiError? = null)
+data class ExerciseDetailState(
+    val loading: Boolean = true,
+    val detail: ExerciseDetail? = null,
+    val error: ApiError? = null,
+    val imageUrls: List<String> = emptyList(),
+    val attribution: String? = null
+)
 
 class ExerciseDetailViewModel(private val exercises: ExerciseRepository, private val id: String) : ViewModel() {
     private val _state = MutableStateFlow(ExerciseDetailState())
@@ -95,6 +101,10 @@ class ExerciseDetailViewModel(private val exercises: ExerciseRepository, private
             _state.value = when (val r = exercises.detail(id)) {
                 is ApiResult.Success -> ExerciseDetailState(false, r.value)
                 is ApiResult.Failure -> ExerciseDetailState(false, error = r.error)
+            }
+            // Images are optional: a failure here must not hide the exercise.
+            (exercises.images(id) as? ApiResult.Success)?.value?.let { slots ->
+                _state.update { it.copy(imageUrls = slots.slots.map { s -> exercises.imageUrl(id, s) }, attribution = slots.attribution) }
             }
         }
     }

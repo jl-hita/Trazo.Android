@@ -21,10 +21,10 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
-private val SPANISH = Locale("es", "ES")
+private fun appLocale(): Locale = if (Labels.english()) Locale.getDefault() else Locale("es", "ES")
 
 fun formatDate(iso: String): String = runCatching {
-    LocalDate.parse(iso).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(SPANISH))
+    LocalDate.parse(iso).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(appLocale()))
 }.getOrDefault(iso)
 
 @Composable
@@ -63,7 +63,10 @@ fun PlanScreen(
                     Notice(stringResource(R.string.plan_pending_logs, pending))
                     TrazoLink(onClick = onSendPending, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_send_now)) }
                 }
-                if (week.timeline == "Finished") item { Notice(stringResource(R.string.plan_finished)) }
+                if (week.timeline == "Finished") item {
+                    Notice(stringResource(R.string.plan_finished))
+                    TrazoButton(onClick = viewModel::startNextPlan, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_next_plan)) }
+                }
                 if (week.timeline == "NotStarted") item { Notice(stringResource(R.string.plan_not_started, formatDate(week.weekStart))) }
                 if (week.sessions.isEmpty() && week.timeline != "Finished") item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
                 items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }

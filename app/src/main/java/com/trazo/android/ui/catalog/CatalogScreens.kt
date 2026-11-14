@@ -70,12 +70,17 @@ private fun FiltersPanel(filters: com.trazo.android.data.repo.ExerciseFilters, v
 @Composable
 private fun ExerciseRow(item: ExerciseListItem, onClick: () -> Unit) {
     TrazoCard(onClick = onClick) {
-        Text(item.nameEs, style = MaterialTheme.typography.titleMedium)
-        Text(Labels.pattern(item.movementPattern) + " · " + Labels.muscles(item.primaryMuscles), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-        Text(
-            item.requiredEquipment.takeIf { it.isNotEmpty() }?.joinToString(", ") { Labels.equipment(it) } ?: stringResource(R.string.exercise_no_equipment),
-            color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall
-        )
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            ExerciseThumb(exerciseImageUrl(item.id), Labels.localName(item.nameEs, item.nameEn), 64.dp)
+            Column(Modifier.weight(1f)) {
+                Text(Labels.localName(item.nameEs, item.nameEn), style = MaterialTheme.typography.titleMedium)
+                Text(Labels.pattern(item.movementPattern) + " · " + Labels.muscles(item.primaryMuscles), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                Text(
+                    item.requiredEquipment.takeIf { it.isNotEmpty() }?.joinToString(", ") { Labels.equipment(it) } ?: stringResource(R.string.exercise_no_equipment),
+                    color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall
+                )
+            }
+        }
     }
 }
 
@@ -83,14 +88,15 @@ private fun ExerciseRow(item: ExerciseListItem, onClick: () -> Unit) {
 fun ExerciseDetailScreen(viewModel: ExerciseDetailViewModel, onBack: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
-        TrazoTopBar(state.detail?.nameEs ?: stringResource(R.string.catalog_title), onBack)
+        TrazoTopBar(state.detail?.let { Labels.localName(it.nameEs, it.nameEn) } ?: stringResource(R.string.catalog_title), onBack)
         val d = state.detail
         when {
             state.loading -> LoadingBox()
             d == null -> ErrorBox(state.error ?: com.trazo.android.data.net.ApiError(com.trazo.android.data.net.ErrorKind.Unknown), viewModel::load)
             else -> Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(d.nameEs, style = MaterialTheme.typography.headlineSmall)
-                if (d.nameEn.isNotBlank()) Text(d.nameEn, color = TrazoPalette.Muted)
+                Text(Labels.localName(d.nameEs, d.nameEn), style = MaterialTheme.typography.headlineSmall)
+                if (d.nameEn.isNotBlank()) Text(Labels.otherName(d.nameEs, d.nameEn), color = TrazoPalette.Muted)
+                ExerciseGallery(state.imageUrls, d.nameEs, state.attribution)
                 if (d.descriptionEs.isNotBlank()) Text(d.descriptionEs)
                 SectionTitle(stringResource(R.string.exercise_primary))
                 Text(Labels.muscles(d.primaryMuscles))

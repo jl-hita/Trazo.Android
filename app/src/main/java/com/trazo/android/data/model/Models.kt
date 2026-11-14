@@ -106,6 +106,8 @@ data class ExerciseDetail(
     val bodyPart: String?, val movementPattern: String, val primaryMuscles: List<String>, val secondaryMuscles: List<String>, val minimumExperience: String?
 )
 
+data class ExerciseImageSlots(val slots: List<Int>, val attribution: String?)
+
 // Subscription.
 
 data class SubscriptionStatus(

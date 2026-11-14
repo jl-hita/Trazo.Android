@@ -38,7 +38,7 @@
     <string name="plan_block">Bloque %1$d · %2$s · semana %3$d de %4$d</string>
     <string name="plan_deload">descarga</string>
     <string name="plan_not_started">Tu plan empieza el %1$s. Esta es la primera semana.</string>
-    <string name="plan_finished">Has completado tu plan. Archívalo desde Cuenta para crear uno nuevo.</string>
+    <string name="plan_finished">Has completado tu plan. Crea el siguiente para seguir progresando.</string>
     <string name="plan_no_sessions">No hay sesiones previstas esta semana.</string>
     <string name="plan_overview">Ver el plan completo</string>
     <string name="plan_history">Historial de sesiones</string>
@@ -88,7 +88,7 @@
     <string name="session_rir">RIR %1$s</string>
     <string name="session_rest">Descanso %1$s</string>
     <string name="session_target_load">Objetivo: %1$s kg</string>
-    <string name="session_warmup">Calentamiento: %1$d series</string>
+    <string name="session_warmup">Series de calentamiento: %1$d</string>
     <string name="session_swapped">Sustituido</string>
     <string name="session_view_exercise">Ver ejercicio</string>
     <string name="workout_title">Entrenamiento</string>
@@ -179,4 +179,74 @@
     <string name="paywall_pending">Tu pago está pendiente. Te daremos acceso cuando Google Play lo confirme.</string>
     <string name="paywall_failed">No se ha podido completar la compra. No se te ha cobrado si no ves un cargo de Google Play.</string>
     <string name="paywall_logout">Cerrar sesión</string>
+
+    <!-- Plan finished -->
+    <string name="plan_next_plan">Crear el siguiente plan</string>
+
+    <!-- Images -->
+    <string name="exercise_image_of">Imagen de %1$s</string>
+    <string name="exercise_image_n">Imagen %2$d de %1$s</string>
+
+    <!-- Login -->
+    <string name="login_tagline">ENTRENA · MEJORA · AVANZA</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_name">Nombre</string>
+    <string name="login_sign_in">Entrar</string>
+    <string name="login_create_account">Crear cuenta</string>
+    <string name="login_have_account">Ya tengo cuenta</string>
+    <string name="login_resend">Reenviar verificación</string>
+    <string name="login_forgot">He olvidado mi contraseña</string>
+    <string name="login_google">Continuar con Google</string>
+    <string name="login_google_missing">Google Sign-In requiere configurar googleWebClientId.</string>
+    <string name="login_reset_title">Restablecer contraseña</string>
+    <string name="login_new_password">Nueva contraseña</string>
+    <string name="login_save_password">Guardar contraseña</string>
+    <string name="login_2fa_code">Código 2FA o recuperación</string>
+    <string name="login_verify">Verificar</string>
+    <string name="login_enter_2fa">Introduce el código de tu aplicación autenticadora.</string>
+    <string name="login_verify_email_first">Verifica tu correo antes de iniciar sesión.</string>
+    <string name="login_email_verified">Correo verificado. Ya puedes iniciar sesión.</string>
+    <string name="login_link_invalid">El enlace no es válido o ha caducado.</string>
+    <string name="login_verify_failed">No se pudo verificar el correo. Comprueba la conexión.</string>
+    <string name="login_password_updated">Contraseña actualizada. Ya puedes iniciar sesión.</string>
+    <string name="login_reset_failed">No se pudo restablecer la contraseña.</string>
+    <string name="login_2fa_failed">No se pudo verificar el código.</string>
+    <string name="login_connect_failed">No se pudo conectar con TRAZO. Comprueba tu conexión.</string>
+    <string name="login_resend_sent">Si la cuenta existe y falta verificarla, recibirás un correo.</string>
+    <string name="login_resend_failed">No se pudo solicitar la verificación.</string>
+    <string name="login_forgot_sent">Si existe una cuenta compatible, recibirás instrucciones.</string>
+    <string name="login_forgot_failed">No se pudo solicitar el restablecimiento.</string>
+    <string name="google_no_account">No hay ninguna cuenta de Google disponible en este dispositivo.</string>
+    <string name="google_unexpected">Google devolvió un tipo de credencial inesperado.</string>
+    <string name="google_unavailable">Google Sign-In no está disponible en este momento.</string>
+    <string name="google_failed_debug">Google Sign-In falló (%1$s)</string>
+    <string name="auth_err_generic">No se pudo autenticar. Comprueba tus datos y la conexión.</string>
+    <string name="auth_err_incomplete">La respuesta de autenticación está incompleta.</string>
+    <string name="auth_err_no_challenge">La API no ha devuelto el reto 2FA.</string>
+    <string name="auth_err_no_session">No hay una sesión activa.</string>
+    <string name="auth_err_2fa_setup">No se pudo iniciar la configuración de 2FA.</string>
+    <string name="auth_err_2fa_code">El código 2FA no es válido.</string>
+    <string name="auth_err_2fa_disable">No se pudo desactivar 2FA.</string>
+    <string name="auth_err_logout_all">No se pudo cerrar la sesión en todos los dispositivos.</string>
+    <string name="auth_err_link_google">No se pudo vincular la cuenta de Google.</string>
+
+    <!-- Security section -->
+    <string name="sec_2fa_on">Autenticación en dos pasos: activada</string>
+    <string name="sec_2fa_off">Autenticación en dos pasos: desactivada</string>
+    <string name="sec_2fa_disable_code">Código para desactivar 2FA</string>
+    <string name="sec_2fa_disable">Desactivar 2FA</string>
+    <string name="sec_2fa_disabled">Autenticación en dos pasos desactivada.</string>
+    <string name="sec_2fa_setup">Configurar 2FA</string>
+    <string name="sec_2fa_setup_hint">Añade la clave a tu aplicación autenticadora y confirma el código.</string>
+    <string name="sec_2fa_secret">Clave secreta (guárdala de forma segura):</string>
+    <string name="sec_2fa_six_digits">Código de 6 dígitos</string>
+    <string name="sec_2fa_enable">Activar 2FA</string>
+    <string name="sec_2fa_enabled">2FA activado. Guarda los códigos de recuperación: solo se muestran ahora.</string>
+    <string name="sec_2fa_recovery">Códigos de recuperación — guárdalos ahora</string>
+    <string name="sec_google_link">Vincular mi cuenta de Google</string>
+    <string name="sec_google_linked">Cuenta de Google vinculada.</string>
+    <string name="sec_logout_all">Cerrar sesión en todos los dispositivos</string>
+    <string name="sec_logout_all_title">¿Cerrar todas las sesiones?</string>
+    <string name="sec_logout_all_text">Se cerrará la sesión en este y en el resto de dispositivos donde hayas entrado.</string>
 </resources>
