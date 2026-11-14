@@ -39,6 +39,7 @@
     <string name="plan_deload">descarga</string>
     <string name="plan_not_started">Tu plan empieza el %1$s. Esta es la primera semana.</string>
     <string name="plan_finished">Has completado tu plan. Crea el siguiente para seguir progresando.</string>
+    <string name="plan_generated_premium_locked">Este plan se generó automáticamente y necesitas Premium para seguir usándolo. Puedes consultar tu plan y tu historial, o archivarlo desde tu cuenta.</string>
     <string name="plan_no_sessions">No hay sesiones previstas esta semana.</string>
     <string name="plan_overview">Ver el plan completo</string>
     <string name="plan_history">Historial de sesiones</string>
@@ -187,8 +188,8 @@
     <string name="account_signed_as">%1$s · %2$s</string>
 
     <!-- Paywall -->
-    <string name="paywall_title">Suscríbete a TRAZO</string>
-    <string name="paywall_text">Para seguir usando TRAZO necesitas una suscripción activa.</string>
+    <string name="paywall_title">Pásate a Premium</string>
+    <string name="paywall_text">Premium incluye los planes generados automáticamente y la adaptación automática de tus entrenamientos según cómo te sienta cada sesión. Los planes manuales son gratis.</string>
     <string name="paywall_trial">Prueba gratis incluida. Cancela cuando quieras desde Google Play.</string>
     <string name="paywall_price">%1$s · renovación automática</string>
     <string name="paywall_subscribe">Suscribirme</string>
@@ -196,7 +197,9 @@
     <string name="paywall_unavailable">La suscripción no está disponible ahora mismo en Google Play. Inténtalo más tarde.</string>
     <string name="paywall_pending">Tu pago está pendiente. Te daremos acceso cuando Google Play lo confirme.</string>
     <string name="paywall_failed">No se ha podido completar la compra. No se te ha cobrado si no ves un cargo de Google Play.</string>
-    <string name="paywall_logout">Cerrar sesión</string>
+    <string name="paywall_close">Ahora no</string>
+    <string name="premium_get">Hazte Premium</string>
+    <string name="finish_adaptation_locked">Tu entrenamiento se ha guardado. La adaptación automática de tu plan es una función Premium.</string>
 
     <!-- Plan finished -->
     <string name="plan_next_plan">Crear el siguiente plan</string>

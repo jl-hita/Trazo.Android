@@ -64,14 +64,23 @@ class ContractTest {
         assertEquals(2, result.adaptation.applied.single().sessionsChanged)
     }
 
-    @Test fun `subscription status decides when the plans screen shows`() {
+    @Test fun `the Premium flags of the week and of the adaptation are read, and default to false`() {
+        val locked = gson.fromJson("""{"planId":"p","weekNumber":1,"weekStart":"2026-11-16","weekEnd":"2026-11-22","timeline":"InProgress","mesocycle":null,"sessions":[],"locked":true}""", WeekView::class.java)
+        val open = gson.fromJson("""{"planId":"p","weekNumber":1,"weekStart":"2026-11-16","weekEnd":"2026-11-22","timeline":"InProgress","mesocycle":null,"sessions":[]}""", WeekView::class.java)
+        assertTrue(locked.locked)
+        assertFalse(open.locked)
+        val report = gson.fromJson("""{"exercises":[],"sessionAction":"none","sessionExplanation":"x","applied":[],"notes":[],"locked":true}""", AdaptationReport::class.java)
+        assertTrue(report.locked)
+    }
+
+    @Test fun `subscription status decides when Premium can be offered`() {
         fun status(json: String) = gson.fromJson(json, SubscriptionStatus::class.java)
         val free = status("""{"hasAccess":true,"enforced":false,"status":"none","productId":null,"startedAt":null,"expiresAt":null,"autoRenewing":false,"source":"google_play"}""")
         val lapsed = status("""{"hasAccess":false,"enforced":true,"status":"expired","productId":"p","startedAt":"2026-01-01T00:00:00+00:00","expiresAt":"2026-02-01T00:00:00+00:00","autoRenewing":false,"source":"google_play"}""")
         val paying = status("""{"hasAccess":true,"enforced":true,"status":"active","productId":"p","startedAt":null,"expiresAt":null,"autoRenewing":true,"source":"google_play"}""")
-        assertFalse(free.paywallRequired)
-        assertTrue(lapsed.paywallRequired)
-        assertFalse(paying.paywallRequired)
+        assertFalse(free.canUpgrade)
+        assertTrue(lapsed.canUpgrade)
+        assertFalse(paying.canUpgrade)
     }
 
     @Test fun `exercise page and detail`() {

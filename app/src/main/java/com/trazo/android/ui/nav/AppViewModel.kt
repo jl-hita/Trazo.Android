@@ -18,14 +18,11 @@ sealed interface AppState {
     data object Loading : AppState
     data object SignedOut : AppState
 
-    /** The backend demands payment and the account has no access. Never shown while the backend says the app is free. */
-    data class Paywall(val user: UserSummary?, val status: SubscriptionStatus?) : AppState
-
     /** [user] is null when the session was restored offline. */
     data class Ready(val user: UserSummary?, val status: SubscriptionStatus?) : AppState
 }
 
-/** Session and access state of the whole app: signed out, plans screen or the main navigation. */
+/** Session state of the whole app: loading, signed out or the main navigation. Premium never blocks the app: free plans work without it. */
 class AppViewModel(
     private val auth: AuthRepository,
     private val subscription: SubscriptionRepository,
@@ -63,21 +60,7 @@ class AppViewModel(
     private suspend fun enter() {
         val user = runCatching { auth.currentUser() }.getOrNull()
         val status = (subscription.status() as? ApiResult.Success)?.value
-        _state.value = if (status?.paywallRequired == true) AppState.Paywall(user, status) else AppState.Ready(user, status)
-    }
-
-    /** After a purchase: asks the backend again; the plans screen disappears as soon as it reports access. */
-    fun refreshAccess() {
-        viewModelScope.launch {
-            val status = (subscription.status() as? ApiResult.Success)?.value ?: return@launch
-            val user = (_state.value as? AppState.Paywall)?.user ?: (_state.value as? AppState.Ready)?.user
-            _state.value = if (status.paywallRequired) AppState.Paywall(user, status) else AppState.Ready(user, status)
-        }
-    }
-
-    fun onAccessGranted(status: SubscriptionStatus) {
-        val user = (_state.value as? AppState.Paywall)?.user
-        _state.value = if (status.paywallRequired) AppState.Paywall(user, status) else AppState.Ready(user, status)
+        _state.value = AppState.Ready(user, status)
     }
 
     fun signOut() {
@@ -90,13 +73,6 @@ class AppViewModel(
     private suspend fun onEvent(event: SessionEvent) {
         when (event) {
             SessionEvent.SessionExpired -> { clearLocalData(); _state.value = AppState.SignedOut }
-            SessionEvent.SubscriptionRequired -> {
-                val status = (subscription.status() as? ApiResult.Success)?.value
-                if (status == null || status.paywallRequired) {
-                    val user = (_state.value as? AppState.Ready)?.user ?: (_state.value as? AppState.Paywall)?.user
-                    if (_state.value !is AppState.SignedOut) _state.value = AppState.Paywall(user, status)
-                }
-            }
         }
     }
 }

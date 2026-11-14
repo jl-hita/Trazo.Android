@@ -247,24 +247,12 @@ class AppViewModelTest : ViewModelTestBase() {
         assertTrue(vm.state.value is AppState.Ready)
     }
 
-    @Test fun `enforced without access shows the plans screen, with access it does not`() = runTest(dispatcher) {
+    @Test fun `a user without Premium still enters the app and can be offered an upgrade`() = runTest(dispatcher) {
         val subs = FakeSubscriptionApi({ Response.success(SubscriptionStatus(hasAccess = false, enforced = true, status = "expired")) })
         val vm = app(MemoryTokenStore("a", "r"), subs)
         advanceUntilIdle()
-        assertTrue(vm.state.value is AppState.Paywall)
-        subs.status = { Response.success(SubscriptionStatus(hasAccess = true, enforced = true, status = "active")) }
-        vm.refreshAccess(); advanceUntilIdle()
-        assertTrue(vm.state.value is AppState.Ready)
-    }
-
-    @Test fun `a 402 event brings up the plans screen only if the backend confirms`() = runTest(dispatcher) {
-        val events = SessionEvents()
-        val subs = FakeSubscriptionApi()
-        val vm = app(MemoryTokenStore("a", "r"), subs, events)
-        advanceUntilIdle()
-        subs.status = { Response.success(SubscriptionStatus(hasAccess = false, enforced = true)) }
-        events.emit(SessionEvent.SubscriptionRequired); advanceUntilIdle()
-        assertTrue(vm.state.value is AppState.Paywall)
+        val ready = vm.state.value as AppState.Ready
+        assertTrue(ready.status!!.canUpgrade)
     }
 
     @Test fun `an expired session clears local data and goes back to sign in`() = runTest(dispatcher) {

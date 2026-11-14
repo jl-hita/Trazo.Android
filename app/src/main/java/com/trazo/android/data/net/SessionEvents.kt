@@ -6,10 +6,7 @@ import kotlinx.coroutines.flow.SharedFlow
 
 enum class SessionEvent {
     /** The refresh token is no longer valid: the user has to sign in again. */
-    SessionExpired,
-
-    /** The API answered 402: payment is required and the account has no access. */
-    SubscriptionRequired
+    SessionExpired
 }
 
 /** Lets the network layer tell the UI about session-wide conditions without knowing about screens. */

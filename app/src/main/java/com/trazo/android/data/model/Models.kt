@@ -12,7 +12,7 @@ data class PlanView(
     val startDate: String, val endDate: String, val goal: String, val experience: String, val split: String,
     val trainingDays: List<String>, val maxSessionMinutes: Int, val availableEquipment: List<String>,
     val excludedExerciseIds: List<String>, val limitations: List<String>, val currentPhase: Int?,
-    val macrocycle: MacrocycleView, val disclaimer: String
+    val macrocycle: MacrocycleView, val disclaimer: String, val origin: String? = null
 )
 
 data class ExerciseView(
@@ -39,14 +39,18 @@ data class SessionView(
 
 data class WeekView(
     val planId: String, val weekNumber: Int, val weekStart: String, val weekEnd: String, val timeline: String,
-    val mesocycle: MesocycleView?, val sessions: List<SessionView>
+    val mesocycle: MesocycleView?, val sessions: List<SessionView>,
+    /** A generated plan without Premium: it can be read, not used. */
+    val locked: Boolean = false
 )
 
 data class AppliedAdaptationView(val kind: String, val exerciseIds: List<String>, val sessionsChanged: Int, val explanation: String)
 data class ExerciseAdviceView(val exerciseId: String, val action: String, val explanation: String, val nextLoadKg: Double?, val suggestedRepetitions: List<Int>?)
 data class AdaptationReport(
     val exercises: List<ExerciseAdviceView>, val sessionAction: String, val sessionExplanation: String,
-    val applied: List<AppliedAdaptationView>, val notes: List<String>
+    val applied: List<AppliedAdaptationView>, val notes: List<String>,
+    /** The session was saved but not adapted: automatic adaptation is a Premium feature. */
+    val locked: Boolean = false
 )
 data class LogResult(val session: SessionView, val adaptation: AdaptationReport)
 
@@ -130,7 +134,7 @@ data class SubscriptionStatus(
     val hasAccess: Boolean, val enforced: Boolean = true, val status: String = "none", val productId: String? = null,
     val startedAt: String? = null, val expiresAt: String? = null, val autoRenewing: Boolean = false, val source: String? = null
 ) {
-    /** The plans screen is shown only when the backend demands payment and the user has no access. */
-    val paywallRequired: Boolean get() = enforced && !hasAccess
+    /** Premium can be offered: the backend charges for it and the account has no access yet. */
+    val canUpgrade: Boolean get() = enforced && !hasAccess
 }
 data class VerifySubscriptionRequest(val productId: String, val purchaseToken: String)

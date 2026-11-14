@@ -47,16 +47,16 @@ class PlanRepository(
 
     private val flushLock = Mutex()
 
-    suspend fun options(): ApiResult<PlanOptions> = guarded { apiCall { api.options() } }
+    suspend fun options(): ApiResult<PlanOptions> = apiCall { api.options() }
 
     suspend fun createPlan(request: PlanProfileRequest): ApiResult<PlanView> {
-        val result = guarded { apiCall { api.create(request) } }
+        val result = apiCall { api.create(request) }
         if (result is ApiResult.Success) { _week.value = null; cache.clear(); cache.savePlan(result.value) }
         return result
     }
 
     suspend fun currentPlan(): ApiResult<Fetched<PlanView>> {
-        val result = guarded { apiCall { api.current() } }
+        val result = apiCall { api.current() }
         return when {
             result is ApiResult.Success -> { cache.savePlan(result.value); ApiResult.Success(Fetched(result.value)) }
             result is ApiResult.Failure && result.error.kind == ErrorKind.Network -> cache.plan()?.let { ApiResult.Success(Fetched(it, true)) } ?: result
@@ -67,7 +67,7 @@ class PlanRepository(
 
     suspend fun currentWeek(): ApiResult<Fetched<WeekView>> {
         flushPending()
-        val result = guarded { apiCall { api.week() } }
+        val result = apiCall { api.week() }
         return when (result) {
             is ApiResult.Success -> { cache.saveWeek(result.value); _week.value = result.value; ApiResult.Success(Fetched(result.value)) }
             is ApiResult.Failure -> {
@@ -81,11 +81,11 @@ class PlanRepository(
         }
     }
 
-    suspend fun history(take: Int = 30): ApiResult<List<HistoryItem>> = guarded { apiCall { api.history(take) } }
+    suspend fun history(take: Int = 30): ApiResult<List<HistoryItem>> = apiCall { api.history(take) }
 
     /** The latest manual-review request of the active plan; success with null when none was made yet. */
     suspend fun reviewRequest(messages: Boolean = false): ApiResult<ReviewRequestView?> {
-        val result = guarded { apiCall { api.reviewRequest(messages) } }
+        val result = apiCall { api.reviewRequest(messages) }
         return when {
             result is ApiResult.Success -> ApiResult.Success(result.value)
             result is ApiResult.Failure && result.error.code == "no_review_request" -> ApiResult.Success(null)
@@ -94,22 +94,22 @@ class PlanRepository(
     }
 
     suspend fun requestReview(note: String?): ApiResult<ReviewRequestView> =
-        guarded { apiCall { api.requestReview(ReviewRequestBody(note?.trim()?.takeIf { it.isNotEmpty() })) } }
+        apiCall { api.requestReview(ReviewRequestBody(note?.trim()?.takeIf { it.isNotEmpty() })) }
 
     suspend fun sendReviewMessage(body: String): ApiResult<ReviewRequestView> =
-        guarded { apiCall { api.sendReviewMessage(ReviewMessageBody(body.trim())) } }
+        apiCall { api.sendReviewMessage(ReviewMessageBody(body.trim())) }
 
     suspend fun archive(): ApiResult<Unit> {
-        val result = guarded { apiCall { api.archive() } }
+        val result = apiCall { api.archive() }
         if (result is ApiResult.Success) { _week.value = null; cache.clear() }
         return result
     }
 
     suspend fun alternatives(sessionId: String, exerciseId: String): ApiResult<AlternativesResult> =
-        guarded { apiCall { api.alternatives(sessionId, exerciseId) } }
+        apiCall { api.alternatives(sessionId, exerciseId) }
 
     suspend fun swap(sessionId: String, exerciseId: String, replacementId: String, remainingBlock: Boolean): ApiResult<SessionView> {
-        val result = guarded { apiCall { api.swap(sessionId, exerciseId, SwapRequest(replacementId, remainingBlock)) } }
+        val result = apiCall { api.swap(sessionId, exerciseId, SwapRequest(replacementId, remainingBlock)) }
         if (result is ApiResult.Success) replaceSession(result.value)
         return result
     }
@@ -119,7 +119,7 @@ class PlanRepository(
      * loss) and delivered later by [flushPending]; other rejections are returned to the user.
      */
     suspend fun submitLog(sessionId: String, request: LogSessionRequest, now: Long = System.currentTimeMillis()): LogOutcome {
-        val result = guarded { apiCall { api.log(sessionId, request) } }
+        val result = apiCall { api.log(sessionId, request) }
         return when (result) {
             is ApiResult.Success -> { replaceSession(result.value.session); LogOutcome.Sent(result.value) }
             is ApiResult.Failure -> when {
@@ -134,7 +134,7 @@ class PlanRepository(
     suspend fun flushPending(): Int = flushLock.withLock {
         var removed = 0
         for (item in queue.all().sortedBy { it.createdAtMillis }) {
-            val result = guarded { apiCall { api.log(item.sessionId, item.request) } }
+            val result = apiCall { api.log(item.sessionId, item.request) }
             val done = when (result) {
                 is ApiResult.Success -> true.also { replaceSession(result.value.session) }
                 is ApiResult.Failure -> when {
@@ -166,13 +166,6 @@ class PlanRepository(
         val week = current.copy(sessions = current.sessions.map { if (it.id == updated.id) updated else it })
         _week.value = week
         cache.saveWeek(week)
-    }
-
-    /** A 402 means the account has no access: nothing of the plan may stay on the device. */
-    private suspend fun <T> guarded(call: suspend () -> ApiResult<T>): ApiResult<T> {
-        val result = call()
-        if (result is ApiResult.Failure && result.error.kind == ErrorKind.SubscriptionRequired) { _week.value = null; cache.clear() }
-        return result
     }
 
     companion object {

@@ -81,13 +81,13 @@ class PlanRepositoryTest {
         assertEquals(ErrorKind.Network, result.error.kind)
     }
 
-    @Test fun `payment required wipes the local copy`() = runTest {
+    @Test fun `payment required keeps the local copy, the plan is still readable`() = runTest {
         repo.currentWeek()
-        api.weekResponse = { httpError(402, """{"error":"subscription_required"}""") }
+        api.weekResponse = { httpError(402, """{"title":"premium_required"}""") }
         val result = repo.currentWeek() as ApiResult.Failure
         assertEquals(ErrorKind.SubscriptionRequired, result.error.kind)
-        assertNull(cache.week())
-        assertNull(repo.week.value)
+        assertNotNull(cache.week())
+        assertNotNull(repo.week.value)
     }
 
     @Test fun `no active plan is reported with its code and clears the cache`() = runTest {

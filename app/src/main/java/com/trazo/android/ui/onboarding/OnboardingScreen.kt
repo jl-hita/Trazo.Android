@@ -12,10 +12,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
+import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
 @Composable
-fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onCreated: () -> Unit) {
+fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremium: () -> Unit, onCreated: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(state.created) { if (state.created) onCreated() }
     Column(Modifier.fillMaxSize()) {
@@ -61,6 +62,9 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onCreat
                 ChipGroup(options.limitations, state.limitations, Labels::limitation, viewModel::toggleLimitation)
 
                 state.error?.let { InlineError(it, Modifier.padding(top = 8.dp)) }
+                if (state.error?.kind == com.trazo.android.data.net.ErrorKind.SubscriptionRequired) {
+                    TrazoLink(onClick = onPremium, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
+                }
             }
         }
         if (options != null) {

@@ -20,11 +20,11 @@ import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
 /**
- * Plans screen. The app only reaches it when the backend demands a subscription and the account has no access; while the
- * backend says TRAZO is free (the default) this screen never appears.
+ * Premium offer. It is opened on demand (from the account, a locked plan or a Premium-only feature); nothing forces the user
+ * to see it, since manual plans are free.
  */
 @Composable
-fun PaywallScreen(viewModel: PaywallViewModel, onLogout: () -> Unit) {
+fun PaywallScreen(viewModel: PaywallViewModel, onClose: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val activity = LocalContext.current as? Activity
     Column(Modifier.fillMaxSize().safeDrawingPadding().verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
@@ -53,6 +53,6 @@ fun PaywallScreen(viewModel: PaywallViewModel, onLogout: () -> Unit) {
             modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)
         ) { Text(stringResource(R.string.paywall_subscribe)) }
         TrazoLink(onClick = viewModel::restore, enabled = !state.purchasing, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.paywall_restore)) }
-        TrazoLink(onClick = onLogout, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.paywall_logout)) }
+        TrazoLink(onClick = onClose, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.paywall_close)) }
     }
 }

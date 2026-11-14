@@ -52,6 +52,7 @@ object Routes {
     const val CATALOG = "catalog"
     const val ACCOUNT = "account"
     const val ONBOARDING = "onboarding"
+    const val PREMIUM = "premium"
     const val OVERVIEW = "overview"
     const val HISTORY = "history"
     const val SESSION = "session/{id}"
@@ -71,7 +72,7 @@ private inline fun <reified VM : ViewModel> containerViewModel(key: String? = nu
     return viewModel(key = key, factory = viewModelFactory { initializer { create(c) } })
 }
 
-/** Top of the UI: chooses between loading, sign-in, the plans screen (only if the backend requires payment) and the app. */
+/** Top of the UI: chooses between loading, sign-in and the app. Premium is an optional screen inside the app. */
 @Composable
 fun AppRoot(actionType: String?, actionToken: String?) {
     val c = container()
@@ -81,10 +82,6 @@ fun AppRoot(actionType: String?, actionToken: String?) {
         when (val s = state) {
             AppState.Loading -> LoadingBox()
             AppState.SignedOut -> LoginScreen(c.auth, BuildConfig.GOOGLE_WEB_CLIENT_ID, actionType, actionToken, onSignedIn = app::onSignedIn)
-            is AppState.Paywall -> {
-                val paywall: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, s.user?.id, app::onAccessGranted) }
-                PaywallScreen(paywall, onLogout = app::signOut)
-            }
             is AppState.Ready -> MainNavigation(s.user, onLogout = app::signOut)
         }
     }
@@ -136,6 +133,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
                         onOverview = { nav.navigate(Routes.OVERVIEW) },
                         onHistory = { nav.navigate(Routes.HISTORY) },
                         onCreatePlan = { nav.navigate(Routes.ONBOARDING) },
+                        onPremium = { nav.navigate(Routes.PREMIUM) },
                         onSendPending = { planVm.sendPending() }
                     )
                 }
@@ -145,11 +143,15 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
                 }
                 composable(Routes.ACCOUNT) {
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
-                    AccountScreen(vm, c.auth, user, onLogout = onLogout, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
+                    AccountScreen(vm, c.auth, user, onLogout = onLogout, onPremium = { nav.navigate(Routes.PREMIUM) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
                 }
                 composable(Routes.ONBOARDING) {
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
-                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onCreated = { planVm.load(); nav.popBackStack() })
+                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.PREMIUM) }, onCreated = { planVm.load(); nav.popBackStack() })
+                }
+                composable(Routes.PREMIUM) {
+                    val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { planVm.load(); nav.popBackStack() }) }
+                    PaywallScreen(vm, onClose = { nav.popBackStack() })
                 }
                 composable(Routes.OVERVIEW) { PlanOverviewScreen(planVm, onBack = { nav.popBackStack() }) }
                 composable(Routes.HISTORY) {
@@ -158,7 +160,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
                 }
                 composable(Routes.SESSION, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
-                    SessionScreen(c.plans.week, id, onBack = { nav.popBackStack() }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
+                    SessionScreen(c.plans.week, id, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.PREMIUM) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()

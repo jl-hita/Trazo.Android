@@ -137,8 +137,8 @@ data class PaywallState(
 )
 
 /**
- * The plans screen. It exists only while the backend says a subscription is required and the account has no access; the
- * app never decides that on its own.
+ * The Premium offer. Whether the account has access is always the backend's call; the app only starts the purchase and
+ * asks the backend to confirm it.
  */
 class PaywallViewModel(
     private val billing: BillingRepository,

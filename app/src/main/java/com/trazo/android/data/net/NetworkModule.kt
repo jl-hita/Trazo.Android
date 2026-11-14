@@ -26,15 +26,6 @@ class AuthInterceptor(private val tokens: TokenStore) : Interceptor {
     }
 }
 
-/** Reports a 402 so the app can show the plans screen. The response itself still reaches the caller. */
-class PaymentRequiredInterceptor(private val events: SessionEvents) : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val response = chain.proceed(chain.request())
-        if (response.code == 402) events.emit(SessionEvent.SubscriptionRequired)
-        return response
-    }
-}
-
 /**
  * Refreshes the 60-minute access token when the API answers 401 and retries once. Only one refresh runs at a time; calls
  * that were waiting reuse the new token. A refresh token the server rejects ends the session; a network failure does not.
@@ -105,7 +96,6 @@ class NetworkModule(
 
     val client: OkHttpClient = baseClient()
         .addInterceptor(AuthInterceptor(tokens))
-        .addInterceptor(PaymentRequiredInterceptor(events))
         .authenticator(TokenAuthenticator(tokens, plainAuthApi, events))
         .build()
 

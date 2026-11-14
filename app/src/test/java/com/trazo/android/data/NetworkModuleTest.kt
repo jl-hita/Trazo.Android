@@ -75,13 +75,13 @@ class NetworkModuleTest {
         assertTrue(result.error.kind == ErrorKind.Unauthorized || result.error.kind == ErrorKind.Network)
     }
 
-    @Test fun `a 402 raises the subscription event and reaches the caller`() = runTest(UnconfinedTestDispatcher()) {
+    @Test fun `a 402 reaches the caller and raises no session event`() = runTest(UnconfinedTestDispatcher()) {
         val seen = mutableListOf<SessionEvent>()
         events.events.onEach { seen += it }.launchIn(backgroundScope)
         server.enqueue(MockResponse().setResponseCode(402).setBody("""{"error":"subscription_required"}"""))
         val result = apiCall { plans.week() } as ApiResult.Failure
         assertEquals(ErrorKind.SubscriptionRequired, result.error.kind)
-        assertEquals(listOf(SessionEvent.SubscriptionRequired), seen)
+        assertTrue(seen.isEmpty())
     }
 
     @Test fun `authentication endpoints never get the bearer token added`() = runBlocking {
