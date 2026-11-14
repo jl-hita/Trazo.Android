@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        actionUri = intent?.data
+        actionUri = trustedLink(intent)
         setContent {
             TrazoTheme {
                 val uri = actionUri
@@ -32,6 +32,10 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        actionUri = intent.data
+        actionUri = trustedLink(intent)
     }
+
+    /** Only https links to the site of this build carry an account action; anything else an app sends is ignored. */
+    private fun trustedLink(intent: Intent?): Uri? =
+        intent?.data?.takeIf { it.scheme == "https" && it.host.equals(BuildConfig.APP_LINK_HOST, ignoreCase = true) }
 }

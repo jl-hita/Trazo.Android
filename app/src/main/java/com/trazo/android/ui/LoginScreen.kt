@@ -151,7 +151,7 @@ fun LoginScreen(
                             busy = true
                             scope.launch {
                                 try {
-                                    when (val g = requestGoogleIdToken(context, googleClientId, BuildConfig.DEBUG)) {
+                                    when (val g = requestGoogleIdToken(context, googleClientId, BuildConfig.DEBUG, repo.googleNonce())) {
                                         is GoogleResult.Token -> handle(repo.google(g.idToken))
                                         else -> message = googleResultText(context, g)
                                     }

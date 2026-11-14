@@ -11,6 +11,7 @@ data class TwoFactorVerifyRequest(val challengeToken:String,val code:String,val 
 data class RefreshRequest(val refreshToken:String,val deviceName:String="Android")
 data class AuthResponse(val accessToken:String?=null,val refreshToken:String?=null,val twoFactorRequired:Boolean=false,val challengeToken:String?=null,val emailVerificationRequired:Boolean=false,val message:String?=null)
 data class GoogleLinkRequest(val idToken:String)
+data class GoogleNonceResponse(val nonce:String?=null)
 data class EmailRequest(val email:String)
 data class EmailTokenRequest(val token:String)
 data class ResetPasswordRequest(val token:String,val newPassword:String)
@@ -22,6 +23,7 @@ interface AuthApi {
  @POST("api/v1/auth/register") suspend fun register(@Body request:RegisterRequest):Response<AuthResponse>
  @POST("api/v1/auth/login") suspend fun login(@Body request:LoginRequest):Response<AuthResponse>
  @POST("api/v1/auth/google") suspend fun google(@Body request:GoogleLoginRequest):Response<AuthResponse>
+ @POST("api/v1/auth/google/nonce") suspend fun googleNonce():Response<GoogleNonceResponse>
  @POST("api/v1/auth/2fa/verify") suspend fun verifyTwoFactor(@Body request:TwoFactorVerifyRequest):Response<AuthResponse>
  @POST("api/v1/auth/refresh") suspend fun refresh(@Body request:RefreshRequest):Response<AuthResponse>
  @POST("api/v1/auth/logout") suspend fun logout(@Header("Authorization") authorization:String,@Body request:RefreshRequest):Response<Unit>

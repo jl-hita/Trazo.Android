@@ -149,12 +149,14 @@ No incluyas un Google client secret en el APK ni en el repositorio. La app solic
 
 ## 5. Deep links de correo
 
-La app registra actualmente estos enlaces:
+La app registra App Links verificados (https) sobre el host de la API de la compilación (`apiBaseUrl`/`apiHost`):
 
-- `trazo://account/account/verify-email`
-- `trazo://account/account/reset-password`
+- `https://<host>/account/verify-email`
+- `https://<host>/account/reset-password`
 
-El backend envía enlaces basados en `Email__ActionBaseUrl=trazo://account` y añade las rutas de verificación/recuperación. Comprueba el enlace recibido por correo en un dispositivo real; la configuración SMTP y la URL base se mantienen en el backend, no en Gradle.
+Ya no se usa el esquema `trazo://`: cualquier otra app puede registrarlo y recibir el token de restablecimiento. El backend solo admite una `Email__ActionBaseUrl` https (por ejemplo `https://trazostrength.duckdns.org`) y añade las rutas de verificación/recuperación.
+
+Para que Android abra la app en lugar del navegador, el sitio debe publicar `https://<host>/.well-known/assetlinks.json` con el paquete `com.trazo.android` y la huella SHA-256 del certificado de firma (la de «Firma de apps» de Play Console para las compilaciones de la tienda). Mientras ese archivo no exista, los enlaces abren las páginas web equivalentes, que hacen lo mismo. Compruébalo con `adb shell pm get-app-links com.trazo.android`.
 
 ## 6. Construcción de artefactos
 
@@ -199,7 +201,7 @@ La firma de release debe configurarse de forma segura en el entorno de compilaci
 |---|---|
 | `apiBaseUrl=https://trazo.duckdns.org/` | Nginx host `trazo.duckdns.org` -> `127.0.0.1:5001` |
 | `googleWebClientId` | `Authentication__Google__ClientId` (mismo Web Client ID) |
-| Deep links `trazo://account` | `Email__ActionBaseUrl=trazo://account` |
+| App Links `https://<host>/account/...` | `Email__ActionBaseUrl=https://<host>` y `/.well-known/assetlinks.json` |
 | No aplica | `Authentication__Jwt__SigningKey`, SMTP password y DB password permanecen solo en el servidor |
 
 El hostname `trazo.duckdns.org` es el destino propuesto, pendiente de reserva DNS, certificado TLS y configuración del proxy. Esta guía no significa que el servicio público esté ya disponible.

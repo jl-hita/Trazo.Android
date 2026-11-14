@@ -1,3 +1,4 @@
+import java.net.URI
 import java.util.Properties
 
 plugins {
@@ -57,6 +58,10 @@ android {
   buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleClientId\"")
   buildConfigField("String", "BILLING_PRODUCT_ID", "\"$billingProductId\"")
   buildConfigField("boolean", "SECURE_SCREENS", "true")
+  // Host of the verified App Links (email verification and password reset): the site that serves the API.
+  val appLinkHost = runCatching { URI(releaseApiUrl).host }.getOrNull() ?: "api.example.invalid"
+  manifestPlaceholders["appLinkHost"] = appLinkHost
+  buildConfigField("String", "APP_LINK_HOST", "\"$appLinkHost\"")
  }
  signingConfigs {
   if (hasReleaseSigning) create("release") {

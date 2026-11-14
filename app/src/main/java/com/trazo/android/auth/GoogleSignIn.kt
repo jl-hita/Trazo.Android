@@ -19,9 +19,14 @@ sealed interface GoogleResult {
     data class Unavailable(val detail: String?) : GoogleResult
 }
 
-/** Asks the user to pick a Google account and returns its ID token (used to sign in and to link the account). */
-suspend fun requestGoogleIdToken(context: Context, clientId: String, debug: Boolean): GoogleResult = try {
-    val request = GetCredentialRequest.Builder().addCredentialOption(GetSignInWithGoogleOption.Builder(clientId).build()).build()
+/**
+ * Asks the user to pick a Google account and returns its ID token (used to sign in and to link the account).
+ * [nonce] comes from the API ([AuthRepository.googleNonce]): Google embeds it in the token and the API accepts that
+ * token once, so a token captured elsewhere cannot be replayed. Null only when the API could not provide one.
+ */
+suspend fun requestGoogleIdToken(context: Context, clientId: String, debug: Boolean, nonce: String? = null): GoogleResult = try {
+    val option = GetSignInWithGoogleOption.Builder(clientId).apply { if (!nonce.isNullOrBlank()) setNonce(nonce) }.build()
+    val request = GetCredentialRequest.Builder().addCredentialOption(option).build()
     val credential = CredentialManager.create(context).getCredential(context, request).credential
     if (credential is CustomCredential && credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)
         GoogleResult.Token(GoogleIdTokenCredential.createFrom(credential.data).idToken)

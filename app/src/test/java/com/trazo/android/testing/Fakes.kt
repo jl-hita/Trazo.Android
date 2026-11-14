@@ -64,6 +64,7 @@ class FakeAuthApi(var refreshResponse: () -> Response<AuthResponse> = { Response
     override suspend fun register(request: RegisterRequest): Response<AuthResponse> = TODO()
     override suspend fun login(request: LoginRequest): Response<AuthResponse> = TODO()
     override suspend fun google(request: GoogleLoginRequest): Response<AuthResponse> = TODO()
+    override suspend fun googleNonce(): Response<GoogleNonceResponse> = Response.success(GoogleNonceResponse("test-nonce"))
     override suspend fun verifyTwoFactor(request: TwoFactorVerifyRequest): Response<AuthResponse> = TODO()
     override suspend fun refresh(request: RefreshRequest) = refreshResponse()
     override suspend fun logout(authorization: String, request: RefreshRequest): Response<Unit> = Response.success(Unit)
