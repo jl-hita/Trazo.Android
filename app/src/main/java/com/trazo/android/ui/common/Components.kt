@@ -142,6 +142,28 @@ fun TrazoCard(modifier: Modifier = Modifier, onClick: (() -> Unit)? = null, cont
 @Composable
 fun SectionTitle(text: String, modifier: Modifier = Modifier) = Eyebrow(text.uppercase(), modifier.padding(top = 12.dp, bottom = 4.dp))
 
+/** The seven weekdays on a single row (equal widths, short names), starting on the first day of the week of the device locale. */
+@Composable
+fun DayPicker(days: List<String>, selected: Set<String>, onToggle: (String) -> Unit, modifier: Modifier = Modifier) {
+    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        Labels.inWeekOrder(days).forEach { day ->
+            val on = day in selected
+            Surface(
+                selected = on, onClick = { onToggle(day) },
+                modifier = Modifier.weight(1f).heightIn(min = MinTouch),
+                shape = RoundedCornerShape(8.dp),
+                color = if (on) TrazoPalette.PrimaryButton else TrazoPalette.Card,
+                contentColor = if (on) androidx.compose.ui.graphics.Color.White else TrazoPalette.Text,
+                border = BorderStroke(1.dp, if (on) TrazoPalette.PrimaryButton else TrazoPalette.Border)
+            ) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(Labels.dayShort(day), maxLines = 1, softWrap = false, style = MaterialTheme.typography.labelLarge)
+                }
+            }
+        }
+    }
+}
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ChipGroup(

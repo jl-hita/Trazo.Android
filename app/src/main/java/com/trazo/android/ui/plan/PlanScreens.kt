@@ -152,7 +152,7 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, onBack: () -> Unit) {
                     TrazoCard {
                         Text(stringResource(R.string.overview_goal, Labels.goal(plan.goal)))
                         Text(stringResource(R.string.overview_level, Labels.experience(plan.experience)))
-                        Text(stringResource(R.string.overview_days, plan.trainingDays.joinToString(", ") { Labels.day(it) }))
+                        Text(stringResource(R.string.overview_days, Labels.inWeekOrder(plan.trainingDays).joinToString(", ") { Labels.day(it) }))
                         Text(
                             stringResource(
                                 R.string.overview_limitations,
