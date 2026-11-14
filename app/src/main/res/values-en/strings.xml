@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TRAZO</string>
+
+    <!-- Navigation -->
+    <string name="nav_plan">Plan</string>
+    <string name="nav_catalog">Exercises</string>
+    <string name="nav_account">Account</string>
+    <string name="back">Back</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading…</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">OK</string>
+    <string name="close">Close</string>
+    <string name="continue_label">Continue</string>
+    <string name="offline_copy">Offline: showing the last saved copy. It clears itself after a few hours.</string>
+
+    <!-- Errors -->
+    <string name="err_network">Can\'t reach TRAZO. Check your connection and try again.</string>
+    <string name="err_server">TRAZO is unavailable right now. Please try again in a few minutes.</string>
+    <string name="err_unauthorized">Your session has expired. Please sign in again.</string>
+    <string name="err_subscription">You need an active subscription to continue.</string>
+    <string name="err_not_found">We couldn\'t find what you were looking for.</string>
+    <string name="err_conflict">That can\'t be done right now.</string>
+    <string name="err_validation">Check the data and try again.</string>
+    <string name="err_unknown">Something unexpected happened. Please try again.</string>
+    <string name="err_active_plan_exists">You already have an active plan. Archive it from Account to create another.</string>
+    <string name="err_plan_generation_failed">We couldn\'t build a plan with that data. Try more available equipment or fewer limitations.</string>
+    <string name="err_session_out_of_window">This session can no longer be logged: it\'s only accepted during its week and the following one.</string>
+    <string name="err_session_already_logged">This session was already logged.</string>
+    <string name="err_no_active_plan">You don\'t have an active plan.</string>
+    <string name="err_purchase_already_linked">This purchase belongs to another TRAZO account.</string>
+    <string name="err_purchase_account_mismatch">This purchase was made by another Google Play account.</string>
+
+    <!-- Plan tab -->
+    <string name="plan_title">Your week</string>
+    <string name="plan_week_of">Week %1$d of %2$d</string>
+    <string name="plan_block">Block %1$d · %2$s · week %3$d of %4$d</string>
+    <string name="plan_deload">deload</string>
+    <string name="plan_not_started">Your plan starts on %1$s. This is the first week.</string>
+    <string name="plan_finished">You have completed your plan. Create the next one to keep going.</string>
+    <string name="plan_no_sessions">There are no sessions planned this week.</string>
+    <string name="plan_overview">View the full plan</string>
+    <string name="plan_history">Session history</string>
+    <string name="plan_session_minutes">%1$d min</string>
+    <string name="plan_session_exercises">%1$d exercises</string>
+    <string name="plan_pending_logs">%1$d workouts are waiting for a connection to be sent.</string>
+    <string name="plan_send_now">Send now</string>
+    <string name="plan_next_plan">Create the next plan</string>
+    <string name="status_planned">Pending</string>
+    <string name="status_completed">Done</string>
+    <string name="status_partial">Partial</string>
+    <string name="status_skipped">Not done</string>
+
+    <!-- Plan overview -->
+    <string name="overview_title">Your plan</string>
+    <string name="overview_phases">Phases</string>
+    <string name="overview_future_note">By design you only see the current week in detail: the rest of the sessions are generated and adapted as you train.</string>
+    <string name="overview_profile">Your profile</string>
+    <string name="overview_goal">Goal: %1$s</string>
+    <string name="overview_level">Level: %1$s</string>
+    <string name="overview_days">Days: %1$s</string>
+    <string name="overview_limitations">Limitations: %1$s</string>
+    <string name="overview_none">none</string>
+    <string name="history_title">History</string>
+    <string name="history_empty">You haven\'t logged any session yet.</string>
+    <string name="history_sets">%1$d of %2$d sets</string>
+
+    <!-- Onboarding -->
+    <string name="onb_title">Create your plan</string>
+    <string name="onb_intro">Tell us how you train and we\'ll build a personalised plan with progression.</string>
+    <string name="onb_goal">Goal</string>
+    <string name="onb_level">Level</string>
+    <string name="onb_days">Training days</string>
+    <string name="onb_days_hint">Choose between %1$d and %2$d days.</string>
+    <string name="onb_minutes">Maximum session length: %1$d min</string>
+    <string name="onb_weeks">Plan length: %1$d weeks</string>
+    <string name="onb_equipment">Available equipment</string>
+    <string name="onb_equipment_hint">If you pick nothing, we assume you have everything.</string>
+    <string name="onb_limitations">Aches or injuries</string>
+    <string name="onb_limitations_hint">We\'ll avoid the most common exercises for that area. This is not medical advice: ask a professional if in doubt.</string>
+    <string name="onb_create">Generate my plan</string>
+    <string name="onb_creating">Generating your plan…</string>
+
+    <!-- Session and workout -->
+    <string name="session_start">Start workout</string>
+    <string name="session_done">Session logged</string>
+    <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
+    <string name="session_rir">RIR %1$s</string>
+    <string name="session_rest">Rest %1$s</string>
+    <string name="session_target_load">Target: %1$s kg</string>
+    <string name="session_warmup">Warm-up sets: %1$d</string>
+    <string name="session_swapped">Swapped</string>
+    <string name="session_view_exercise">View exercise</string>
+    <string name="workout_title">Workout</string>
+    <string name="workout_set">Set %1$d</string>
+    <string name="workout_weight">Weight (kg)</string>
+    <string name="workout_reps">Reps</string>
+    <string name="workout_rir">RIR</string>
+    <string name="workout_set_done">Set %1$d done</string>
+    <string name="workout_mark_set">Mark set %1$d as done</string>
+    <string name="workout_need_reps">Enter the reps to mark the set.</string>
+    <string name="workout_progress">%1$d of %2$d sets</string>
+    <string name="workout_rest">Rest</string>
+    <string name="workout_rest_plus">+15 s</string>
+    <string name="workout_rest_minus">−15 s</string>
+    <string name="workout_rest_skip">Skip</string>
+    <string name="workout_swap">Swap exercise</string>
+    <string name="workout_finish">Finish session</string>
+    <string name="workout_alternatives_title">Alternatives</string>
+    <string name="workout_alternatives_empty">There are no alternatives for this exercise with your equipment and limitations.</string>
+    <string name="workout_swap_block">Also apply to the rest of the block</string>
+    <string name="workout_leave_title">Leave the workout?</string>
+    <string name="workout_leave_text">What you entered is saved on this device and you can resume it.</string>
+    <string name="workout_leave">Leave</string>
+    <string name="finish_title">Close the session</string>
+    <string name="finish_recovery">How recovered did you arrive?</string>
+    <string name="finish_rpe">Session effort: %1$s out of 10</string>
+    <string name="finish_rpe_unset">not set</string>
+    <string name="finish_pain">I felt pain</string>
+    <string name="finish_reason">Why wasn\'t it completed?</string>
+    <string name="finish_notes">Notes (optional)</string>
+    <string name="finish_send">Send</string>
+    <string name="finish_sending">Sending…</string>
+    <string name="finish_queued">Offline: we saved the workout and will send it as soon as there\'s a connection. You won\'t lose it.</string>
+    <string name="finish_sent">Session saved</string>
+    <string name="finish_adaptation">How your plan adapts</string>
+    <string name="finish_notes_title">Notices</string>
+    <string name="finish_applied">Changes applied</string>
+    <string name="finish_back_to_plan">Back to the plan</string>
+
+    <!-- Catalog -->
+    <string name="catalog_title">Exercises</string>
+    <string name="catalog_search">Search exercise</string>
+    <string name="catalog_filters">Filters</string>
+    <string name="catalog_clear_filters">Clear filters</string>
+    <string name="catalog_empty">No exercises match your search.</string>
+    <string name="catalog_count">%1$d exercises</string>
+    <string name="catalog_pattern">Movement</string>
+    <string name="catalog_difficulty">Level</string>
+    <string name="catalog_equipment">Equipment</string>
+    <string name="catalog_muscle">Muscle</string>
+    <string name="catalog_any">All</string>
+    <string name="exercise_instructions">How to do it</string>
+    <string name="exercise_tips">Tips</string>
+    <string name="exercise_primary">Primary muscles</string>
+    <string name="exercise_secondary">Secondary muscles</string>
+    <string name="exercise_equipment">Equipment</string>
+    <string name="exercise_no_equipment">No equipment</string>
+    <string name="exercise_level">Difficulty</string>
+    <string name="exercise_image_of">Image of %1$s</string>
+    <string name="exercise_image_n">Image %2$d of %1$s</string>
+
+    <!-- Account -->
+    <string name="account_title">Account</string>
+    <string name="account_subscription">Subscription</string>
+    <string name="account_free">TRAZO is free for now: you don\'t need a subscription.</string>
+    <string name="account_access_ok">You have full access.</string>
+    <string name="account_status">Status: %1$s</string>
+    <string name="account_expires">Valid until: %1$s</string>
+    <string name="account_plan">Training plan</string>
+    <string name="account_archive">Archive my current plan</string>
+    <string name="account_archive_title">Archive the plan?</string>
+    <string name="account_archive_text">You\'ll be able to create a new one. Your session history is kept.</string>
+    <string name="account_archive_confirm">Archive</string>
+    <string name="account_logout">Sign out</string>
+    <string name="account_logout_title">Sign out?</string>
+    <string name="account_logout_text">The cached plan and drafts will be erased from this device. Workouts not yet sent will be lost.</string>
+    <string name="account_logout_pending">You have %1$d unsent workouts; signing out will lose them.</string>
+    <string name="account_security">Security (2FA)</string>
+    <string name="account_version">TRAZO %1$s</string>
+    <string name="account_signed_as">%1$s · %2$s</string>
+
+    <!-- Paywall -->
+    <string name="paywall_title">Subscribe to TRAZO</string>
+    <string name="paywall_text">You need an active subscription to keep using TRAZO.</string>
+    <string name="paywall_trial">Free trial included. Cancel any time from Google Play.</string>
+    <string name="paywall_price">%1$s · auto-renewing</string>
+    <string name="paywall_subscribe">Subscribe</string>
+    <string name="paywall_restore">I already subscribed: restore</string>
+    <string name="paywall_unavailable">The subscription isn\'t available on Google Play right now. Please try again later.</string>
+    <string name="paywall_pending">Your payment is pending. We\'ll grant access when Google Play confirms it.</string>
+    <string name="paywall_failed">The purchase couldn\'t be completed. You haven\'t been charged unless you see a Google Play charge.</string>
+    <string name="paywall_logout">Sign out</string>
+
+    <!-- Login -->
+    <string name="login_tagline">TRAIN · IMPROVE · ADVANCE</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_name">Name</string>
+    <string name="login_sign_in">Sign in</string>
+    <string name="login_create_account">Create account</string>
+    <string name="login_have_account">I already have an account</string>
+    <string name="login_resend">Resend verification</string>
+    <string name="login_forgot">I forgot my password</string>
+    <string name="login_google">Continue with Google</string>
+    <string name="login_google_missing">Google Sign-In requires googleWebClientId to be configured.</string>
+    <string name="login_reset_title">Reset password</string>
+    <string name="login_new_password">New password</string>
+    <string name="login_save_password">Save password</string>
+    <string name="login_2fa_code">2FA or recovery code</string>
+    <string name="login_verify">Verify</string>
+    <string name="login_enter_2fa">Enter the code from your authenticator app.</string>
+    <string name="login_verify_email_first">Verify your email before signing in.</string>
+    <string name="login_email_verified">Email verified. You can sign in now.</string>
+    <string name="login_link_invalid">The link is invalid or has expired.</string>
+    <string name="login_verify_failed">Couldn\'t verify the email. Check your connection.</string>
+    <string name="login_password_updated">Password updated. You can sign in now.</string>
+    <string name="login_reset_failed">Couldn\'t reset the password.</string>
+    <string name="login_2fa_failed">Couldn\'t verify the code.</string>
+    <string name="login_connect_failed">Couldn\'t connect to TRAZO. Check your connection.</string>
+    <string name="login_resend_sent">If the account exists and needs verifying, you\'ll receive an email.</string>
+    <string name="login_resend_failed">Couldn\'t request the verification.</string>
+    <string name="login_forgot_sent">If a matching account exists, you\'ll receive instructions.</string>
+    <string name="login_forgot_failed">Couldn\'t request the reset.</string>
+    <string name="google_no_account">There is no Google account available on this device.</string>
+    <string name="google_unexpected">Google returned an unexpected credential type.</string>
+    <string name="google_unavailable">Google Sign-In isn\'t available right now.</string>
+    <string name="google_failed_debug">Google Sign-In failed (%1$s)</string>
+    <string name="auth_err_generic">Couldn\'t authenticate. Check your details and connection.</string>
+    <string name="auth_err_incomplete">The authentication response is incomplete.</string>
+    <string name="auth_err_no_challenge">The API did not return the 2FA challenge.</string>
+    <string name="auth_err_no_session">There is no active session.</string>
+    <string name="auth_err_2fa_setup">Couldn\'t start the 2FA setup.</string>
+    <string name="auth_err_2fa_code">The 2FA code is not valid.</string>
+    <string name="auth_err_2fa_disable">Couldn\'t turn off 2FA.</string>
+    <string name="auth_err_logout_all">Couldn\'t sign out on all devices.</string>
+    <string name="auth_err_link_google">Couldn\'t link the Google account.</string>
+
+    <!-- Security section -->
+    <string name="sec_2fa_on">Two-step authentication: on</string>
+    <string name="sec_2fa_off">Two-step authentication: off</string>
+    <string name="sec_2fa_disable_code">Code to turn off 2FA</string>
+    <string name="sec_2fa_disable">Turn off 2FA</string>
+    <string name="sec_2fa_disabled">Two-step authentication turned off.</string>
+    <string name="sec_2fa_setup">Set up 2FA</string>
+    <string name="sec_2fa_setup_hint">Add the key to your authenticator app and confirm the code.</string>
+    <string name="sec_2fa_secret">Secret key (keep it safe):</string>
+    <string name="sec_2fa_six_digits">6-digit code</string>
+    <string name="sec_2fa_enable">Turn on 2FA</string>
+    <string name="sec_2fa_enabled">2FA is on. Save your recovery codes: they are only shown now.</string>
+    <string name="sec_2fa_recovery">Recovery codes — save them now</string>
+    <string name="sec_google_link">Link my Google account</string>
+    <string name="sec_google_linked">Google account linked.</string>
+    <string name="sec_logout_all">Sign out on all devices</string>
+    <string name="sec_logout_all_title">Sign out everywhere?</string>
+    <string name="sec_logout_all_text">You\'ll be signed out here and on every other device where you signed in.</string>
+</resources>

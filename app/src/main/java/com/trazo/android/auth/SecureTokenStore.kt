@@ -8,13 +8,14 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
-class SecureTokenStore(context:Context) {
+interface TokenStore { fun access():String?;fun refresh():String?;fun save(access:String,refresh:String);fun clear() }
+class SecureTokenStore(context:Context):TokenStore {
  private val prefs=context.getSharedPreferences("trazo_session",Context.MODE_PRIVATE)
  private val alias="trazo.session.aes.v1"
- fun save(access:String,refresh:String) { prefs.edit().putString("access",encrypt(access)).putString("refresh",encrypt(refresh)).apply() }
- fun access():String?=prefs.getString("access",null)?.let(::decrypt)
- fun refresh():String?=prefs.getString("refresh",null)?.let(::decrypt)
- fun clear(){prefs.edit().clear().apply()}
+ override fun save(access:String,refresh:String) { prefs.edit().putString("access",encrypt(access)).putString("refresh",encrypt(refresh)).apply() }
+ override fun access():String?=prefs.getString("access",null)?.let(::decrypt)
+ override fun refresh():String?=prefs.getString("refresh",null)?.let(::decrypt)
+ override fun clear(){prefs.edit().clear().apply()}
  private fun encrypt(value:String):String { val cipher=Cipher.getInstance("AES/GCM/NoPadding");cipher.init(Cipher.ENCRYPT_MODE,key());return Base64.encodeToString(cipher.iv+cipher.doFinal(value.toByteArray()),Base64.NO_WRAP) }
  private fun decrypt(value:String):String { val bytes=Base64.decode(value,Base64.NO_WRAP);require(bytes.size>12);val cipher=Cipher.getInstance("AES/GCM/NoPadding");cipher.init(Cipher.DECRYPT_MODE,key(),GCMParameterSpec(128,bytes.copyOfRange(0,12)));return cipher.doFinal(bytes.copyOfRange(12,bytes.size)).toString(Charsets.UTF_8) }
  private fun key():SecretKey {
