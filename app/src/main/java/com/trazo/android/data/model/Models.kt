@@ -87,6 +87,22 @@ data class LogSessionRequest(
     val painReported: Boolean = false, val notes: String? = null, val sets: List<LogSetRequest>
 )
 
+/** One message of the manual-review conversation. [author] is "user" or "team" (the user never sees who on the team). */
+data class ReviewMessage(val id: String, val author: String, val body: String, val createdAt: String)
+
+/**
+ * A request for a manual review of the plan and its conversation. [status] is "pending", "in_progress" or "reviewed";
+ * [unread] counts the team messages not read yet; [messages] is only present when the conversation was asked for.
+ */
+data class ReviewRequestView(
+    val id: String, val status: String, val createdAt: String, val updatedAt: String? = null, val reviewedAt: String? = null,
+    val unread: Int = 0, val messages: List<ReviewMessage>? = null
+)
+
+data class ReviewRequestBody(val note: String?)
+
+data class ReviewMessageBody(val body: String)
+
 data class SwapRequest(val replacementExerciseId: String, val applyToRemainingBlock: Boolean = false)
 
 // Exercise catalog.

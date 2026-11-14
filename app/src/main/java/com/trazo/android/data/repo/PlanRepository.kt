@@ -83,6 +83,22 @@ class PlanRepository(
 
     suspend fun history(take: Int = 30): ApiResult<List<HistoryItem>> = guarded { apiCall { api.history(take) } }
 
+    /** The latest manual-review request of the active plan; success with null when none was made yet. */
+    suspend fun reviewRequest(messages: Boolean = false): ApiResult<ReviewRequestView?> {
+        val result = guarded { apiCall { api.reviewRequest(messages) } }
+        return when {
+            result is ApiResult.Success -> ApiResult.Success(result.value)
+            result is ApiResult.Failure && result.error.code == "no_review_request" -> ApiResult.Success(null)
+            else -> result as ApiResult.Failure
+        }
+    }
+
+    suspend fun requestReview(note: String?): ApiResult<ReviewRequestView> =
+        guarded { apiCall { api.requestReview(ReviewRequestBody(note?.trim()?.takeIf { it.isNotEmpty() })) } }
+
+    suspend fun sendReviewMessage(body: String): ApiResult<ReviewRequestView> =
+        guarded { apiCall { api.sendReviewMessage(ReviewMessageBody(body.trim())) } }
+
     suspend fun archive(): ApiResult<Unit> {
         val result = guarded { apiCall { api.archive() } }
         if (result is ApiResult.Success) { _week.value = null; cache.clear() }

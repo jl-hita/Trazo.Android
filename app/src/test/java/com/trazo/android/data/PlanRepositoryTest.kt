@@ -34,6 +34,24 @@ class PlanRepositoryTest {
 
     private fun ok(): Response<LogResult> = Response.success(LogResult(sampleSession(), sampleReport()))
 
+    @Test fun `no review request yet is a success with nothing`() = runTest {
+        assertNull((repo.reviewRequest() as ApiResult.Success).value)
+    }
+
+    @Test fun `a blank note is sent as no note and the request comes back pending`() = runTest {
+        val result = repo.requestReview("   ") as ApiResult.Success
+        assertNull(api.reviewedWith!!.note)
+        assertEquals("pending", result.value.status)
+        repo.requestReview("  me duele el hombro ")
+        assertEquals("me duele el hombro", api.reviewedWith!!.note)
+    }
+
+    @Test fun `a message to the team is trimmed and comes back in the conversation`() = runTest {
+        val result = repo.sendReviewMessage("  hola  ") as ApiResult.Success
+        assertEquals("hola", api.sentMessage!!.body)
+        assertEquals("hola", result.value.messages!!.single().body)
+    }
+
     @Test fun `week is fetched, cached and shared`() = runTest {
         val result = repo.currentWeek() as ApiResult.Success
         assertFalse(result.value.fromCache)
