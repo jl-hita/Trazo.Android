@@ -9,6 +9,10 @@ class AuthRepository(private val api: AuthApi, private val store: TokenStore) {
     suspend fun login(email: String, password: String) = consume(api.login(LoginRequest(email.trim(), password)))
     suspend fun register(email: String, password: String, name: String) = consume(api.register(RegisterRequest(email.trim(), password, name.trim())))
     suspend fun google(idToken: String) = consume(api.google(GoogleLoginRequest(idToken)))
+
+    /** Single-use nonce for the next Google ID token. Null when the API has none to give (older server, no connection). */
+    suspend fun googleNonce(): String? =
+        try { api.googleNonce().takeIf { it.isSuccessful }?.body()?.nonce?.takeIf { it.isNotBlank() } } catch (_: java.io.IOException) { null }
     suspend fun verify(challenge: String, code: String) = consume(api.verifyTwoFactor(TwoFactorVerifyRequest(challenge, code.trim())))
 
     fun hasStoredSession(): Boolean = store.refresh() != null

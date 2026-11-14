@@ -215,7 +215,7 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
             busy = true
             scope.launch {
                 try {
-                    when (val g = requestGoogleIdToken(context, BuildConfig.GOOGLE_WEB_CLIENT_ID, BuildConfig.DEBUG)) {
+                    when (val g = requestGoogleIdToken(context, BuildConfig.GOOGLE_WEB_CLIENT_ID, BuildConfig.DEBUG, auth.googleNonce())) {
                         is GoogleResult.Token -> { auth.linkGoogle(g.idToken); message = str(R.string.sec_google_linked) }
                         else -> googleResultText(context, g)?.let { message = it }
                     }
