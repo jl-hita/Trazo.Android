@@ -151,7 +151,9 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
             LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 item {
                     Text(plan.macrocycle.name, style = MaterialTheme.typography.titleLarge)
-                    if (plan.macrocycle.notes.isNotBlank()) Text(plan.macrocycle.notes, color = TrazoPalette.TextSecondary)
+                    // The notes of a generated plan come from the engine and are not written for this app: only the user's own notes are shown.
+                    if (plan.origin == "Generated") Text(stringResource(R.string.overview_generated), color = TrazoPalette.TextSecondary)
+                    else if (plan.macrocycle.notes.isNotBlank()) Text(plan.macrocycle.notes, color = TrazoPalette.TextSecondary)
                     Text("${formatDate(plan.startDate)} – ${formatDate(plan.endDate)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 }
                 item {
