@@ -9,3 +9,8 @@
 -keep,allowobfuscation interface com.trazo.android.auth.AuthApi
 -dontwarn javax.annotation.**
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+# Gson TypeToken subclasses (new TypeToken<List<X>>() {}) need their generic superclass signature at runtime.
+-keep class com.google.gson.reflect.TypeToken { *; }
+-keep class * extends com.google.gson.reflect.TypeToken
+# Types the app (de)serializes outside the packages above.
+-keep class com.trazo.android.diagnostics.ErrorReportBody { *; }
