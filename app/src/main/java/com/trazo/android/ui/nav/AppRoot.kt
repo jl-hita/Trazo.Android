@@ -112,7 +112,9 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
     val c = container()
     val nav = rememberNavController()
     val planVm: PlanViewModel = containerViewModel { PlanViewModel(it.plans) }
-    val route = nav.currentBackStackEntryAsState().value?.destination?.route
+    // Bumped when a purchase is confirmed, so the account tab asks the backend again instead of showing the state it loaded earlier.
+    var subscriptionVersion by rememberSaveable { mutableIntStateOf(0) }
+    val route =nav.currentBackStackEntryAsState().value?.destination?.route
     val context = LocalContext.current
     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     // Push is an extra: register this phone once the user is in, and ask for the notification permission (once) only if the server has push on.
@@ -173,6 +175,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                 composable(Routes.ACCOUNT) {
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
                     val planState by planVm.state.collectAsStateWithLifecycle()
+                    LaunchedEffect(subscriptionVersion) { if (subscriptionVersion > 0) vm.load() }
                     AccountScreen(vm, c.auth, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
                 }
                 composable(Routes.ONBOARDING) {
@@ -187,7 +190,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                     val source = entry.arguments?.getString("source").orEmpty()
                     var counted by rememberSaveable { mutableStateOf(false) }
                     LaunchedEffect(Unit) { if (!counted) { counted = true; c.analytics.paywallViewed(source) } }
-                    val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { planVm.load(); nav.popBackStack() }) }
+                    val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { subscriptionVersion++; planVm.load(); nav.popBackStack() }) }
                     PaywallScreen(vm, onClose = { nav.popBackStack() })
                 }
                 composable(Routes.OVERVIEW) {
