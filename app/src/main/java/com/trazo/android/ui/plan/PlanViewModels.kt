@@ -6,6 +6,7 @@ import com.trazo.android.data.model.*
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.repo.PlanRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,13 +43,15 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
     fun load() {
         _state.update { it.copy(loading = true, error = null) }
         viewModelScope.launch {
+            // The plan summary does not depend on the week: ask for both at once instead of one after the other.
+            val planRequest = async { plans.currentPlan() }
             when (val week = plans.currentWeek()) {
                 is ApiResult.Failure -> {
                     val noPlan = week.error.code == PlanRepository.NO_ACTIVE_PLAN
                     _state.value = PlanUiState(loading = false, needsOnboarding = noPlan, error = week.error.takeUnless { noPlan })
                 }
                 is ApiResult.Success -> {
-                    val plan = (plans.currentPlan() as? ApiResult.Success)?.value
+                    val plan = (planRequest.await() as? ApiResult.Success)?.value
                     _state.value = PlanUiState(
                         loading = false, plan = plan?.value, week = week.value.value,
                         fromCache = week.value.fromCache || plan?.fromCache == true

@@ -9,11 +9,14 @@ import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.net.ErrorKind
 import com.trazo.android.data.net.apiCall
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 
 /** A value and whether it came from the short-lived local copy because the network failed. */
 data class Fetched<T>(val value: T, val fromCache: Boolean = false)
@@ -35,8 +38,12 @@ class PlanRepository(
     private val api: PlansApi,
     private val cache: PlanCache,
     private val queue: PendingLogQueue,
+    private val io: CoroutineDispatcher = Dispatchers.IO,
     private val clearDrafts: () -> Unit = {}
 ) {
+    /** Cache and queue are JSON files: reading or writing them must never happen on the main thread. */
+    private suspend fun <T> disk(block: () -> T): T = withContext(io) { block() }
+
     private val _week = MutableStateFlow<WeekView?>(null)
 
     /** The current week as last seen, shared by the plan, session and workout screens. */
@@ -51,23 +58,23 @@ class PlanRepository(
 
     suspend fun createPlan(request: PlanProfileRequest): ApiResult<PlanView> {
         val result = apiCall { api.create(request) }
-        if (result is ApiResult.Success) { _week.value = null; cache.clear(); cache.savePlan(result.value) }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
         return result
     }
 
     /** Creates a plan written by the user; free for every account. */
     suspend fun createManualPlan(request: ManualPlanRequest): ApiResult<PlanView> {
         val result = apiCall { api.createManual(request) }
-        if (result is ApiResult.Success) { _week.value = null; cache.clear(); cache.savePlan(result.value) }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
         return result
     }
 
     suspend fun currentPlan(): ApiResult<Fetched<PlanView>> {
         val result = apiCall { api.current() }
         return when {
-            result is ApiResult.Success -> { cache.savePlan(result.value); ApiResult.Success(Fetched(result.value)) }
-            result is ApiResult.Failure && result.error.kind == ErrorKind.Network -> cache.plan()?.let { ApiResult.Success(Fetched(it, true)) } ?: result
-            result is ApiResult.Failure -> { if (result.error.code == NO_ACTIVE_PLAN) cache.clear(); result }
+            result is ApiResult.Success -> { disk { cache.savePlan(result.value) }; ApiResult.Success(Fetched(result.value)) }
+            result is ApiResult.Failure && result.error.kind == ErrorKind.Network -> disk { cache.plan() }?.let { ApiResult.Success(Fetched(it, true)) } ?: result
+            result is ApiResult.Failure -> { if (result.error.code == NO_ACTIVE_PLAN) disk { cache.clear() }; result }
             else -> result as ApiResult.Failure
         }
     }
@@ -76,13 +83,13 @@ class PlanRepository(
         flushPending()
         val result = apiCall { api.week() }
         return when (result) {
-            is ApiResult.Success -> { cache.saveWeek(result.value); _week.value = result.value; ApiResult.Success(Fetched(result.value)) }
+            is ApiResult.Success -> { disk { cache.saveWeek(result.value) }; _week.value = result.value; ApiResult.Success(Fetched(result.value)) }
             is ApiResult.Failure -> {
                 if (result.error.kind == ErrorKind.Network) {
-                    val cached = _week.value ?: cache.week()
+                    val cached = _week.value ?: disk { cache.week() }
                     if (cached != null) { _week.value = cached; return ApiResult.Success(Fetched(cached, true)) }
                 }
-                if (result.error.code == NO_ACTIVE_PLAN) { _week.value = null; cache.clear() }
+                if (result.error.code == NO_ACTIVE_PLAN) { _week.value = null; disk { cache.clear() } }
                 result
             }
         }
@@ -108,7 +115,7 @@ class PlanRepository(
 
     suspend fun archive(): ApiResult<Unit> {
         val result = apiCall { api.archive() }
-        if (result is ApiResult.Success) { _week.value = null; cache.clear() }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear() } }
         return result
     }
 
@@ -131,7 +138,7 @@ class PlanRepository(
             is ApiResult.Success -> { replaceSession(result.value.session); LogOutcome.Sent(result.value) }
             is ApiResult.Failure -> when {
                 result.error.code == SESSION_ALREADY_LOGGED -> LogOutcome.AlreadyLogged
-                result.error.retryable -> { queue.add(PendingLog(sessionId, request, now)); _pending.value = queue.all().size; LogOutcome.Queued }
+                result.error.retryable -> { _pending.value = disk { queue.add(PendingLog(sessionId, request, now)); queue.all().size }; LogOutcome.Queued }
                 else -> LogOutcome.Rejected(result.error)
             }
         }
@@ -140,7 +147,7 @@ class PlanRepository(
     /** Tries to deliver the queued logs, oldest first. Returns how many were removed from the queue. */
     suspend fun flushPending(): Int = flushLock.withLock {
         var removed = 0
-        for (item in queue.all().sortedBy { it.createdAtMillis }) {
+        for (item in disk { queue.all() }.sortedBy { it.createdAtMillis }) {
             val result = apiCall { api.log(item.sessionId, item.request) }
             val done = when (result) {
                 is ApiResult.Success -> true.also { replaceSession(result.value.session) }
@@ -151,9 +158,9 @@ class PlanRepository(
                     else -> false
                 }
             }
-            if (done) { queue.remove(item.sessionId); removed++ } else if (result is ApiResult.Failure && result.error.kind == ErrorKind.Network) break
+            if (done) { disk { queue.remove(item.sessionId) }; removed++ } else if (result is ApiResult.Failure && result.error.kind == ErrorKind.Network) break
         }
-        _pending.value = queue.all().size
+        _pending.value = disk { queue.all().size }
         removed
     }
 
@@ -168,11 +175,11 @@ class PlanRepository(
         _pending.value = 0
     }
 
-    private fun replaceSession(updated: SessionView) {
+    private suspend fun replaceSession(updated: SessionView) {
         val current = _week.value ?: return
         val week = current.copy(sessions = current.sessions.map { if (it.id == updated.id) updated else it })
         _week.value = week
-        cache.saveWeek(week)
+        disk { cache.saveWeek(week) }
     }
 
     companion object {

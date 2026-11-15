@@ -9,6 +9,10 @@ import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.repo.LogOutcome
 import com.trazo.android.data.repo.PlanRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class SetEntry(val weight: String = "", val reps: String = "", val rir: String = "", val done: Boolean = false)
 
@@ -62,8 +67,12 @@ class FinishForm(
 class WorkoutViewModel(
     private val plans: PlanRepository,
     private val drafts: WorkoutDraftStore,
-    private val sessionId: String
+    private val sessionId: String,
+    io: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
+    // One writer thread keeps the drafts in order; typing never waits for the disk.
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val draftWriter = io.limitedParallelism(1)
     private val _state = MutableStateFlow(WorkoutState())
     val state: StateFlow<WorkoutState> = _state.asStateFlow()
     private var timer: Job? = null
@@ -156,7 +165,7 @@ class WorkoutViewModel(
                 LogOutcome.Queued -> FinishState.Done(null, queued = true)
                 is LogOutcome.Rejected -> FinishState.Failed(outcome.error)
             }
-            if (next is FinishState.Done) { drafts.delete(session.id); timer?.cancel() }
+            if (next is FinishState.Done) { withContext(draftWriter) { drafts.delete(session.id) }; timer?.cancel() }
             _state.update { it.copy(finish = next, rest = if (next is FinishState.Done) null else it.rest) }
         }
     }
@@ -164,10 +173,11 @@ class WorkoutViewModel(
     fun dismissFinishError() = _state.update { it.copy(finish = FinishState.Idle) }
 
     private fun saveDraft() {
-        val entries = _state.value.entries
-        drafts.save(sessionId, entries.flatMap { e ->
+        val sets = _state.value.entries.flatMap { e ->
             e.sets.mapIndexed { i, set -> DraftSet(e.exercise.exerciseId, i + 1, set.weight, set.reps, set.rir, set.done) }
-        })
+        }
+        // Not tied to viewModelScope: leaving the screen right after typing must still persist the last edit.
+        CoroutineScope(draftWriter).launch { drafts.save(sessionId, sets) }
     }
 
     override fun onCleared() { timer?.cancel() }
