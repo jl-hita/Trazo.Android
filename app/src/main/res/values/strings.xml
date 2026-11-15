@@ -308,4 +308,9 @@
     <string name="manual_create">Crear plan</string>
     <string name="manual_creating">Creando…</string>
     <string name="manual_default_routine">Rutina %1$d</string>
+    <string name="account_test_title">Prueba del sistema de errores</string>
+    <string name="account_test_intro">Provoca errores a propósito para comprobar que los tickets anónimos llegan al panel. Solo visible para esta cuenta.</string>
+    <string name="account_test_handled">Provocar error controlado</string>
+    <string name="account_test_crash">Provocar cierre inesperado</string>
+    <string name="account_test_sent">Error enviado: búscalo en el panel de tickets.</string>
 </resources>

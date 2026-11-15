@@ -304,4 +304,9 @@
     <string name="manual_create">Create plan</string>
     <string name="manual_creating">Creating…</string>
     <string name="manual_default_routine">Routine %1$d</string>
+    <string name="account_test_title">Error system test</string>
+    <string name="account_test_intro">Triggers errors on purpose to check that anonymous tickets reach the console. Only visible to this account.</string>
+    <string name="account_test_handled">Trigger handled error</string>
+    <string name="account_test_crash">Trigger crash</string>
+    <string name="account_test_sent">Error sent: look for it in the ticket console.</string>
 </resources>
