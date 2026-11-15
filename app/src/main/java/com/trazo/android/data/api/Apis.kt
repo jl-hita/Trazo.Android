@@ -14,6 +14,7 @@ interface PlansApi {
     @POST("api/v1/plans/manual") suspend fun createManual(@Body request: ManualPlanRequest): Response<PlanView>
     @GET("api/v1/plans/current") suspend fun current(): Response<PlanView>
     @GET("api/v1/plans/current/week") suspend fun week(): Response<WeekView>
+    @GET("api/v1/plans/current/load") suspend fun load(): Response<PlanLoadView>
     @GET("api/v1/plans/current/history") suspend fun history(@Query("take") take: Int = 30): Response<List<HistoryItem>>
     @GET("api/v1/plans/current/review-request") suspend fun reviewRequest(@Query("messages") messages: Boolean = false): Response<ReviewRequestView>
     @POST("api/v1/plans/current/review-request") suspend fun requestReview(@Body request: ReviewRequestBody): Response<ReviewRequestView>

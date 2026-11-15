@@ -62,6 +62,26 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
     }
 }
 
+data class LoadUiState(val loading: Boolean = true, val load: PlanLoadView? = null, val error: ApiError? = null)
+
+/** Weekly planned and completed volume of the whole plan, for the chart of the overview. */
+class LoadViewModel(private val plans: PlanRepository) : ViewModel() {
+    private val _state = MutableStateFlow(LoadUiState())
+    val state: StateFlow<LoadUiState> = _state.asStateFlow()
+
+    init { load() }
+
+    fun load() {
+        _state.value = LoadUiState()
+        viewModelScope.launch {
+            _state.value = when (val result = plans.load()) {
+                is ApiResult.Success -> LoadUiState(false, result.value)
+                is ApiResult.Failure -> LoadUiState(false, error = result.error)
+            }
+        }
+    }
+}
+
 data class HistoryUiState(val loading: Boolean = true, val items: List<HistoryItem> = emptyList(), val error: ApiError? = null)
 
 class HistoryViewModel(private val plans: PlanRepository) : ViewModel() {

@@ -23,6 +23,7 @@ data class OnboardingState(
     val totalWeeks: Int = 12,
     val equipment: Set<String> = emptySet(),
     val limitations: Set<String> = emptySet(),
+    val split: String = "Automatic",
     val submitting: Boolean = false,
     val created: Boolean = false,
     val error: ApiError? = null
@@ -59,6 +60,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
 
     fun setGoal(value: String) = _state.update { it.copy(goal = value) }
     fun setExperience(value: String) = _state.update { it.copy(experience = value) }
+    fun setSplit(value: String) = _state.update { it.copy(split = value) }
     fun setSessionMinutes(value: Int) = _state.update { it.copy(sessionMinutes = value) }
     fun setTotalWeeks(value: Int) = _state.update { it.copy(totalWeeks = value) }
     fun toggleDay(day: String) = _state.update { it.copy(days = it.days.toggle(day)) }
@@ -80,7 +82,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     }
 
     companion object {
-        /** "Automatic" only covers 2-4 days, so 5-6 days ask for Push/Pull/Legs; the server may still refine the rest. */
+        /** An explicit split is sent as chosen. "Automatic" only covers 2-4 days, so 5-6 days ask for Push/Pull/Legs; the server may still refine the rest. */
         fun buildRequest(s: OnboardingState, options: PlanOptions) = PlanProfileRequest(
             goal = s.goal,
             experience = s.experience,
@@ -91,7 +93,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
             // Empty means "everything is available" for the server, so an untouched list needs no special case.
             availableEquipment = options.equipment.filter { it in s.equipment },
             limitations = options.limitations.filter { it in s.limitations },
-            split = if (s.days.size > 4) "PushPullLegs" else "Automatic"
+            split = if (s.split == "Automatic" && s.days.size > 4) "PushPullLegs" else s.split
         )
     }
 }

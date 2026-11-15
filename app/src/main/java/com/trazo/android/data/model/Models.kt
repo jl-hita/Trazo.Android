@@ -65,6 +65,13 @@ data class HistoryItem(
     val loggedAt: String, val completedSets: Int, val plannedSets: Int
 )
 
+/** Volume (sets) of one plan week. [plannedSets] is null while its block is not generated; [completedSets] is null for weeks not reached. */
+data class WeekLoadView(
+    val week: Int, val weekStart: String, val phaseType: String?, val isDeload: Boolean, val plannedSets: Int?,
+    val completedSets: Int?, val plannedSessions: Int, val loggedSessions: Int
+)
+data class PlanLoadView(val planId: String, val totalWeeks: Int, val currentWeek: Int, val unit: String, val weeks: List<WeekLoadView>)
+
 data class PlanOptions(
     val goals: List<String>, val experience: List<String>, val splits: List<String>, val days: List<String>,
     val limitations: List<String>, val equipment: List<String>, val minimumTrainingDays: Int, val maximumTrainingDays: Int,

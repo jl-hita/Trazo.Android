@@ -84,6 +84,11 @@ object Labels {
         mapOf("Beginner" to "Beginner", "Intermediate" to "Intermediate", "Advanced" to "Advanced", "Easy" to "Easy", "Hard" to "Hard")
     )
 
+    private val split = Dict(
+        mapOf("Automatic" to "Automático", "FullBody" to "Cuerpo completo", "UpperLower" to "Torso / pierna", "PushPullLegs" to "Empuje / tirón / pierna", "BroSplit" to "Por grupos musculares"),
+        mapOf("Automatic" to "Automatic", "FullBody" to "Full body", "UpperLower" to "Upper / lower", "PushPullLegs" to "Push / pull / legs", "BroSplit" to "Body-part split")
+    )
+
     val movementPatterns = listOf("Squat", "Hinge", "HorizontalPush", "VerticalPush", "HorizontalPull", "VerticalPull", "SingleLeg", "Core")
     val muscleGroups = listOf(
         "Chest", "Lats", "UpperBack", "Deltoids", "Biceps", "Triceps", "Forearms", "Abdominals", "Obliques", "ErectorSpinae", "Glutes",
@@ -95,6 +100,7 @@ object Labels {
     fun goal(v: String) = lookup(goal, v)
     fun experience(v: String) = lookup(experience, v)
     fun day(v: String) = lookup(day, v)
+    fun split(v: String) = lookup(split, v)
 
     /** Three-letter name of a weekday in the app language ("lun", "mié" / "Mon", "Wed"); unknown values fall back to [day]. */
     fun dayShort(v: String): String {

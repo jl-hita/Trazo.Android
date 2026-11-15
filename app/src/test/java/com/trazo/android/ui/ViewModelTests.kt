@@ -12,7 +12,9 @@ import com.trazo.android.ui.account.PaywallViewModel
 import com.trazo.android.ui.nav.AppState
 import com.trazo.android.ui.nav.AppViewModel
 import com.trazo.android.ui.onboarding.OnboardingViewModel
+import com.trazo.android.ui.plan.LoadViewModel
 import com.trazo.android.ui.plan.PlanViewModel
+import com.trazo.android.ui.plan.niceTop
 import com.trazo.android.ui.workout.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -188,6 +190,14 @@ class OnboardingViewModelTest : ViewModelTestBase() {
         advanceUntilIdle()
         listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday").forEach(vm::toggleDay)
         assertEquals("PushPullLegs", OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).split)
+    }
+
+    @Test fun `an explicit split is sent as chosen even with five days`() = runTest(dispatcher) {
+        val vm = OnboardingViewModel(plansRepo(FakePlansApi()))
+        advanceUntilIdle()
+        listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday").forEach(vm::toggleDay)
+        vm.setSplit("UpperLower")
+        assertEquals("UpperLower", OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).split)
     }
 
     @Test fun `server rejection is shown and does not mark the plan as created`() = runTest(dispatcher) {
@@ -393,5 +403,25 @@ class ManualPlanViewModelTest : ViewModelTestBase() {
         advanceUntilIdle()
         assertFalse(vm.state.value.created)
         assertEquals("active_plan_exists", vm.state.value.error!!.code)
+    }
+}
+
+class LoadViewModelTest : ViewModelTestBase() {
+    @Test fun `loads the weekly volume of the whole plan, with gaps for weeks that have no data`() = runTest(dispatcher) {
+        val vm = LoadViewModel(plansRepo(FakePlansApi()))
+        advanceUntilIdle()
+        val load = vm.state.value.load!!
+        assertEquals(4, load.weeks.size)
+        assertEquals(18, load.weeks[0].completedSets)
+        assertNull(load.weeks[2].completedSets)
+        assertNull(load.weeks[3].plannedSets)
+        assertEquals(10, niceTop(7)); assertEquals(30, niceTop(22)); assertEquals(60, niceTop(45))
+    }
+
+    @Test fun `a failure leaves the chart unavailable instead of crashing`() = runTest(dispatcher) {
+        val vm = LoadViewModel(plansRepo(FakePlansApi().apply { loadResponse = { httpError(404, problem(404, "no_active_plan")) } }))
+        advanceUntilIdle()
+        assertNull(vm.state.value.load)
+        assertNotNull(vm.state.value.error)
     }
 }

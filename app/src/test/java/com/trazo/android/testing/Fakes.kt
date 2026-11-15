@@ -38,6 +38,10 @@ class FakePlansApi : PlansApi {
     override suspend fun createManual(request: ManualPlanRequest): Response<PlanView> { manualCreatedWith = request; return manualResponse(request) }
     override suspend fun current() = planResponse()
     override suspend fun week() = weekResponse()
+    var loadResponse: () -> Response<PlanLoadView> = { Response.success(PlanLoadView("p1", 4, 2, "sets", listOf(
+        WeekLoadView(1, "2026-11-09", "accumulation", false, 20, 18, 2, 2), WeekLoadView(2, "2026-11-16", "accumulation", false, 22, 5, 2, 1),
+        WeekLoadView(3, "2026-11-23", "accumulation", false, 22, null, 2, 0), WeekLoadView(4, "2026-11-30", "deload", true, null, null, 0, 0)))) }
+    override suspend fun load() = loadResponse()
     override suspend fun history(take: Int): Response<List<HistoryItem>> = Response.success(emptyList())
     override suspend fun archive(): Response<Unit> = Response.success(Unit)
     var messagesResponse: (() -> Response<ReviewRequestView>)? = null

@@ -70,6 +70,8 @@
     <!-- Onboarding -->
     <string name="onb_title">Create your plan</string>
     <string name="onb_intro">Tell us how you train and we\'ll build a personalised plan with progression.</string>
+    <string name="onb_split">Session split</string>
+    <string name="onb_split_hint">Automatic picks the split from your training days.</string>
     <string name="onb_goal">Goal</string>
     <string name="onb_level">Level</string>
     <string name="onb_days">Training days</string>
@@ -268,7 +270,15 @@
     <string name="sec_logout_all_text">You\'ll be signed out here and on every other device where you signed in.</string>
     <!-- Manual plan -->
     <string name="plan_empty_intro">Build your own plan or let TRAZO generate one for you.</string>
-    <string name="manual_start">Create my own plan</string>
+    <string name="manual_start">Create my own plan (manual)</string>
+    <string name="onb_title_auto">Create automatic plan</string>
+    <string name="overview_load_title">Weekly load</string>
+    <string name="overview_load_planned">Planned</string>
+    <string name="overview_load_actual">Logged</string>
+    <string name="overview_load_week">Wk %1$d</string>
+    <string name="overview_load_unavailable">The chart could not be loaded.</string>
+    <string name="overview_load_axis">Sets per week</string>
+    <string name="overview_load_note">Future weeks have no planned volume yet because each block is generated when you reach it. Grey bands are deload weeks.</string>
     <string name="manual_free_hint">Free. With Premium, TRAZO adapts your loads and sets to how you train.</string>
     <string name="generated_premium_hint">Automatic plan generation is Premium.</string>
     <string name="manual_title">Manual plan</string>
