@@ -57,7 +57,6 @@
     <string name="overview_phases">Fases</string>
     <string name="overview_future_note">Por diseño, solo verás en detalle la semana en curso: el resto de sesiones se genera y adapta a medida que entrenas.</string>
     <string name="overview_profile">Tu perfil</string>
-    <string name="overview_generated">Plan generado automáticamente por TRAZO.</string>
     <string name="overview_goal">Objetivo: %1$s</string>
     <string name="overview_level">Nivel: %1$s</string>
     <string name="overview_days">Días: %1$s</string>
