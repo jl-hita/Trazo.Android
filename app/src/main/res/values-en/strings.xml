@@ -256,6 +256,8 @@
     <string name="auth_err_2fa_disable">Couldn\'t turn off 2FA.</string>
     <string name="auth_err_logout_all">Couldn\'t sign out on all devices.</string>
     <string name="auth_err_link_google">Couldn\'t link the Google account.</string>
+    <string name="auth_err_google_email_in_use">An account already exists with that Google account\'s email. Sign in with your password and link Google in the security settings.</string>
+    <string name="auth_err_email_in_use">An account with this email already exists. Sign in or reset the password.</string>
 
     <!-- Security section -->
     <string name="sec_2fa_on">Two-step authentication: on</string>

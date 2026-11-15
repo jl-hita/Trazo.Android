@@ -40,6 +40,8 @@ fun authErrorText(context: Context, code: AuthError): String = context.getString
         AuthError.TwoFactorDisable -> R.string.auth_err_2fa_disable
         AuthError.LogoutAll -> R.string.auth_err_logout_all
         AuthError.LinkGoogle -> R.string.auth_err_link_google
+        AuthError.GoogleEmailInUse -> R.string.auth_err_google_email_in_use
+        AuthError.EmailInUse -> R.string.auth_err_email_in_use
     }
 )
 
