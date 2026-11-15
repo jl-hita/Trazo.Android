@@ -244,6 +244,7 @@
     <string name="google_unexpected">Google returned an unexpected credential type.</string>
     <string name="google_unavailable">Google Sign-In isn\'t available right now.</string>
     <string name="google_failed_debug">Google Sign-In failed (%1$s)</string>
+    <string name="google_cancelled">Google Sign-In was cancelled or rejected (%1$s)</string>
     <string name="auth_err_generic">Couldn\'t authenticate. Check your details and connection.</string>
     <string name="auth_err_incomplete">The authentication response is incomplete.</string>
     <string name="auth_err_no_challenge">The API did not return the 2FA challenge.</string>

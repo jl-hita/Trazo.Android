@@ -44,10 +44,11 @@ fun authErrorText(context: Context, code: AuthError): String = context.getString
 )
 
 fun googleResultText(context: Context, result: GoogleResult): String? = when (result) {
-    is GoogleResult.Token, GoogleResult.Cancelled -> null
+    is GoogleResult.Token -> null
+    is GoogleResult.Cancelled -> context.getString(R.string.google_cancelled, result.detail.orEmpty())
     GoogleResult.NoAccount -> context.getString(R.string.google_no_account)
     GoogleResult.UnexpectedCredential -> context.getString(R.string.google_unexpected)
-    is GoogleResult.Unavailable -> result.detail?.let { context.getString(R.string.google_failed_debug, it) } ?: context.getString(R.string.google_unavailable)
+    is GoogleResult.Unavailable -> context.getString(R.string.google_failed_debug, result.detail.orEmpty())
 }
 
 @Composable

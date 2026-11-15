@@ -248,6 +248,7 @@
     <string name="google_unexpected">Google devolvió un tipo de credencial inesperado.</string>
     <string name="google_unavailable">Google Sign-In no está disponible en este momento.</string>
     <string name="google_failed_debug">Google Sign-In falló (%1$s)</string>
+    <string name="google_cancelled">Inicio de sesión con Google cancelado o rechazado (%1$s)</string>
     <string name="auth_err_generic">No se pudo autenticar. Comprueba tus datos y la conexión.</string>
     <string name="auth_err_incomplete">La respuesta de autenticación está incompleta.</string>
     <string name="auth_err_no_challenge">La API no ha devuelto el reto 2FA.</string>

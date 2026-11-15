@@ -12,10 +12,11 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 
 sealed interface GoogleResult {
     data class Token(val idToken: String) : GoogleResult
-    data object Cancelled : GoogleResult
+    /** Also what Google answers when the app's signing certificate is not registered, so [detail] is always filled in. */
+    data class Cancelled(val detail: String?) : GoogleResult
     data object NoAccount : GoogleResult
     data object UnexpectedCredential : GoogleResult
-    /** [detail] is only filled in debug builds. */
+    /** [detail] is the exception type and message: technical, but it contains nothing about the user. */
     data class Unavailable(val detail: String?) : GoogleResult
 }
 
@@ -31,10 +32,10 @@ suspend fun requestGoogleIdToken(context: Context, clientId: String, debug: Bool
     if (credential is CustomCredential && credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)
         GoogleResult.Token(GoogleIdTokenCredential.createFrom(credential.data).idToken)
     else GoogleResult.UnexpectedCredential
-} catch (_: GetCredentialCancellationException) {
-    GoogleResult.Cancelled
+} catch (e: GetCredentialCancellationException) {
+    GoogleResult.Cancelled("${e.type}: ${e.message}")
 } catch (_: NoCredentialException) {
     GoogleResult.NoAccount
 } catch (e: GetCredentialException) {
-    GoogleResult.Unavailable(if (debug) "${e.type}: ${e.message}" else null)
+    GoogleResult.Unavailable("${e.type}: ${e.message}")
 }
