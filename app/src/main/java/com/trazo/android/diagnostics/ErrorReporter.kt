@@ -85,11 +85,14 @@ class ErrorReporter(
     }
 
     /** An unexpected error the app survived. */
-    fun record(error: Throwable) {
-        if (isExpected(error) || nonFatalThisRun.incrementAndGet() > MAX_NON_FATAL_PER_RUN) return
+    fun record(error: Throwable, force: Boolean = false) {
+        if (isExpected(error)) return
         val trace = traceOf(error)
-        val key = PendingErrorStore.fingerprint(trace)
-        if (synchronized(reportedThisRun) { !reportedThisRun.add(key) }) return // one report per kind of error and run
+        if (!force) {
+            if (nonFatalThisRun.incrementAndGet() > MAX_NON_FATAL_PER_RUN) return
+            val key = PendingErrorStore.fingerprint(trace)
+            if (synchronized(reportedThisRun) { !reportedThisRun.add(key) }) return // one report per kind of error and run
+        }
         store.save(trace)
         scope.launch { flush() }
     }
@@ -134,7 +137,13 @@ object Diagnostics {
 
     fun install(reporter: ErrorReporter?) { this.reporter = reporter }
 
-    fun report(error: Throwable) {
-        try { reporter?.record(error) } catch (_: Throwable) { /* reporting must never fail the code that found the error */ }
+    /** The one account that may provoke errors on purpose to check the ticket system (see the account screen). */
+    const val TESTER_EMAIL = "trazostrength@gmail.com"
+
+    fun isTester(email: String?): Boolean = email.equals(TESTER_EMAIL, ignoreCase = true)
+
+    /** [force] skips the once-per-run and per-run limits; only for the deliberate test errors. */
+    fun report(error: Throwable, force: Boolean = false) {
+        try { reporter?.record(error, force) } catch (_: Throwable) { /* reporting must never fail the code that found the error */ }
     }
 }

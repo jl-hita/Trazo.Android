@@ -65,6 +65,21 @@ class ErrorReporterTest {
         assertTrue(store.all().isEmpty()) // sent, so nothing is left on disk
     }
 
+    @Test fun `only the tester account sees the test buttons`() {
+        assertTrue(Diagnostics.isTester("trazostrength@gmail.com"))
+        assertTrue(Diagnostics.isTester("TrazoStrength@Gmail.com"))
+        assertFalse(Diagnostics.isTester("someone@gmail.com"))
+        assertFalse(Diagnostics.isTester("xtrazostrength@gmail.com"))
+        assertFalse(Diagnostics.isTester(null))
+    }
+
+    @Test fun `a forced test error is sent every time, other errors are still limited`() = runBlocking {
+        repeat(3) { reporter.record(failure("test"), force = true) }
+        assertEquals(3, api.sent.size)
+        reporter.record(IOException("offline"), force = true) // even a test cannot report a normal failure
+        assertEquals(3, api.sent.size)
+    }
+
     @Test fun `normal failures are not reported`() = runBlocking {
         reporter.record(IOException("no connection"))
         reporter.record(java.net.UnknownHostException("host"))

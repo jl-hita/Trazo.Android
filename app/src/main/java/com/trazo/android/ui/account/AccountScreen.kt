@@ -40,6 +40,7 @@ fun AccountScreen(
     var confirmArchive by remember { mutableStateOf(false) }
     var reviewDialog by remember { mutableStateOf(false) }
     var reviewNote by remember { mutableStateOf("") }
+    var testSent by remember { mutableStateOf(false) }
     LaunchedEffect(state.archived) { if (state.archived) { viewModel.consumeArchived(); onPlanArchived() } }
 
     BackHandler(enabled = state.threadOpen) { viewModel.closeThread() }
@@ -112,6 +113,20 @@ fun AccountScreen(
 
             SectionTitle(stringResource(R.string.account_security))
             if (user != null) SecuritySection(auth, user, onLoggedOutEverywhere = onLogout)
+
+            if (Diagnostics.isTester(user?.email)) {
+                SectionTitle(stringResource(R.string.account_test_title))
+                TrazoCard {
+                    Text(stringResource(R.string.account_test_intro), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    if (testSent) Text(stringResource(R.string.account_test_sent), color = TrazoPalette.Ok)
+                }
+                TrazoButton(onClick = {
+                    Diagnostics.report(IllegalStateException("Test handled error triggered on purpose from the app"), force = true)
+                    testSent = true
+                }, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.account_test_handled)) }
+                TrazoButton(onClick = { throw IllegalStateException("Test crash triggered on purpose from the app") },
+                    secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.account_test_crash)) }
+            }
 
             Spacer(Modifier.height(16.dp))
             TrazoButton(onClick = { confirmLogout = true }, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.account_logout)) }
