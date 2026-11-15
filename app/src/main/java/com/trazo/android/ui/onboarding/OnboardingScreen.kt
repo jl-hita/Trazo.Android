@@ -38,7 +38,11 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 Text(stringResource(R.string.onb_days_hint, options.minimumTrainingDays, options.maximumTrainingDays), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 DayPicker(options.days, state.days, viewModel::toggleDay)
 
-                Text(stringResource(R.string.onb_minutes, state.sessionMinutes), modifier = Modifier.padding(top = 12.dp))
+                SectionTitle(stringResource(R.string.onb_split))
+                Text(stringResource(R.string.onb_split_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                ChipGroup((listOf("Automatic") + options.splits).distinct(), setOf(state.split), Labels::split, viewModel::setSplit)
+
+                Text(stringResource(R.string.onb_minutes,state.sessionMinutes), modifier = Modifier.padding(top = 12.dp))
                 Slider(
                     value = state.sessionMinutes.toFloat(),
                     onValueChange = { viewModel.setSessionMinutes((it / 5).toInt() * 5) },

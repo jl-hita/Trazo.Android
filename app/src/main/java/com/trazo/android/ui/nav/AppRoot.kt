@@ -161,7 +161,10 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
                     val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { planVm.load(); nav.popBackStack() }) }
                     PaywallScreen(vm, onClose = { nav.popBackStack() })
                 }
-                composable(Routes.OVERVIEW) { PlanOverviewScreen(planVm, onBack = { nav.popBackStack() }) }
+                composable(Routes.OVERVIEW) {
+                    val loadVm: LoadViewModel = containerViewModel { LoadViewModel(it.plans) }
+                    PlanOverviewScreen(planVm, loadVm, onBack = { nav.popBackStack() })
+                }
                 composable(Routes.HISTORY) {
                     val vm: HistoryViewModel = containerViewModel { HistoryViewModel(it.plans) }
                     HistoryScreen(vm, onBack = { nav.popBackStack() })

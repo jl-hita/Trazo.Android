@@ -100,7 +100,7 @@ private fun OnboardingPrompt(onCreatePlan: () -> Unit, onCreateManualPlan: () ->
         Spacer(Modifier.height(16.dp))
         TrazoButton(onClick = onCreateManualPlan, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
         Text(stringResource(R.string.manual_free_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
-        TrazoButton(onClick = onCreatePlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title)) }
+        TrazoButton(onClick = onCreatePlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title_auto)) }
         Text(stringResource(R.string.generated_premium_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
     }
 }
@@ -140,9 +140,10 @@ private fun SessionCard(session: SessionView, onClick: () -> Unit) {
 }
 
 @Composable
-fun PlanOverviewScreen(viewModel: PlanViewModel, onBack: () -> Unit) {
+fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, onBack: () -> Unit) {
     SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val load by loadViewModel.state.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.overview_title), onBack)
         val plan = state.plan
@@ -152,6 +153,20 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, onBack: () -> Unit) {
                     Text(plan.macrocycle.name, style = MaterialTheme.typography.titleLarge)
                     if (plan.macrocycle.notes.isNotBlank()) Text(plan.macrocycle.notes, color = TrazoPalette.TextSecondary)
                     Text("${formatDate(plan.startDate)} – ${formatDate(plan.endDate)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                }
+                item {
+                    SectionTitle(stringResource(R.string.overview_load_title))
+                    TrazoCard {
+                        val data = load.load
+                        when {
+                            load.loading -> LoadingBox(Modifier.height(120.dp))
+                            data == null -> Text(stringResource(R.string.overview_load_unavailable), color = TrazoPalette.TextSecondary)
+                            else -> {
+                                LoadChart(data, Modifier.fillMaxWidth())
+                                Text(stringResource(R.string.overview_load_note), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
+                            }
+                        }
+                    }
                 }
                 item { SectionTitle(stringResource(R.string.overview_phases)) }
                 items(plan.macrocycle.phases, key = { it.sequence }) { phase ->

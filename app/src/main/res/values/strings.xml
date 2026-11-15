@@ -69,6 +69,8 @@
     <!-- Onboarding -->
     <string name="onb_title">Crea tu plan</string>
     <string name="onb_intro">Cuéntanos cómo entrenas y generaremos un plan personalizado con progresión.</string>
+    <string name="onb_split">Reparto de las sesiones</string>
+    <string name="onb_split_hint">Automático elige el reparto según tus días de entrenamiento.</string>
     <string name="onb_goal">Objetivo</string>
     <string name="onb_level">Nivel</string>
     <string name="onb_days">Días de entrenamiento</string>
@@ -272,7 +274,15 @@
     <string name="sec_logout_all_text">Se cerrará la sesión en este y en el resto de dispositivos donde hayas entrado.</string>
     <!-- Manual plan -->
     <string name="plan_empty_intro">Crea tu propio plan o deja que TRAZO te lo genere.</string>
-    <string name="manual_start">Crear mi propio plan</string>
+    <string name="manual_start">Crear mi propio plan (manual)</string>
+    <string name="onb_title_auto">Crear plan automático</string>
+    <string name="overview_load_title">Carga semanal</string>
+    <string name="overview_load_planned">Planificado</string>
+    <string name="overview_load_actual">Registrado</string>
+    <string name="overview_load_week">Sem. %1$d</string>
+    <string name="overview_load_unavailable">No se pudo cargar la gráfica.</string>
+    <string name="overview_load_axis">Series por semana</string>
+    <string name="overview_load_note">Las semanas futuras no tienen volumen planificado porque cada bloque se genera cuando llegas a él. Las franjas grises son semanas de descarga.</string>
     <string name="manual_free_hint">Gratis. Con Premium, TRAZO adapta tus cargas y series según cómo entrenas.</string>
     <string name="generated_premium_hint">La generación automática del plan es Premium.</string>
     <string name="manual_title">Plan manual</string>

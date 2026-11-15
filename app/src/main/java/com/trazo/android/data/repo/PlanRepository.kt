@@ -95,6 +95,8 @@ class PlanRepository(
         }
     }
 
+    suspend fun load(): ApiResult<PlanLoadView> = apiCall { api.load() }
+
     suspend fun history(take: Int = 30): ApiResult<List<HistoryItem>> = apiCall { api.history(take) }
 
     /** The latest manual-review request of the active plan; success with null when none was made yet. */
