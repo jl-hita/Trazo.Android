@@ -45,6 +45,11 @@ interface ExercisesApi {
     @GET("api/v1/exercises/{id}/images") suspend fun images(@Path("id") id: String): Response<ExerciseImageSlots>
 }
 
+/** Anonymous product counters: the backend only adds one to the day's total for the place, it stores nothing about the user. */
+interface AnalyticsApi {
+    @POST("api/v1/analytics/paywall-view") suspend fun paywallView(@Body request: PaywallViewRequest): Response<Unit>
+}
+
 interface SubscriptionApi {
     @GET("api/v1/subscription") suspend fun status(): Response<SubscriptionStatus>
     @POST("api/v1/subscription/verify") suspend fun verify(@Body request: VerifySubscriptionRequest): Response<SubscriptionStatus>

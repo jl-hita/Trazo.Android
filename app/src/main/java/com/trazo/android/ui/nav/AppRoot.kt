@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -61,12 +62,14 @@ object Routes {
     const val ACCOUNT = "account"
     const val ONBOARDING = "onboarding"
     const val MANUAL_PLAN = "manual-plan"
-    const val PREMIUM = "premium"
+    const val PREMIUM = "premium?source={source}"
     const val OVERVIEW = "overview"
     const val HISTORY = "history"
     const val SESSION = "session/{id}"
     const val WORKOUT = "workout/{id}"
     const val EXERCISE = "exercise/{id}"
+    /** [source] says where the offer was opened from (account, plan, session, onboarding); it only feeds an anonymous counter. */
+    fun premium(source: String) = "premium?source=$source"
     fun session(id: String) = "session/$id"
     fun workout(id: String) = "workout/$id"
     fun exercise(id: String) = "exercise/$id"
@@ -159,7 +162,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                         onHistory = { nav.navigate(Routes.HISTORY) },
                         onCreatePlan = { nav.navigate(Routes.ONBOARDING) },
                         onCreateManualPlan = { nav.navigate(Routes.MANUAL_PLAN) },
-                        onPremium = { nav.navigate(Routes.PREMIUM) },
+                        onPremium = { nav.navigate(Routes.premium("plan")) },
                         onSendPending = { planVm.sendPending() }
                     )
                 }
@@ -170,17 +173,20 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                 composable(Routes.ACCOUNT) {
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
                     val planState by planVm.state.collectAsStateWithLifecycle()
-                    AccountScreen(vm, c.auth, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.PREMIUM) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
+                    AccountScreen(vm, c.auth, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
                 }
                 composable(Routes.ONBOARDING) {
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
-                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.PREMIUM) }, onCreated = { planVm.load(); nav.popBackStack() })
+                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("onboarding")) }, onCreated = { planVm.load(); nav.popBackStack() })
                 }
                 composable(Routes.MANUAL_PLAN) {
                     val vm: ManualPlanViewModel = containerViewModel { ManualPlanViewModel(it.plans, it.exercises) }
                     ManualPlanScreen(vm, onBack = { nav.popBackStack() }, onCreated = { planVm.load(); nav.popBackStack() })
                 }
-                composable(Routes.PREMIUM) {
+                composable(Routes.PREMIUM, listOf(navArgument("source") { type = NavType.StringType; defaultValue = "other" })) { entry ->
+                    val source = entry.arguments?.getString("source").orEmpty()
+                    var counted by rememberSaveable { mutableStateOf(false) }
+                    LaunchedEffect(Unit) { if (!counted) { counted = true; c.analytics.paywallViewed(source) } }
                     val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { planVm.load(); nav.popBackStack() }) }
                     PaywallScreen(vm, onClose = { nav.popBackStack() })
                 }
@@ -194,7 +200,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                 }
                 composable(Routes.SESSION, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
-                    SessionScreen(c.plans.week, id, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.PREMIUM) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
+                    SessionScreen(c.plans.week, id, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()

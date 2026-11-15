@@ -156,3 +156,6 @@ data class SubscriptionStatus(
     val canUpgrade: Boolean get() = enforced && !hasAccess
 }
 data class VerifySubscriptionRequest(val productId: String, val purchaseToken: String)
+
+/** Where in the app the Premium offer was opened from: account, plan, session or onboarding. */
+data class PaywallViewRequest(val source: String)

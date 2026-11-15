@@ -37,6 +37,13 @@ class ExerciseRepository(private val api: ExercisesApi, private val baseUrl: Str
     suspend fun detail(id: String): ApiResult<ExerciseDetail> = apiCall { api.detail(id) }
 }
 
+/** Counts how often, and from where, the Premium offer is opened. Best effort: a failure is never shown or retried. */
+class AnalyticsRepository(private val api: com.trazo.android.data.api.AnalyticsApi) {
+    suspend fun paywallViewed(source: String) {
+        apiCall { api.paywallView(PaywallViewRequest(source)) }
+    }
+}
+
 class SubscriptionRepository(private val api: SubscriptionApi) {
     suspend fun status(): ApiResult<SubscriptionStatus> = apiCall { api.status() }
 
