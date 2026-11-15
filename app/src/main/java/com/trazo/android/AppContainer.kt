@@ -11,6 +11,10 @@ import com.trazo.android.data.api.SubscriptionApi
 import com.trazo.android.data.local.JsonFileStore
 import com.trazo.android.data.local.KeystoreKey
 import com.trazo.android.data.sync.WorkManagerSyncScheduler
+import com.trazo.android.push.PushApi
+import com.trazo.android.push.PushConfigStore
+import com.trazo.android.push.PushRegistrar
+import com.trazo.android.push.SharedPreferencesPushConfigStore
 import com.trazo.android.data.local.PendingLogQueue
 import com.trazo.android.data.local.PlanCache
 import com.trazo.android.data.local.WorkoutDraftStore
@@ -73,8 +77,20 @@ class AppContainer(context: Context) {
     /** Created on first use: nothing talks to Google Play while the backend does not require a subscription. */
     val billing: BillingRepository by lazy { PlayBillingRepository(appContext, subscription, BuildConfig.BILLING_PRODUCT_ID) }
 
+    /** Push notifications: Firebase is started with options the API serves (set by the superadmin), not built into the app. */
+    val pushConfig: PushConfigStore = SharedPreferencesPushConfigStore(appContext)
+    val push = PushRegistrar(appContext, network.create(PushApi::class.java), pushConfig)
+    private val pushScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    /** Used by the messaging service when Firebase issues a new token while the app is not in the foreground. */
+    fun registerPushIfSignedIn() {
+        pushScope.launch { if (auth.hasStoredSession()) runCatching { push.register() } }
+    }
+
     /** Ends the session and removes everything stored for the account: token, cached week, queued logs and drafts. */
     suspend fun signOut() {
+        // Before the logout, while the session still authorizes the call: this phone stops receiving this user's notices.
+        runCatching { push.unregister() }
         runCatching { auth.logout() }
         tokens.clear()
         plans.clearLocal()
@@ -94,6 +110,8 @@ class TrazoApp : Application() {
         CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
             container.errorReporter.flush()
             container.plans.resumePendingSync()
+            // Firebase has to be running before a message or a token refresh wakes the app's service.
+            container.push.startFromCache()
         }
     }
 }

@@ -318,4 +318,13 @@
     <string name="account_test_handled">Provocar error controlado</string>
     <string name="account_test_crash">Provocar cierre inesperado</string>
     <string name="account_test_sent">Error enviado: búscalo en el panel de tickets.</string>
+
+    <!-- Notificaciones push -->
+    <string name="push_channel_name">Avisos</string>
+    <string name="push_channel_description">Respuestas del equipo a tus revisiones y novedades de TRAZO.</string>
+    <string name="push_review_reply">Tienes un mensaje del equipo.</string>
+    <string name="push_review_closed">Hemos terminado de revisar tu rutina.</string>
+    <string name="push_review_new">Nueva petición de revisión de rutina.</string>
+    <string name="push_review_message">Nuevo mensaje en una revisión de rutina.</string>
+    <string name="push_test">Notificación de prueba: las notificaciones funcionan.</string>
 </resources>
