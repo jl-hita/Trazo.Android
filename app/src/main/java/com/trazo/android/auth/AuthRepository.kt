@@ -3,12 +3,12 @@ package com.trazo.android.auth
 /** Failure of an account operation. The UI turns [code] into text in the user's language. */
 class AuthException(val code: AuthError, val http: Int? = null) : Exception(code.name)
 
-enum class AuthError { Generic, IncompleteResponse, NoChallenge, NoSession, TwoFactorSetup, TwoFactorCode, TwoFactorDisable, LogoutAll, LinkGoogle }
+enum class AuthError { Generic, IncompleteResponse, NoChallenge, NoSession, TwoFactorSetup, TwoFactorCode, TwoFactorDisable, LogoutAll, LinkGoogle, GoogleEmailInUse, EmailInUse }
 
 class AuthRepository(private val api: AuthApi, private val store: TokenStore) {
     suspend fun login(email: String, password: String) = consume(api.login(LoginRequest(email.trim(), password)))
-    suspend fun register(email: String, password: String, name: String) = consume(api.register(RegisterRequest(email.trim(), password, name.trim())))
-    suspend fun google(idToken: String) = consume(api.google(GoogleLoginRequest(idToken)))
+    suspend fun register(email: String, password: String, name: String) = consume(api.register(RegisterRequest(email.trim(), password, name.trim())), conflict = AuthError.EmailInUse)
+    suspend fun google(idToken: String) = consume(api.google(GoogleLoginRequest(idToken)), conflict = AuthError.GoogleEmailInUse)
 
     /** Single-use nonce for the next Google ID token. Null when the API has none to give (older server, no connection). */
     suspend fun googleNonce(): String? =
@@ -76,9 +76,13 @@ class AuthRepository(private val api: AuthApi, private val store: TokenStore) {
 
     private fun bearer() = "Bearer ${store.access() ?: throw AuthException(AuthError.NoSession)}"
 
-    private fun consume(response: retrofit2.Response<AuthResponse>): Outcome {
+    /**
+     * A 409 means "verify your email first" when logging in. For Google sign-in and registration it means the email already
+     * belongs to another account, which [conflict] reports instead (a verified account cannot be told to verify anything).
+     */
+    private fun consume(response: retrofit2.Response<AuthResponse>, conflict: AuthError? = null): Outcome {
         val body = response.body()
-        if (response.code() == 409) return Outcome.EmailVerificationRequired(null)
+        if (response.code() == 409) return if (conflict != null) Outcome.Error(conflict, 409) else Outcome.EmailVerificationRequired(null)
         if (!response.isSuccessful || body == null) return Outcome.Error(AuthError.Generic, response.code())
         if (body.emailVerificationRequired) return Outcome.EmailVerificationRequired(body.message)
         if (body.twoFactorRequired) return body.challengeToken?.let { Outcome.Challenge(it) } ?: Outcome.Error(AuthError.NoChallenge)

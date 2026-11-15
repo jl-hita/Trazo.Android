@@ -242,6 +242,8 @@
     <string name="login_connect_failed">No se pudo conectar con TRAZO. Comprueba tu conexión.</string>
     <string name="login_resend_sent">Si la cuenta existe y falta verificarla, recibirás un correo.</string>
     <string name="login_resend_failed">No se pudo solicitar la verificación.</string>
+    <string name="login_resend_button">Reenviar correo de verificación</string>
+    <string name="login_resend_need_email">Escribe tu correo arriba para poder reenviarlo.</string>
     <string name="login_forgot_sent">Si existe una cuenta compatible, recibirás instrucciones.</string>
     <string name="login_forgot_failed">No se pudo solicitar el restablecimiento.</string>
     <string name="google_no_account">No hay ninguna cuenta de Google disponible en este dispositivo.</string>
@@ -258,6 +260,8 @@
     <string name="auth_err_2fa_disable">No se pudo desactivar 2FA.</string>
     <string name="auth_err_logout_all">No se pudo cerrar la sesión en todos los dispositivos.</string>
     <string name="auth_err_link_google">No se pudo vincular la cuenta de Google.</string>
+    <string name="auth_err_google_email_in_use">Ya existe una cuenta con el correo de esa cuenta de Google. Inicia sesión con tu contraseña y vincula Google en los ajustes de seguridad.</string>
+    <string name="auth_err_email_in_use">Ya existe una cuenta con este correo. Inicia sesión o restablece la contraseña.</string>
 
     <!-- Security section -->
     <string name="sec_2fa_on">Autenticación en dos pasos: activada</string>

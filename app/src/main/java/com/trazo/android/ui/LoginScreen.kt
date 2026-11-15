@@ -40,6 +40,8 @@ fun authErrorText(context: Context, code: AuthError): String = context.getString
         AuthError.TwoFactorDisable -> R.string.auth_err_2fa_disable
         AuthError.LogoutAll -> R.string.auth_err_logout_all
         AuthError.LinkGoogle -> R.string.auth_err_link_google
+        AuthError.GoogleEmailInUse -> R.string.auth_err_google_email_in_use
+        AuthError.EmailInUse -> R.string.auth_err_email_in_use
     }
 )
 
@@ -70,13 +72,16 @@ fun LoginScreen(
     var register by remember { mutableStateOf(false) }
     var busy by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<String?>(null) }
+    // Set when the account still has to be verified (or the link failed): offers a prominent resend button under the message.
+    var offerResend by remember { mutableStateOf(false) }
     fun str(id: Int) = context.getString(id)
 
     LaunchedEffect(actionType, actionToken) {
         if (actionType == "verify-email" && !actionToken.isNullOrBlank()) {
             message = try {
-                if (repo.verifyEmail(actionToken).isSuccessful) str(R.string.login_email_verified) else str(R.string.login_link_invalid)
-            } catch (e: Exception) { Diagnostics.report(e); str(R.string.login_verify_failed) }
+                if (repo.verifyEmail(actionToken).isSuccessful) str(R.string.login_email_verified)
+                else { offerResend = true; str(R.string.login_link_invalid) }
+            } catch (e: Exception) { Diagnostics.report(e); offerResend = true; str(R.string.login_verify_failed) }
         }
     }
 
@@ -84,7 +89,7 @@ fun LoginScreen(
         when (result) {
             Outcome.Success -> { challenge = null; onSignedIn() }
             is Outcome.Challenge -> { challenge = result.token; message = str(R.string.login_enter_2fa) }
-            is Outcome.EmailVerificationRequired -> message = result.serverMessage ?: str(R.string.login_verify_email_first)
+            is Outcome.EmailVerificationRequired -> { offerResend = true; message = result.serverMessage ?: str(R.string.login_verify_email_first) }
             is Outcome.Error -> message = authErrorText(context, result.code)
         }
     }
@@ -163,6 +168,15 @@ fun LoginScreen(
                     } else Text(stringResource(R.string.login_google_missing), style = MaterialTheme.typography.bodySmall)
                 }
                 message?.let { Spacer(Modifier.height(12.dp)); Text(it) }
+                if (offerResend && challenge == null && actionType != "reset-password") {
+                    TrazoButton(enabled = !busy && email.isNotBlank(), secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = {
+                        busy = true
+                        scope.launch {
+                            message = try { repo.resendVerification(email); str(R.string.login_resend_sent) } catch (e: Exception) { Diagnostics.report(e); str(R.string.login_resend_failed) } finally { busy = false }
+                        }
+                    }) { Text(stringResource(R.string.login_resend_button)) }
+                    if (email.isBlank()) Text(stringResource(R.string.login_resend_need_email), style = MaterialTheme.typography.bodySmall)
+                }
             }
         }
     }

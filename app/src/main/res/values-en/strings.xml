@@ -238,6 +238,8 @@
     <string name="login_connect_failed">Couldn\'t connect to TRAZO. Check your connection.</string>
     <string name="login_resend_sent">If the account exists and needs verifying, you\'ll receive an email.</string>
     <string name="login_resend_failed">Couldn\'t request the verification.</string>
+    <string name="login_resend_button">Resend verification email</string>
+    <string name="login_resend_need_email">Enter your email above to resend it.</string>
     <string name="login_forgot_sent">If a matching account exists, you\'ll receive instructions.</string>
     <string name="login_forgot_failed">Couldn\'t request the reset.</string>
     <string name="google_no_account">There is no Google account available on this device.</string>
@@ -254,6 +256,8 @@
     <string name="auth_err_2fa_disable">Couldn\'t turn off 2FA.</string>
     <string name="auth_err_logout_all">Couldn\'t sign out on all devices.</string>
     <string name="auth_err_link_google">Couldn\'t link the Google account.</string>
+    <string name="auth_err_google_email_in_use">An account already exists with that Google account\'s email. Sign in with your password and link Google in the security settings.</string>
+    <string name="auth_err_email_in_use">An account with this email already exists. Sign in or reset the password.</string>
 
     <!-- Security section -->
     <string name="sec_2fa_on">Two-step authentication: on</string>
