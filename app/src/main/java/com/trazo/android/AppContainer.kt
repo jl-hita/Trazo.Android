@@ -13,6 +13,14 @@ import com.trazo.android.data.local.PendingLogQueue
 import com.trazo.android.data.local.PlanCache
 import com.trazo.android.data.local.WorkoutDraftStore
 import com.trazo.android.data.net.NetworkModule
+import com.trazo.android.diagnostics.Diagnostics
+import com.trazo.android.diagnostics.DiagnosticsApi
+import com.trazo.android.diagnostics.ErrorReporter
+import com.trazo.android.diagnostics.PendingErrorStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import com.trazo.android.data.net.SessionEvents
 import com.trazo.android.data.repo.BillingRepository
 import com.trazo.android.data.repo.ExerciseRepository
@@ -45,6 +53,14 @@ class AppContainer(context: Context) {
     private val draftStore = JsonFileStore(File(appContext.filesDir, "drafts"), network.gson)
     val drafts = WorkoutDraftStore(draftStore)
 
+    /** Sends crashes and unexpected errors to the backend as anonymous tickets (see [ErrorReporter]). */
+    val errorReporter = ErrorReporter(
+        PendingErrorStore(File(appContext.filesDir, "error-reports")),
+        network.createAnonymous(DiagnosticsApi::class.java),
+        BuildConfig.VERSION_NAME,
+        CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    )
+
     val auth = AuthRepository(network.create(AuthApi::class.java), tokens)
     val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear)
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
@@ -68,5 +84,9 @@ class TrazoApp : Application() {
     override fun onCreate() {
         super.onCreate()
         container = AppContainer(this)
+        // Crashes are stored on the spot and sent on the next start; handled-but-unexpected errors come in through Diagnostics.
+        container.errorReporter.installCrashHandler()
+        Diagnostics.install(container.errorReporter)
+        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch { container.errorReporter.flush() }
     }
 }

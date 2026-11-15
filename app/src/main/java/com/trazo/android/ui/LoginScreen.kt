@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.trazo.android.BuildConfig
 import com.trazo.android.R
 import com.trazo.android.auth.*
+import com.trazo.android.diagnostics.Diagnostics
 import com.trazo.android.ui.theme.*
 import kotlinx.coroutines.launch
 
@@ -74,7 +75,7 @@ fun LoginScreen(
         if (actionType == "verify-email" && !actionToken.isNullOrBlank()) {
             message = try {
                 if (repo.verifyEmail(actionToken).isSuccessful) str(R.string.login_email_verified) else str(R.string.login_link_invalid)
-            } catch (_: Exception) { str(R.string.login_verify_failed) }
+            } catch (e: Exception) { Diagnostics.report(e); str(R.string.login_verify_failed) }
         }
     }
 
@@ -108,14 +109,14 @@ fun LoginScreen(
                         scope.launch {
                             message = try {
                                 if (repo.resetPassword(actionToken, newPassword).isSuccessful) str(R.string.login_password_updated) else str(R.string.login_link_invalid)
-                            } catch (_: Exception) { str(R.string.login_reset_failed) } finally { busy = false }
+                            } catch (e: Exception) { Diagnostics.report(e); str(R.string.login_reset_failed) } finally { busy = false }
                         }
                     }) { Text(stringResource(R.string.login_save_password)) }
                 } else if (challenge != null) {
                     TrazoField(code, { code = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.login_2fa_code)) })
                     TrazoButton(enabled = !busy && code.isNotBlank(), modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), onClick = {
                         busy = true
-                        scope.launch { try { handle(repo.verify(challenge!!, code)) } catch (_: Exception) { message = str(R.string.login_2fa_failed) } finally { busy = false } }
+                        scope.launch { try { handle(repo.verify(challenge!!, code)) } catch (e: Exception) { Diagnostics.report(e); message = str(R.string.login_2fa_failed) } finally { busy = false } }
                     }) { Text(stringResource(R.string.login_verify)) }
                 } else {
                     if (register) TrazoField(name, { name = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.login_name)) })
@@ -129,7 +130,7 @@ fun LoginScreen(
                             busy = true
                             scope.launch {
                                 try { handle(if (register) repo.register(email, password, name) else repo.login(email, password)) }
-                                catch (_: Exception) { message = str(R.string.login_connect_failed) } finally { busy = false }
+                                catch (e: Exception) { Diagnostics.report(e); message = str(R.string.login_connect_failed) } finally { busy = false }
                             }
                         }
                     ) { Text(stringResource(if (register) R.string.login_create_account else R.string.login_sign_in)) }
@@ -138,12 +139,12 @@ fun LoginScreen(
                     }
                     TrazoLink(enabled = email.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp), onClick = {
                         scope.launch {
-                            message = try { repo.resendVerification(email); str(R.string.login_resend_sent) } catch (_: Exception) { str(R.string.login_resend_failed) }
+                            message = try { repo.resendVerification(email); str(R.string.login_resend_sent) } catch (e: Exception) { Diagnostics.report(e); str(R.string.login_resend_failed) }
                         }
                     }) { Text(stringResource(R.string.login_resend)) }
                     TrazoLink(enabled = email.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp), onClick = {
                         scope.launch {
-                            message = try { repo.forgotPassword(email); str(R.string.login_forgot_sent) } catch (_: Exception) { str(R.string.login_forgot_failed) }
+                            message = try { repo.forgotPassword(email); str(R.string.login_forgot_sent) } catch (e: Exception) { Diagnostics.report(e); str(R.string.login_forgot_failed) }
                         }
                     }) { Text(stringResource(R.string.login_forgot)) }
                     if (googleClientId.isNotBlank()) {
@@ -155,7 +156,7 @@ fun LoginScreen(
                                         is GoogleResult.Token -> handle(repo.google(g.idToken))
                                         else -> message = googleResultText(context, g)
                                     }
-                                } catch (_: Exception) { message = str(R.string.login_connect_failed) } finally { busy = false }
+                                } catch (e: Exception) { Diagnostics.report(e); message = str(R.string.login_connect_failed) } finally { busy = false }
                             }
                         }) { Text(stringResource(R.string.login_google)) }
                     } else Text(stringResource(R.string.login_google_missing), style = MaterialTheme.typography.bodySmall)

@@ -101,4 +101,7 @@ class NetworkModule(
 
     private val retrofit: Retrofit = retrofit(client)
     fun <T> create(service: Class<T>): T = retrofit.create(service)
+
+    /** For public endpoints that must stay anonymous: no bearer token, no refresh. */
+    fun <T> createAnonymous(service: Class<T>): T = retrofit(baseClient().build()).create(service)
 }

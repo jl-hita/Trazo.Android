@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.BuildConfig
 import com.trazo.android.R
+import com.trazo.android.diagnostics.Diagnostics
 import com.trazo.android.auth.AuthRepository
 import com.trazo.android.auth.*
 import com.trazo.android.ui.authErrorText
@@ -165,7 +166,7 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
     var recovery by remember { mutableStateOf<List<String>>(emptyList()) }
     var confirmAll by remember { mutableStateOf(false) }
     fun str(id: Int) = context.getString(id)
-    fun fail(e: Exception, fallback: Int) { message = (e as? AuthException)?.let { authErrorText(context, it.code) } ?: str(fallback) }
+    fun fail(e: Exception, fallback: Int) { Diagnostics.report(e); message = (e as? AuthException)?.let { authErrorText(context, it.code) } ?: str(fallback) }
 
     TrazoCard {
         Text(stringResource(if (user.twoFactorEnabled) R.string.sec_2fa_on else R.string.sec_2fa_off))

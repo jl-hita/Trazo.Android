@@ -25,7 +25,7 @@ class AuthRepository(private val api: AuthApi, private val store: TokenStore) {
                 if (response.code() in 400..499) store.clear()
                 false
             } else { consume(response); store.access() != null }
-        } catch (_: Exception) { false }
+        } catch (e: Exception) { com.trazo.android.diagnostics.Diagnostics.report(e); false }
     }
 
     suspend fun currentUser(): UserSummary? {

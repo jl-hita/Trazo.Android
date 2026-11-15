@@ -42,7 +42,8 @@ suspend fun <T> apiCall(block: suspend () -> Response<T>): ApiResult<T> {
         throw e
     } catch (_: IOException) {
         return ApiResult.Failure(ApiError(ErrorKind.Network))
-    } catch (_: RuntimeException) {
+    } catch (e: RuntimeException) {
+        com.trazo.android.diagnostics.Diagnostics.report(e)
         // Malformed body (gson) or similar: a retry will not fix it, but it must not crash the app either.
         return ApiResult.Failure(ApiError(ErrorKind.Unknown))
     }
