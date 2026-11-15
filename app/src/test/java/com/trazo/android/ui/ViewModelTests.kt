@@ -200,6 +200,17 @@ class OnboardingViewModelTest : ViewModelTestBase() {
         assertEquals("UpperLower", OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).split)
     }
 
+    @Test fun `deloads are automatic by default, can be fixed or turned off`() = runTest(dispatcher) {
+        val vm = OnboardingViewModel(plansRepo(FakePlansApi()))
+        advanceUntilIdle()
+        fun request() = OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!)
+        assertTrue(request().includeDeloadPhases); assertNull(request().deloadEveryTrainingWeeks)
+        vm.setDeloadEvery(5)
+        assertEquals(5, request().deloadEveryTrainingWeeks)
+        vm.setIncludeDeload(false)
+        assertFalse(request().includeDeloadPhases); assertNull(request().deloadEveryTrainingWeeks)
+    }
+
     @Test fun `server rejection is shown and does not mark the plan as created`() = runTest(dispatcher) {
         val api = FakePlansApi().apply { createResponse = { httpError(409, problem(409, "active_plan_exists")) } }
         val vm = OnboardingViewModel(plansRepo(api))

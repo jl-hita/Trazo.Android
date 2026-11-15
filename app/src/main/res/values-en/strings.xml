@@ -72,6 +72,10 @@
     <string name="onb_intro">Tell us how you train and we\'ll build a personalised plan with progression.</string>
     <string name="onb_split">Session split</string>
     <string name="onb_split_hint">Automatic picks the split from your training days.</string>
+    <string name="onb_deload">Deload weeks</string>
+    <string name="onb_deload_hint">A lighter week between blocks to recover. Automatic spreads them according to the plan length.</string>
+    <string name="onb_deload_auto">Automatic</string>
+    <string name="onb_deload_every">Every %1$d weeks</string>
     <string name="onb_goal">Goal</string>
     <string name="onb_level">Level</string>
     <string name="onb_days">Training days</string>
