@@ -31,6 +31,7 @@ fun AccountScreen(
     viewModel: AccountViewModel,
     auth: AuthRepository,
     user: UserSummary?,
+    hasPlan: Boolean,
     onLogout: () -> Unit,
     onPremium: () -> Unit,
     onPlanArchived: () -> Unit
@@ -81,6 +82,7 @@ fun AccountScreen(
                 TrazoLink(onClick = viewModel::sendPending, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_send_now)) }
             }
 
+            if (hasPlan) {
             SectionTitle(stringResource(R.string.account_plan))
             state.archiveError?.let { InlineError(it) }
             TrazoButton(onClick = { confirmArchive = true }, enabled = !state.archiving, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
@@ -109,6 +111,7 @@ fun AccountScreen(
                 TrazoButton(onClick = { reviewDialog = true }, enabled = !state.requestingReview, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
                     Text(stringResource(R.string.account_review_request))
                 }
+            }
             }
 
             SectionTitle(stringResource(R.string.account_security))
@@ -225,14 +228,14 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
         message?.let { Text(it, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall) }
     }
 
-    if (BuildConfig.GOOGLE_WEB_CLIENT_ID.isNotBlank()) TrazoButton(
+    if (BuildConfig.GOOGLE_WEB_CLIENT_ID.isNotBlank() && !user.googleLinked) TrazoButton(
         enabled = !busy, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch),
         onClick = {
             busy = true
             scope.launch {
                 try {
                     when (val g = requestGoogleIdToken(context, BuildConfig.GOOGLE_WEB_CLIENT_ID, BuildConfig.DEBUG, auth.googleNonce())) {
-                        is GoogleResult.Token -> { auth.linkGoogle(g.idToken); message = str(R.string.sec_google_linked) }
+                        is GoogleResult.Token -> { auth.linkGoogle(g.idToken); auth.currentUser()?.let { user = it }; message = str(R.string.sec_google_linked) }
                         else -> googleResultText(context, g)?.let { message = it }
                     }
                 } catch (e: Exception) { fail(e, R.string.auth_err_link_google) } finally { busy = false }
