@@ -24,6 +24,9 @@ data class OnboardingState(
     val equipment: Set<String> = emptySet(),
     val limitations: Set<String> = emptySet(),
     val split: String = "Automatic",
+    val includeDeload: Boolean = true,
+    /** Training weeks between deloads, or null to let the server place them. */
+    val deloadEvery: Int? = null,
     val submitting: Boolean = false,
     val created: Boolean = false,
     val error: ApiError? = null
@@ -61,6 +64,8 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     fun setGoal(value: String) = _state.update { it.copy(goal = value) }
     fun setExperience(value: String) = _state.update { it.copy(experience = value) }
     fun setSplit(value: String) = _state.update { it.copy(split = value) }
+    fun setIncludeDeload(value: Boolean) = _state.update { it.copy(includeDeload = value) }
+    fun setDeloadEvery(value: Int?) = _state.update { it.copy(deloadEvery = value) }
     fun setSessionMinutes(value: Int) = _state.update { it.copy(sessionMinutes = value) }
     fun setTotalWeeks(value: Int) = _state.update { it.copy(totalWeeks = value) }
     fun toggleDay(day: String) = _state.update { it.copy(days = it.days.toggle(day)) }
@@ -93,6 +98,9 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
             // Empty means "everything is available" for the server, so an untouched list needs no special case.
             availableEquipment = options.equipment.filter { it in s.equipment },
             limitations = options.limitations.filter { it in s.limitations },
+            includeDeloadPhases = s.includeDeload,
+            // Null lets the server spread the deloads so the training blocks stay full.
+            deloadEveryTrainingWeeks = s.deloadEvery.takeIf { s.includeDeload },
             split = if (s.split == "Automatic" && s.days.size > 4) "PushPullLegs" else s.split
         )
     }

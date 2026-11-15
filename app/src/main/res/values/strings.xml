@@ -71,6 +71,10 @@
     <string name="onb_intro">Cuéntanos cómo entrenas y generaremos un plan personalizado con progresión.</string>
     <string name="onb_split">Reparto de las sesiones</string>
     <string name="onb_split_hint">Automático elige el reparto según tus días de entrenamiento.</string>
+    <string name="onb_deload">Semanas de descarga</string>
+    <string name="onb_deload_hint">Una semana más ligera entre bloques para recuperar. Automática las reparte según la duración del plan.</string>
+    <string name="onb_deload_auto">Automática</string>
+    <string name="onb_deload_every">Cada %1$d semanas</string>
     <string name="onb_goal">Objetivo</string>
     <string name="onb_level">Nivel</string>
     <string name="onb_days">Días de entrenamiento</string>

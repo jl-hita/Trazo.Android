@@ -15,6 +15,7 @@ import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremium: () -> Unit, onCreated: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -41,6 +42,26 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 SectionTitle(stringResource(R.string.onb_split))
                 Text(stringResource(R.string.onb_split_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 ChipGroup((listOf("Automatic") + options.splits).distinct(), setOf(state.split), Labels::split, viewModel::setSplit)
+
+                Row(Modifier.fillMaxWidth().heightIn(min = MinTouch), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        SectionTitle(stringResource(R.string.onb_deload))
+                        Text(stringResource(R.string.onb_deload_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    }
+                    Switch(checked = state.includeDeload, onCheckedChange = viewModel::setIncludeDeload)
+                }
+                if (state.includeDeload) {
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        listOf(null, 4, 5, 6).forEach { every ->
+                            FilterChip(
+                                selected = state.deloadEvery == every, onClick = { viewModel.setDeloadEvery(every) },
+                                label = { Text(if (every == null) stringResource(R.string.onb_deload_auto) else stringResource(R.string.onb_deload_every, every)) },
+                                modifier = Modifier.heightIn(min = MinTouch),
+                                colors = FilterChipDefaults.filterChipColors(selectedContainerColor = TrazoPalette.PrimaryButton, selectedLabelColor = androidx.compose.ui.graphics.Color.White)
+                            )
+                        }
+                    }
+                }
 
                 Text(stringResource(R.string.onb_minutes,state.sessionMinutes), modifier = Modifier.padding(top = 12.dp))
                 Slider(
