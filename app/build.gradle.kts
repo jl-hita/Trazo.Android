@@ -109,6 +109,7 @@ dependencies {
  implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
  implementation("com.android.billingclient:billing-ktx:9.1.0")
  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+ implementation("androidx.work:work-runtime-ktx:2.10.0")
  testImplementation("junit:junit:4.13.2")
  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
  testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
