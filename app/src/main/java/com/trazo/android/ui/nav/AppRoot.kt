@@ -147,7 +147,8 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
                 }
                 composable(Routes.ACCOUNT) {
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
-                    AccountScreen(vm, c.auth, user, onLogout = onLogout, onPremium = { nav.navigate(Routes.PREMIUM) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
+                    val planState by planVm.state.collectAsStateWithLifecycle()
+                    AccountScreen(vm, c.auth, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.PREMIUM) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
                 }
                 composable(Routes.ONBOARDING) {
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
