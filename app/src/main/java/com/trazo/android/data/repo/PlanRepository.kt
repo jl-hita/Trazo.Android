@@ -9,6 +9,7 @@ import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.net.ErrorKind
 import com.trazo.android.data.net.apiCall
+import com.trazo.android.data.sync.SyncScheduler
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,7 +40,8 @@ class PlanRepository(
     private val cache: PlanCache,
     private val queue: PendingLogQueue,
     private val io: CoroutineDispatcher = Dispatchers.IO,
-    private val clearDrafts: () -> Unit = {}
+    private val clearDrafts: () -> Unit = {},
+    private val sync: SyncScheduler = SyncScheduler.None
 ) {
     /** Cache and queue are JSON files: reading or writing them must never happen on the main thread. */
     private suspend fun <T> disk(block: () -> T): T = withContext(io) { block() }
@@ -49,10 +51,20 @@ class PlanRepository(
     /** The current week as last seen, shared by the plan, session and workout screens. */
     val week: StateFlow<WeekView?> = _week.asStateFlow()
 
-    private val _pending = MutableStateFlow(queue.all().size)
+    private val _pending = MutableStateFlow(0)
     val pendingCount: StateFlow<Int> = _pending.asStateFlow()
 
     private val flushLock = Mutex()
+
+    /**
+     * Counts the logs an earlier run left in the queue (app killed, no connection) and hands them to the background sync.
+     * Called at start-up off the main thread: the queue is encrypted, so reading it touches the Keystore.
+     */
+    suspend fun resumePendingSync() {
+        val count = disk { queue.all().size }
+        _pending.value = count
+        if (count > 0) sync.schedule()
+    }
 
     suspend fun options(): ApiResult<PlanOptions> = apiCall { api.options() }
 
@@ -140,7 +152,7 @@ class PlanRepository(
             is ApiResult.Success -> { replaceSession(result.value.session); LogOutcome.Sent(result.value) }
             is ApiResult.Failure -> when {
                 result.error.code == SESSION_ALREADY_LOGGED -> LogOutcome.AlreadyLogged
-                result.error.retryable -> { _pending.value = disk { queue.add(PendingLog(sessionId, request, now)); queue.all().size }; LogOutcome.Queued }
+                result.error.retryable -> { _pending.value = disk { queue.add(PendingLog(sessionId, request, now)); queue.all().size }; sync.schedule(); LogOutcome.Queued }
                 else -> LogOutcome.Rejected(result.error)
             }
         }
@@ -173,6 +185,7 @@ class PlanRepository(
         _week.value = null
         cache.clear()
         queue.clear()
+        sync.cancel()
         clearDrafts()
         _pending.value = 0
     }

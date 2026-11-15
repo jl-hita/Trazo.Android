@@ -6,6 +6,7 @@ import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.net.ErrorKind
 import com.trazo.android.data.repo.LogOutcome
 import com.trazo.android.data.repo.PlanRepository
+import com.trazo.android.data.sync.SyncScheduler
 import com.trazo.android.testing.*
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -16,6 +17,13 @@ import org.junit.rules.TemporaryFolder
 import retrofit2.Response
 import java.io.File
 import java.time.LocalDate
+
+private class CountingScheduler : SyncScheduler {
+    var scheduled = 0
+    var cancelled = 0
+    override fun schedule() { scheduled++ }
+    override fun cancel() { cancelled++ }
+}
 
 class PlanRepositoryTest {
     @get:Rule val tmp = TemporaryFolder()
@@ -121,8 +129,27 @@ class PlanRepositoryTest {
     @Test fun `queued logs survive a restart`() = runTest {
         api.logResponse = { _, _ -> networkFailure() }
         repo.submitLog("s1", logRequest(), now)
-        val restarted = PlanRepository(api, cache, PendingLogQueue(JsonFileStore(File(tmp.root, "queue"))))
+        val scheduler = CountingScheduler()
+        val restarted = PlanRepository(api, cache, PendingLogQueue(JsonFileStore(File(tmp.root, "queue"))), sync = scheduler)
+        restarted.resumePendingSync()
         assertEquals(1, restarted.pendingCount.value)
+        assertEquals(1, scheduler.scheduled)
+    }
+
+    @Test fun `queuing a log schedules the background sync and signing out cancels it`() = runTest {
+        val scheduler = CountingScheduler()
+        val synced = PlanRepository(api, cache, queue, sync = scheduler)
+        api.logResponse = { _, _ -> networkFailure() }
+        synced.submitLog("s1", logRequest(), now)
+        assertEquals(1, scheduler.scheduled)
+        synced.clearLocal()
+        assertEquals(1, scheduler.cancelled)
+    }
+
+    @Test fun `nothing is scheduled when the queue is empty`() = runTest {
+        val scheduler = CountingScheduler()
+        PlanRepository(api, cache, queue, sync = scheduler).resumePendingSync()
+        assertEquals(0, scheduler.scheduled)
     }
 
     @Test fun `server errors are queued, validation errors are returned`() = runTest {
@@ -152,7 +179,7 @@ class PlanRepositoryTest {
 
     @Test fun `clearLocal removes cache, queue and drafts`() = runTest {
         var draftsCleared = false
-        val r = PlanRepository(api, cache, queue) { draftsCleared = true }
+        val r = PlanRepository(api, cache, queue, clearDrafts = { draftsCleared = true })
         r.currentWeek()
         queue.add(PendingLog("s1", logRequest(), now))
         r.clearLocal()

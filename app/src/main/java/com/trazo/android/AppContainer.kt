@@ -9,6 +9,8 @@ import com.trazo.android.data.api.ExercisesApi
 import com.trazo.android.data.api.PlansApi
 import com.trazo.android.data.api.SubscriptionApi
 import com.trazo.android.data.local.JsonFileStore
+import com.trazo.android.data.local.KeystoreKey
+import com.trazo.android.data.sync.WorkManagerSyncScheduler
 import com.trazo.android.data.local.PendingLogQueue
 import com.trazo.android.data.local.PlanCache
 import com.trazo.android.data.local.WorkoutDraftStore
@@ -48,9 +50,11 @@ class AppContainer(context: Context) {
     private val network = NetworkModule(BuildConfig.API_BASE_URL, tokens, sessionEvents)
 
     // The week cache lives in cacheDir (the system may drop it); queued logs and drafts must survive, so they use filesDir.
-    private val cacheStore = JsonFileStore(File(appContext.cacheDir, "plan"), network.gson)
-    private val queueStore = JsonFileStore(File(appContext.filesDir, "pending"), network.gson)
-    private val draftStore = JsonFileStore(File(appContext.filesDir, "drafts"), network.gson)
+    // All three are encrypted with a Keystore key: they hold the user's training data.
+    private val localCipher = KeystoreKey.cipher()
+    private val cacheStore = JsonFileStore(File(appContext.cacheDir, "plan"), network.gson, localCipher)
+    private val queueStore = JsonFileStore(File(appContext.filesDir, "pending"), network.gson, localCipher)
+    private val draftStore = JsonFileStore(File(appContext.filesDir, "drafts"), network.gson, localCipher)
     val drafts = WorkoutDraftStore(draftStore)
 
     /** Sends crashes and unexpected errors to the backend as anonymous tickets (see [ErrorReporter]). */
@@ -62,7 +66,7 @@ class AppContainer(context: Context) {
     )
 
     val auth = AuthRepository(network.create(AuthApi::class.java), tokens)
-    val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear)
+    val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext))
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
     val subscription = SubscriptionRepository(network.create(SubscriptionApi::class.java))
 
@@ -87,6 +91,9 @@ class TrazoApp : Application() {
         // Crashes are stored on the spot and sent on the next start; handled-but-unexpected errors come in through Diagnostics.
         container.errorReporter.installCrashHandler()
         Diagnostics.install(container.errorReporter)
-        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch { container.errorReporter.flush() }
+        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            container.errorReporter.flush()
+            container.plans.resumePendingSync()
+        }
     }
 }
