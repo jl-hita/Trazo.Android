@@ -51,7 +51,8 @@ android {
   applicationId = "com.trazo.android"
   minSdk = 26
   targetSdk = 36
-  versionCode = appVersionCode
+  //versionCode = appVersionCode
+  versionCode = 30002
   versionName = appVersionName
   val googleClientId = providers.gradleProperty("googleWebClientId").orNull ?: ""
   buildConfigField("String", "API_BASE_URL", "\"$releaseApiUrl\"")
