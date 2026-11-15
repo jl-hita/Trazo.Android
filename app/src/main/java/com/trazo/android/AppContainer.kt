@@ -8,6 +8,7 @@ import com.trazo.android.auth.SecureTokenStore
 import com.trazo.android.data.api.ExercisesApi
 import com.trazo.android.data.api.PlansApi
 import com.trazo.android.data.api.SubscriptionApi
+import com.trazo.android.data.repo.AnalyticsRepository
 import com.trazo.android.data.local.JsonFileStore
 import com.trazo.android.data.local.KeystoreKey
 import com.trazo.android.data.sync.WorkManagerSyncScheduler
@@ -73,6 +74,7 @@ class AppContainer(context: Context) {
     val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext))
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
     val subscription = SubscriptionRepository(network.create(SubscriptionApi::class.java))
+    val analytics = AnalyticsRepository(network.create(com.trazo.android.data.api.AnalyticsApi::class.java))
 
     /** Created on first use: nothing talks to Google Play while the backend does not require a subscription. */
     val billing: BillingRepository by lazy { PlayBillingRepository(appContext, subscription, BuildConfig.BILLING_PRODUCT_ID) }
