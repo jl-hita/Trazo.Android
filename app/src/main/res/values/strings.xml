@@ -242,6 +242,8 @@
     <string name="login_connect_failed">No se pudo conectar con TRAZO. Comprueba tu conexión.</string>
     <string name="login_resend_sent">Si la cuenta existe y falta verificarla, recibirás un correo.</string>
     <string name="login_resend_failed">No se pudo solicitar la verificación.</string>
+    <string name="login_resend_button">Reenviar correo de verificación</string>
+    <string name="login_resend_need_email">Escribe tu correo arriba para poder reenviarlo.</string>
     <string name="login_forgot_sent">Si existe una cuenta compatible, recibirás instrucciones.</string>
     <string name="login_forgot_failed">No se pudo solicitar el restablecimiento.</string>
     <string name="google_no_account">No hay ninguna cuenta de Google disponible en este dispositivo.</string>
