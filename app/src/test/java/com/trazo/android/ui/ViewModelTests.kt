@@ -40,7 +40,8 @@ abstract class ViewModelTestBase {
     protected fun plansRepo(api: FakePlansApi): PlanRepository = PlanRepository(
         api,
         PlanCache(JsonFileStore(File(tmp.root, "cache")), today = { LocalDate.of(2026, 11, 17) }),
-        PendingLogQueue(JsonFileStore(File(tmp.root, "queue")))
+        PendingLogQueue(JsonFileStore(File(tmp.root, "queue"))),
+        io = dispatcher
     )
 }
 
@@ -54,7 +55,7 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         repo = plansRepo(api)
         repo.currentWeek()
         drafts = WorkoutDraftStore(JsonFileStore(File(tmp.root, "drafts")))
-        return WorkoutViewModel(repo, drafts, "s1")
+        return WorkoutViewModel(repo, drafts, "s1", dispatcher)
     }
 
     @Test fun `sets start with the target load and a set needs repetitions to be marked`() = runTest(dispatcher) {
@@ -86,7 +87,8 @@ class WorkoutViewModelTest : ViewModelTestBase() {
     @Test fun `typed sets are kept as a draft and restored`() = runTest(dispatcher) {
         val vm = vm()
         vm.updateSet("db-bench-press", 1) { it.copy(reps = "9", weight = "24") }
-        val restored = WorkoutViewModel(repo, drafts, "s1")
+        advanceUntilIdle()
+        val restored = WorkoutViewModel(repo, drafts, "s1", dispatcher)
         assertEquals("9", restored.state.value.entries.single().sets[1].reps)
         assertEquals("24", restored.state.value.entries.single().sets[1].weight)
     }
@@ -233,7 +235,7 @@ class AppViewModelTest : ViewModelTestBase() {
     private fun app(
         store: MemoryTokenStore, subs: FakeSubscriptionApi, events: SessionEvents = SessionEvents(), authApi: FakeAuthApi = FakeAuthApi(),
         cleared: () -> Unit = {}
-    ) = AppViewModel(AuthRepository(authApi, store), SubscriptionRepository(subs), events, { store.clear() }, cleared)
+    ) = AppViewModel(AuthRepository(authApi, store), SubscriptionRepository(subs), events, { store.clear() }, cleared, dispatcher)
 
     @Test fun `no stored session shows sign in`() = runTest(dispatcher) {
         val vm = app(MemoryTokenStore(), FakeSubscriptionApi())

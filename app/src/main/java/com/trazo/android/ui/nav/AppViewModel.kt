@@ -9,10 +9,13 @@ import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.net.SessionEvent
 import com.trazo.android.data.net.SessionEvents
 import com.trazo.android.data.repo.SubscriptionRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 sealed interface AppState {
     data object Loading : AppState
@@ -28,7 +31,8 @@ class AppViewModel(
     private val subscription: SubscriptionRepository,
     events: SessionEvents,
     private val signOutAndClear: suspend () -> Unit,
-    private val clearLocalData: () -> Unit
+    private val clearLocalData: () -> Unit,
+    private val io: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
     private val _state = MutableStateFlow<AppState>(AppState.Loading)
     val state: StateFlow<AppState> = _state.asStateFlow()
@@ -38,13 +42,16 @@ class AppViewModel(
         bootstrap()
     }
 
+    // Reading the token means a Keystore decryption: slow enough to show as a dropped frame at launch if done on the main thread.
+    private suspend fun stored() = withContext(io) { auth.hasStoredSession() }
+
     private fun bootstrap() {
         viewModelScope.launch {
-            if (!auth.hasStoredSession()) { _state.value = AppState.SignedOut; return@launch }
+            if (!stored()) { _state.value = AppState.SignedOut; return@launch }
             val restored = auth.restoreSession()
             if (!restored) {
                 // Refresh failed for good (tokens cleared) → sign in again; failed only because we are offline → keep going.
-                _state.value = if (auth.hasStoredSession()) AppState.Ready(null, null) else AppState.SignedOut
+                _state.value = if (stored()) AppState.Ready(null, null) else AppState.SignedOut
                 return@launch
             }
             enter()
@@ -58,7 +65,7 @@ class AppViewModel(
     }
 
     private suspend fun enter() {
-        val user = runCatching { auth.currentUser() }.getOrNull()
+        val user = runCatching { withContext(io) { auth.currentUser() } }.getOrNull()
         val status = (subscription.status() as? ApiResult.Success)?.value
         _state.value = AppState.Ready(user, status)
     }

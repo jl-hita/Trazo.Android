@@ -46,7 +46,7 @@ class AppContainer(context: Context) {
     val drafts = WorkoutDraftStore(draftStore)
 
     val auth = AuthRepository(network.create(AuthApi::class.java), tokens)
-    val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), drafts::clear)
+    val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear)
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
     val subscription = SubscriptionRepository(network.create(SubscriptionApi::class.java))
 
