@@ -38,7 +38,8 @@ val hasReleaseSigning = !signingKeystorePath.isNullOrBlank() && rootProject.file
 val appVersionName = "0.3.0"
 val buildNumber = (providers.gradleProperty("buildNumber").orNull ?: System.getenv("TRAZO_BUILD_NUMBER") ?: "0").toInt()
 require(buildNumber in 0..99) { "buildNumber debe estar entre 0 y 99." }
-val appVersionCode = appVersionName.split(".").map { it.toInt() }.let { (ma, mi, pa) -> ma * 1_000_000 + mi * 10_000 + pa * 100 } + buildNumber
+//val appVersionCode = appVersionName.split(".").map { it.toInt() }.let { (ma, mi, pa) -> ma * 1_000_000 + mi * 10_000 + pa * 100 } + buildNumber
+val appVersionCode = 30001
 // Subscription product used by the (inactive) Play Billing flow. Change it here or with -PbillingProductId=...
 val billingProductId = providers.gradleProperty("billingProductId").orElse("trazo_premium").get()
 // FLAG_SECURE on the routine screens; can only be switched off in debug builds with -PsecureScreens=false.
