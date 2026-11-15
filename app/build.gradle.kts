@@ -110,6 +110,9 @@ dependencies {
  implementation("com.android.billingclient:billing-ktx:9.1.0")
  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
  implementation("androidx.work:work-runtime-ktx:2.10.0")
+ // Push notifications. Firebase is started at run time with the options the API serves, so there is no google-services plugin.
+ implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+ implementation("com.google.firebase:firebase-messaging")
  testImplementation("junit:junit:4.13.2")
  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
  testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")

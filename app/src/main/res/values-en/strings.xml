@@ -314,4 +314,13 @@
     <string name="account_test_handled">Trigger handled error</string>
     <string name="account_test_crash">Trigger crash</string>
     <string name="account_test_sent">Error sent: look for it in the ticket console.</string>
+
+    <!-- Push notifications -->
+    <string name="push_channel_name">Alerts</string>
+    <string name="push_channel_description">Replies from the team to your reviews and TRAZO news.</string>
+    <string name="push_review_reply">You have a message from the team.</string>
+    <string name="push_review_closed">We have finished reviewing your routine.</string>
+    <string name="push_review_new">New routine review request.</string>
+    <string name="push_review_message">New message in a routine review.</string>
+    <string name="push_test">Test notification: notifications are working.</string>
 </resources>

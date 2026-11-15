@@ -1,5 +1,11 @@
 package com.trazo.android.ui.nav
 
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import com.trazo.android.push.PushKinds
+import com.trazo.android.push.PushNotifier
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -77,7 +83,7 @@ private inline fun <reified VM : ViewModel> containerViewModel(key: String? = nu
 
 /** Top of the UI: chooses between loading, sign-in and the app. Premium is an optional screen inside the app. */
 @Composable
-fun AppRoot(actionType: String?, actionToken: String?) {
+fun AppRoot(actionType: String?, actionToken: String?, pushKind: String? = null, onPushHandled: () -> Unit = {}) {
     val c = container()
     val app: AppViewModel = containerViewModel { AppViewModel(it.auth, it.subscription, it.sessionEvents, it::signOut, it.plans::clearLocal) }
     val state by app.state.collectAsStateWithLifecycle()
@@ -85,7 +91,7 @@ fun AppRoot(actionType: String?, actionToken: String?) {
         when (val s = state) {
             AppState.Loading -> LoadingBox()
             AppState.SignedOut -> LoginScreen(c.auth, BuildConfig.GOOGLE_WEB_CLIENT_ID, actionType, actionToken, onSignedIn = app::onSignedIn)
-            is AppState.Ready -> MainNavigation(s.user, onLogout = app::signOut)
+            is AppState.Ready -> MainNavigation(s.user, onLogout = app::signOut, pushKind = pushKind, onPushHandled = onPushHandled)
         }
     }
 }
@@ -99,11 +105,27 @@ private val TABS = listOf(
 )
 
 @Composable
-private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit) {
+private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: String? = null, onPushHandled: () -> Unit = {}) {
     val c = container()
     val nav = rememberNavController()
     val planVm: PlanViewModel = containerViewModel { PlanViewModel(it.plans) }
     val route = nav.currentBackStackEntryAsState().value?.destination?.route
+    val context = LocalContext.current
+    val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    // Push is an extra: register this phone once the user is in, and ask for the notification permission (once) only if the server has push on.
+    LaunchedEffect(Unit) {
+        val enabled = c.push.register()
+        if (enabled && Build.VERSION.SDK_INT >= 33 && !c.pushConfig.permissionAsked && !PushNotifier.canPost(context)) {
+            c.pushConfig.permissionAsked = true
+            askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+    // Tapping a review notification opens the account screen, where the conversation is.
+    LaunchedEffect(pushKind) {
+        if (pushKind == null) return@LaunchedEffect
+        if (PushKinds.opensAccount(pushKind)) nav.navigateTab(Routes.ACCOUNT)
+        onPushHandled()
+    }
     Scaffold(
         containerColor = TrazoPalette.Background,
         bottomBar = {

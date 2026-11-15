@@ -15,6 +15,7 @@ Native Kotlin + Jetpack Compose client for the TRAZO strength-training platform.
 - Workout history, local drafts and pending workout records.
 - Account and subscription screens.
 - Manual plan-review requests and conversations.
+- Push notifications (Firebase Cloud Messaging) for review replies and announcements. Firebase is started at run time with options the API serves (set by the superadmin in Settings), so the app has no google-services.json. See the backend's docs/push-notifications.md.
 
 ## Requirements
 

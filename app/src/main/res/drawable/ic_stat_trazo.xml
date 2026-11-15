@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Status-bar icon of the notifications: the monochrome mark, cropped to the glyph so it is not tiny. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="60"
+    android:viewportHeight="60">
+    <group android:translateX="-24" android:translateY="-24">
+        <path android:fillColor="#FFFFFFFF" android:pathData="M34.67 39.25C46.48 37.12 60.44 35.32 73.33 31.06C61.52 38.6 47.56 40.89 34.67 40.07Z"/>
+        <path android:fillColor="#FFFFFFFF" android:pathData="M54.95 76.94L48.76 76.94L48.76 49.95L38.43 49.95L38.43 44.17L65.28 44.17L65.28 49.95L54.95 49.95L54.95 76.94"/>
+    </group>
+</vector>
