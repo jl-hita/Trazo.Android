@@ -19,8 +19,15 @@ data class ExerciseView(
     val exerciseId: String, val name: String, val order: Int, val sets: Int, val minRepetitions: Int, val maxRepetitions: Int,
     val targetRir: Double?, val restSeconds: Int, val progressionRule: String, val targetLoadKg: Double?, val loadBasis: String?,
     val warmupSets: Int?, val warmupNote: String?, val primaryMuscles: List<String>, val secondaryMuscles: List<String>,
-    val swappedFromExerciseId: String?
+    val swappedFromExerciseId: String?,
+    /** What the user did the last time (any plan), with a proposed load; null when never logged. */
+    val lastPerformance: LastPerformanceView? = null
 )
+
+data class LastSetView(val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?)
+
+/** [suggestionBasis] is "repeat" (same load) or "increase" (every set reached the top of the range). */
+data class LastPerformanceView(val date: String, val sets: List<LastSetView>, val suggestedLoadKg: Double?, val suggestionBasis: String?)
 
 data class LoggedSetView(
     val exerciseId: String, val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?,

@@ -356,4 +356,7 @@
     <string name="feature_push">notificaciones</string>
     <string name="feature_session">inicio de sesión</string>
     <string name="feature_analytics">estadísticas de uso</string>
+    <string name="workout_last_time">Última vez (%1$s): %2$s</string>
+    <string name="workout_proposal_increase">Propuesta de hoy: %1$s kg (llegaste al máximo de repeticiones: sube un poco)</string>
+    <string name="workout_proposal_repeat">Propuesta de hoy: %1$s kg (repite la carga y busca más repeticiones)</string>
 </resources>

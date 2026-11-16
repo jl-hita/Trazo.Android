@@ -20,6 +20,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
+import com.trazo.android.data.model.LastPerformanceView
+import com.trazo.android.ui.plan.formatDate
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoField
@@ -59,6 +61,7 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                             (ex.targetLoadKg?.let { " · " + stringResource(R.string.session_target_load, WorkoutViewModel.formatKg(it)) } ?: ""),
                         color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
                     )
+                    ex.lastPerformance?.let { LastTimeInfo(it, ex.targetLoadKg == null) }
                     entry.sets.forEachIndexed { index, set ->
                         SetRow(
                             index + 1, set,
@@ -86,6 +89,26 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
     )
     state.alternatives?.let { AlternativesDialog(it, state.swapError, viewModel) }
     if (showFinish) FinishDialog(state, onDismiss = { showFinish = false; viewModel.dismissFinishError() }, onSend = viewModel::finish)
+}
+
+/** What the user did last time and, when the engine gave no target, the load proposed for today. */
+@Composable
+private fun LastTimeInfo(last: LastPerformanceView, showProposal: Boolean) {
+    val sets = last.sets.filter { it.repetitions != null }.joinToString(" · ") { set ->
+        (set.weightKg?.let { WorkoutViewModel.formatKg(it) + " kg" } ?: "–") + " × " + set.repetitions
+    }
+    if (sets.isNotEmpty()) Text(
+        stringResource(R.string.workout_last_time, formatDate(last.date), sets),
+        color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
+    )
+    val proposed = last.suggestedLoadKg
+    if (showProposal && proposed != null) Text(
+        stringResource(
+            if (last.suggestionBasis == "increase") R.string.workout_proposal_increase else R.string.workout_proposal_repeat,
+            WorkoutViewModel.formatKg(proposed)
+        ),
+        color = TrazoPalette.Link, style = MaterialTheme.typography.bodySmall
+    )
 }
 
 @Composable
