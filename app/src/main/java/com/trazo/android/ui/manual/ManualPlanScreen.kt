@@ -67,7 +67,7 @@ private fun DayCard(day: String, routine: ManualDay, vm: ManualPlanViewModel) {
         if (routine.exercises.isEmpty()) {
             Text(stringResource(R.string.manual_no_exercises), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 8.dp))
         }
-        routine.exercises.forEach { exercise ->
+        routine.exercises.forEachIndexed { index, exercise ->
             Column(Modifier.fillMaxWidth().padding(top = 12.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(exercise.name, Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
@@ -75,6 +75,9 @@ private fun DayCard(day: String, routine: ManualDay, vm: ManualPlanViewModel) {
                 }
                 Stepper(stringResource(R.string.manual_sets, exercise.sets), { vm.changeSets(day, exercise.id, -1) }, { vm.changeSets(day, exercise.id, 1) })
                 Stepper(stringResource(R.string.manual_reps, exercise.minReps, exercise.maxReps), { vm.changeReps(day, exercise.id, -1) }, { vm.changeReps(day, exercise.id, 1) })
+                if (index < routine.exercises.lastIndex) TextButton(onClick = { vm.toggleLink(day, exercise.id) }, modifier = Modifier.heightIn(min = MinTouch)) {
+                    Text(stringResource(if (exercise.linkedToNext) R.string.manual_unlink else R.string.manual_link))
+                }
             }
         }
         TrazoButton(onClick = { vm.openPicker(day) }, secondary = true, modifier = Modifier.padding(top = 12.dp).heightIn(min = MinTouch)) {

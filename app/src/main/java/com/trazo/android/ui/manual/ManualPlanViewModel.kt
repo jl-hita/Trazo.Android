@@ -21,7 +21,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /** An exercise the user picked for a routine, with the dose they want. */
-data class ManualExercise(val id: String, val name: String, val sets: Int = 3, val minReps: Int = 8, val maxReps: Int = 12)
+data class ManualExercise(
+    val id: String, val name: String, val sets: Int = 3, val minReps: Int = 8, val maxReps: Int = 12,
+    /** Done as a superset with the exercise that follows it. */
+    val linkedToNext: Boolean = false
+)
 
 data class ManualDay(val title: String = "", val exercises: List<ManualExercise> = emptyList())
 
@@ -57,7 +61,16 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
 
     fun setTitle(day: String, title: String) = updateDay(day) { it.copy(title = title.take(60)) }
 
-    fun removeExercise(day: String, id: String) = updateDay(day) { d -> d.copy(exercises = d.exercises.filterNot { it.id == id }) }
+    fun removeExercise(day: String, id: String) = updateDay(day) { d -> d.copy(exercises = normalizeLinks(d.exercises.filterNot { it.id == id })) }
+
+    /** Joins an exercise with the next one in a superset (or splits them). A superset has two or three exercises. */
+    fun toggleLink(day: String, id: String) = updateDay(day) { d ->
+        val index = d.exercises.indexOfFirst { it.id == id }
+        if (index < 0 || index == d.exercises.lastIndex) return@updateDay d
+        val linked = !d.exercises[index].linkedToNext
+        val next = d.exercises.mapIndexed { i, e -> if (i == index) e.copy(linkedToNext = linked) else e }
+        if (linked && runLength(next, index) > MAX_SUPERSET) d else d.copy(exercises = next)
+    }
 
     fun changeSets(day: String, id: String, delta: Int) = updateExercise(day, id) { it.copy(sets = (it.sets + delta).coerceIn(1, MAX_SETS)) }
 
@@ -116,9 +129,37 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
         updateDay(day) { d -> d.copy(exercises = d.exercises.map { if (it.id == id) transform(it) else it }) }
 
     companion object {
+        const val MAX_SUPERSET = 3
         const val MIN_WEEKS = 1
         const val MAX_WEEKS = 52
         const val MAX_SETS = 10
+
+        /** Length of the superset run that contains [index]. */
+        fun runLength(list: List<ManualExercise>, index: Int): Int {
+            var start = index
+            while (start > 0 && list[start - 1].linkedToNext) start--
+            var end = index
+            while (end < list.lastIndex && list[end].linkedToNext) end++
+            return end - start + 1
+        }
+
+        /** The last exercise cannot link to a next one. */
+        fun normalizeLinks(list: List<ManualExercise>): List<ManualExercise> =
+            list.mapIndexed { i, e -> if (i == list.lastIndex && e.linkedToNext) e.copy(linkedToNext = false) else e }
+
+        /** Letters A, B, C... for each run of linked exercises; exercises outside a run get none. */
+        fun supersetGroups(list: List<ManualExercise>): List<String?> {
+            val groups = arrayOfNulls<String>(list.size)
+            var letter = 'A'
+            var i = 0
+            while (i < list.size) {
+                var j = i
+                while (j < list.lastIndex && list[j].linkedToNext) j++
+                if (j > i) { for (k in i..j) groups[k] = letter.toString(); letter++ }
+                i = j + 1
+            }
+            return groups.toList()
+        }
 
         /** [weekOrder] is the order the routines are sent in (the week as the user sees it). */
         fun buildRequest(s: ManualPlanState, weekOrder: List<String>) = ManualPlanRequest(
@@ -126,8 +167,9 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
             totalWeeks = s.totalWeeks,
             days = weekOrder.filter { it in s.days }.map { day ->
                 val d = s.days.getValue(day)
-                ManualDayRequest(day, d.title.trim().ifEmpty { day }, d.exercises.map {
-                    ManualExerciseRequest(it.id, it.sets, it.minReps, it.maxReps)
+                val groups = supersetGroups(d.exercises)
+                ManualDayRequest(day, d.title.trim().ifEmpty { day }, d.exercises.mapIndexed { i, it ->
+                    ManualExerciseRequest(it.id, it.sets, it.minReps, it.maxReps, supersetGroup = groups[i])
                 })
             }
         )

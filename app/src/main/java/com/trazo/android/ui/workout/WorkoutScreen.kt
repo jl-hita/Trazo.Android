@@ -52,7 +52,10 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                 TrazoCard {
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         ExerciseThumb(exerciseImageUrl(entry.exercise.exerciseId), entry.exercise.name, 56.dp)
-                        Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
+                        Column {
+                            Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
+                            entry.exercise.supersetGroup?.let { Text(stringResource(R.string.workout_superset, it), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium) }
+                        }
                     }
                     val ex = entry.exercise
                     Text(

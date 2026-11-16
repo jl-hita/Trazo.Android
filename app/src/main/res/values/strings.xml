@@ -389,4 +389,7 @@
     <string name="progress_sets">%1$d series</string>
     <string name="progress_chart_1rm">1RM estimado (kg)</string>
     <string name="progress_chart_reps">Repeticiones</string>
+    <string name="workout_superset">Superserie %1$s: sigue con el siguiente ejercicio sin descanso</string>
+    <string name="manual_link">Unir en superserie con el siguiente</string>
+    <string name="manual_unlink">Quitar la superserie con el siguiente</string>
 </resources>

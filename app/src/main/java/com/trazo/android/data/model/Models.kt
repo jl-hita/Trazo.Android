@@ -21,7 +21,9 @@ data class ExerciseView(
     val warmupSets: Int?, val warmupNote: String?, val primaryMuscles: List<String>, val secondaryMuscles: List<String>,
     val swappedFromExerciseId: String?,
     /** What the user did the last time (any plan), with a proposed load; null when never logged. */
-    val lastPerformance: LastPerformanceView? = null
+    val lastPerformance: LastPerformanceView? = null,
+    /** Letter of the superset this exercise belongs to (consecutive exercises with the same letter), or null. */
+    val supersetGroup: String? = null
 )
 
 data class LastSetView(val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?)
@@ -96,7 +98,7 @@ data class ManualPlanRequest(
 data class ManualDayRequest(val day: String, val title: String, val exercises: List<ManualExerciseRequest>)
 data class ManualExerciseRequest(
     val exerciseId: String, val sets: Int, val minRepetitions: Int, val maxRepetitions: Int, val targetRir: Double? = null,
-    val restSeconds: Int? = null
+    val restSeconds: Int? = null, val supersetGroup: String? = null
 )
 
 data class PlanProfileRequest(

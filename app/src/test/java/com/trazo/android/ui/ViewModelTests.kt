@@ -127,6 +127,25 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         assertEquals("", WorkoutViewModel.freshEntry(sampleExercise(load = null)).sets[0].weight)
     }
 
+    @Test fun `linked exercises get one group letter per run and a superset has at most three`() {
+        fun ex(id: String, link: Boolean) = com.trazo.android.ui.manual.ManualExercise(id, id, linkedToNext = link)
+        val list = listOf(ex("a", true), ex("b", false), ex("c", false), ex("d", true), ex("e", true), ex("f", false))
+        val groups = com.trazo.android.ui.manual.ManualPlanViewModel.supersetGroups(list)
+        assertEquals(listOf("A", "A", null, "B", "B", "B"), groups)
+        assertEquals(3, com.trazo.android.ui.manual.ManualPlanViewModel.runLength(list, 4))
+        assertFalse(com.trazo.android.ui.manual.ManualPlanViewModel.normalizeLinks(listOf(ex("x", true))).last().linkedToNext)
+    }
+
+    @Test fun `rest starts only after the last exercise of a superset`() {
+        val a = sampleExercise("a").copy(supersetGroup = "A")
+        val b = sampleExercise("b").copy(supersetGroup = "A")
+        val c = sampleExercise("c")
+        val entries = listOf(a, b, c).map { WorkoutViewModel.freshEntry(it) }
+        assertFalse(WorkoutViewModel.isLastOfGroup(entries, "a"))
+        assertTrue(WorkoutViewModel.isLastOfGroup(entries, "b"))
+        assertTrue(WorkoutViewModel.isLastOfGroup(entries, "c"))
+    }
+
     @Test fun `unfinished sets make a partial log with the skip reason`() {
         val entries = listOf(WorkoutViewModel.freshEntry(sampleExercise()).let { e ->
             e.copy(sets = e.sets.mapIndexed { i, s -> if (i == 0) s.copy(reps = "10", done = true) else s })
