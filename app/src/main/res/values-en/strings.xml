@@ -268,6 +268,16 @@
     <string name="sec_2fa_setup">Set up 2FA</string>
     <string name="sec_2fa_setup_hint">Add the key to your authenticator app and confirm the code.</string>
     <string name="sec_2fa_secret">Secret key (keep it safe):</string>
+    <string name="sec_2fa_secret_label">TRAZO secret key</string>
+    <string name="sec_2fa_copy">Copy the key</string>
+    <string name="sec_2fa_copy_hint">Tap the key to copy it. It is removed from the clipboard after a minute.</string>
+    <string name="sec_2fa_copied">Key copied. It will be removed from the clipboard in a minute.</string>
+    <string name="sec_2fa_open">Open in my authenticator app</string>
+    <string name="sec_2fa_no_authenticator">No authenticator app can open this. Copy the key and add it by hand.</string>
+    <string name="sec_2fa_open_failed">Couldn\'t open the authenticator app. Copy the key and add it by hand.</string>
+    <string name="sec_2fa_info_cd">How to use the key</string>
+    <string name="sec_2fa_info_title">How to use the secret key</string>
+    <string name="sec_2fa_info_text">You need an authenticator app on your phone: it generates 6-digit codes that change every 30 seconds.\n\n1. Tap \"Open in my authenticator app\", or copy the key by tapping it.\n2. In the authenticator app choose to add an account with a setup key (manual key).\n3. Paste the key and name it whatever you like, for example TRAZO.\n4. Enter here the 6-digit code the app shows and tap \"Enable 2FA\".\n\nCompatible apps: Google Authenticator, Microsoft Authenticator, Aegis, 2FAS and Proton Authenticator. Any TOTP-compatible app works.\n\nOnce 2FA is on, save the recovery codes: they are the only way in if you lose your phone.</string>
     <string name="sec_2fa_six_digits">6-digit code</string>
     <string name="sec_2fa_enable">Turn on 2FA</string>
     <string name="sec_2fa_enabled">2FA is on. Save your recovery codes: they are only shown now.</string>

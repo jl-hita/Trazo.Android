@@ -206,8 +206,7 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
                 }
             }) { Text(stringResource(R.string.sec_2fa_setup)) }
             setup?.let { details ->
-                Text(stringResource(R.string.sec_2fa_secret), style = MaterialTheme.typography.titleSmall)
-                Text(details.secret)
+                TwoFactorKey(details, onMessage = { message = it }, onError = { fail(it, R.string.sec_2fa_open_failed) })
                 TrazoField(code, { code = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.sec_2fa_six_digits)) })
                 TrazoButton(enabled = !busy && code.isNotBlank(), modifier = Modifier.heightIn(min = MinTouch), onClick = {
                     busy = true

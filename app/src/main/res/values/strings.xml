@@ -272,6 +272,16 @@
     <string name="sec_2fa_setup">Configurar 2FA</string>
     <string name="sec_2fa_setup_hint">Añade la clave a tu aplicación autenticadora y confirma el código.</string>
     <string name="sec_2fa_secret">Clave secreta (guárdala de forma segura):</string>
+    <string name="sec_2fa_secret_label">Clave secreta de TRAZO</string>
+    <string name="sec_2fa_copy">Copiar la clave</string>
+    <string name="sec_2fa_copy_hint">Toca la clave para copiarla. Se borra del portapapeles en un minuto.</string>
+    <string name="sec_2fa_copied">Clave copiada. Se borrará del portapapeles en un minuto.</string>
+    <string name="sec_2fa_open">Abrir en mi app autenticadora</string>
+    <string name="sec_2fa_no_authenticator">No hay ninguna app autenticadora que pueda abrirlo. Copia la clave y añádela a mano.</string>
+    <string name="sec_2fa_open_failed">No se pudo abrir la app autenticadora. Copia la clave y añádela a mano.</string>
+    <string name="sec_2fa_info_cd">Cómo usar la clave</string>
+    <string name="sec_2fa_info_title">Cómo usar la clave secreta</string>
+    <string name="sec_2fa_info_text">Necesitas una app autenticadora en tu móvil: genera códigos de 6 dígitos que cambian cada 30 segundos.\n\n1. Pulsa «Abrir en mi app autenticadora», o copia la clave tocándola.\n2. En la app autenticadora elige añadir una cuenta con una clave de configuración (clave manual).\n3. Pega la clave y ponle el nombre que quieras, por ejemplo TRAZO.\n4. Escribe aquí el código de 6 dígitos que muestre la app y pulsa «Activar 2FA».\n\nApps compatibles: Google Authenticator, Microsoft Authenticator, Aegis, 2FAS y Proton Authenticator. Sirve cualquier app compatible con TOTP.\n\nCuando 2FA esté activado, guarda los códigos de recuperación: son la única forma de entrar si pierdes el móvil.</string>
     <string name="sec_2fa_six_digits">Código de 6 dígitos</string>
     <string name="sec_2fa_enable">Activar 2FA</string>
     <string name="sec_2fa_enabled">2FA activado. Guarda los códigos de recuperación: solo se muestran ahora.</string>
