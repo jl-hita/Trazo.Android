@@ -26,6 +26,8 @@ jobs:
           KEY_ALIAS: ${{ secrets.TRAZO_SIGNING_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.TRAZO_SIGNING_KEY_PASSWORD }}
           PLAY_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          API_BASE_URL: ${{ secrets.TRAZO_API_BASE_URL }}
+          GOOGLE_WEB_CLIENT_ID: ${{ secrets.TRAZO_GOOGLE_WEB_CLIENT_ID }}
         run: |
           missing=()
           [[ -n "$KEYSTORE_BASE64" ]] || missing+=("TRAZO_SIGNING_KEYSTORE_BASE64")
@@ -33,6 +35,12 @@ jobs:
           [[ -n "$KEY_ALIAS" ]] || missing+=("TRAZO_SIGNING_KEY_ALIAS")
           [[ -n "$KEY_PASSWORD" ]] || missing+=("TRAZO_SIGNING_KEY_PASSWORD")
           [[ -n "$PLAY_JSON" ]] || missing+=("GOOGLE_PLAY_SERVICE_ACCOUNT_JSON")
+          [[ -n "$API_BASE_URL" ]] || missing+=("TRAZO_API_BASE_URL")
+          [[ -n "$GOOGLE_WEB_CLIENT_ID" ]] || missing+=("TRAZO_GOOGLE_WEB_CLIENT_ID")
+          if [[ -n "$API_BASE_URL" && ! "$API_BASE_URL" =~ ^https:// ]]; then
+            echo "TRAZO_API_BASE_URL debe comenzar por https://"
+            exit 1
+          fi
           if (( ${#missing[@]} )); then
             echo "ready=false" >> "$GITHUB_OUTPUT"
             echo "Publicación omitida. Faltan secrets: ${missing[*]}"
@@ -75,11 +83,16 @@ jobs:
           TRAZO_SIGNING_KEY_ALIAS: ${{ secrets.TRAZO_SIGNING_KEY_ALIAS }}
           TRAZO_SIGNING_KEY_PASSWORD: ${{ secrets.TRAZO_SIGNING_KEY_PASSWORD }}
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          TRAZO_API_BASE_URL: ${{ secrets.TRAZO_API_BASE_URL }}
+          TRAZO_GOOGLE_WEB_CLIENT_ID: ${{ secrets.TRAZO_GOOGLE_WEB_CLIENT_ID }}
         run: |
           # 30002 is the last known Play versionCode. Each run of this workflow gets a unique higher code.
           VERSION_CODE=$((30002 + GITHUB_RUN_NUMBER))
           echo "Building Trazo versionCode $VERSION_CODE"
-          gradle --no-daemon :app:testDebugUnitTest :app:bundleRelease -PversionCode="$VERSION_CODE"
+          gradle --no-daemon :app:testDebugUnitTest :app:bundleRelease \\
+            -PversionCode="$VERSION_CODE" \\
+            -PapiBaseUrl="$TRAZO_API_BASE_URL" \\
+            -PgoogleWebClientId="$TRAZO_GOOGLE_WEB_CLIENT_ID"
 
       - name: Preserve AAB and R8 mapping
         if: steps.secrets.outputs.ready == 'true'
