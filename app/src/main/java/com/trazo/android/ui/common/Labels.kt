@@ -130,10 +130,10 @@ object Labels {
     fun muscles(values: List<String>) = values.joinToString(", ") { muscle(it) }
 
     /** Name of a catalog exercise in the user's language (the catalog has Spanish and English names). */
-    fun localName(es: String, en: String): String = if (english() && en.isNotBlank()) en else es
+    fun localName(es: String, en: String?): String = if (english() && !en.isNullOrBlank()) en else es
 
     /** The name in the other language, shown as a subtitle. */
-    fun otherName(es: String, en: String): String = if (english() && en.isNotBlank()) es else en
+    fun otherName(es: String, en: String?): String? = if (english() && !en.isNullOrBlank()) es else en
 
     /** The API is not consistent about case ("Intermediate" / "intermediate"), so a capitalised retry is also tried. */
     private fun lookup(dict: Dict, value: String): String =
