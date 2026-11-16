@@ -66,7 +66,9 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                         SetRow(
                             index + 1, set,
                             onChange = { t -> viewModel.updateSet(ex.exerciseId, index, t) },
-                            onToggle = { viewModel.toggleDone(ex.exerciseId, index) }
+                            onToggle = { viewModel.toggleDone(ex.exerciseId, index) },
+                            onWeightStep = { up -> viewModel.stepWeight(ex.exerciseId, index, up) },
+                            onRepsStep = { up -> viewModel.stepReps(ex.exerciseId, index, up) }
                         )
                     }
                     Row {
@@ -112,21 +114,40 @@ private fun LastTimeInfo(last: LastPerformanceView, showProposal: Boolean) {
 }
 
 @Composable
-private fun SetRow(number: Int, set: SetEntry, onChange: ((SetEntry) -> SetEntry) -> Unit, onToggle: () -> Unit) {
-    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text(stringResource(R.string.workout_set, number), Modifier.width(52.dp), style = MaterialTheme.typography.bodySmall)
-        TrazoField(set.weight, { v -> onChange { it.copy(weight = v) } }, Modifier.weight(1.2f), { Text(stringResource(R.string.workout_weight), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal))
-        TrazoField(set.reps, { v -> onChange { it.copy(reps = v.filter(Char::isDigit).take(3)) } }, Modifier.weight(0.9f), { Text(stringResource(R.string.workout_reps), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Number))
-        TrazoField(set.rir, { v -> onChange { it.copy(rir = v) } }, Modifier.weight(0.8f), { Text(stringResource(R.string.workout_rir), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal))
-        val label = stringResource(if (set.done) R.string.workout_set_done else R.string.workout_mark_set, number)
-        FilledIconToggleButton(
-            checked = set.done, onCheckedChange = { onToggle() },
-            modifier = Modifier.size(MinTouch).semantics { contentDescription = label },
-            colors = IconButtonDefaults.filledIconToggleButtonColors(
-                containerColor = TrazoPalette.SecondaryButton, contentColor = TrazoPalette.TextSecondary,
-                checkedContainerColor = TrazoPalette.Ok, checkedContentColor = TrazoPalette.Background
-            )
-        ) { Icon(Icons.Filled.Check, contentDescription = null) }
+private fun SetRow(
+    number: Int, set: SetEntry, onChange: ((SetEntry) -> SetEntry) -> Unit, onToggle: () -> Unit,
+    onWeightStep: (Boolean) -> Unit, onRepsStep: (Boolean) -> Unit
+) {
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text(stringResource(R.string.workout_set, number), Modifier.width(52.dp), style = MaterialTheme.typography.bodySmall)
+            Stepper(set.weight, { v -> onChange { it.copy(weight = v) } }, stringResource(R.string.workout_weight), KeyboardType.Decimal, onWeightStep, Modifier.weight(1f))
+            val label = stringResource(if (set.done) R.string.workout_set_done else R.string.workout_mark_set, number)
+            FilledIconToggleButton(
+                checked = set.done, onCheckedChange = { onToggle() },
+                modifier = Modifier.size(MinTouch).semantics { contentDescription = label },
+                colors = IconButtonDefaults.filledIconToggleButtonColors(
+                    containerColor = TrazoPalette.SecondaryButton, contentColor = TrazoPalette.TextSecondary,
+                    checkedContainerColor = TrazoPalette.Ok, checkedContentColor = TrazoPalette.Background
+                )
+            ) { Icon(Icons.Filled.Check, contentDescription = null) }
+        }
+        Row(Modifier.fillMaxWidth().padding(start = 58.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            Stepper(set.reps, { v -> onChange { it.copy(reps = v.filter(Char::isDigit).take(3)) } }, stringResource(R.string.workout_reps), KeyboardType.Number, onRepsStep, Modifier.weight(1f))
+            TrazoField(set.rir, { v -> onChange { it.copy(rir = v) } }, Modifier.width(72.dp), { Text(stringResource(R.string.workout_rir), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal))
+        }
+    }
+}
+
+/** A numeric field with a minus and a plus button, so a typical change needs no keyboard. */
+@Composable
+private fun Stepper(
+    value: String, onValue: (String) -> Unit, label: String, keyboard: KeyboardType, onStep: (Boolean) -> Unit, modifier: Modifier = Modifier
+) {
+    Row(modifier, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        FilledTonalIconButton(onClick = { onStep(false) }, Modifier.size(MinTouch).semantics { contentDescription = "$label -" }) { Text("-") }
+        TrazoField(value, onValue, Modifier.weight(1f), { Text(label, maxLines = 1) }, KeyboardOptions(keyboardType = keyboard))
+        FilledTonalIconButton(onClick = { onStep(true) }, Modifier.size(MinTouch).semantics { contentDescription = "$label +" }) { Text("+") }
     }
 }
 
