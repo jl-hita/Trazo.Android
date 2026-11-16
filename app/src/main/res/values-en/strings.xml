@@ -323,4 +323,20 @@
     <string name="push_review_new">New routine review request.</string>
     <string name="push_review_message">New message in a routine review.</string>
     <string name="push_test">Test notification: notifications are working.</string>
+
+    <!-- Unexpected errors the app survives: a small notice says which function is unavailable -->
+    <string name="notice_unavailable">Feature unavailable right now: %1$s. We have notified the team.</string>
+    <string name="notice_unavailable_generic">Something went wrong. We have notified the team.</string>
+    <string name="feature_plan">plan</string>
+    <string name="feature_overview">plan overview</string>
+    <string name="feature_history">history</string>
+    <string name="feature_catalog">exercise catalog</string>
+    <string name="feature_account">account</string>
+    <string name="feature_premium">subscription</string>
+    <string name="feature_workout">workout logging</string>
+    <string name="feature_onboarding">plan creation</string>
+    <string name="feature_manual_plan">manual plan</string>
+    <string name="feature_push">notifications</string>
+    <string name="feature_session">sign-in</string>
+    <string name="feature_analytics">usage statistics</string>
 </resources>

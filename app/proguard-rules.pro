@@ -14,3 +14,7 @@
 -keep class * extends com.google.gson.reflect.TypeToken
 # Types the app (de)serializes outside the packages above.
 -keep class com.trazo.android.diagnostics.ErrorReportBody { *; }
+# Push API bodies and the config answer: without this R8 renames/folds their fields and the app crashes (PushClientConfig.usable).
+-keep class com.trazo.android.push.PushClientConfig { *; }
+-keep class com.trazo.android.push.RegisterDeviceBody { *; }
+-keep class com.trazo.android.push.UnregisterDeviceBody { *; }

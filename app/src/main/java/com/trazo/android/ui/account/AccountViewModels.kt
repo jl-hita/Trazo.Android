@@ -1,6 +1,9 @@
 package com.trazo.android.ui.account
 
 import android.app.Activity
+import com.trazo.android.data.net.ErrorKind
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.model.ReviewMessage
@@ -44,17 +47,17 @@ class AccountViewModel(
 
     init {
         load()
-        viewModelScope.launch { plans.pendingCount.collect { n -> _state.update { it.copy(pendingLogs = n) } } }
+        viewModelScope.launchGuarded(R.string.feature_account) { plans.pendingCount.collect { n -> _state.update { it.copy(pendingLogs = n) } } }
     }
 
     fun load() {
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_account) {
             when (val r = plans.reviewRequest()) {
                 is ApiResult.Success -> _state.update { it.copy(review = r.value) }
                 is ApiResult.Failure -> Unit // no plan yet or offline: keep what the section last showed
             }
         }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_account) {
             when (val r = subscription.status()) {
                 is ApiResult.Success -> _state.update { it.copy(status = r.value, statusError = null) }
                 is ApiResult.Failure -> _state.update { it.copy(statusError = r.error) }
@@ -64,7 +67,7 @@ class AccountViewModel(
 
     fun archivePlan() {
         _state.update { it.copy(archiving = true, archiveError = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_account, onFailure = { _state.update { it.copy(archiving = false, archiveError = ApiError(ErrorKind.Unknown)) } }) {
             when (val r = plans.archive()) {
                 is ApiResult.Success -> _state.update { it.copy(archiving = false, archived = true) }
                 is ApiResult.Failure -> _state.update { it.copy(archiving = false, archiveError = r.error) }
@@ -75,7 +78,7 @@ class AccountViewModel(
     /** Creates the request; the optional note is the first message, and the conversation opens. */
     fun requestReview(note: String?) {
         _state.update { it.copy(requestingReview = true, reviewError = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_account, onFailure = { _state.update { it.copy(requestingReview = false, reviewError = ApiError(ErrorKind.Unknown)) } }) {
             when (val r = plans.requestReview(note)) {
                 is ApiResult.Success -> _state.update {
                     it.copy(requestingReview = false, review = r.value, thread = r.value.messages.orEmpty(), threadOpen = true)
@@ -97,7 +100,7 @@ class AccountViewModel(
     }
 
     fun refreshThread() {
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_account) {
             when (val r = plans.reviewRequest(messages = true)) {
                 is ApiResult.Success -> _state.update { it.copy(review = r.value, thread = r.value?.messages.orEmpty()) }
                 is ApiResult.Failure -> _state.update { it.copy(reviewError = r.error) }
@@ -111,7 +114,7 @@ class AccountViewModel(
         val text = _state.value.draft.trim()
         if (text.isEmpty() || _state.value.requestingReview) return
         _state.update { it.copy(requestingReview = true, reviewError = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_account, onFailure = { _state.update { it.copy(requestingReview = false, reviewError = ApiError(ErrorKind.Unknown)) } }) {
             when (val r = plans.sendReviewMessage(text)) {
                 is ApiResult.Success -> _state.update {
                     it.copy(requestingReview = false, review = r.value, thread = r.value.messages ?: it.thread, draft = "")
@@ -121,7 +124,7 @@ class AccountViewModel(
         }
     }
 
-    fun sendPending() { viewModelScope.launch { plans.flushPending() } }
+    fun sendPending() { viewModelScope.launchGuarded(R.string.feature_account) { plans.flushPending() } }
 
     fun consumeArchived() = _state.update { it.copy(archived = false) }
 }
@@ -149,8 +152,8 @@ class PaywallViewModel(
     val state: StateFlow<PaywallState> = _state.asStateFlow()
 
     init {
-        viewModelScope.launch { billing.results.collect(::onResult) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_premium) { billing.results.collect(::onResult) }
+        viewModelScope.launchGuarded(R.string.feature_premium, onFailure = { _state.update { it.copy(loading = false, unavailable = true) } }) {
             // A purchase made earlier (or on another device) may only need to be linked to the account again.
             billing.restore()?.let { onResult(it) }
             val offer = billing.loadOffer()
@@ -161,14 +164,14 @@ class PaywallViewModel(
     fun buy(activity: Activity) {
         val id = userId ?: run { _state.update { it.copy(failed = true) }; return }
         _state.update { it.copy(purchasing = true, failed = false, error = null, pending = false) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_premium, onFailure = { _state.update { it.copy(purchasing = false, failed = true) } }) {
             if (!billing.launch(activity, id)) _state.update { it.copy(purchasing = false, failed = true) }
         }
     }
 
     fun restore() {
         _state.update { it.copy(purchasing = true, failed = false, error = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_premium, onFailure = { _state.update { it.copy(purchasing = false, failed = true) } }) {
             val result = billing.restore()
             if (result == null) _state.update { it.copy(purchasing = false, failed = true) } else onResult(result)
         }

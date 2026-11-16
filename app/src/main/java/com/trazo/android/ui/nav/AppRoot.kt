@@ -1,6 +1,9 @@
 package com.trazo.android.ui.nav
 
 import android.Manifest
+import android.widget.Toast
+import com.trazo.android.diagnostics.guarded
+import com.trazo.android.diagnostics.Notices
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -90,6 +93,15 @@ fun AppRoot(actionType: String?, actionToken: String?, pushKind: String? = null,
     val c = container()
     val app: AppViewModel = containerViewModel { AppViewModel(it.auth, it.subscription, it.sessionEvents, it::signOut, it.plans::clearLocal) }
     val state by app.state.collectAsStateWithLifecycle()
+    // A failure the app survived says which function is not available (and has already been reported as a ticket).
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        Notices.events.collect { feature ->
+            val text = if (feature == Notices.GENERIC) context.getString(R.string.notice_unavailable_generic)
+            else context.getString(R.string.notice_unavailable, context.getString(feature))
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+        }
+    }
     Surface(Modifier.fillMaxSize(), color = TrazoPalette.Background, contentColor = TrazoPalette.Text) {
         when (val s = state) {
             AppState.Loading -> LoadingBox()
@@ -119,16 +131,18 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     // Push is an extra: register this phone once the user is in, and ask for the notification permission (once) only if the server has push on.
     LaunchedEffect(Unit) {
-        val enabled = c.push.register()
-        if (enabled && Build.VERSION.SDK_INT >= 33 && !c.pushConfig.permissionAsked && !PushNotifier.canPost(context)) {
-            c.pushConfig.permissionAsked = true
-            askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+        guarded(R.string.feature_push) {
+            val enabled = c.push.register()
+            if (enabled && Build.VERSION.SDK_INT >= 33 && !c.pushConfig.permissionAsked && !PushNotifier.canPost(context)) {
+                c.pushConfig.permissionAsked = true
+                askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
     // Tapping a review notification opens the account screen, where the conversation is.
     LaunchedEffect(pushKind) {
         if (pushKind == null) return@LaunchedEffect
-        if (PushKinds.opensAccount(pushKind)) nav.navigateTab(Routes.ACCOUNT)
+        guarded(R.string.feature_push) { if (PushKinds.opensAccount(pushKind)) nav.navigateTab(Routes.ACCOUNT) }
         onPushHandled()
     }
     Scaffold(
@@ -189,7 +203,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                 composable(Routes.PREMIUM, listOf(navArgument("source") { type = NavType.StringType; defaultValue = "other" })) { entry ->
                     val source = entry.arguments?.getString("source").orEmpty()
                     var counted by rememberSaveable { mutableStateOf(false) }
-                    LaunchedEffect(Unit) { if (!counted) { counted = true; c.analytics.paywallViewed(source) } }
+                    LaunchedEffect(Unit) { if (!counted) { counted = true; guarded(R.string.feature_analytics) { c.analytics.paywallViewed(source) } } }
                     val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { subscriptionVersion++; planVm.load(); nav.popBackStack() }) }
                     PaywallScreen(vm, onClose = { nav.popBackStack() })
                 }

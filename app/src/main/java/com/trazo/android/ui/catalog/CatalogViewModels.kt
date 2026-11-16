@@ -1,6 +1,9 @@
 package com.trazo.android.ui.catalog
 
 import androidx.lifecycle.ViewModel
+import com.trazo.android.data.net.ErrorKind
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.model.ExerciseDetail
 import com.trazo.android.data.model.ExerciseListItem
@@ -55,7 +58,7 @@ class CatalogViewModel(private val exercises: ExerciseRepository, private val de
         val s = _state.value
         if (!s.canLoadMore) return
         _state.update { it.copy(loadingMore = true) }
-        job = viewModelScope.launch {
+        job = viewModelScope.launchGuarded(R.string.feature_catalog, onFailure = { _state.update { it.copy(loadingMore = false, error = ApiError(ErrorKind.Unknown)) } }) {
             when (val r = exercises.search(s.filters, s.page + 1)) {
                 is ApiResult.Success -> _state.update {
                     it.copy(items = it.items + r.value.items, page = r.value.page, totalPages = r.value.totalPages, loadingMore = false)
@@ -68,7 +71,7 @@ class CatalogViewModel(private val exercises: ExerciseRepository, private val de
     private fun reload(delayMillis: Long) {
         job?.cancel()
         _state.update { it.copy(loading = true, loadingMore = false, error = null) }
-        job = viewModelScope.launch {
+        job = viewModelScope.launchGuarded(R.string.feature_catalog, onFailure = { _state.update { it.copy(items = emptyList(), totalCount = 0, loading = false, error = ApiError(ErrorKind.Unknown)) } }) {
             if (delayMillis > 0) delay(delayMillis)
             val filters = _state.value.filters
             when (val r = exercises.search(filters, 1)) {
@@ -97,7 +100,7 @@ class ExerciseDetailViewModel(private val exercises: ExerciseRepository, private
 
     fun load() {
         _state.value = ExerciseDetailState()
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_catalog, onFailure = { _state.update { it.copy(loading = false, error = it.error ?: ApiError(ErrorKind.Unknown)) } }) {
             _state.value = when (val r = exercises.detail(id)) {
                 is ApiResult.Success -> ExerciseDetailState(false, r.value)
                 is ApiResult.Failure -> ExerciseDetailState(false, error = r.error)

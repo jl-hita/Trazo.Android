@@ -1,6 +1,9 @@
 package com.trazo.android.ui.plan
 
 import androidx.lifecycle.ViewModel
+import com.trazo.android.data.net.ErrorKind
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.model.*
 import com.trazo.android.data.net.ApiError
@@ -32,17 +35,17 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
 
     /** The plan is over: closes it (history is kept) so the onboarding can create the next one. */
     fun startNextPlan() {
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_plan) {
             plans.archive()
             load()
         }
     }
 
-    fun sendPending() { viewModelScope.launch { if (plans.flushPending() > 0) load() } }
+    fun sendPending() { viewModelScope.launchGuarded(R.string.feature_plan) { if (plans.flushPending() > 0) load() } }
 
     fun load() {
         _state.update { it.copy(loading = true, error = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.value = PlanUiState(loading = false, error = ApiError(ErrorKind.Unknown)) }) {
             // The plan summary does not depend on the week: ask for both at once instead of one after the other.
             val planRequest = async { plans.currentPlan() }
             when (val week = plans.currentWeek()) {
@@ -73,7 +76,7 @@ class LoadViewModel(private val plans: PlanRepository) : ViewModel() {
 
     fun load() {
         _state.value = LoadUiState()
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_overview, onFailure = { _state.value = LoadUiState(false, error = ApiError(ErrorKind.Unknown)) }) {
             _state.value = when (val result = plans.load()) {
                 is ApiResult.Success -> LoadUiState(false, result.value)
                 is ApiResult.Failure -> LoadUiState(false, error = result.error)
@@ -92,7 +95,7 @@ class HistoryViewModel(private val plans: PlanRepository) : ViewModel() {
 
     fun load() {
         _state.value = HistoryUiState()
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_history, onFailure = { _state.value = HistoryUiState(false, error = ApiError(ErrorKind.Unknown)) }) {
             _state.value = when (val result = plans.history()) {
                 is ApiResult.Success -> HistoryUiState(false, result.value)
                 is ApiResult.Failure -> HistoryUiState(false, error = result.error)

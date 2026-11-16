@@ -327,4 +327,20 @@
     <string name="push_review_new">Nueva petición de revisión de rutina.</string>
     <string name="push_review_message">Nuevo mensaje en una revisión de rutina.</string>
     <string name="push_test">Notificación de prueba: las notificaciones funcionan.</string>
+
+    <!-- Unexpected errors the app survives: a small notice says which function is unavailable -->
+    <string name="notice_unavailable">Función no disponible ahora: %1$s. Hemos avisado al equipo.</string>
+    <string name="notice_unavailable_generic">Algo no ha funcionado. Hemos avisado al equipo.</string>
+    <string name="feature_plan">plan</string>
+    <string name="feature_overview">resumen del plan</string>
+    <string name="feature_history">historial</string>
+    <string name="feature_catalog">catálogo de ejercicios</string>
+    <string name="feature_account">cuenta</string>
+    <string name="feature_premium">suscripción</string>
+    <string name="feature_workout">registro del entrenamiento</string>
+    <string name="feature_onboarding">creación del plan</string>
+    <string name="feature_manual_plan">plan manual</string>
+    <string name="feature_push">notificaciones</string>
+    <string name="feature_session">inicio de sesión</string>
+    <string name="feature_analytics">estadísticas de uso</string>
 </resources>

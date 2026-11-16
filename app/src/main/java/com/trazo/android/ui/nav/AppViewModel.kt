@@ -1,6 +1,9 @@
 package com.trazo.android.ui.nav
 
 import androidx.lifecycle.ViewModel
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
+import com.trazo.android.diagnostics.Diagnostics
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.auth.AuthRepository
 import com.trazo.android.auth.UserSummary
@@ -38,7 +41,7 @@ class AppViewModel(
     val state: StateFlow<AppState> = _state.asStateFlow()
 
     init {
-        viewModelScope.launch { events.events.collect(::onEvent) }
+        viewModelScope.launchGuarded(R.string.feature_session) { events.events.collect(::onEvent) }
         bootstrap()
     }
 
@@ -46,13 +49,13 @@ class AppViewModel(
     private suspend fun stored() = withContext(io) { auth.hasStoredSession() }
 
     private fun bootstrap() {
-        viewModelScope.launch {
-            if (!stored()) { _state.value = AppState.SignedOut; return@launch }
+        viewModelScope.launchGuarded(R.string.feature_session) {
+            if (!stored()) { _state.value = AppState.SignedOut; return@launchGuarded }
             val restored = auth.restoreSession()
             if (!restored) {
                 // Refresh failed for good (tokens cleared) → sign in again; failed only because we are offline → keep going.
                 _state.value = if (stored()) AppState.Ready(null, null) else AppState.SignedOut
-                return@launch
+                return@launchGuarded
             }
             enter()
         }
@@ -61,17 +64,17 @@ class AppViewModel(
     /** Called right after a successful sign-in. */
     fun onSignedIn() {
         _state.value = AppState.Loading
-        viewModelScope.launch { enter() }
+        viewModelScope.launchGuarded(R.string.feature_session) { enter() }
     }
 
     private suspend fun enter() {
-        val user = runCatching { withContext(io) { auth.currentUser() } }.getOrNull()
+        val user = try { withContext(io) { auth.currentUser() } } catch (e: kotlinx.coroutines.CancellationException) { throw e } catch (e: Exception) { Diagnostics.report(e); null }
         val status = (subscription.status() as? ApiResult.Success)?.value
         _state.value = AppState.Ready(user, status)
     }
 
     fun signOut() {
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_session) {
             signOutAndClear()
             _state.value = AppState.SignedOut
         }

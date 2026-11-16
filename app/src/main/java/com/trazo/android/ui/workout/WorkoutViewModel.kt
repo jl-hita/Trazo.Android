@@ -1,6 +1,9 @@
 package com.trazo.android.ui.workout
 
 import androidx.lifecycle.ViewModel
+import com.trazo.android.data.net.ErrorKind
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.local.DraftSet
 import com.trazo.android.data.local.WorkoutDraftStore
@@ -104,7 +107,7 @@ class WorkoutViewModel(
         timer?.cancel()
         if (seconds <= 0) { _state.update { it.copy(rest = null) }; return }
         _state.update { it.copy(rest = RestTimer(seconds, seconds)) }
-        timer = viewModelScope.launch {
+        timer = viewModelScope.launchGuarded(R.string.feature_workout) {
             var left = seconds
             while (left > 0) {
                 delay(1000)
@@ -123,7 +126,7 @@ class WorkoutViewModel(
 
     fun showAlternatives(exerciseId: String) {
         _state.update { it.copy(alternatives = AlternativesState(exerciseId), swapError = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(alternatives = it.alternatives?.copy(loading = false, error = ApiError(ErrorKind.Unknown))) } }) {
             val next = when (val r = plans.alternatives(sessionId, exerciseId)) {
                 is ApiResult.Success -> AlternativesState(exerciseId, false, r.value.alternatives, r.value.message)
                 is ApiResult.Failure -> AlternativesState(exerciseId, false, error = r.error)
@@ -135,7 +138,7 @@ class WorkoutViewModel(
     fun dismissAlternatives() = _state.update { it.copy(alternatives = null, swapError = null) }
 
     fun swap(exerciseId: String, replacementId: String, remainingBlock: Boolean) {
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(swapError = ApiError(ErrorKind.Unknown)) } }) {
             when (val r = plans.swap(sessionId, exerciseId, replacementId, remainingBlock)) {
                 is ApiResult.Success -> _state.update { s ->
                     // Keep what was typed for the exercises that did not change; the swapped one starts fresh.
@@ -156,7 +159,7 @@ class WorkoutViewModel(
         val session = s.session ?: return
         if (s.finish is FinishState.Sending) return
         _state.update { it.copy(finish = FinishState.Sending) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(finish = FinishState.Failed(ApiError(ErrorKind.Unknown))) } }) {
             val request = buildLogRequest(s.entries, form)
             val outcome = plans.submitLog(session.id, request)
             val next = when (outcome) {
@@ -177,7 +180,7 @@ class WorkoutViewModel(
             e.sets.mapIndexed { i, set -> DraftSet(e.exercise.exerciseId, i + 1, set.weight, set.reps, set.rir, set.done) }
         }
         // Not tied to viewModelScope: leaving the screen right after typing must still persist the last edit.
-        CoroutineScope(draftWriter).launch { drafts.save(sessionId, sets) }
+        CoroutineScope(draftWriter).launchGuarded(R.string.feature_workout) { drafts.save(sessionId, sets) }
     }
 
     override fun onCleared() { timer?.cancel() }
