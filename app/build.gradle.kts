@@ -35,7 +35,7 @@ val hasReleaseSigning = !signingKeystorePath.isNullOrBlank() && rootProject.file
  !signingKeystorePassword.isNullOrBlank() && !signingKeyAlias.isNullOrBlank() && !signingKeyPassword.isNullOrBlank()
 
 // versionCode = major*1_000_000 + minor*10_000 + patch*100 + buildNumber, so it only ever grows with versionName.
-val appVersionName = "0.2.1"
+val appVersionName = "0.2.2"
 val buildNumber = (providers.gradleProperty("buildNumber").orNull ?: System.getenv("TRAZO_BUILD_NUMBER") ?: "0").toInt()
 require(buildNumber in 0..99) { "buildNumber debe estar entre 0 y 99." }
 val appVersionCode = appVersionName.split(".").map { it.toInt() }.let { (ma, mi, pa) -> ma * 1_000_000 + mi * 10_000 + pa * 100 } + buildNumber
