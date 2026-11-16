@@ -355,4 +355,27 @@
     <string name="workout_last_time">Last time (%1$s): %2$s</string>
     <string name="workout_proposal_increase">Proposed load: %1$s kg (you hit the top of the range: go a little heavier)</string>
     <string name="workout_proposal_repeat">Proposed load: %1$s kg (repeat the load and aim for more reps)</string>
+    <string name="nav_progress">Progress</string>
+    <string name="feature_progress">progress</string>
+    <string name="progress_title">Your progress</string>
+    <string name="progress_empty">No workouts logged yet. After your first session you will see your records, volume per muscle and your streak here.</string>
+    <string name="progress_streak">Streak</string>
+    <string name="progress_weeks_value">%1$d wk</string>
+    <string name="progress_this_week">This week</string>
+    <string name="progress_of_goal">%1$d of %2$d</string>
+    <string name="progress_last_30">Workouts in 30 days</string>
+    <string name="progress_volume">Total volume</string>
+    <string name="progress_tons">%1$.1f t</string>
+    <string name="progress_records">Recent records</string>
+    <string name="progress_new_record">New record!</string>
+    <string name="progress_best_1rm">Est. 1RM %1$s kg</string>
+    <string name="progress_best_reps">Best %1$d reps</string>
+    <string name="progress_muscles">Sets per muscle</string>
+    <string name="progress_muscles_note">Effective sets per week (a primary muscle counts 1 per set, a secondary one 0.5). The green bar is this week; the others are the previous 7.</string>
+    <string name="progress_sets_this_week">%1$s sets this week</string>
+    <string name="progress_exercises">By exercise</string>
+    <string name="progress_sessions">%1$d workouts</string>
+    <string name="progress_sets">%1$d sets</string>
+    <string name="progress_chart_1rm">Estimated 1RM (kg)</string>
+    <string name="progress_chart_reps">Repetitions</string>
 </resources>
