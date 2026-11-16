@@ -167,6 +167,10 @@ data class VerifySubscriptionRequest(val productId: String, val purchaseToken: S
 /** Where in the app the Premium offer was opened from: account, plan, session or onboarding. */
 data class PaywallViewRequest(val source: String)
 
+// Current block (GET api/v1/plans/current/block): every week of the current mesocycle.
+data class BlockWeekView(val weekNumber: Int, val weekStart: String, val weekEnd: String, val isCurrent: Boolean, val sessions: List<SessionView>)
+data class BlockView(val planId: String, val mesocycle: MesocycleView?, val weeks: List<BlockWeekView>, val locked: Boolean = false)
+
 // Progress (GET api/v1/plans/progress): everything the user logged, across plans.
 
 data class ProgressSummary(
