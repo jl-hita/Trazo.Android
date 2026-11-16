@@ -4,7 +4,7 @@ package com.trazo.android.data.model
 // Dates travel as ISO strings (yyyy-MM-dd) and enums by name, exactly as the server sends them.
 
 data class PhaseView(val sequence: Int, val name: String, val type: String, val startDate: String, val endDate: String, val objective: String)
-data class MacrocycleView(val name: String, val notes: String, val phases: List<PhaseView>)
+data class MacrocycleView(val name: String, val notes: String?, val phases: List<PhaseView>)
 data class MesocycleView(val sequence: Int, val phaseType: String, val isDeload: Boolean, val startWeek: Int, val weeks: Int, val weekInBlock: Int)
 
 data class PlanView(
@@ -47,7 +47,7 @@ data class WeekView(
 data class AppliedAdaptationView(val kind: String, val exerciseIds: List<String>, val sessionsChanged: Int, val explanation: String)
 data class ExerciseAdviceView(val exerciseId: String, val action: String, val explanation: String, val nextLoadKg: Double?, val suggestedRepetitions: List<Int>?)
 data class AdaptationReport(
-    val exercises: List<ExerciseAdviceView>, val sessionAction: String, val sessionExplanation: String,
+    val exercises: List<ExerciseAdviceView>, val sessionAction: String, val sessionExplanation: String?,
     val applied: List<AppliedAdaptationView>, val notes: List<String>,
     /** The session was saved but not adapted: automatic adaptation is a Premium feature. */
     val locked: Boolean = false
@@ -139,7 +139,7 @@ data class ExercisePage(val items: List<ExerciseListItem>, val page: Int, val pa
 
 /** Only the fields the app shows; the server may send more. */
 data class ExerciseDetail(
-    val id: String, val nameEs: String, val nameEn: String, val descriptionEs: String, val instructionsEs: List<String>,
+    val id: String, val nameEs: String, val nameEn: String?, val descriptionEs: String?, val instructionsEs: List<String>,
     val tipsEs: List<String>, val difficulty: String, val equipment: String?, val requiredEquipment: List<String>,
     val bodyPart: String?, val movementPattern: String, val primaryMuscles: List<String>, val secondaryMuscles: List<String>, val minimumExperience: String?
 )
