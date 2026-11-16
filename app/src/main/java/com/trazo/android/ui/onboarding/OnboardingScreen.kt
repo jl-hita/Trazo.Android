@@ -17,9 +17,14 @@ import com.trazo.android.ui.theme.TrazoPalette
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremium: () -> Unit, onCreated: () -> Unit) {
+fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremium: () -> Unit, onManualPlan: () -> Unit, onCreated: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(state.created) { if (state.created) onCreated() }
+    // The account turned out not to have Premium (the app could not know, or it lapsed): same choice as before opening this form.
+    var promptDismissed by remember(state.error) { mutableStateOf(false) }
+    if (state.error?.kind == com.trazo.android.data.net.ErrorKind.SubscriptionRequired && !promptDismissed) {
+        com.trazo.android.ui.billing.PremiumRequiredDialog(onPremium = onPremium, onManualPlan = onManualPlan, onDismiss = { promptDismissed = true })
+    }
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.onb_title), onBack)
         val options = state.options

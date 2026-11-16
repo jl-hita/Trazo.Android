@@ -40,6 +40,8 @@ import com.trazo.android.BuildConfig
 import com.trazo.android.R
 import com.trazo.android.TrazoApp
 import com.trazo.android.auth.UserSummary
+import com.trazo.android.data.model.SubscriptionStatus
+import com.trazo.android.ui.billing.PremiumRequiredDialog
 import com.trazo.android.ui.LoginScreen
 import com.trazo.android.ui.account.AccountScreen
 import com.trazo.android.ui.account.AccountViewModel
@@ -106,7 +108,7 @@ fun AppRoot(actionType: String?, actionToken: String?, pushKind: String? = null,
         when (val s = state) {
             AppState.Loading -> LoadingBox()
             AppState.SignedOut -> LoginScreen(c.auth, BuildConfig.GOOGLE_WEB_CLIENT_ID, actionType, actionToken, onSignedIn = app::onSignedIn)
-            is AppState.Ready -> MainNavigation(s.user, onLogout = app::signOut, pushKind = pushKind, onPushHandled = onPushHandled)
+            is AppState.Ready -> MainNavigation(s.user, s.status, onLogout = app::signOut, pushKind = pushKind, onPushHandled = onPushHandled)
         }
     }
 }
@@ -120,12 +122,17 @@ private val TABS = listOf(
 )
 
 @Composable
-private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: String? = null, onPushHandled: () -> Unit = {}) {
+private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLogout: () -> Unit, pushKind: String? = null, onPushHandled: () -> Unit = {}) {
     val c = container()
     val nav = rememberNavController()
     val planVm: PlanViewModel = containerViewModel { PlanViewModel(it.plans) }
     // Bumped when a purchase is confirmed, so the account tab asks the backend again instead of showing the state it loaded earlier.
     var subscriptionVersion by rememberSaveable { mutableIntStateOf(0) }
+    // What the backend said about the account when the app opened, refreshed when a purchase is confirmed. Null (unknown, e.g.
+    // offline start) never blocks anything: the server has the last word and the onboarding handles its answer.
+    var access by remember(status) { mutableStateOf(status) }
+    // A free account that taps "automatic plan" is told what it can do instead of filling in the form to get a refusal.
+    var premiumPrompt by rememberSaveable { mutableStateOf(false) }
     val route =nav.currentBackStackEntryAsState().value?.destination?.route
     val context = LocalContext.current
     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
@@ -145,6 +152,11 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
         guarded(R.string.feature_push) { if (PushKinds.opensAccount(pushKind)) nav.navigateTab(Routes.ACCOUNT) }
         onPushHandled()
     }
+    if (premiumPrompt) PremiumRequiredDialog(
+        onPremium = { premiumPrompt = false; nav.navigate(Routes.premium("onboarding")) },
+        onManualPlan = { premiumPrompt = false; nav.navigate(Routes.MANUAL_PLAN) },
+        onDismiss = { premiumPrompt = false }
+    )
     Scaffold(
         containerColor = TrazoPalette.Background,
         bottomBar = {
@@ -176,7 +188,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                         onOpenSession = { nav.navigate(Routes.session(it)) },
                         onOverview = { nav.navigate(Routes.OVERVIEW) },
                         onHistory = { nav.navigate(Routes.HISTORY) },
-                        onCreatePlan = { nav.navigate(Routes.ONBOARDING) },
+                        onCreatePlan = { if (access?.canUpgrade == true) premiumPrompt = true else nav.navigate(Routes.ONBOARDING) },
                         onCreateManualPlan = { nav.navigate(Routes.MANUAL_PLAN) },
                         onPremium = { nav.navigate(Routes.premium("plan")) },
                         onSendPending = { planVm.sendPending() }
@@ -194,7 +206,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                 }
                 composable(Routes.ONBOARDING) {
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
-                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("onboarding")) }, onCreated = { planVm.load(); nav.popBackStack() })
+                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("onboarding")) }, onManualPlan = { nav.popBackStack(); nav.navigate(Routes.MANUAL_PLAN) }, onCreated = { planVm.load(); nav.popBackStack() })
                 }
                 composable(Routes.MANUAL_PLAN) {
                     val vm: ManualPlanViewModel = containerViewModel { ManualPlanViewModel(it.plans, it.exercises) }
@@ -204,7 +216,7 @@ private fun MainNavigation(user: UserSummary?, onLogout: () -> Unit, pushKind: S
                     val source = entry.arguments?.getString("source").orEmpty()
                     var counted by rememberSaveable { mutableStateOf(false) }
                     LaunchedEffect(Unit) { if (!counted) { counted = true; guarded(R.string.feature_analytics) { c.analytics.paywallViewed(source) } } }
-                    val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { subscriptionVersion++; planVm.load(); nav.popBackStack() }) }
+                    val vm: PaywallViewModel = containerViewModel { PaywallViewModel(it.billing, user?.id, onAccess = { access = it; subscriptionVersion++; planVm.load(); nav.popBackStack() }) }
                     PaywallScreen(vm, onClose = { nav.popBackStack() })
                 }
                 composable(Routes.OVERVIEW) {

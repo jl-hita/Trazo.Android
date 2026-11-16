@@ -293,6 +293,9 @@
     <string name="overview_load_axis">Series por semana</string>
     <string name="overview_load_note">Las semanas futuras no tienen volumen planificado porque cada bloque se genera cuando llegas a él. Las franjas grises son semanas de descarga.</string>
     <string name="manual_free_hint">Gratis. Con Premium, TRAZO adapta tus cargas y series según cómo entrenas.</string>
+    <string name="premium_auto_title">Plan automático: Premium</string>
+    <string name="premium_auto_text">Con la cuenta gratuita puedes crear tus propios planes manuales, registrar tus entrenamientos y ver tu historial. Que TRAZO genere el plan por ti es una función Premium.</string>
+    <string name="premium_auto_manual">Crear plan manual</string>
     <string name="generated_premium_hint">La generación automática del plan es Premium.</string>
     <string name="manual_title">Plan manual</string>
     <string name="manual_name">Nombre del plan</string>

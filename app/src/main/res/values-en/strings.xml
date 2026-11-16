@@ -289,6 +289,9 @@
     <string name="overview_load_axis">Sets per week</string>
     <string name="overview_load_note">Future weeks have no planned volume yet because each block is generated when you reach it. Grey bands are deload weeks.</string>
     <string name="manual_free_hint">Free. With Premium, TRAZO adapts your loads and sets to how you train.</string>
+    <string name="premium_auto_title">Automatic plan: Premium</string>
+    <string name="premium_auto_text">With a free account you can create your own manual plans, log your workouts and see your history. Having TRAZO generate the plan for you is a Premium feature.</string>
+    <string name="premium_auto_manual">Create manual plan</string>
     <string name="generated_premium_hint">Automatic plan generation is Premium.</string>
     <string name="manual_title">Manual plan</string>
     <string name="manual_name">Plan name</string>
