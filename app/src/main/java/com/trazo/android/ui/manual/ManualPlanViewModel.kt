@@ -1,6 +1,9 @@
 package com.trazo.android.ui.manual
 
 import androidx.lifecycle.ViewModel
+import com.trazo.android.data.net.ErrorKind
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.model.ExerciseListItem
 import com.trazo.android.data.model.ManualDayRequest
@@ -72,7 +75,7 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
 
     fun search(query: String) {
         _state.update { it.copy(query = query, searching = true) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(results = emptyList(), searching = false) } }) {
             val result = exercises.search(ExerciseFilters(query = query), page = 1, pageSize = 20)
             _state.update {
                 // A newer query may have been typed meanwhile: ignore the stale answer.
@@ -98,7 +101,7 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
         val s = _state.value
         if (!s.canSubmit) return
         _state.update { it.copy(submitting = true, error = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(submitting = false, error = ApiError(ErrorKind.Unknown)) } }) {
             when (val result = plans.createManualPlan(buildRequest(s, weekOrder))) {
                 is ApiResult.Success -> _state.update { it.copy(submitting = false, created = true) }
                 is ApiResult.Failure -> _state.update { it.copy(submitting = false, error = result.error) }

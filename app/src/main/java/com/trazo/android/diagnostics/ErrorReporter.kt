@@ -1,6 +1,11 @@
 package com.trazo.android.diagnostics
 
+import com.google.gson.Gson
 import com.trazo.android.auth.AuthException
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -14,6 +19,7 @@ import java.io.PrintWriter
 import java.io.StringWriter
 import java.security.MessageDigest
 import java.util.concurrent.CancellationException
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 /** What the backend receives: the app version and the stack trace. Nothing that identifies the user or the device. */
@@ -30,13 +36,13 @@ interface DiagnosticsApi {
  * uncaught-exception handler, moments before the process dies.
  */
 class PendingErrorStore(private val dir: File) {
-    fun save(trace: String) {
-        try {
-            dir.mkdirs()
-            File(dir, fingerprint(trace) + EXTENSION).writeText(trace)
-            all().dropLast(MAX_PENDING).forEach { it.delete() } // all() is oldest first: keep the newest MAX_PENDING
-        } catch (_: Exception) { /* a report that cannot be stored is lost; the app must not fail because of it */ }
-    }
+    fun save(trace: String): File? = try {
+        dir.mkdirs()
+        val file = File(dir, fingerprint(trace) + EXTENSION)
+        file.writeText(trace)
+        all().dropLast(MAX_PENDING).forEach { it.delete() } // all() is oldest first: keep the newest MAX_PENDING
+        file
+    } catch (_: Exception) { null /* a report that cannot be stored is lost; the app must not fail because of it */ }
 
     /** Oldest first. */
     fun all(): List<File> = dir.listFiles { f -> f.name.endsWith(EXTENSION) }?.sortedBy { it.lastModified() }.orEmpty()
@@ -59,6 +65,23 @@ class PendingErrorStore(private val dir: File) {
 }
 
 /**
+ * Sends a crash straight from the crash handler, without Retrofit or the container (which may be the thing that crashed).
+ * Returns true when the report is settled (accepted, or refused for good) and the stored file can go; false to keep it for the next start.
+ */
+class CrashUploader(private val baseUrl: String, private val appVersion: String?, private val client: OkHttpClient = defaultClient()) {
+    fun upload(trace: String): Boolean = try {
+        val body = Gson().toJson(ErrorReportBody(appVersion, trace)).toRequestBody("application/json".toMediaType())
+        val request = Request.Builder().url(baseUrl.trimEnd('/') + "/api/v1/diagnostics/errors").post(body).build()
+        client.newCall(request).execute().use { r -> r.isSuccessful || (r.code in 400..499 && r.code != 408 && r.code != 429) }
+    } catch (_: Throwable) { false }
+
+    companion object {
+        const val TOTAL_MILLIS = 3_500L
+        private fun defaultClient() = OkHttpClient.Builder().callTimeout(3, TimeUnit.SECONDS).build()
+    }
+}
+
+/**
  * Sends every unexpected error to the backend as an anonymous ticket: crashes (uncaught exceptions) are stored at once and
  * sent the next time the app starts; handled-but-unexpected errors are stored and sent right away. A report that could not be
  * sent (offline, server down, rate limit) stays on disk for the next attempt.
@@ -76,20 +99,15 @@ class ErrorReporter(
     private val nonFatalThisRun = AtomicInteger()
 
     /** Stores the trace of every uncaught exception, then lets the previous handler (the system's) end the process as usual. */
-    fun installCrashHandler() {
-        val previous = Thread.getDefaultUncaughtExceptionHandler()
-        Thread.setDefaultUncaughtExceptionHandler { thread, error ->
-            try { store.save(traceOf(error)) } catch (_: Throwable) { }
-            previous?.uncaughtException(thread, error)
-        }
-    }
+    fun installCrashHandler() = installCrashHandler(store)
 
     /** An unexpected error the app survived. */
     fun record(error: Throwable, force: Boolean = false) {
         if (isExpected(error)) return
+        // The limit comes first: a failure that repeats must not cost a stack trace and a hash every time.
+        if (!force && nonFatalThisRun.incrementAndGet() > MAX_NON_FATAL_PER_RUN) return
         val trace = traceOf(error)
         if (!force) {
-            if (nonFatalThisRun.incrementAndGet() > MAX_NON_FATAL_PER_RUN) return
             val key = PendingErrorStore.fingerprint(trace)
             if (synchronized(reportedThisRun) { !reportedThisRun.add(key) }) return // one report per kind of error and run
         }
@@ -118,6 +136,31 @@ class ErrorReporter(
     companion object {
         const val MAX_NON_FATAL_PER_RUN = 20
         private const val MAX_TRACE_LENGTH = 16_000
+
+        /**
+         * Needs only the store, so the app can call it as the very first thing in `Application.onCreate`: a crash while the rest
+         * of the app is being built (Keystore, network layer...) is then stored too and sent on the next start.
+         */
+        fun installCrashHandler(store: PendingErrorStore, uploader: CrashUploader? = null) {
+            val previous = Thread.getDefaultUncaughtExceptionHandler()
+            Thread.setDefaultUncaughtExceptionHandler { thread, error ->
+                try {
+                    val trace = traceOf(error)
+                    val file = store.save(trace)
+                    // Sent right away when there is a connection, so the ticket exists even if the app dies again at the next start.
+                    if (uploader != null && file != null) uploadNow(uploader, trace, file, store)
+                } catch (_: Throwable) { }
+                previous?.uncaughtException(thread, error)
+            }
+        }
+
+        /** Network off the crashing thread, with a hard limit: the process is dying and must not hang. */
+        private fun uploadNow(uploader: CrashUploader, trace: String, file: File, store: PendingErrorStore) {
+            val worker = Thread { if (uploader.upload(trace)) store.delete(file) }
+            worker.isDaemon = true
+            worker.start()
+            worker.join(CrashUploader.TOTAL_MILLIS)
+        }
 
         fun isExpected(error: Throwable): Boolean = error is IOException || error is CancellationException || error is AuthException
 

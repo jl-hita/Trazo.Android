@@ -1,6 +1,7 @@
 package com.trazo.android.push
 
 import android.Manifest
+import com.trazo.android.diagnostics.Diagnostics
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -73,7 +74,7 @@ object PushNotifier {
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
             .build()
         // One notification per kind: a new reply replaces the previous one instead of piling up.
-        runCatching { NotificationManagerCompat.from(context).notify(kind ?: "announcement", 1, notification) }
+        runCatching { NotificationManagerCompat.from(context).notify(kind ?: "announcement", 1, notification) }.onFailure { Diagnostics.report(it) }
     }
 
     fun canPost(context: Context): Boolean {

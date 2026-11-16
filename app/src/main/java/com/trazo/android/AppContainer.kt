@@ -20,7 +20,10 @@ import com.trazo.android.data.local.PendingLogQueue
 import com.trazo.android.data.local.PlanCache
 import com.trazo.android.data.local.WorkoutDraftStore
 import com.trazo.android.data.net.NetworkModule
+import com.trazo.android.diagnostics.CrashUploader
 import com.trazo.android.diagnostics.Diagnostics
+import com.trazo.android.diagnostics.launchGuarded
+import kotlinx.coroutines.CancellationException
 import com.trazo.android.diagnostics.DiagnosticsApi
 import com.trazo.android.diagnostics.ErrorReporter
 import com.trazo.android.diagnostics.PendingErrorStore
@@ -86,14 +89,15 @@ class AppContainer(context: Context) {
 
     /** Used by the messaging service when Firebase issues a new token while the app is not in the foreground. */
     fun registerPushIfSignedIn() {
-        pushScope.launch { if (auth.hasStoredSession()) runCatching { push.register() } }
+        pushScope.launchGuarded(R.string.feature_push) { if (auth.hasStoredSession()) push.register() }
     }
 
     /** Ends the session and removes everything stored for the account: token, cached week, queued logs and drafts. */
     suspend fun signOut() {
         // Before the logout, while the session still authorizes the call: this phone stops receiving this user's notices.
-        runCatching { push.unregister() }
-        runCatching { auth.logout() }
+        // Best effort: signing out must always finish, but what failed is reported.
+        try { push.unregister() } catch (e: CancellationException) { throw e } catch (e: Exception) { Diagnostics.report(e) }
+        try { auth.logout() } catch (e: CancellationException) { throw e } catch (e: Exception) { Diagnostics.report(e) }
         tokens.clear()
         plans.clearLocal()
     }
@@ -105,15 +109,16 @@ class TrazoApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        container = AppContainer(this)
+        // First of all, before the container is built: a crash while building it (Keystore, network...) must be stored too.
         // Crashes are stored on the spot and sent on the next start; handled-but-unexpected errors come in through Diagnostics.
-        container.errorReporter.installCrashHandler()
+        ErrorReporter.installCrashHandler(PendingErrorStore(File(filesDir, "error-reports")), CrashUploader(BuildConfig.API_BASE_URL, BuildConfig.VERSION_NAME))
+        container = AppContainer(this)
         Diagnostics.install(container.errorReporter)
-        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
-            container.errorReporter.flush()
-            container.plans.resumePendingSync()
-            // Firebase has to be running before a message or a token refresh wakes the app's service.
-            container.push.startFromCache()
-        }
+        // Each start-up task on its own: one failing must not stop the others (nor the app).
+        val startup = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        startup.launchGuarded { container.errorReporter.flush() }
+        startup.launchGuarded { container.plans.resumePendingSync() }
+        // Firebase has to be running before a message or a token refresh wakes the app's service.
+        startup.launchGuarded(R.string.feature_push) { container.push.startFromCache() }
     }
 }

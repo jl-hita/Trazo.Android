@@ -1,6 +1,9 @@
 package com.trazo.android.ui.onboarding
 
 import androidx.lifecycle.ViewModel
+import com.trazo.android.data.net.ErrorKind
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.model.PlanOptions
 import com.trazo.android.data.model.PlanProfileRequest
@@ -44,7 +47,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
 
     fun loadOptions() {
         _state.update { it.copy(loadingOptions = true, error = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_onboarding, onFailure = { _state.update { it.copy(loadingOptions = false, error = ApiError(ErrorKind.Unknown)) } }) {
             when (val result = plans.options()) {
                 is ApiResult.Success -> _state.update {
                     val o = result.value
@@ -77,7 +80,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
         val options = s.options ?: return
         if (!s.canSubmit) return
         _state.update { it.copy(submitting = true, error = null) }
-        viewModelScope.launch {
+        viewModelScope.launchGuarded(R.string.feature_onboarding, onFailure = { _state.update { it.copy(submitting = false, error = ApiError(ErrorKind.Unknown)) } }) {
             val request = buildRequest(s, options)
             when (val result = plans.createPlan(request)) {
                 is ApiResult.Success -> _state.update { it.copy(submitting = false, created = true) }

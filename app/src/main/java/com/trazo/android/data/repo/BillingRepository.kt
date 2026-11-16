@@ -1,6 +1,8 @@
 package com.trazo.android.data.repo
 
 import android.app.Activity
+import com.trazo.android.R
+import com.trazo.android.diagnostics.launchGuarded
 import android.content.Context
 import com.android.billingclient.api.*
 import com.trazo.android.data.model.SubscriptionStatus
@@ -51,7 +53,7 @@ class PlayBillingRepository(
     private var client: BillingClient? = null
 
     private val listener = PurchasesUpdatedListener { result, purchases ->
-        scope.launch {
+        scope.launchGuarded(R.string.feature_premium, onFailure = { _results.tryEmit(PurchaseResult.Failed()) }) {
             when (result.responseCode) {
                 BillingClient.BillingResponseCode.OK -> _results.emit(process(purchases.orEmpty()) ?: PurchaseResult.Failed())
                 BillingClient.BillingResponseCode.USER_CANCELED -> _results.emit(PurchaseResult.Canceled)

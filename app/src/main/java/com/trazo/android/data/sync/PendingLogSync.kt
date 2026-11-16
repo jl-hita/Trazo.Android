@@ -1,6 +1,7 @@
 package com.trazo.android.data.sync
 
 import android.content.Context
+import com.trazo.android.diagnostics.Diagnostics
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
@@ -47,8 +48,16 @@ class WorkManagerSyncScheduler(context: Context) : SyncScheduler {
 /** Delivers the queued workout logs. Retries while some are still waiting, so a log is never left behind. */
 class PendingLogSyncWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
-        val plans = (applicationContext as TrazoApp).container.plans
-        plans.flushPending()
-        return if (plans.pendingCount.value == 0) Result.success() else Result.retry()
+        return try {
+            val plans = (applicationContext as TrazoApp).container.plans
+            plans.flushPending()
+            if (plans.pendingCount.value == 0) Result.success() else Result.retry()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Diagnostics.report(e)
+            // The logs stay queued; try again a few times, then wait for the next start or the next manual send.
+            if (runAttemptCount < 5) Result.retry() else Result.failure()
+        }
     }
 }

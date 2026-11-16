@@ -1,6 +1,7 @@
 package com.trazo.android.push
 
 import android.content.Context
+import com.trazo.android.diagnostics.Diagnostics
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.messaging.FirebaseMessaging
@@ -89,8 +90,9 @@ class PushRegistrar(
             FirebaseMessaging.getInstance().deleteToken()
         } catch (e: CancellationException) {
             throw e
-        } catch (_: Exception) {
-            // The server forgets the token when Firebase reports it as gone.
+        } catch (e: Exception) {
+            // The server forgets the token when Firebase reports it as gone; what failed is still reported.
+            Diagnostics.report(e)
         }
     }
 
@@ -112,16 +114,19 @@ class PushRegistrar(
                 true
             }
         }
-    } catch (_: Exception) {
+    } catch (e: Exception) {
+        Diagnostics.report(e)
         false
     }
 
     private suspend fun fetchToken(): String? = suspendCancellableCoroutine { cont ->
         try {
             FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if (!task.isSuccessful) task.exception?.let { Diagnostics.report(it) }
                 if (cont.isActive) cont.resume(if (task.isSuccessful) task.result?.takeIf { it.isNotBlank() } else null)
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            Diagnostics.report(e)
             if (cont.isActive) cont.resume(null)
         }
     }
