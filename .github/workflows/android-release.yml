@@ -89,9 +89,9 @@ jobs:
           # 30002 is the last known Play versionCode. Each run of this workflow gets a unique higher code.
           VERSION_CODE=$((30002 + GITHUB_RUN_NUMBER))
           echo "Building Trazo versionCode $VERSION_CODE"
-          gradle --no-daemon :app:testDebugUnitTest :app:bundleRelease \\
-            -PversionCode="$VERSION_CODE" \\
-            -PapiBaseUrl="$TRAZO_API_BASE_URL" \\
+          gradle --no-daemon :app:testDebugUnitTest :app:bundleRelease \
+            -PversionCode="$VERSION_CODE" \
+            -PapiBaseUrl="$TRAZO_API_BASE_URL" \
             -PgoogleWebClientId="$TRAZO_GOOGLE_WEB_CLIENT_ID"
 
       - name: Preserve AAB and R8 mapping
