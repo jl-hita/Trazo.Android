@@ -100,7 +100,8 @@ class WorkoutViewModel(
         val set = entry.sets.getOrNull(index) ?: return
         if (!set.done && parseReps(set.reps) == null) return
         updateSet(exerciseId, index) { it.copy(done = !it.done) }
-        if (!set.done) startRest(entry.exercise.restSeconds)
+        // Inside a superset the next exercise follows at once: the rest comes after the last one of the round.
+        if (!set.done && isLastOfGroup(_state.value.entries, exerciseId)) startRest(entry.exercise.restSeconds)
     }
 
     fun startRest(seconds: Int) {
@@ -186,6 +187,14 @@ class WorkoutViewModel(
     override fun onCleared() { timer?.cancel() }
 
     companion object {
+        /** False for an exercise that is followed by another one of the same superset. */
+        fun isLastOfGroup(entries: List<ExerciseEntry>, exerciseId: String): Boolean {
+            val i = entries.indexOfFirst { it.exercise.exerciseId == exerciseId }
+            if (i < 0) return true
+            val group = entries[i].exercise.supersetGroup ?: return true
+            return entries.getOrNull(i + 1)?.exercise?.supersetGroup != group
+        }
+
         fun freshEntry(ex: ExerciseView) = ExerciseEntry(
             ex, List(ex.sets) { SetEntry(weight = proposedLoad(ex)?.let(::formatKg).orEmpty()) }
         )

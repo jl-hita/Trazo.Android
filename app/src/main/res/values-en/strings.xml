@@ -385,4 +385,7 @@
     <string name="progress_sets">%1$d sets</string>
     <string name="progress_chart_1rm">Estimated 1RM (kg)</string>
     <string name="progress_chart_reps">Repetitions</string>
+    <string name="workout_superset">Superset %1$s: move on to the next exercise without resting</string>
+    <string name="manual_link">Superset with the next exercise</string>
+    <string name="manual_unlink">Remove the superset with the next one</string>
 </resources>

@@ -97,5 +97,5 @@ private fun WeekSection(week: BlockWeekView) {
 
 @Composable
 private fun exerciseLine(e: ExerciseView): String =
-    e.name + " — " + stringResource(R.string.session_sets_reps, e.sets, e.minRepetitions, e.maxRepetitions) +
+    e.name + (e.supersetGroup?.let { " [$it]" } ?: "") + " — " + stringResource(R.string.session_sets_reps, e.sets, e.minRepetitions, e.maxRepetitions) +
         (e.targetRir?.let { " · " + stringResource(R.string.session_rir, WorkoutViewModel.formatKg(it)) } ?: "")
