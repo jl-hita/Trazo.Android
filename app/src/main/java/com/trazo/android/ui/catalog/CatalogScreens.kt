@@ -95,9 +95,9 @@ fun ExerciseDetailScreen(viewModel: ExerciseDetailViewModel, onBack: () -> Unit)
             d == null -> ErrorBox(state.error ?: com.trazo.android.data.net.ApiError(com.trazo.android.data.net.ErrorKind.Unknown), viewModel::load)
             else -> Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(Labels.localName(d.nameEs, d.nameEn), style = MaterialTheme.typography.headlineSmall)
-                if (d.nameEn.isNotBlank()) Text(Labels.otherName(d.nameEs, d.nameEn), color = TrazoPalette.Muted)
+                d.nameEn?.takeIf { it.isNotBlank() }?.let { Text(Labels.otherName(d.nameEs, it) ?: it, color = TrazoPalette.Muted) }
                 ExerciseGallery(state.imageUrls, d.nameEs, state.attribution)
-                if (d.descriptionEs.isNotBlank()) Text(d.descriptionEs)
+                d.descriptionEs?.takeIf { it.isNotBlank() }?.let { Text(it) }
                 SectionTitle(stringResource(R.string.exercise_primary))
                 Text(Labels.muscles(d.primaryMuscles))
                 if (d.secondaryMuscles.isNotEmpty()) {
