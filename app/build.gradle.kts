@@ -51,8 +51,9 @@ android {
   applicationId = "com.trazo.android"
   minSdk = 26
   targetSdk = 36
-  //versionCode = appVersionCode
-  versionCode = 30002
+  // Play Store versionCode can be overridden by CI; keep the existing Play baseline for local builds.
+  val configuredVersionCode = providers.gradleProperty("versionCode").orNull?.toIntOrNull()
+  versionCode = configuredVersionCode ?: 30002
   versionName = appVersionName
   val googleClientId = providers.gradleProperty("googleWebClientId").orNull ?: ""
   buildConfigField("String", "API_BASE_URL", "\"$releaseApiUrl\"")
