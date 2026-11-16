@@ -187,8 +187,17 @@ class WorkoutViewModel(
 
     companion object {
         fun freshEntry(ex: ExerciseView) = ExerciseEntry(
-            ex, List(ex.sets) { SetEntry(weight = ex.targetLoadKg?.let(::formatKg).orEmpty()) }
+            ex, List(ex.sets) { SetEntry(weight = proposedLoad(ex)?.let(::formatKg).orEmpty()) }
         )
+
+        /**
+         * The load to start with: the engine's target when it has one, else the proposal made from the last time (repeat the
+         * heaviest load, or one increment more when every set reached the top of the range), else the last load used.
+         */
+        fun proposedLoad(ex: ExerciseView): Double? =
+            ex.targetLoadKg ?: ex.lastPerformance?.let { last ->
+                last.suggestedLoadKg ?: last.sets.mapNotNull { it.weightKg }.maxOrNull()
+            }
 
         fun buildEntries(session: SessionView, draft: List<DraftSet>): List<ExerciseEntry> = session.exercises.map { ex ->
             val saved = draft.filter { it.exerciseId == ex.exerciseId }.associateBy { it.setNumber }

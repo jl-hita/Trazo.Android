@@ -352,4 +352,7 @@
     <string name="feature_push">notifications</string>
     <string name="feature_session">sign-in</string>
     <string name="feature_analytics">usage statistics</string>
+    <string name="workout_last_time">Last time (%1$s): %2$s</string>
+    <string name="workout_proposal_increase">Proposed load: %1$s kg (you hit the top of the range: go a little heavier)</string>
+    <string name="workout_proposal_repeat">Proposed load: %1$s kg (repeat the load and aim for more reps)</string>
 </resources>

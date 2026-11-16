@@ -114,6 +114,19 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         assertNull(drafts.load("s1"))
     }
 
+    @Test fun `weights start from the engine target, then the proposal from last time, then the last load`() {
+        val last = com.trazo.android.data.model.LastPerformanceView(
+            "2026-11-10", listOf(com.trazo.android.data.model.LastSetView(1, 60.0, 8, 2.0)), 62.5, "increase"
+        )
+        val withTarget = sampleExercise(load = 22.5).copy(lastPerformance = last)
+        assertEquals("22.5", WorkoutViewModel.freshEntry(withTarget).sets[0].weight)
+        val noTarget = sampleExercise(load = null).copy(lastPerformance = last)
+        assertEquals("62.5", WorkoutViewModel.freshEntry(noTarget).sets[0].weight)
+        val noProposal = sampleExercise(load = null).copy(lastPerformance = last.copy(suggestedLoadKg = null))
+        assertEquals("60", WorkoutViewModel.freshEntry(noProposal).sets[2].weight)
+        assertEquals("", WorkoutViewModel.freshEntry(sampleExercise(load = null)).sets[0].weight)
+    }
+
     @Test fun `unfinished sets make a partial log with the skip reason`() {
         val entries = listOf(WorkoutViewModel.freshEntry(sampleExercise()).let { e ->
             e.copy(sets = e.sets.mapIndexed { i, s -> if (i == 0) s.copy(reps = "10", done = true) else s })
