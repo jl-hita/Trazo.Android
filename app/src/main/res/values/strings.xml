@@ -366,4 +366,27 @@
     <string name="block_week">Semana %1$d</string>
     <string name="block_current">esta semana</string>
     <string name="block_week_sets">%1$d series</string>
+    <string name="nav_progress">Progreso</string>
+    <string name="feature_progress">progreso</string>
+    <string name="progress_title">Tu progreso</string>
+    <string name="progress_empty">Aún no hay entrenos registrados. Cuando completes tu primera sesión verás aquí tus récords, tu volumen por músculo y tu racha.</string>
+    <string name="progress_streak">Racha</string>
+    <string name="progress_weeks_value">%1$d sem.</string>
+    <string name="progress_this_week">Esta semana</string>
+    <string name="progress_of_goal">%1$d de %2$d</string>
+    <string name="progress_last_30">Entrenos en 30 días</string>
+    <string name="progress_volume">Volumen total</string>
+    <string name="progress_tons">%1$.1f t</string>
+    <string name="progress_records">Récords recientes</string>
+    <string name="progress_new_record">¡Nuevo récord!</string>
+    <string name="progress_best_1rm">1RM est. %1$s kg</string>
+    <string name="progress_best_reps">Máx. %1$d rep.</string>
+    <string name="progress_muscles">Series por músculo</string>
+    <string name="progress_muscles_note">Series efectivas por semana (un músculo principal cuenta 1 por serie y un secundario 0,5). La barra verde es esta semana; las otras, las 7 anteriores.</string>
+    <string name="progress_sets_this_week">%1$s series esta semana</string>
+    <string name="progress_exercises">Por ejercicio</string>
+    <string name="progress_sessions">%1$d entrenos</string>
+    <string name="progress_sets">%1$d series</string>
+    <string name="progress_chart_1rm">1RM estimado (kg)</string>
+    <string name="progress_chart_reps">Repeticiones</string>
 </resources>

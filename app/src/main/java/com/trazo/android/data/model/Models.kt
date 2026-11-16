@@ -170,3 +170,18 @@ data class PaywallViewRequest(val source: String)
 // Current block (GET api/v1/plans/current/block): every week of the current mesocycle.
 data class BlockWeekView(val weekNumber: Int, val weekStart: String, val weekEnd: String, val isCurrent: Boolean, val sessions: List<SessionView>)
 data class BlockView(val planId: String, val mesocycle: MesocycleView?, val weeks: List<BlockWeekView>, val locked: Boolean = false)
+
+// Progress (GET api/v1/plans/progress): everything the user logged, across plans.
+
+data class ProgressSummary(
+    val totalSessions: Int, val sessionsLast30Days: Int, val sessionsThisWeek: Int, val weeklyGoal: Int, val streakWeeks: Int,
+    val totalSets: Int, val totalVolumeKg: Double
+)
+data class ExercisePoint(val date: String, val topWeightKg: Double, val repsAtTop: Int, val estimatedOneRepMaxKg: Double?, val volumeKg: Double, val sets: Int)
+data class ExerciseProgress(
+    val exerciseId: String, val name: String, val sessions: Int, val lastDate: String, val bestWeightKg: Double?,
+    val bestEstimatedOneRepMaxKg: Double?, val recordDate: String?, val newRecord: Boolean, val points: List<ExercisePoint>
+)
+/** Effective sets per week of one muscle (primary 1 per set, secondary 0.5), aligned with [ProgressView.weekStarts]. */
+data class MuscleVolume(val muscle: String, val setsByWeek: List<Double>)
+data class ProgressView(val summary: ProgressSummary, val weekStarts: List<String>, val muscles: List<MuscleVolume>, val exercises: List<ExerciseProgress>)

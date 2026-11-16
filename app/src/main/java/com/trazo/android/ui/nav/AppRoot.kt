@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -71,6 +72,7 @@ object Routes {
     const val OVERVIEW = "overview"
     const val HISTORY = "history"
     const val BLOCK = "block"
+    const val PROGRESS = "progress"
     const val SESSION = "session/{id}"
     const val WORKOUT = "workout/{id}"
     const val EXERCISE = "exercise/{id}"
@@ -118,6 +120,7 @@ private data class Tab(val route: String, val labelRes: Int, val icon: ImageVect
 
 private val TABS = listOf(
     Tab(Routes.PLAN, R.string.nav_plan, Icons.Filled.Home),
+    Tab(Routes.PROGRESS, R.string.nav_progress, Icons.Filled.Star),
     Tab(Routes.CATALOG, R.string.nav_catalog, Icons.Filled.Search),
     Tab(Routes.ACCOUNT, R.string.nav_account, Icons.Filled.Person)
 )
@@ -228,6 +231,10 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 composable(Routes.BLOCK) {
                     val vm: BlockViewModel = containerViewModel { BlockViewModel(it.plans) }
                     BlockScreen(vm, onBack = { nav.popBackStack() })
+                }
+                composable(Routes.PROGRESS) {
+                    val vm: com.trazo.android.ui.progress.ProgressViewModel = containerViewModel { com.trazo.android.ui.progress.ProgressViewModel(it.plans) }
+                    com.trazo.android.ui.progress.ProgressScreen(vm)
                 }
                 composable(Routes.HISTORY) {
                     val vm: HistoryViewModel = containerViewModel { HistoryViewModel(it.plans) }
