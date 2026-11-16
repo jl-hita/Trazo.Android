@@ -103,7 +103,10 @@ jobs:
           printf '%s' "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/google-play-service-account.json"
           chmod 600 "$RUNNER_TEMP/google-play-service-account.json"
           TRACK="${PLAY_STORE_TRACK:-alpha}"
-          gem install fastlane --no-document
+          # Install Fastlane into an isolated runner-local gem home and add its bin directory to PATH.
+          export GEM_HOME="$RUNNER_TEMP/fastlane-gems"
+          gem install fastlane --no-document --install-dir "$GEM_HOME" --bindir "$GEM_HOME/bin"
+          export PATH="$GEM_HOME/bin:$PATH"
           fastlane supply \
             --aab app/build/outputs/bundle/release/app-release.aab \
             --package_name com.trazo.android \
