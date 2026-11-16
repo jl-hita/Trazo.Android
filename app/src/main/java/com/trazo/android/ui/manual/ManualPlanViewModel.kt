@@ -24,7 +24,9 @@ import kotlinx.coroutines.launch
 data class ManualExercise(
     val id: String, val name: String, val sets: Int = 3, val minReps: Int = 8, val maxReps: Int = 12,
     /** Done as a superset with the exercise that follows it. */
-    val linkedToNext: Boolean = false
+    val linkedToNext: Boolean = false,
+    /** Kept from the stored plan when editing, so saving does not reset them. */
+    val targetRir: Double? = null, val restSeconds: Int? = null
 )
 
 data class ManualDay(val title: String = "", val exercises: List<ManualExercise> = emptyList())
@@ -41,16 +43,40 @@ data class ManualPlanState(
     val searching: Boolean = false,
     val submitting: Boolean = false,
     val created: Boolean = false,
-    val error: ApiError? = null
+    val error: ApiError? = null,
+    /** Editing the active plan instead of creating one. */
+    val editing: Boolean = false,
+    val loadingExisting: Boolean = false,
+    val notes: String? = null
 ) {
     val canSubmit: Boolean
         get() = name.isNotBlank() && days.isNotEmpty() && days.values.all { it.exercises.isNotEmpty() } && !submitting
 }
 
 /** Lets the user write their own plan: weekday → routine → exercises with sets and repetitions. Free for every account. */
-class ManualPlanViewModel(private val plans: PlanRepository, private val exercises: ExerciseRepository) : ViewModel() {
-    private val _state = MutableStateFlow(ManualPlanState())
+class ManualPlanViewModel(
+    private val plans: PlanRepository, private val exercises: ExerciseRepository, editing: Boolean = false
+) : ViewModel() {
+    private val _state = MutableStateFlow(ManualPlanState(editing = editing, loadingExisting = editing))
     val state: StateFlow<ManualPlanState> = _state.asStateFlow()
+
+    init { if (editing) loadExisting() }
+
+    /** Fills the editor with the routines of the active plan: the days and exercises of the current week. */
+    private fun loadExisting() {
+        viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(loadingExisting = false, error = ApiError(ErrorKind.Unknown)) } }) {
+            val plan = (plans.currentPlan() as? ApiResult.Success)?.value?.value
+            when (val week = plans.currentWeek()) {
+                is ApiResult.Failure -> _state.update { it.copy(loadingExisting = false, error = week.error) }
+                is ApiResult.Success -> _state.update {
+                    it.copy(
+                        loadingExisting = false, name = plan?.macrocycle?.name.orEmpty(), notes = plan?.macrocycle?.notes,
+                        totalWeeks = plan?.totalWeeks ?: it.totalWeeks, days = routinesOf(week.value.value.sessions)
+                    )
+                }
+            }
+        }
+    }
 
     fun setName(value: String) = _state.update { it.copy(name = value.take(80)) }
     fun setTotalWeeks(value: Int) = _state.update { it.copy(totalWeeks = value.coerceIn(MIN_WEEKS, MAX_WEEKS)) }
@@ -115,7 +141,8 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
         if (!s.canSubmit) return
         _state.update { it.copy(submitting = true, error = null) }
         viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(submitting = false, error = ApiError(ErrorKind.Unknown)) } }) {
-            when (val result = plans.createManualPlan(buildRequest(s, weekOrder))) {
+            val request = buildRequest(s, weekOrder)
+            when (val result = if (s.editing) plans.updateManualPlan(request) else plans.createManualPlan(request)) {
                 is ApiResult.Success -> _state.update { it.copy(submitting = false, created = true) }
                 is ApiResult.Failure -> _state.update { it.copy(submitting = false, error = result.error) }
             }
@@ -130,6 +157,22 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
 
     companion object {
         const val MAX_SUPERSET = 3
+
+        /** The routines of the sessions of a week, one per weekday, with the supersets as links between consecutive exercises. */
+        fun routinesOf(sessions: List<com.trazo.android.data.model.SessionView>): Map<String, ManualDay> =
+            sessions.associate { session ->
+                val list = session.exercises.sortedBy { it.order }
+                session.day to ManualDay(
+                    session.title,
+                    list.mapIndexed { i, e ->
+                        ManualExercise(
+                            e.exerciseId, e.name, e.sets, e.minRepetitions, e.maxRepetitions,
+                            linkedToNext = e.supersetGroup != null && list.getOrNull(i + 1)?.supersetGroup == e.supersetGroup,
+                            targetRir = e.targetRir, restSeconds = e.restSeconds
+                        )
+                    }
+                )
+            }
         const val MIN_WEEKS = 1
         const val MAX_WEEKS = 52
         const val MAX_SETS = 10
@@ -165,11 +208,12 @@ class ManualPlanViewModel(private val plans: PlanRepository, private val exercis
         fun buildRequest(s: ManualPlanState, weekOrder: List<String>) = ManualPlanRequest(
             name = s.name.trim(),
             totalWeeks = s.totalWeeks,
+            notes = s.notes,
             days = weekOrder.filter { it in s.days }.map { day ->
                 val d = s.days.getValue(day)
                 val groups = supersetGroups(d.exercises)
                 ManualDayRequest(day, d.title.trim().ifEmpty { day }, d.exercises.mapIndexed { i, it ->
-                    ManualExerciseRequest(it.id, it.sets, it.minReps, it.maxReps, supersetGroup = groups[i])
+                    ManualExerciseRequest(it.id, it.sets, it.minReps, it.maxReps, it.targetRir, it.restSeconds, groups[i])
                 })
             }
         )

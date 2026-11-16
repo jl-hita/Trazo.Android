@@ -75,6 +75,13 @@ class PlanRepository(
     }
 
     /** Creates a plan written by the user; free for every account. */
+    /** Rewrites the routines of the user's own plan from today on; the cached week is dropped so the next read is fresh. */
+    suspend fun updateManualPlan(request: ManualPlanRequest): ApiResult<PlanView> {
+        val result = apiCall { api.updateManual(request) }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
+        return result
+    }
+
     suspend fun createManualPlan(request: ManualPlanRequest): ApiResult<PlanView> {
         val result = apiCall { api.createManual(request) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }

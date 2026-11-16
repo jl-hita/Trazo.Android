@@ -41,6 +41,7 @@ class FakePlansApi : PlansApi {
     var loadResponse: () -> Response<PlanLoadView> = { Response.success(PlanLoadView("p1", 4, 2, "sets", listOf(
         WeekLoadView(1, "2026-11-09", "accumulation", false, 20, 18, 2, 2), WeekLoadView(2, "2026-11-16", "accumulation", false, 22, 5, 2, 1),
         WeekLoadView(3, "2026-11-23", "accumulation", false, 22, null, 2, 0), WeekLoadView(4, "2026-11-30", "deload", true, null, null, 0, 0)))) }
+    override suspend fun updateManual(request: ManualPlanRequest): Response<PlanView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
     override suspend fun load() = loadResponse()
     override suspend fun block(): Response<BlockView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
     override suspend fun progress(): Response<ProgressView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))

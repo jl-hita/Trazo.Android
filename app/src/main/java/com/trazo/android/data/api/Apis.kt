@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -12,6 +13,7 @@ interface PlansApi {
     @GET("api/v1/plans/options") suspend fun options(): Response<PlanOptions>
     @POST("api/v1/plans") suspend fun create(@Body request: PlanProfileRequest): Response<PlanView>
     @POST("api/v1/plans/manual") suspend fun createManual(@Body request: ManualPlanRequest): Response<PlanView>
+    @PUT("api/v1/plans/current/manual") suspend fun updateManual(@Body request: ManualPlanRequest): Response<PlanView>
     @GET("api/v1/plans/current") suspend fun current(): Response<PlanView>
     @GET("api/v1/plans/current/week") suspend fun week(): Response<WeekView>
     @GET("api/v1/plans/current/load") suspend fun load(): Response<PlanLoadView>

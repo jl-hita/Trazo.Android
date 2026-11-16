@@ -30,12 +30,14 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
     val order = Labels.inWeekOrder(WEEK)
     val context = androidx.compose.ui.platform.LocalContext.current
     Column(Modifier.fillMaxSize()) {
-        TrazoTopBar(stringResource(R.string.manual_title), onBack)
+        TrazoTopBar(stringResource(if (state.editing) R.string.manual_edit_title else R.string.manual_title), onBack)
+        if (state.loadingExisting) { LoadingBox(Modifier.weight(1f)); return@Column }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             TrazoField(state.name, viewModel::setName, Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.manual_name)) })
 
-            Text(stringResource(R.string.manual_weeks, state.totalWeeks), modifier = Modifier.padding(top = 8.dp))
-            Slider(
+            if (state.editing) Notice(stringResource(R.string.manual_edit_note))
+            if (!state.editing) Text(stringResource(R.string.manual_weeks, state.totalWeeks), modifier = Modifier.padding(top = 8.dp))
+            if (!state.editing) Slider(
                 value = state.totalWeeks.toFloat(), onValueChange = { viewModel.setTotalWeeks(it.toInt()) },
                 valueRange = ManualPlanViewModel.MIN_WEEKS.toFloat()..ManualPlanViewModel.MAX_WEEKS.toFloat(),
                 modifier = Modifier.heightIn(min = MinTouch)
@@ -54,7 +56,7 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
         TrazoButton(
             onClick = { viewModel.submit(order) }, enabled = state.canSubmit,
             modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)
-        ) { Text(stringResource(if (state.submitting) R.string.manual_creating else R.string.manual_create)) }
+        ) { Text(stringResource(if (state.editing) (if (state.submitting) R.string.manual_saving else R.string.manual_save) else if (state.submitting) R.string.manual_creating else R.string.manual_create)) }
     }
     if (state.picking != null) ExercisePicker(state, viewModel)
 }
