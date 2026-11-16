@@ -55,7 +55,7 @@
     <!-- Plan overview -->
     <string name="overview_title">Tu plan</string>
     <string name="overview_phases">Fases</string>
-    <string name="overview_future_note">Por diseño, solo verás en detalle la semana en curso: el resto de sesiones se genera y adapta a medida que entrenas.</string>
+    <string name="overview_future_note">Verás en detalle el bloque en curso (más o menos un mes): los siguientes bloques se generan y adaptan a medida que entrenas.</string>
     <string name="overview_profile">Tu perfil</string>
     <string name="overview_goal">Objetivo: %1$s</string>
     <string name="overview_level">Nivel: %1$s</string>
@@ -359,4 +359,11 @@
     <string name="workout_last_time">Última vez (%1$s): %2$s</string>
     <string name="workout_proposal_increase">Propuesta de hoy: %1$s kg (llegaste al máximo de repeticiones: sube un poco)</string>
     <string name="workout_proposal_repeat">Propuesta de hoy: %1$s kg (repite la carga y busca más repeticiones)</string>
+    <string name="plan_block_button">Ver el bloque</string>
+    <string name="block_title">Tu bloque</string>
+    <string name="block_empty">El bloque se genera cuando empieza; vuelve en un momento.</string>
+    <string name="block_note">Así se reparte este bloque. Las cargas y las series de las próximas semanas se ajustan según cómo entrenes.</string>
+    <string name="block_week">Semana %1$d</string>
+    <string name="block_current">esta semana</string>
+    <string name="block_week_sets">%1$d series</string>
 </resources>

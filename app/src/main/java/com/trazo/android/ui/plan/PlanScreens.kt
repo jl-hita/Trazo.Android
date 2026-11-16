@@ -47,6 +47,7 @@ fun PlanScreen(
     onOpenSession: (String) -> Unit,
     onOverview: () -> Unit,
     onHistory: () -> Unit,
+    onBlock: () -> Unit,
     onCreatePlan: () -> Unit,
     onCreateManualPlan: () -> Unit,
     onPremium: () -> Unit,
@@ -84,6 +85,7 @@ fun PlanScreen(
                 items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }
                 item {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        TrazoButton(onClick = onBlock, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_block_button)) }
                         TrazoButton(onClick = onOverview, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_overview)) }
                         TrazoButton(onClick = onHistory, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_history)) }
                     }

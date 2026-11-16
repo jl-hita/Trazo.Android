@@ -70,6 +70,7 @@ object Routes {
     const val PREMIUM = "premium?source={source}"
     const val OVERVIEW = "overview"
     const val HISTORY = "history"
+    const val BLOCK = "block"
     const val SESSION = "session/{id}"
     const val WORKOUT = "workout/{id}"
     const val EXERCISE = "exercise/{id}"
@@ -188,6 +189,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                         onOpenSession = { nav.navigate(Routes.session(it)) },
                         onOverview = { nav.navigate(Routes.OVERVIEW) },
                         onHistory = { nav.navigate(Routes.HISTORY) },
+                        onBlock = { nav.navigate(Routes.BLOCK) },
                         onCreatePlan = { if (access?.canUpgrade == true) premiumPrompt = true else nav.navigate(Routes.ONBOARDING) },
                         onCreateManualPlan = { nav.navigate(Routes.MANUAL_PLAN) },
                         onPremium = { nav.navigate(Routes.premium("plan")) },
@@ -222,6 +224,10 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 composable(Routes.OVERVIEW) {
                     val loadVm: LoadViewModel = containerViewModel { LoadViewModel(it.plans) }
                     PlanOverviewScreen(planVm, loadVm, onBack = { nav.popBackStack() })
+                }
+                composable(Routes.BLOCK) {
+                    val vm: BlockViewModel = containerViewModel { BlockViewModel(it.plans) }
+                    BlockScreen(vm, onBack = { nav.popBackStack() })
                 }
                 composable(Routes.HISTORY) {
                     val vm: HistoryViewModel = containerViewModel { HistoryViewModel(it.plans) }
