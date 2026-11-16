@@ -393,4 +393,17 @@
     <string name="manual_edit_note">Changes apply from today. What you already logged and past days stay as they are; loads TRAZO had adjusted for the coming sessions are reset.</string>
     <string name="manual_save">Save changes</string>
     <string name="manual_saving">Saving…</string>
+    <string name="fb_title">How did each exercise go?</string>
+    <string name="fb_hint">Optional. With Premium, TRAZO adjusts your sets from your answers; discomfort is never automated: we flag it so you can review it.</string>
+    <string name="fb_stimulus">Stimulus in the muscle</string>
+    <string name="fb_discomfort">Discomfort</string>
+    <string name="fb_prefatigue">When starting the exercise</string>
+    <string name="fb_low">Low</string>
+    <string name="fb_adequate">Just right</string>
+    <string name="fb_high">High</string>
+    <string name="fb_none">None</string>
+    <string name="fb_mild">Mild</string>
+    <string name="fb_strong">Strong</string>
+    <string name="fb_recovered">Recovered</string>
+    <string name="fb_loaded">Loaded</string>
 </resources>

@@ -397,4 +397,17 @@
     <string name="manual_edit_note">Los cambios se aplican desde hoy. Lo que ya has registrado y los días pasados no se tocan; las cargas que había ajustado TRAZO en las próximas sesiones se reinician.</string>
     <string name="manual_save">Guardar cambios</string>
     <string name="manual_saving">Guardando…</string>
+    <string name="fb_title">¿Cómo ha ido cada ejercicio?</string>
+    <string name="fb_hint">Opcional. Con Premium, TRAZO ajusta las series a partir de tus respuestas; las molestias nunca se automatizan: te avisamos para que lo revises.</string>
+    <string name="fb_stimulus">Estímulo en el músculo</string>
+    <string name="fb_discomfort">Molestias</string>
+    <string name="fb_prefatigue">Al empezar el ejercicio</string>
+    <string name="fb_low">Poco</string>
+    <string name="fb_adequate">Justo</string>
+    <string name="fb_high">Mucho</string>
+    <string name="fb_none">Ninguna</string>
+    <string name="fb_mild">Leves</string>
+    <string name="fb_strong">Fuertes</string>
+    <string name="fb_recovered">Recuperado</string>
+    <string name="fb_loaded">Cargado</string>
 </resources>

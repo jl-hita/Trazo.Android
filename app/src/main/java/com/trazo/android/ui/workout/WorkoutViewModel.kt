@@ -63,7 +63,8 @@ class FinishForm(
     val sessionRpe: Double? = null,
     val pain: Boolean = false,
     val notes: String = "",
-    val reason: String = "None"
+    val reason: String = "None",
+    val feedback: Map<String, ExerciseFeedbackRequest> = emptyMap()
 )
 
 /** Records the real sets of one session, runs the rest timer and sends the log (or queues it when offline). */
@@ -256,7 +257,11 @@ class WorkoutViewModel(
                 sessionRpe = form.sessionRpe,
                 painReported = form.pain,
                 notes = form.notes.trim().take(1000).ifEmpty { null },
-                sets = sets
+                sets = sets,
+                // Only exercises with at least one completed set are asked about, and only answered questions are sent.
+                exerciseFeedback = form.feedback.filter { (id, answer) ->
+                    !answer.isEmpty && entries.any { e -> e.exercise.exerciseId == id && e.sets.any { it.done } }
+                }.ifEmpty { null }
             )
         }
     }

@@ -115,8 +115,15 @@ data class LogSetRequest(
 
 data class LogSessionRequest(
     val outcome: String, val nonCompletionReason: String = "None", val recovery: String = "Unknown", val sessionRpe: Double? = null,
-    val painReported: Boolean = false, val notes: String? = null, val sets: List<LogSetRequest>
+    val painReported: Boolean = false, val notes: String? = null, val sets: List<LogSetRequest>,
+    /** The post-exercise questions by exercise id; only answered ones are sent. */
+    val exerciseFeedback: Map<String, ExerciseFeedbackRequest>? = null
 )
+
+/** stimulus: low|adequate|high, discomfort: none|mild|strong, preFatigue: recovered|loaded. Each may be null (not answered). */
+data class ExerciseFeedbackRequest(val stimulus: String? = null, val discomfort: String? = null, val preFatigue: String? = null) {
+    val isEmpty: Boolean get() = stimulus == null && discomfort == null && preFatigue == null
+}
 
 /** One message of the manual-review conversation. [author] is "user" or "team" (the user never sees who on the team). */
 data class ReviewMessage(val id: String, val author: String, val body: String, val createdAt: String)

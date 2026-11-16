@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
+import com.trazo.android.data.model.ExerciseFeedbackRequest
 import com.trazo.android.data.model.LastPerformanceView
 import com.trazo.android.ui.plan.formatDate
 import com.trazo.android.ui.common.*
@@ -192,6 +193,23 @@ private fun AlternativesDialog(state: AlternativesState, swapError: com.trazo.an
 }
 
 private val RECOVERIES = listOf("Unknown", "Good", "Partial", "Insufficient")
+private val STIMULUS = listOf("low", "adequate", "high")
+private val DISCOMFORT = listOf("none", "mild", "strong")
+private val PRE_FATIGUE = listOf("recovered", "loaded")
+
+private fun fbLabel(context: android.content.Context, value: String): String = context.getString(
+    when (value) {
+        "low" -> R.string.fb_low
+        "adequate" -> R.string.fb_adequate
+        "high" -> R.string.fb_high
+        "none" -> R.string.fb_none
+        "mild" -> R.string.fb_mild
+        "strong" -> R.string.fb_strong
+        "recovered" -> R.string.fb_recovered
+        else -> R.string.fb_loaded
+    }
+)
+
 private val REASONS = listOf("Time", "Fatigue", "Equipment", "Motivation", "Illness", "Other")
 
 @Composable
@@ -201,6 +219,8 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
     var pain by remember { mutableStateOf(false) }
     var notes by remember { mutableStateOf("") }
     var reason by remember { mutableStateOf("Fatigue") }
+    var feedback by remember { mutableStateOf<Map<String, ExerciseFeedbackRequest>>(emptyMap()) }
+    val context = androidx.compose.ui.platform.LocalContext.current
     val incomplete = state.doneSets < state.allSets
     val sending = state.finish is FinishState.Sending
     AlertDialog(
@@ -222,6 +242,23 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
                     Spacer(Modifier.width(8.dp))
                     Text(stringResource(R.string.finish_pain))
                 }
+                val answered = state.entries.filter { e -> e.sets.any { it.done } }
+                if (answered.isNotEmpty()) {
+                    Text(stringResource(R.string.fb_title))
+                    Text(stringResource(R.string.fb_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    answered.forEach { e ->
+                        val id = e.exercise.exerciseId
+                        val current = feedback[id] ?: ExerciseFeedbackRequest()
+                        fun update(next: ExerciseFeedbackRequest) { feedback = feedback + (id to next) }
+                        Text(e.exercise.name, style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(R.string.fb_stimulus), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
+                        ChipGroup(STIMULUS, setOfNotNull(current.stimulus), { fbLabel(context, it) }, { v -> update(current.copy(stimulus = v.takeUnless { it == current.stimulus })) })
+                        Text(stringResource(R.string.fb_discomfort), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
+                        ChipGroup(DISCOMFORT, setOfNotNull(current.discomfort), { fbLabel(context, it) }, { v -> update(current.copy(discomfort = v.takeUnless { it == current.discomfort })) })
+                        Text(stringResource(R.string.fb_prefatigue), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
+                        ChipGroup(PRE_FATIGUE, setOfNotNull(current.preFatigue), { fbLabel(context, it) }, { v -> update(current.copy(preFatigue = v.takeUnless { it == current.preFatigue })) })
+                    }
+                }
                 OutlinedTextField(notes, { notes = it.take(1000) }, label = { Text(stringResource(R.string.finish_notes)) }, modifier = Modifier.fillMaxWidth())
                 (state.finish as? FinishState.Failed)?.let { InlineError(it.error) }
             }
@@ -229,7 +266,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
         confirmButton = {
             TextButton(
                 enabled = !sending, modifier = Modifier.heightIn(min = MinTouch),
-                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, if (incomplete) reason else "None")) }
+                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, if (incomplete) reason else "None", feedback)) }
             ) { Text(stringResource(if (sending) R.string.finish_sending else R.string.finish_send)) }
         },
         dismissButton = { TextButton(enabled = !sending, onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }
