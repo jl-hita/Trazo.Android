@@ -94,13 +94,28 @@ class WorkoutViewModel(
         saveDraft()
     }
 
+    fun stepWeight(exerciseId: String, index: Int, up: Boolean) {
+        val ex = _state.value.entries.firstOrNull { it.exercise.exerciseId == exerciseId }?.exercise ?: return
+        updateSet(exerciseId, index) { it.copy(weight = stepWeight(it.weight, up, proposedLoad(ex))) }
+    }
+
+    fun stepReps(exerciseId: String, index: Int, up: Boolean) {
+        val ex = _state.value.entries.firstOrNull { it.exercise.exerciseId == exerciseId }?.exercise ?: return
+        updateSet(exerciseId, index) { it.copy(reps = stepReps(it.reps, up, ex.minRepetitions)) }
+    }
+
     /** Marks a set done (it needs repetitions, as the API requires) and starts the rest timer of that exercise. */
     fun toggleDone(exerciseId: String, index: Int) {
         val entry = _state.value.entries.firstOrNull { it.exercise.exerciseId == exerciseId } ?: return
         val set = entry.sets.getOrNull(index) ?: return
         if (!set.done && parseReps(set.reps) == null) return
         updateSet(exerciseId, index) { it.copy(done = !it.done) }
-        if (!set.done) startRest(entry.exercise.restSeconds)
+        // The next set that is still open starts from what was just done: the usual case is the same load and reps.
+        if (!set.done) {
+            val next = entry.sets.getOrNull(index + 1)
+            if (next != null && !next.done) updateSet(exerciseId, index + 1) { it.copy(weight = set.weight.ifBlank { it.weight }, reps = set.reps) }
+            startRest(entry.exercise.restSeconds)
+        }
     }
 
     fun startRest(seconds: Int) {
@@ -187,8 +202,27 @@ class WorkoutViewModel(
 
     companion object {
         fun freshEntry(ex: ExerciseView) = ExerciseEntry(
-            ex, List(ex.sets) { SetEntry(weight = proposedLoad(ex)?.let(::formatKg).orEmpty()) }
+            ex, List(ex.sets) { i -> SetEntry(weight = proposedLoad(ex)?.let(::formatKg).orEmpty(), reps = proposedReps(ex, i + 1)?.toString().orEmpty()) }
         )
+
+        /** Repetitions to start from: the same set of last time, else its last set, else the bottom of the range. */
+        fun proposedReps(ex: ExerciseView, setNumber: Int): Int? {
+            val last = ex.lastPerformance?.sets?.filter { it.repetitions != null }.orEmpty()
+            return (last.firstOrNull { it.setNumber == setNumber } ?: last.lastOrNull())?.repetitions
+                ?: ex.minRepetitions.takeIf { it > 0 }
+        }
+
+        /** One step of the weight buttons: 1 kg up to 20 kg, 2.5 kg above. Empty starts from [start]. */
+        fun stepWeight(text: String, up: Boolean, start: Double?): String {
+            val current = parseWeight(text) ?: return formatKg(if (up) start ?: 1.0 else 0.0)
+            val step = if (current < 20.0 || (!up && current <= 20.0)) 1.0 else 2.5
+            return formatKg((if (up) current + step else current - step).coerceIn(0.0, 1000.0))
+        }
+
+        fun stepReps(text: String, up: Boolean, start: Int): String {
+            val current = parseReps(text) ?: return if (up) start.toString() else "0"
+            return (if (up) current + 1 else current - 1).coerceIn(0, 100).toString()
+        }
 
         /**
          * The load to start with: the engine's target when it has one, else the proposal made from the last time (repeat the
@@ -236,7 +270,7 @@ class WorkoutViewModel(
                     when {
                         set.done && reps != null -> LogSetRequest(e.exercise.exerciseId, i + 1, weight, reps, rir, true)
                         // A set left undone is reported as skipped, which is what lets the engine see fatigue or lack of time.
-                        else -> LogSetRequest(e.exercise.exerciseId, i + 1, weight, reps, rir, false, skipReasonFor[reason])
+                        else -> LogSetRequest(e.exercise.exerciseId, i + 1, null, null, null, false, skipReasonFor[reason])
                     }
                 }
             }

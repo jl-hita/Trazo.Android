@@ -65,6 +65,8 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         val entry = vm.state.value.entries.single()
         assertEquals(3, entry.sets.size)
         assertEquals("22.5", entry.sets[0].weight)
+        assertEquals("8", entry.sets[0].reps) // starts from the bottom of the range
+        vm.updateSet("db-bench-press", 0) { it.copy(reps = "") }
         vm.toggleDone("db-bench-press", 0)
         assertFalse(vm.state.value.entries.single().sets[0].done) // no reps yet
         vm.updateSet("db-bench-press", 0) { it.copy(reps = "10") }
@@ -125,6 +127,30 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         val noProposal = sampleExercise(load = null).copy(lastPerformance = last.copy(suggestedLoadKg = null))
         assertEquals("60", WorkoutViewModel.freshEntry(noProposal).sets[2].weight)
         assertEquals("", WorkoutViewModel.freshEntry(sampleExercise(load = null)).sets[0].weight)
+    }
+
+    @Test fun `weight steps are 1 kg below 20 and 2_5 kg above, and empty fields start from the proposal`() {
+        assertEquals("11", WorkoutViewModel.stepWeight("10", true, null))
+        assertEquals("22.5", WorkoutViewModel.stepWeight("20", true, null))
+        assertEquals("62.5", WorkoutViewModel.stepWeight("60", true, null))
+        assertEquals("57.5", WorkoutViewModel.stepWeight("60", false, null))
+        assertEquals("19", WorkoutViewModel.stepWeight("20", false, null))
+        assertEquals("0", WorkoutViewModel.stepWeight("0.5", false, null))
+        assertEquals("40", WorkoutViewModel.stepWeight("", true, 40.0))
+        assertEquals("9", WorkoutViewModel.stepReps("8", true, 8))
+        assertEquals("0", WorkoutViewModel.stepReps("0", false, 8))
+        assertEquals("8", WorkoutViewModel.stepReps("", true, 8))
+    }
+
+    @Test fun `repetitions start from the same set of last time, else the bottom of the range`() {
+        val last = com.trazo.android.data.model.LastPerformanceView(
+            "2026-11-10",
+            listOf(com.trazo.android.data.model.LastSetView(1, 60.0, 10, null), com.trazo.android.data.model.LastSetView(2, 60.0, 9, null)),
+            60.0, "repeat"
+        )
+        val ex = sampleExercise().copy(lastPerformance = last)
+        assertEquals(listOf("10", "9", "9"), WorkoutViewModel.freshEntry(ex).sets.map { it.reps })
+        assertEquals(listOf("8", "8", "8"), WorkoutViewModel.freshEntry(sampleExercise()).sets.map { it.reps })
     }
 
     @Test fun `unfinished sets make a partial log with the skip reason`() {
