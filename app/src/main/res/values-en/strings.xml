@@ -388,4 +388,9 @@
     <string name="workout_superset">Superset %1$s: move on to the next exercise without resting</string>
     <string name="manual_link">Superset with the next exercise</string>
     <string name="manual_unlink">Remove the superset with the next one</string>
+    <string name="plan_edit_button">Edit the plan</string>
+    <string name="manual_edit_title">Edit plan</string>
+    <string name="manual_edit_note">Changes apply from today. What you already logged and past days stay as they are; loads TRAZO had adjusted for the coming sessions are reset.</string>
+    <string name="manual_save">Save changes</string>
+    <string name="manual_saving">Saving…</string>
 </resources>

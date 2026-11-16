@@ -68,6 +68,7 @@ object Routes {
     const val ACCOUNT = "account"
     const val ONBOARDING = "onboarding"
     const val MANUAL_PLAN = "manual-plan"
+    const val MANUAL_EDIT = "manual-plan/edit"
     const val PREMIUM = "premium?source={source}"
     const val OVERVIEW = "overview"
     const val HISTORY = "history"
@@ -193,6 +194,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                         onOverview = { nav.navigate(Routes.OVERVIEW) },
                         onHistory = { nav.navigate(Routes.HISTORY) },
                         onBlock = { nav.navigate(Routes.BLOCK) },
+                        onEditPlan = { nav.navigate(Routes.MANUAL_EDIT) },
                         onCreatePlan = { if (access?.canUpgrade == true) premiumPrompt = true else nav.navigate(Routes.ONBOARDING) },
                         onCreateManualPlan = { nav.navigate(Routes.MANUAL_PLAN) },
                         onPremium = { nav.navigate(Routes.premium("plan")) },
@@ -215,6 +217,10 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 }
                 composable(Routes.MANUAL_PLAN) {
                     val vm: ManualPlanViewModel = containerViewModel { ManualPlanViewModel(it.plans, it.exercises) }
+                    ManualPlanScreen(vm, onBack = { nav.popBackStack() }, onCreated = { planVm.load(); nav.popBackStack() })
+                }
+                composable(Routes.MANUAL_EDIT) {
+                    val vm: ManualPlanViewModel = containerViewModel(key = "manual-edit") { ManualPlanViewModel(it.plans, it.exercises, editing = true) }
                     ManualPlanScreen(vm, onBack = { nav.popBackStack() }, onCreated = { planVm.load(); nav.popBackStack() })
                 }
                 composable(Routes.PREMIUM, listOf(navArgument("source") { type = NavType.StringType; defaultValue = "other" })) { entry ->

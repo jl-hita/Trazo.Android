@@ -48,6 +48,7 @@ fun PlanScreen(
     onOverview: () -> Unit,
     onHistory: () -> Unit,
     onBlock: () -> Unit,
+    onEditPlan: () -> Unit,
     onCreatePlan: () -> Unit,
     onCreateManualPlan: () -> Unit,
     onPremium: () -> Unit,
@@ -83,6 +84,9 @@ fun PlanScreen(
                 }
                 if (week.sessions.isEmpty() && week.timeline != "Finished" && !week.locked) item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
                 items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }
+                if (state.plan?.origin == "Manual") item {
+                    TrazoButton(onClick = onEditPlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_edit_button)) }
+                }
                 item {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         TrazoButton(onClick = onBlock, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_block_button)) }

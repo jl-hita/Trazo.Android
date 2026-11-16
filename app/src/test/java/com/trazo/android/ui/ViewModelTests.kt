@@ -146,6 +146,16 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         assertTrue(WorkoutViewModel.isLastOfGroup(entries, "c"))
     }
 
+    @Test fun `the routines of a week become the editor days with supersets as links`() {
+        fun ex(id: String, order: Int, group: String?) = sampleExercise(id).copy(order = order, supersetGroup = group)
+        val session = sampleSession("s1", ex("a", 1, "A"), ex("b", 2, "A"), ex("c", 3, null)).copy(day = "Monday", title = "Empuje")
+        val days = com.trazo.android.ui.manual.ManualPlanViewModel.routinesOf(listOf(session))
+        val monday = days.getValue("Monday")
+        assertEquals("Empuje", monday.title)
+        assertEquals(listOf(true, false, false), monday.exercises.map { it.linkedToNext })
+        assertEquals(90, monday.exercises[0].restSeconds)
+    }
+
     @Test fun `unfinished sets make a partial log with the skip reason`() {
         val entries = listOf(WorkoutViewModel.freshEntry(sampleExercise()).let { e ->
             e.copy(sets = e.sets.mapIndexed { i, s -> if (i == 0) s.copy(reps = "10", done = true) else s })
