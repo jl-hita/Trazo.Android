@@ -12,6 +12,9 @@ Native Kotlin + Jetpack Compose client for the TRAZO strength-training platform.
 - Refresh-token rotation, authenticated current-user lookup and server-side logout.
 - Training plans, weekly schedule and workout sessions.
 - Set logging, rest timer, exercise substitution and exercise catalog.
+- Flexible registration: a workout is dated when it happened (today, yesterday or any earlier day), not when it is sent; the date and a request id are fixed once, so retries and the offline queue never change them. Sessions of past days can be logged at any time.
+- Next session: the backend decides which session comes next (program order, whatever its date) and, with Premium, whether the muscles are recovered, with alternatives. The app only shows it.
+- Asynchronous split: plans with no fixed days that advance by the order of their sessions (`schedulingMode: "Sequence"`); sessions have no dates, only a place in the program.
 - Workout history, local drafts and pending workout records.
 - Account and subscription screens.
 - Manual plan-review requests and conversations.

@@ -44,6 +44,8 @@ class FakePlansApi : PlansApi {
     override suspend fun updateManual(request: ManualPlanRequest): Response<PlanView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
     override suspend fun load() = loadResponse()
     override suspend fun block(): Response<BlockView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
+    var nextResponse: () -> Response<NextSessionView> = { Response.success(sampleNext()) }
+    override suspend fun next(): Response<NextSessionView> = nextResponse()
     override suspend fun progress(): Response<ProgressView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
     override suspend fun history(take: Int): Response<List<HistoryItem>> = Response.success(emptyList())
     override suspend fun archive(): Response<Unit> = Response.success(Unit)
@@ -105,6 +107,10 @@ fun samplePlan() = PlanView(
     "plan-1", "Active", "InProgress", 1, 12, "2026-11-16", "2027-02-07", "Hypertrophy", "Beginner", "UpperLower",
     listOf("Monday", "Thursday"), 60, emptyList(), emptyList(), emptyList(), 1,
     MacrocycleView("Macrociclo", "", listOf(PhaseView(1, "Base", "accumulation", "2026-11-16", "2026-12-13", "Volumen"))), "No es consejo médico."
+)
+
+fun sampleNext(session: SessionView? = sampleSession(), availability: AvailabilityView? = null) = NextSessionView(
+    "plan-1", "Calendar", "InProgress", session, NextPositionView(1, 1, 2, null), availability
 )
 
 fun sampleReport() = AdaptationReport(emptyList(), "Hold", "Todo en orden.", emptyList(), emptyList())

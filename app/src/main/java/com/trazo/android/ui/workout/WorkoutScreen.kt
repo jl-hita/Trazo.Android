@@ -220,6 +220,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
     var notes by remember { mutableStateOf("") }
     var reason by remember { mutableStateOf("Fatigue") }
     var feedback by remember { mutableStateOf<Map<String, ExerciseFeedbackRequest>>(emptyMap()) }
+    var performedOn by remember { mutableStateOf<java.time.LocalDate?>(null) }
     val context = androidx.compose.ui.platform.LocalContext.current
     val incomplete = state.doneSets < state.allSets
     val sending = state.finish is FinishState.Sending
@@ -229,6 +230,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(stringResource(R.string.workout_progress, state.doneSets, state.allSets), color = TrazoPalette.TextSecondary)
+                WhenPicker(performedOn) { performedOn = it }
                 if (incomplete) {
                     Text(stringResource(R.string.finish_reason))
                     ChipGroup(REASONS, setOf(reason), Labels::reason, { reason = it })
@@ -266,7 +268,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
         confirmButton = {
             TextButton(
                 enabled = !sending, modifier = Modifier.heightIn(min = MinTouch),
-                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, if (incomplete) reason else "None", feedback)) }
+                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, if (incomplete) reason else "None", feedback, performedOn)) }
             ) { Text(stringResource(if (sending) R.string.finish_sending else R.string.finish_send)) }
         },
         dismissButton = { TextButton(enabled = !sending, onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }
@@ -301,5 +303,57 @@ private fun FinishedScreen(done: FinishState.Done, onExit: () -> Unit) {
             }
         }
         TrazoButton(onClick = onExit, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.finish_back_to_plan)) }
+    }
+}
+
+/** Which day the workout happened: today by default, yesterday, or any earlier day. Registering late never changes when it happened. */
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@Composable
+private fun WhenPicker(selected: java.time.LocalDate?, onChange: (java.time.LocalDate?) -> Unit) {
+    val today = java.time.LocalDate.now()
+    var picking by remember { mutableStateOf(false) }
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val key = when (selected) {
+        null, today -> "today"
+        today.minusDays(1) -> "yesterday"
+        else -> "other"
+    }
+    Text(stringResource(R.string.finish_when))
+    ChipGroup(
+        listOf("today", "yesterday", "other"), setOf(key),
+        { k ->
+            when (k) {
+                "today" -> context.getString(R.string.finish_when_today)
+                "yesterday" -> context.getString(R.string.finish_when_yesterday)
+                else -> if (key == "other" && selected != null) formatDate(selected.toString()) else context.getString(R.string.finish_when_other)
+            }
+        },
+        { k ->
+            when (k) {
+                "today" -> onChange(null)
+                "yesterday" -> onChange(today.minusDays(1))
+                else -> picking = true
+            }
+        }
+    )
+    if (key != "today") Text(stringResource(R.string.finish_when_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+    if (picking) {
+        val state = rememberDatePickerState(
+            initialSelectedDateMillis = (selected ?: today).atStartOfDay(java.time.ZoneOffset.UTC).toInstant().toEpochMilli(),
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long) =
+                    !java.time.Instant.ofEpochMilli(utcTimeMillis).atZone(java.time.ZoneOffset.UTC).toLocalDate().isAfter(today)
+            }
+        )
+        DatePickerDialog(
+            onDismissRequest = { picking = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    state.selectedDateMillis?.let { onChange(java.time.Instant.ofEpochMilli(it).atZone(java.time.ZoneOffset.UTC).toLocalDate()) }
+                    picking = false
+                }) { Text(stringResource(R.string.finish_when_ok)) }
+            },
+            dismissButton = { TextButton(onClick = { picking = false }) { Text(stringResource(R.string.cancel)) } }
+        ) { DatePicker(state) }
     }
 }

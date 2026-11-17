@@ -22,6 +22,10 @@ data class OnboardingState(
     val goal: String = "Hypertrophy",
     val experience: String = "Beginner",
     val days: Set<String> = emptySet(),
+    /** "Calendar" (fixed days of the week) or "Sequence" (no fixed days: the program follows the order of its sessions). */
+    val schedulingMode: String = "Calendar",
+    /** Sessions of one full pass through the programme in a sequence plan. */
+    val sessionsPerPeriod: Int = 3,
     val sessionMinutes: Int = 60,
     val totalWeeks: Int = 12,
     val equipment: Set<String> = emptySet(),
@@ -34,7 +38,11 @@ data class OnboardingState(
     val created: Boolean = false,
     val error: ApiError? = null
 ) {
-    val daysOk: Boolean get() = options?.let { days.size in it.minimumTrainingDays..it.maximumTrainingDays } ?: false
+    val isSequence: Boolean get() = schedulingMode == "Sequence"
+    val daysOk: Boolean get() = options?.let {
+        if (isSequence) sessionsPerPeriod in it.minimumSessionsPerPeriod..it.maximumSessionsPerPeriod
+        else days.size in it.minimumTrainingDays..it.maximumTrainingDays
+    } ?: false
     val canSubmit: Boolean get() = options != null && daysOk && !submitting
 }
 
@@ -71,6 +79,8 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     fun setDeloadEvery(value: Int?) = _state.update { it.copy(deloadEvery = value) }
     fun setSessionMinutes(value: Int) = _state.update { it.copy(sessionMinutes = value) }
     fun setTotalWeeks(value: Int) = _state.update { it.copy(totalWeeks = value) }
+    fun setSchedulingMode(value: String) = _state.update { it.copy(schedulingMode = value) }
+    fun setSessionsPerPeriod(value: Int) = _state.update { it.copy(sessionsPerPeriod = value) }
     fun toggleDay(day: String) = _state.update { it.copy(days = it.days.toggle(day)) }
     fun toggleEquipment(item: String) = _state.update { it.copy(equipment = it.equipment.toggle(item)) }
     fun toggleLimitation(area: String) = _state.update { it.copy(limitations = it.limitations.toggle(area)) }
@@ -95,8 +105,10 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
             goal = s.goal,
             experience = s.experience,
             totalWeeks = s.totalWeeks,
-            // Keep the order of the week as the server lists it.
-            trainingDays = options.days.filter { it in s.days },
+            // Keep the order of the week as the server lists it. A sequence plan has no days: it sends the sessions of one pass instead.
+            trainingDays = if (s.isSequence) null else options.days.filter { it in s.days },
+            schedulingMode = if (s.isSequence) "Sequence" else null,
+            sessionsPerPeriod = if (s.isSequence) s.sessionsPerPeriod else null,
             maxSessionMinutes = s.sessionMinutes,
             // Empty means "everything is available" for the server, so an untouched list needs no special case.
             availableEquipment = options.equipment.filter { it in s.equipment },
@@ -104,7 +116,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
             includeDeloadPhases = s.includeDeload,
             // Null lets the server spread the deloads so the training blocks stay full.
             deloadEveryTrainingWeeks = s.deloadEvery.takeIf { s.includeDeload },
-            split = if (s.split == "Automatic" && s.days.size > 4) "PushPullLegs" else s.split
+            split = if (s.split == "Automatic" && (if (s.isSequence) s.sessionsPerPeriod else s.days.size) > 4) "PushPullLegs" else s.split
         )
     }
 }

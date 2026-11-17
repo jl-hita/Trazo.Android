@@ -117,6 +117,19 @@ class PlanRepository(
     suspend fun load(): ApiResult<PlanLoadView> = apiCall { api.load() }
 
     suspend fun block(): ApiResult<BlockView> = apiCall { api.block() }
+
+    /** The session to do next, decided by the backend (program order, whatever its date), with its position and recovery advice. */
+    suspend fun next(): ApiResult<NextSessionView> {
+        val result = apiCall { api.next() }
+        if (result is ApiResult.Success) carried = result.value.session
+        return result
+    }
+
+    /**
+     * The next session as last seen. In a calendar plan it can be one of an earlier week (a late workout still to log), which the
+     * current week does not hold, so the session and workout screens can still open it.
+     */
+    private var carried: SessionView? = null
     suspend fun progress(): ApiResult<ProgressView> = apiCall { api.progress() }
 
     suspend fun history(take: Int = 30): ApiResult<List<HistoryItem>> = apiCall { api.history(take) }
@@ -157,12 +170,15 @@ class PlanRepository(
      * loss) and delivered later by [flushPending]; other rejections are returned to the user.
      */
     suspend fun submitLog(sessionId: String, request: LogSessionRequest, now: Long = System.currentTimeMillis()): LogOutcome {
-        val result = apiCall { api.log(sessionId, request) }
+        // The moment of the workout and the identity of the request are fixed HERE, once: the first attempt, every retry and a
+        // later send from the queue carry the same values, so a log delivered late is still dated when the workout happened.
+        val stamped = stamp(sessionId, request, now)
+        val result = apiCall { api.log(sessionId, stamped) }
         return when (result) {
             is ApiResult.Success -> { replaceSession(result.value.session); LogOutcome.Sent(result.value) }
             is ApiResult.Failure -> when {
                 result.error.code == SESSION_ALREADY_LOGGED -> LogOutcome.AlreadyLogged
-                result.error.retryable -> { _pending.value = disk { queue.add(PendingLog(sessionId, request, now)); queue.all().size }; sync.schedule(); LogOutcome.Queued }
+                result.error.retryable -> { _pending.value = disk { queue.add(PendingLog(sessionId, stamped, now)); queue.all().size }; sync.schedule(); LogOutcome.Queued }
                 else -> LogOutcome.Rejected(result.error)
             }
         }
@@ -172,7 +188,8 @@ class PlanRepository(
     suspend fun flushPending(): Int = flushLock.withLock {
         var removed = 0
         for (item in disk { queue.all() }.sortedBy { it.createdAtMillis }) {
-            val result = apiCall { api.log(item.sessionId, item.request) }
+            // Logs queued by an older version have no date: the moment they were queued is when the workout ended.
+            val result = apiCall { api.log(item.sessionId, stamp(item.sessionId, item.request, item.createdAtMillis)) }
             val done = when (result) {
                 is ApiResult.Success -> true.also { replaceSession(result.value.session) }
                 is ApiResult.Failure -> when {
@@ -188,7 +205,7 @@ class PlanRepository(
         removed
     }
 
-    fun session(id: String): SessionView? = _week.value?.sessions?.firstOrNull { it.id == id }
+    fun session(id: String): SessionView? = _week.value?.sessions?.firstOrNull { it.id == id } ?: carried?.takeIf { it.id == id }
 
     /** Wipes every local copy: used on sign-out and when the account loses access. */
     fun clearLocal() {
@@ -201,6 +218,7 @@ class PlanRepository(
     }
 
     private suspend fun replaceSession(updated: SessionView) {
+        if (carried?.id == updated.id) carried = updated
         val current = _week.value ?: return
         val week = current.copy(sessions = current.sessions.map { if (it.id == updated.id) updated else it })
         _week.value = week
@@ -208,6 +226,18 @@ class PlanRepository(
     }
 
     companion object {
+        /**
+         * Gives the request the time of the workout (when it was not chosen) and a request id derived from the session and the
+         * moment it was stamped, so stamping the same log again always gives exactly the same values.
+         */
+        fun stamp(sessionId: String, request: LogSessionRequest, createdAtMillis: Long): LogSessionRequest {
+            val performedAt = request.performedAt ?: java.time.Instant.ofEpochMilli(createdAtMillis).toString()
+            val requestId = request.clientRequestId
+                ?: java.util.UUID.nameUUIDFromBytes("$sessionId|$createdAtMillis".toByteArray()).toString()
+            return if (performedAt == request.performedAt && requestId == request.clientRequestId) request
+            else request.copy(performedAt = performedAt, clientRequestId = requestId)
+        }
+
         const val NO_ACTIVE_PLAN = "no_active_plan"
         const val SESSION_ALREADY_LOGGED = "session_already_logged"
     }

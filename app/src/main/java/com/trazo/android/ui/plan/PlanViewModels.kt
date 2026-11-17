@@ -21,6 +21,8 @@ data class PlanUiState(
     val needsOnboarding: Boolean = false,
     val plan: PlanView? = null,
     val week: WeekView? = null,
+    /** The session to do next, decided by the backend. Null while unknown (offline): the week below still works. */
+    val next: NextSessionView? = null,
     val fromCache: Boolean = false,
     val error: ApiError? = null
 )
@@ -57,6 +59,8 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
                     val plan = (planRequest.await() as? ApiResult.Success)?.value
                     _state.value = PlanUiState(
                         loading = false, plan = plan?.value, week = week.value.value,
+                        // Asked after the week, not with it: both can generate the plan's next block and must not race for it.
+                        next = (plans.next() as? ApiResult.Success)?.value,
                         fromCache = week.value.fromCache || plan?.fromCache == true
                     )
                 }
