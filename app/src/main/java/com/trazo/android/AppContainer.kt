@@ -138,7 +138,7 @@ class TrazoApp : Application() {
         com.trazo.android.data.local.AppLocale.apply(com.trazo.android.data.local.SharedPreferencesLanguageStore(this).choice())
         // First of all, before the container is built: a crash while building it (Keystore, network...) must be stored too.
         // Crashes are stored on the spot and sent on the next start; handled-but-unexpected errors come in through Diagnostics.
-        ErrorReporter.installCrashHandler(PendingErrorStore(File(filesDir, "error-reports")), CrashUploader(BuildConfig.API_BASE_URL, BuildConfig.VERSION_NAME))
+        ErrorReporter.installCrashHandler(PendingErrorStore(File(filesDir, "error-reports")), CrashUploader(BuildConfig.API_BASE_URL, "${BuildConfig.VERSION_NAME}+${BuildConfig.VERSION_CODE}"))
         container = AppContainer(this)
         Diagnostics.install(container.errorReporter)
         // Each start-up task on its own: one failing must not stop the others (nor the app).
