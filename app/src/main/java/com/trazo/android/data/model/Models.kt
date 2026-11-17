@@ -195,7 +195,9 @@ data class ExerciseImageSlots(val slots: List<Int>, val attribution: String?)
 
 data class SubscriptionStatus(
     val hasAccess: Boolean, val enforced: Boolean = true, val status: String = "none", val productId: String? = null,
-    val startedAt: String? = null, val expiresAt: String? = null, val autoRenewing: Boolean = false, val source: String? = null
+    val startedAt: String? = null, val expiresAt: String? = null, val autoRenewing: Boolean = false, val source: String? = null,
+    /** End of the promotional Premium time (welcome period or referral rewards) that is active now; the server decides it. */
+    val promoExpiresAt: String? = null
 ) {
     /** Premium can be offered: the backend charges for it and the account has no access yet. */
     val canUpgrade: Boolean get() = enforced && !hasAccess

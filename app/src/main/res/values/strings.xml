@@ -459,4 +459,58 @@
     <string name="manual_remove_routine">Quitar</string>
     <string name="manual_move_up">Subir</string>
     <string name="manual_move_down">Bajar</string>
+    <!-- Referidos -->
+    <string name="referral_open">Invitar y ganar Premium</string>
+    <string name="referral_title">Invita a un amigo</string>
+    <string name="referral_headline">Si tu amigo acaba pagando su primera suscripción Premium, ganas %1$d días de Premium gratis.</string>
+    <string name="referral_how">Solo cuenta el primer pago real: la prueba gratuita y las renovaciones no dan días. Se suman todas las recompensas y no caducan.</string>
+    <string name="referral_code_label">Tu código</string>
+    <string name="referral_copy">Copiar código</string>
+    <string name="referral_copied">Código copiado</string>
+    <string name="referral_share">Compartir invitación</string>
+    <string name="referral_share_subject">Te invito a TRAZO</string>
+    <string name="referral_share_message">Prueba TRAZO para planificar tus entrenamientos. Regístrate con mi invitación: {link} (o usa mi código %1$s)</string>
+    <string name="referral_stats">Tus invitaciones en cifras</string>
+    <string name="referral_stat_invited">Personas invitadas</string>
+    <string name="referral_stat_waiting">Aún sin Premium</string>
+    <string name="referral_stat_converted">Ya con Premium</string>
+    <string name="referral_stat_rewards">Recompensas conseguidas</string>
+    <string name="referral_stat_days">Premium ganado</string>
+    <string name="referral_invitations">Estado de cada invitación</string>
+    <string name="referral_none">Todavía no ha entrado nadie con tu invitación. Comparte tu enlace o tu código para empezar.</string>
+    <string name="referral_status_registered">Registrado · aún sin Premium</string>
+    <string name="referral_status_rewarded">Ya es Premium · recompensa conseguida</string>
+    <string name="referral_status_voided">Recompensa anulada</string>
+    <string name="referral_status_skipped">Ya es Premium · sin recompensa</string>
+    <string name="referral_registered_on">Se registró el %1$s</string>
+    <string name="referral_plan_monthly">plan mensual</string>
+    <string name="referral_plan_annual">plan anual</string>
+    <string name="referral_reward_deferred">Aplicado como días sin pagar en tu próxima renovación.</string>
+    <string name="referral_reward_pending">Pendiente: se aplicará a tu próximo cobro o, si cancelas, al terminar tu suscripción.</string>
+    <string name="referral_reward_active">Días de Premium añadidos a tu cuenta.</string>
+    <string name="referral_history">Tu Premium gratis</string>
+    <string name="referral_kind_welcome">Periodo de bienvenida</string>
+    <string name="referral_kind_reward">Recompensa por invitación</string>
+    <string name="referral_kind_other">Ajuste</string>
+    <string name="referral_grant_voided">Anulado</string>
+    <string name="referral_grant_deferred">Tu próxima renovación se ha aplazado hasta el %1$s.</string>
+    <string name="referral_grant_window">Del %1$s al %2$s</string>
+    <string name="referral_refresh">Actualizar</string>
+    <string name="referral_list_error">No se han podido cargar las listas. Tu código y tu enlace siguen funcionando.</string>
+    <string name="referral_off">El programa de invitaciones no está activo ahora mismo.</string>
+    <string name="referral_fine_print">Por privacidad no mostramos quién es cada persona invitada. Las recompensas se confirman con Google Play: si se reembolsa el primer pago, se anula.</string>
+    <string name="referral_code_field">Código de invitación (opcional)</string>
+    <string name="account_promo_until">Premium gratis hasta el %1$s.</string>
+    <plurals name="referral_days">
+        <item quantity="one">%1$d día</item>
+        <item quantity="other">%1$d días</item>
+    </plurals>
+    <plurals name="referral_days_pending">
+        <item quantity="one">%1$d día pendiente de aplicar</item>
+        <item quantity="other">%1$d días pendientes de aplicar</item>
+    </plurals>
+    <plurals name="referral_reward_days">
+        <item quantity="one">+%1$d día de Premium</item>
+        <item quantity="other">+%1$d días de Premium</item>
+    </plurals>
 </resources>

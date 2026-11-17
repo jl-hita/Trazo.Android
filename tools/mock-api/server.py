@@ -260,6 +260,23 @@ class Handler(BaseHTTPRequestHandler):
         if self.command == "PUT" and path == "/api/v1/account/language":
             self.rfile.read(int(self.headers.get("Content-Length") or 0))
             return self._send(204, b"")
+        if path == "/api/v1/referrals/me":
+            return self._send(200, {"enabled": True, "rewardDays": 30, "code": "K7M2QX9P", "link": "https://api.example.invalid/invite/K7M2QX9P",
+                                    "stats": {"invited": 3, "pending": 2, "converted": 1, "rewards": 1, "daysEarned": 30, "daysPending": 0, "daysDeferred": 30}})
+        if path == "/api/v1/referrals/invitations":
+            return self._send(200, {"items": [
+                {"id": "i1", "registeredAt": "2026-11-10T10:00:00+00:00", "status": "rewarded", "convertedAt": "2026-11-12T10:00:00+00:00",
+                 "plan": "monthly", "rewardDays": 30, "rewardState": "deferred"},
+                {"id": "i2", "registeredAt": "2026-11-11T10:00:00+00:00", "status": "registered"}]})
+        if path == "/api/v1/referrals/rewards":
+            return self._send(200, {"items": [
+                {"id": "g1", "kind": "referral_reward", "days": 30, "status": "deferred", "grantedAt": "2026-11-12T10:00:00+00:00",
+                 "googleExpiryAfter": "2026-12-20T10:00:00+00:00"},
+                {"id": "g0", "kind": "signup_trial", "days": 30, "status": "active", "grantedAt": "2026-11-01T10:00:00+00:00",
+                 "startsAt": "2026-11-01T10:00:00+00:00", "endsAt": "2026-12-01T10:00:00+00:00"}]})
+        if self.command == "POST" and path in ("/api/v1/referrals/shared", "/api/v1/analytics/events"):
+            self.rfile.read(int(self.headers.get("Content-Length") or 0))
+            return self._send(204, b"")
         if path == "/api/v1/subscription":
             return self._send(200, {"hasAccess": True, "enforced": False, "status": "none", "autoRenewing": False})
         if path == "/api/v1/plans/options":

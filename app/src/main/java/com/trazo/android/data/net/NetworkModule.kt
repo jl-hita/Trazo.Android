@@ -32,10 +32,11 @@ class AuthInterceptor(private val tokens: TokenStore) : Interceptor {
  */
 class ContextInterceptor(
     private val language: () -> String = { if (java.util.Locale.getDefault().language == "en") "en" else "es" },
-    private val zone: () -> String = { java.time.ZoneId.systemDefault().id }
+    private val zone: () -> String = { java.time.ZoneId.systemDefault().id },
+    private val appVersion: () -> String = { com.trazo.android.BuildConfig.VERSION_NAME }
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response =
-        chain.proceed(chain.request().newBuilder().header("Accept-Language", language()).header("X-Time-Zone", zone()).build())
+        chain.proceed(chain.request().newBuilder().header("Accept-Language", language()).header("X-Time-Zone", zone()).header("X-App-Version", appVersion()).build())
 }
 
 /**

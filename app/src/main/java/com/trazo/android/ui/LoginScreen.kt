@@ -66,6 +66,8 @@ fun LoginScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
+    // An invitation that arrived through a link or the Play install referrer is filled in; it can be changed or cleared.
+    var referralCode by remember { mutableStateOf(repo.pendingReferral()?.code.orEmpty()) }
     var code by remember { mutableStateOf("") }
     var challenge by remember { mutableStateOf<String?>(null) }
     var newPassword by remember { mutableStateOf("") }
@@ -128,6 +130,7 @@ fun LoginScreen(
                     if (register) TrazoField(name, { name = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.login_name)) })
                     TrazoField(email, { email = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.login_email)) }, KeyboardOptions(keyboardType = KeyboardType.Email))
                     TrazoField(password, { password = it }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.login_password)) }, visualTransformation = PasswordVisualTransformation())
+                    if (register) TrazoField(referralCode, { referralCode = it.take(20) }, Modifier.fillMaxWidth(), { Text(stringResource(R.string.referral_code_field)) })
                     Spacer(Modifier.height(12.dp))
                     TrazoButton(
                         enabled = !busy && email.isNotBlank() && password.isNotBlank() && (!register || name.isNotBlank()),
@@ -135,7 +138,7 @@ fun LoginScreen(
                         onClick = {
                             busy = true
                             scope.launch {
-                                try { handle(if (register) repo.register(email, password, name) else repo.login(email, password)) }
+                                try { handle(if (register) repo.register(email, password, name, referralCode) else repo.login(email, password)) }
                                 catch (e: Exception) { Diagnostics.report(e); message = str(R.string.login_connect_failed) } finally { busy = false }
                             }
                         }
