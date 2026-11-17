@@ -252,7 +252,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
-                    val vm: WorkoutViewModel = containerViewModel(key = "workout-$id") { WorkoutViewModel(it.plans, it.drafts, id) }
+                    val vm: WorkoutViewModel = containerViewModel(key = "workout-$id") { WorkoutViewModel(it.plans, it.drafts, id, exercises = it.exercises) }
                     WorkoutScreen(vm, onExit = { planVm.load(); nav.popBackStack(Routes.PLAN, inclusive = false) }, onExercise = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.EXERCISE, listOf(navArgument("id") { type = NavType.StringType })) { entry ->

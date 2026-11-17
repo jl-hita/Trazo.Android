@@ -73,6 +73,21 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         assertEquals(1, vm.state.value.doneSets)
     }
 
+    @Test fun `an exercise added to the session keeps what was typed and starts with its own sets`() = runTest(dispatcher) {
+        val vm = vm()
+        vm.updateSet("db-bench-press", 0) { it.copy(reps = "10", weight = "20") }
+        vm.addExercise(
+            com.trazo.android.data.model.ExerciseListItem("squat", "Sentadilla", "Squat", "", "", null, emptyList(), "Squat", emptyList(), emptyList(), "Beginner", false, false, 0)
+        )
+        advanceUntilIdle()
+        val entries = vm.state.value.entries
+        assertEquals(listOf("db-bench-press", "squat"), entries.map { it.exercise.exerciseId })
+        assertEquals("10", entries[0].sets[0].reps) // kept
+        assertEquals(3, entries[1].sets.size)
+        assertTrue(entries[1].exercise.isExtra)
+        assertNull(vm.state.value.adding)
+    }
+
     @Test fun `finishing a set starts the rest timer of that exercise and it counts down`() = runTest(dispatcher) {
         val vm = vm()
         vm.updateSet("db-bench-press", 0) { it.copy(reps = "10") }

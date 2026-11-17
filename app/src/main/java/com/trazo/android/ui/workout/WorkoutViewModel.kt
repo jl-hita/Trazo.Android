@@ -10,6 +10,8 @@ import com.trazo.android.data.local.WorkoutDraftStore
 import com.trazo.android.data.model.*
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
+import com.trazo.android.data.repo.ExerciseFilters
+import com.trazo.android.data.repo.ExerciseRepository
 import com.trazo.android.data.repo.LogOutcome
 import com.trazo.android.data.repo.PlanRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -39,6 +41,13 @@ data class AlternativesState(
     val error: ApiError? = null
 )
 
+data class AddExerciseState(
+    val query: String = "",
+    val results: List<ExerciseListItem> = emptyList(),
+    val searching: Boolean = false,
+    val error: ApiError? = null
+)
+
 sealed interface FinishState {
     data object Idle : FinishState
     data object Sending : FinishState
@@ -52,6 +61,8 @@ data class WorkoutState(
     val rest: RestTimer? = null,
     val alternatives: AlternativesState? = null,
     val swapError: ApiError? = null,
+    /** The picker that adds an exercise to this session only. */
+    val adding: AddExerciseState? = null,
     val finish: FinishState = FinishState.Idle
 ) {
     val allSets: Int get() = entries.sumOf { it.sets.size }
@@ -74,7 +85,8 @@ class WorkoutViewModel(
     private val plans: PlanRepository,
     private val drafts: WorkoutDraftStore,
     private val sessionId: String,
-    io: CoroutineDispatcher = Dispatchers.IO
+    io: CoroutineDispatcher = Dispatchers.IO,
+    private val exercises: ExerciseRepository? = null
 ) : ViewModel() {
     // One writer thread keeps the drafts in order; typing never waits for the disk.
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -136,6 +148,50 @@ class WorkoutViewModel(
                 is ApiResult.Failure -> AlternativesState(exerciseId, false, error = r.error)
             }
             _state.update { if (it.alternatives?.exerciseId == exerciseId) it.copy(alternatives = next) else it }
+        }
+    }
+
+    fun openAddExercise() {
+        if (exercises == null) return
+        _state.update { it.copy(adding = AddExerciseState()) }
+        searchToAdd("")
+    }
+
+    fun closeAddExercise() = _state.update { it.copy(adding = null) }
+
+    fun searchToAdd(query: String) {
+        val repo = exercises ?: return
+        _state.update { it.copy(adding = it.adding?.copy(query = query, searching = true, error = null)) }
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { s -> s.copy(adding = s.adding?.copy(results = emptyList(), searching = false)) } }) {
+            val result = repo.search(ExerciseFilters(query = query), page = 1, pageSize = 20)
+            _state.update { s ->
+                val adding = s.adding
+                // A newer query may have been typed meanwhile: ignore the stale answer.
+                if (adding == null || adding.query != query) s
+                else s.copy(adding = when (result) {
+                    is ApiResult.Success -> adding.copy(results = result.value.items, searching = false)
+                    is ApiResult.Failure -> adding.copy(results = emptyList(), searching = false, error = result.error)
+                })
+            }
+        }
+    }
+
+    /** Adds the exercise to this session only (the server never repeats it in other sessions); what was typed is kept. */
+    fun addExercise(item: ExerciseListItem) {
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(adding = it.adding?.copy(error = ApiError(ErrorKind.Unknown))) } }) {
+            when (val r = plans.addExercise(sessionId, item.id)) {
+                is ApiResult.Success -> {
+                    _state.update { s ->
+                        val keep = s.entries.associateBy { it.exercise.exerciseId }
+                        s.copy(
+                            session = r.value, adding = null,
+                            entries = r.value.exercises.map { ex -> keep[ex.exerciseId]?.copy(exercise = ex) ?: freshEntry(ex) }
+                        )
+                    }
+                    saveDraft()
+                }
+                is ApiResult.Failure -> _state.update { it.copy(adding = it.adding?.copy(error = r.error)) }
+            }
         }
     }
 

@@ -159,6 +159,12 @@ class PlanRepository(
     suspend fun alternatives(sessionId: String, exerciseId: String): ApiResult<AlternativesResult> =
         apiCall { api.alternatives(sessionId, exerciseId) }
 
+    suspend fun addExercise(sessionId: String, exerciseId: String): ApiResult<SessionView> {
+        val result = apiCall { api.addExercise(sessionId, AddExerciseRequest(exerciseId)) }
+        if (result is ApiResult.Success) replaceSession(result.value)
+        return result
+    }
+
     suspend fun swap(sessionId: String, exerciseId: String, replacementId: String, remainingBlock: Boolean): ApiResult<SessionView> {
         val result = apiCall { api.swap(sessionId, exerciseId, SwapRequest(replacementId, remainingBlock)) }
         if (result is ApiResult.Success) replaceSession(result.value)
