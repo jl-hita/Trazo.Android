@@ -69,7 +69,7 @@ class AppContainer(context: Context) {
     val errorReporter = ErrorReporter(
         PendingErrorStore(File(appContext.filesDir, "error-reports")),
         network.createAnonymous(DiagnosticsApi::class.java),
-        BuildConfig.VERSION_NAME,
+        "${BuildConfig.VERSION_NAME}+${BuildConfig.VERSION_CODE}",
         CoroutineScope(SupervisorJob() + Dispatchers.IO)
     )
 
