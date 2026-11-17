@@ -40,6 +40,7 @@ data class PremiumGrants(val items: List<PremiumGrant> = emptyList())
 
 data class SharedRequest(val channel: String? = null)
 data class InstallReferrerRequest(val code: String)
+data class InstallCampaignRequest(val campaign: String)
 data class ClientEventRequest(val name: String)
 
 interface ReferralApi {
@@ -53,6 +54,7 @@ interface ReferralApi {
 /** Anonymous: the install referrer is read before there is an account. */
 interface ReferralAnonymousApi {
     @POST("api/v1/referrals/install-referrer") suspend fun installReferrer(@Body request: InstallReferrerRequest): Response<Unit>
+    @POST("api/v1/campaigns/install-referrer") suspend fun campaignInstallReferrer(@Body request: InstallCampaignRequest): Response<Unit>
 }
 
 /** The programme's rules that the app needs to know to read and keep a code. The server validates everything again. */
@@ -87,6 +89,23 @@ object ReferralCodes {
     }
 }
 
+/** Marketing campaign links (backend: /c/{slug}). The slug travels in the Play Install Referrer as  and is sent back at registration. */
+object CampaignCodes {
+    const val REFERRER_KEY = "trazo_cmp"
+    private val SLUG = Regex("^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$")
+
+    /** Lower-cases and checks the link name; null when the text cannot be one. The server validates it again. */
+    fun normalize(raw: String?): String? = raw?.trim()?.lowercase()?.takeIf { it.length <= 32 && SLUG.matches(it) }
+
+    /** The campaign inside the Play Install Referrer string (trazo_cmp=slug, among the utm_* parameters Google Play also understands). */
+    fun fromInstallReferrer(referrer: String?): String? {
+        if (referrer.isNullOrBlank() || referrer.length > 500) return null
+        val value = referrer.split('&').map { it.split('=', limit = 2) }
+            .firstOrNull { it.size == 2 && it[0] == REFERRER_KEY }?.get(1)
+        return normalize(value?.let { runCatching { java.net.URLDecoder.decode(it, "UTF-8") }.getOrNull() })
+    }
+}
+
 object ReferralSource {
     const val LINK = "link"
     const val MANUAL = "manual"
@@ -100,6 +119,11 @@ interface PendingReferralStore {
     fun peek(): PendingReferral?
     fun save(code: String, source: String)
     fun clear()
+
+    /** The marketing campaign the install came from, waiting for the registration. Like the invitation, the FIRST one wins. */
+    fun peekCampaign(): String? = null
+    fun saveCampaign(slug: String) {}
+    fun clearCampaign() {}
 }
 
 class SharedPreferencesPendingReferralStore(context: Context) : PendingReferralStore {
@@ -114,6 +138,14 @@ class SharedPreferencesPendingReferralStore(context: Context) : PendingReferralS
         prefs.edit().putString("code", normalized).putString("source", source).apply()
     }
     override fun clear() { prefs.edit().remove("code").remove("source").apply() }
+
+    override fun peekCampaign(): String? = CampaignCodes.normalize(prefs.getString("campaign", null))
+    override fun saveCampaign(slug: String) {
+        val normalized = CampaignCodes.normalize(slug) ?: return
+        if (peekCampaign() != null) return
+        prefs.edit().putString("campaign", normalized).apply()
+    }
+    override fun clearCampaign() { prefs.edit().remove("campaign").apply() }
 
     /** True once the Play Install Referrer has been read (it is only worth asking on the first launch). */
     fun installReferrerChecked(): Boolean = prefs.getBoolean("install_checked", false)

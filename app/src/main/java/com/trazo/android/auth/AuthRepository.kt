@@ -17,14 +17,16 @@ class AuthRepository(
     /** [referralCode] is what the person typed; without it the pending code of a link or install referrer goes along. The server decides whether it counts. */
     suspend fun register(email: String, password: String, name: String, referralCode: String? = null): Outcome {
         val r = com.trazo.android.data.referral.referralFor(referralCode, referral?.peek())
-        val outcome = consume(api.register(RegisterRequest(email.trim(), password, name.trim(), referralCode = r?.code, referralSource = r?.source)), conflict = AuthError.EmailInUse)
-        if (r != null && outcome !is Outcome.Error) referral?.clear()
+        val campaign = referral?.peekCampaign()
+        val outcome = consume(api.register(RegisterRequest(email.trim(), password, name.trim(), referralCode = r?.code, referralSource = r?.source, campaignCode = campaign)), conflict = AuthError.EmailInUse)
+        if (outcome !is Outcome.Error) { if (r != null) referral?.clear(); if (campaign != null) referral?.clearCampaign() }
         return outcome
     }
     suspend fun google(idToken: String): Outcome {
         val r = referral?.peek()
-        val outcome = consume(api.google(GoogleLoginRequest(idToken, referralCode = r?.code, referralSource = r?.source)), conflict = AuthError.GoogleEmailInUse)
-        if (r != null && outcome !is Outcome.Error) referral?.clear()
+        val campaign = referral?.peekCampaign()
+        val outcome = consume(api.google(GoogleLoginRequest(idToken, referralCode = r?.code, referralSource = r?.source, campaignCode = campaign)), conflict = AuthError.GoogleEmailInUse)
+        if (outcome !is Outcome.Error) { if (r != null) referral?.clear(); if (campaign != null) referral?.clearCampaign() }
         return outcome
     }
 
