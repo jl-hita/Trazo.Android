@@ -197,7 +197,12 @@ class PlanRepository(
         }
     }
 
-    /** Tries to deliver the queued logs, oldest first. Returns how many were removed from the queue. */
+    /**
+     * Serializes delivery so a foreground refresh and WorkManager cannot submit the same queue entries concurrently.
+     * Logs are processed oldest-first: a transient network failure stops the pass (preserving order), while a permanent
+     * validation/not-found/conflict response is removed so one poison entry cannot block every later workout forever.
+     * Returns how many entries were removed, including requests the server had already accepted.
+     */
     suspend fun flushPending(): Int = flushLock.withLock {
         var removed = 0
         for (item in disk { queue.all() }.sortedBy { it.createdAtMillis }) {

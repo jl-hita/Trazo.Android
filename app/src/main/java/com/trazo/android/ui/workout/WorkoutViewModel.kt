@@ -214,6 +214,11 @@ class WorkoutViewModel(
         }
     }
 
+    /**
+     * Submits a snapshot of the current entries. A queued offline result counts as safely handed off because the repository
+     * has persisted it; only then is the editable draft deleted. A rejected request keeps the draft so the user can correct
+     * the data and retry. The Sending guard prevents double taps from creating competing submissions.
+     */
     fun finish(form: FinishForm) {
         val s = _state.value
         val session = s.session ?: return
