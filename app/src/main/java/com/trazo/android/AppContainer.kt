@@ -74,6 +74,7 @@ class AppContainer(context: Context) {
     )
 
     val auth = AuthRepository(network.create(AuthApi::class.java), tokens)
+    val language = com.trazo.android.data.repo.LanguageRepository(network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.local.SharedPreferencesLanguageStore(appContext))
     val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext))
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
     val subscription = SubscriptionRepository(network.create(SubscriptionApi::class.java))
@@ -109,6 +110,8 @@ class TrazoApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // Before anything reads the locale (labels, API headers): the language the user chose, if any.
+        com.trazo.android.data.local.AppLocale.apply(com.trazo.android.data.local.SharedPreferencesLanguageStore(this).choice())
         // First of all, before the container is built: a crash while building it (Keystore, network...) must be stored too.
         // Crashes are stored on the spot and sent on the next start; handled-but-unexpected errors come in through Diagnostics.
         ErrorReporter.installCrashHandler(PendingErrorStore(File(filesDir, "error-reports")), CrashUploader(BuildConfig.API_BASE_URL, BuildConfig.VERSION_NAME))

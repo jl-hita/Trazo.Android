@@ -140,6 +140,13 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
     var premiumPrompt by rememberSaveable { mutableStateOf(false) }
     val route =nav.currentBackStackEntryAsState().value?.destination?.route
     val context = LocalContext.current
+    // Signing in on another device: the language the user chose there is adopted here, and the screen is rebuilt in it.
+    LaunchedEffect(user?.language) {
+        if (c.language.adopt(user?.language)) {
+            planVm.load()
+            (context as? android.app.Activity)?.recreate()
+        }
+    }
     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     // Push is an extra: register this phone once the user is in, and ask for the notification permission (once) only if the server has push on.
     LaunchedEffect(Unit) {
@@ -209,7 +216,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
                     val planState by planVm.state.collectAsStateWithLifecycle()
                     LaunchedEffect(subscriptionVersion) { if (subscriptionVersion > 0) vm.load() }
-                    AccountScreen(vm, c.auth, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) })
+                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() })
                 }
                 composable(Routes.ONBOARDING) {
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
