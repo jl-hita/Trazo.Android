@@ -447,4 +447,9 @@
     <string name="next_reschedule">Tu programa va %1$d semana(s) por detrás del calendario. Puedes recolocar lo pendiente a esta semana, manteniendo tus días.</string>
     <string name="next_reschedule_action">Recolocar desde hoy</string>
     <string name="next_reschedule_busy">Recolocando…</string>
+    <string name="account_language">Idioma</string>
+    <string name="account_language_hint">Se usa en la app y en los textos, correos y avisos que te envía TRAZO.</string>
+    <string name="language_auto">Automático (el del dispositivo)</string>
+    <string name="language_es">Español</string>
+    <string name="language_en">English</string>
 </resources>

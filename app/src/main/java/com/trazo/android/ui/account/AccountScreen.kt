@@ -30,11 +30,14 @@ import kotlinx.coroutines.launch
 fun AccountScreen(
     viewModel: AccountViewModel,
     auth: AuthRepository,
+    language: com.trazo.android.data.repo.LanguageRepository,
     user: UserSummary?,
     hasPlan: Boolean,
     onLogout: () -> Unit,
     onPremium: () -> Unit,
-    onPlanArchived: () -> Unit
+    onPlanArchived: () -> Unit,
+    /** The texts the server sent are in the old language: ask again. */
+    onLanguageChanged: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var confirmLogout by remember { mutableStateOf(false) }
@@ -113,6 +116,8 @@ fun AccountScreen(
                 }
             }
             }
+
+            LanguageSection(language, onLanguageChanged)
 
             SectionTitle(stringResource(R.string.account_security))
             if (user != null) SecuritySection(auth, user, onLoggedOutEverywhere = onLogout)
@@ -258,5 +263,29 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
             }) { Text(stringResource(R.string.sec_logout_all)) }
         },
         dismissButton = { TextButton(onClick = { confirmAll = false }) { Text(stringResource(R.string.cancel)) } }
+    )
+}
+
+/** The language of the app and of what TRAZO sends (e-mails, notifications): follow the device, Spanish or English. */
+@Composable
+private fun LanguageSection(language: com.trazo.android.data.repo.LanguageRepository, onChanged: () -> Unit) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var choice by remember { mutableStateOf(language.choice()) }
+    SectionTitle(stringResource(R.string.account_language))
+    Text(stringResource(R.string.account_language_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+    ChipGroup(
+        com.trazo.android.data.local.LanguageChoice.ALL, setOf(choice),
+        { context.getString(when (it) { "es" -> R.string.language_es; "en" -> R.string.language_en; else -> R.string.language_auto }) },
+        { picked ->
+            if (picked != choice) {
+                choice = picked
+                scope.launch {
+                    language.choose(picked) // the choice stands on this device even if the server cannot be told now
+                    onChanged()
+                    (context as? android.app.Activity)?.recreate()
+                }
+            }
+        }
     )
 }

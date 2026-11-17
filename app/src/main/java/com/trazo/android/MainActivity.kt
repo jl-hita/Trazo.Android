@@ -16,6 +16,10 @@ class MainActivity : ComponentActivity() {
     private var actionUri by mutableStateOf<Uri?>(null)
     private var pushKind by mutableStateOf<String?>(null)
 
+    override fun attachBaseContext(newBase: android.content.Context) {
+        super.attachBaseContext(com.trazo.android.data.local.AppLocale.wrap(newBase, com.trazo.android.data.local.SharedPreferencesLanguageStore(newBase).choice()))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionUri = trustedLink(intent)

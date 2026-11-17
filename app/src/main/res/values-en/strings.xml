@@ -443,4 +443,9 @@
     <string name="next_reschedule">Your program is %1$d week(s) behind the calendar. You can move what is pending to this week, keeping your days.</string>
     <string name="next_reschedule_action">Reschedule from today</string>
     <string name="next_reschedule_busy">Rescheduling…</string>
+    <string name="account_language">Language</string>
+    <string name="account_language_hint">Used in the app and in the texts, emails and notifications TRAZO sends you.</string>
+    <string name="language_auto">Automatic (device language)</string>
+    <string name="language_es">Español</string>
+    <string name="language_en">English</string>
 </resources>

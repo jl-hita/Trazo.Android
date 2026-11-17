@@ -36,6 +36,14 @@ interface PlansApi {
     suspend fun addExercise(@Path("sessionId") sessionId: String, @Body request: AddExerciseRequest): Response<SessionView>
 }
 
+data class LanguageRequest(val language: String?)
+
+/** The account of the signed-in user. */
+interface AccountApi {
+    /** "es", "en" or "auto" (follow the language of each request). */
+    @PUT("api/v1/account/language") suspend fun language(@Body request: LanguageRequest): Response<Unit>
+}
+
 interface ExercisesApi {
     @GET("api/v1/exercises")
     suspend fun search(
