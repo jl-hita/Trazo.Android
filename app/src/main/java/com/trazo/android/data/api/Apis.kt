@@ -31,6 +31,8 @@ interface PlansApi {
     suspend fun alternatives(@Path("sessionId") sessionId: String, @Path("exerciseId") exerciseId: String, @Query("limit") limit: Int = 5): Response<AlternativesResult>
     @POST("api/v1/plans/current/sessions/{sessionId}/exercises/{exerciseId}/swap")
     suspend fun swap(@Path("sessionId") sessionId: String, @Path("exerciseId") exerciseId: String, @Body request: SwapRequest): Response<SessionView>
+    @POST("api/v1/plans/current/sessions/{sessionId}/exercises")
+    suspend fun addExercise(@Path("sessionId") sessionId: String, @Body request: AddExerciseRequest): Response<SessionView>
 }
 
 interface ExercisesApi {

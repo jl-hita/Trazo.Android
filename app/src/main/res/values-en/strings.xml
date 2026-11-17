@@ -113,6 +113,9 @@
     <string name="workout_rest_minus">−15 s</string>
     <string name="workout_rest_skip">Skip</string>
     <string name="workout_swap">Swap exercise</string>
+    <string name="workout_add_exercise">Add exercise</string>
+    <string name="workout_add_exercise_hint">It is added to this session only: it will not repeat in the next ones, but it counts for your progress and loads.</string>
+    <string name="workout_extra_tag">Added by you</string>
     <string name="workout_finish">Finish session</string>
     <string name="workout_alternatives_title">Alternatives</string>
     <string name="workout_alternatives_empty">There are no alternatives for this exercise with your equipment and limitations.</string>

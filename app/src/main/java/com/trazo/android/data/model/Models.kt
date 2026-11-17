@@ -29,7 +29,9 @@ data class ExerciseView(
     /** What the user did the last time (any plan), with a proposed load; null when never logged. */
     val lastPerformance: LastPerformanceView? = null,
     /** Letter of the superset this exercise belongs to (consecutive exercises with the same letter), or null. */
-    val supersetGroup: String? = null
+    val supersetGroup: String? = null,
+    /** True when the user added it to this session on top of the program (it is not repeated in other sessions). */
+    val isExtra: Boolean = false
 )
 
 data class LastSetView(val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?)
@@ -158,6 +160,12 @@ data class ReviewRequestView(
 data class ReviewRequestBody(val note: String?)
 
 data class ReviewMessageBody(val body: String)
+
+/** Adds an exercise to one session only; the omitted fields take the server's moderate defaults. */
+data class AddExerciseRequest(
+    val exerciseId: String, val sets: Int? = null, val minRepetitions: Int? = null, val maxRepetitions: Int? = null,
+    val targetRir: Double? = null, val restSeconds: Int? = null
+)
 
 data class SwapRequest(val replacementExerciseId: String, val applyToRemainingBlock: Boolean = false)
 

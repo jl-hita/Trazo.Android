@@ -112,6 +112,9 @@
     <string name="workout_rest_minus">−15 s</string>
     <string name="workout_rest_skip">Saltar</string>
     <string name="workout_swap">Cambiar ejercicio</string>
+    <string name="workout_add_exercise">Añadir ejercicio</string>
+    <string name="workout_add_exercise_hint">Solo se añade a esta sesión: no se repetirá en las siguientes, pero cuenta para tu progreso y tus cargas.</string>
+    <string name="workout_extra_tag">Añadido por ti</string>
     <string name="workout_finish">Terminar sesión</string>
     <string name="workout_alternatives_title">Alternativas</string>
     <string name="workout_alternatives_empty">No hay alternativas para este ejercicio con tu material y limitaciones.</string>

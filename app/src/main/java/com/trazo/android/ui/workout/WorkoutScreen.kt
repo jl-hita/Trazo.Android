@@ -55,6 +55,7 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                         ExerciseThumb(exerciseImageUrl(entry.exercise.exerciseId), entry.exercise.name, 56.dp)
                         Column {
                             Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
+                            if (entry.exercise.isExtra) Text(stringResource(R.string.workout_extra_tag), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
                             entry.exercise.supersetGroup?.let { Text(stringResource(R.string.workout_superset, it), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium) }
                         }
                     }
@@ -80,6 +81,7 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                 }
             }
         }
+        TrazoLink(onClick = viewModel::openAddExercise, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_add_exercise)) }
         state.rest?.let { RestBar(it, viewModel::adjustRest, viewModel::skipRest) }
         TrazoButton(onClick = { showFinish = true }, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_finish)) }
     }
@@ -92,6 +94,7 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
         dismissButton = { TextButton(onClick = { confirmLeave = false }) { Text(stringResource(R.string.cancel)) } }
     )
     state.alternatives?.let { AlternativesDialog(it, state.swapError, viewModel) }
+    state.adding?.let { AddExerciseDialog(it, viewModel) }
     if (showFinish) FinishDialog(state, onDismiss = { showFinish = false; viewModel.dismissFinishError() }, onSend = viewModel::finish)
 }
 
@@ -157,6 +160,34 @@ private fun RestBar(rest: RestTimer, onAdjust: (Int) -> Unit, onSkip: () -> Unit
             }
         }
     }
+}
+
+/** Picks any exercise of the catalog to do in this session only: it is not repeated in the next ones. */
+@Composable
+private fun AddExerciseDialog(state: AddExerciseState, vm: WorkoutViewModel) {
+    AlertDialog(
+        onDismissRequest = vm::closeAddExercise,
+        title = { Text(stringResource(R.string.workout_add_exercise)) },
+        text = {
+            Column {
+                Text(stringResource(R.string.workout_add_exercise_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                TrazoField(state.query, vm::searchToAdd, Modifier.fillMaxWidth().padding(top = 8.dp), label = { Text(stringResource(R.string.manual_search)) })
+                when {
+                    state.searching && state.results.isEmpty() -> LoadingBox(Modifier.height(120.dp))
+                    state.results.isEmpty() -> Text(stringResource(R.string.manual_search_empty), color = TrazoPalette.TextSecondary, modifier = Modifier.padding(top = 12.dp))
+                    else -> LazyColumn(Modifier.heightIn(max = 320.dp).padding(top = 8.dp)) {
+                        items(state.results, key = { it.id }) { item ->
+                            TextButton(onClick = { vm.addExercise(item) }, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
+                                Text(if (Labels.english()) item.nameEn.ifBlank { item.nameEs } else item.nameEs.ifBlank { item.nameEn }, Modifier.fillMaxWidth())
+                            }
+                        }
+                    }
+                }
+                state.error?.let { InlineError(it) }
+            }
+        },
+        confirmButton = { TextButton(onClick = vm::closeAddExercise) { Text(stringResource(R.string.close)) } }
+    )
 }
 
 @Composable

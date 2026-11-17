@@ -62,6 +62,9 @@ class FakePlansApi : PlansApi {
     override suspend fun alternatives(sessionId: String, exerciseId: String, limit: Int): Response<AlternativesResult> =
         Response.success(AlternativesResult(exerciseId, emptyList(), null))
     override suspend fun swap(sessionId: String, exerciseId: String, request: SwapRequest): Response<SessionView> = Response.success(sampleSession())
+    override suspend fun addExercise(sessionId: String, request: AddExerciseRequest): Response<SessionView> = Response.success(
+        sampleSession(sessionId, sampleExercise(), sampleExercise().copy(exerciseId = request.exerciseId, order = 2, sets = 3, isExtra = true))
+    )
 }
 
 class FakeSubscriptionApi(var status: () -> Response<SubscriptionStatus> = { Response.success(SubscriptionStatus(hasAccess = true, enforced = false)) }) : SubscriptionApi {
