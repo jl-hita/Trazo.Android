@@ -103,8 +103,14 @@ class AppContainer(context: Context) {
      */
     suspend fun readInstallReferrer() {
         if (pendingReferral.installReferrerChecked()) return
-        val code = com.trazo.android.data.referral.ReferralCodes.fromInstallReferrer(com.trazo.android.data.referral.InstallReferrerReader.read(appContext))
+        val raw = com.trazo.android.data.referral.InstallReferrerReader.read(appContext)
+        val code = com.trazo.android.data.referral.ReferralCodes.fromInstallReferrer(raw)
+        val campaign = com.trazo.android.data.referral.CampaignCodes.fromInstallReferrer(raw)
         pendingReferral.markInstallReferrerChecked()
+        if (campaign != null) {
+            pendingReferral.saveCampaign(campaign)
+            referralAnonymous.campaignInstallReferrer(com.trazo.android.data.referral.InstallCampaignRequest(campaign)) // counts an attributable install; ignored if it fails
+        }
         if (code != null) {
             pendingReferral.save(code, com.trazo.android.data.referral.ReferralSource.INSTALL_REFERRER)
             referralAnonymous.installReferrer(com.trazo.android.data.referral.InstallReferrerRequest(code)) // counts an attributable install; ignored if it fails

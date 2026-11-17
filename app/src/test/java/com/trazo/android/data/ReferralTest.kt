@@ -28,6 +28,10 @@ private class MemoryReferralStore : PendingReferralStore {
         if (value == null) value = PendingReferral(normalized, source)
     }
     override fun clear() { value = null }
+    var campaign: String? = null
+    override fun peekCampaign() = campaign
+    override fun saveCampaign(slug: String) { val s = CampaignCodes.normalize(slug) ?: return; if (campaign == null) campaign = s }
+    override fun clearCampaign() { campaign = null }
 }
 
 /** Records what registration and Google sign-in send; everything else behaves like the shared fake. */
@@ -309,5 +313,48 @@ class ReferralContractTest {
         }
         ContextInterceptor(language = { "es" }, zone = { "Europe/Madrid" }, appVersion = { "0.3.0" }).intercept(chain)
         assertEquals("0.3.0", sent?.header("X-App-Version"))
+    }
+}
+
+class CampaignAttributionTest {
+    @Test fun `the campaign is read from the Play install referrer among the utm parameters`() {
+        assertEquals("spring-ads", CampaignCodes.fromInstallReferrer("utm_source=ads&utm_medium=trazo&utm_campaign=spring-ads&trazo_cmp=spring-ads"))
+        assertEquals("spring-ads", CampaignCodes.fromInstallReferrer("trazo_cmp=Spring-Ads"))
+        assertNull(CampaignCodes.fromInstallReferrer("utm_source=google-play&utm_medium=organic"))
+        assertNull(CampaignCodes.fromInstallReferrer("trazo_cmp=-bad-"))
+        assertNull(CampaignCodes.fromInstallReferrer("trazo_cmp='; DROP TABLE users;--"))
+        assertNull(CampaignCodes.fromInstallReferrer("trazo_cmp=" + "a".repeat(600)))
+        assertNull(CampaignCodes.fromInstallReferrer(null))
+    }
+
+    @Test fun `the campaign link name has the shape the server accepts`() {
+        listOf("abc", "spring-ads", "a1-b2").forEach { assertEquals(it, CampaignCodes.normalize(it)) }
+        listOf(null, "", "ab", "has space", "UP_PER", "-start", "end-", "a".repeat(33)).forEach { assertNull(it, CampaignCodes.normalize(it)) }
+    }
+
+    @Test fun `registering sends the campaign and forgets it, with or without an invitation`() = runTest {
+        val store = MemoryReferralStore().apply { saveCampaign("radio-ad") }
+        val api = RecordingAuthApi()
+        AuthRepository(api, MemoryTokenStore(), store).register("a@b.c", "CorrectHorse1Battery", "Ana")
+        assertEquals("radio-ad", api.registered?.campaignCode)
+        assertNull(api.registered?.referralCode)
+        assertNull(store.campaign)
+    }
+
+    @Test fun `a failed registration keeps the campaign and google sign-in sends it too`() = runTest {
+        val store = MemoryReferralStore().apply { saveCampaign("radio-ad") }
+        AuthRepository(RecordingAuthApi(fail = true), MemoryTokenStore(), store).register("a@b.c", "CorrectHorse1Battery", "Ana")
+        assertEquals("radio-ad", store.campaign)
+        val api = RecordingAuthApi()
+        AuthRepository(api, MemoryTokenStore(), store).google("id-token")
+        assertEquals("radio-ad", api.googled?.campaignCode)
+        assertNull(store.campaign)
+    }
+
+    @Test fun `only the first campaign is kept`() {
+        val store = MemoryReferralStore()
+        store.saveCampaign("first-one")
+        store.saveCampaign("second-one")
+        assertEquals("first-one", store.campaign)
     }
 }
