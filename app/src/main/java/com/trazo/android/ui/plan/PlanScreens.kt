@@ -68,7 +68,7 @@ fun PlanScreen(
                 Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 item { WeekHeader(state.plan, week) }
-                state.next?.let { next -> item { NextSessionCard(next, openable = { id -> week.sessions.any { it.id == id } || id == next.session?.id }, onOpenSession = onOpenSession) } }
+                state.next?.let { next -> item { NextSessionCard(next, openable = { id -> week.sessions.any { it.id == id } || id == next.session?.id }, onOpenSession = onOpenSession, rescheduling = state.rescheduling, onReschedule = viewModel::reschedule) } }
                 if (state.fromCache) item { Notice(stringResource(R.string.offline_copy)) }
                 if (pending > 0) item {
                     Notice(stringResource(R.string.plan_pending_logs, pending))

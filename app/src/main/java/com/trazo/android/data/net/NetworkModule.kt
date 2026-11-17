@@ -27,6 +27,18 @@ class AuthInterceptor(private val tokens: TokenStore) : Interceptor {
 }
 
 /**
+ * Tells the API who is asking: the language of the app (Spanish unless the device is English) and the time zone of the device, so
+ * texts come back in the user's language and "today" is the user's day. Sent on every call, authenticated or not.
+ */
+class ContextInterceptor(
+    private val language: () -> String = { if (java.util.Locale.getDefault().language == "en") "en" else "es" },
+    private val zone: () -> String = { java.time.ZoneId.systemDefault().id }
+) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response =
+        chain.proceed(chain.request().newBuilder().header("Accept-Language", language()).header("X-Time-Zone", zone()).build())
+}
+
+/**
  * Refreshes the 60-minute access token when the API answers 401 and retries once. Only one refresh runs at a time; calls
  * that were waiting reuse the new token. A refresh token the server rejects ends the session; a network failure does not.
  */
@@ -84,6 +96,7 @@ class NetworkModule(
     val gson: Gson = Gson()
 ) {
     private fun baseClient() = OkHttpClient.Builder()
+        .addInterceptor(ContextInterceptor())
         .connectTimeout(15, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS)
 
     private val url = baseUrl

@@ -150,6 +150,13 @@ class PlanRepository(
     suspend fun sendReviewMessage(body: String): ApiResult<ReviewRequestView> =
         apiCall { api.sendReviewMessage(ReviewMessageBody(body.trim())) }
 
+    /** Moves the pending program of a calendar plan to the current week; the cached week is dropped so the next read is fresh. */
+    suspend fun reschedule(): ApiResult<RescheduleResult> {
+        val result = apiCall { api.reschedule() }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear() } }
+        return result
+    }
+
     suspend fun archive(): ApiResult<Unit> {
         val result = apiCall { api.archive() }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear() } }

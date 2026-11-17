@@ -239,10 +239,16 @@ data class AvailabilityView(val state: String, val availableAt: String?, val rea
 data class NextPositionView(val period: Int, val sessionInPeriod: Int, val sessionsInPeriod: Int, val mesocycle: MesocycleView?)
 
 /** Shown after a long time without training: advice to ease back in. The plan does not move meanwhile. */
-data class ReentryView(val daysSinceLastWorkout: Int, val message: String)
+data class ReentryView(val daysSinceLastWorkout: Int, val message: String, val applied: Boolean = false)
+
+/** Calendar plans: the pending program is [weeksBehind] whole weeks behind the calendar and can be moved to today. */
+data class RescheduleOfferView(val weeksBehind: Int)
+
+/** What moving the plan did: whole weeks moved, sessions whose date changed and the plan's new dates. */
+data class RescheduleResult(val weeksShifted: Int, val sessionsMoved: Int, val startDate: String, val endDate: String)
 
 data class NextSessionView(
     val planId: String, val schedulingMode: String, val timeline: String, val session: SessionView?, val position: NextPositionView?,
     val availability: AvailabilityView?, val availabilityLocked: Boolean = false, val overdue: List<OverdueSessionView> = emptyList(),
-    val locked: Boolean = false, val reentry: ReentryView? = null
+    val locked: Boolean = false, val reentry: ReentryView? = null, val reschedule: RescheduleOfferView? = null
 )
