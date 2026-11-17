@@ -46,7 +46,10 @@ fun formatAvailableAt(iso: String): String = runCatching {
  * Recovery is advice (Premium): it never prevents starting the workout.
  */
 @Composable
-fun NextSessionCard(next: NextSessionView, openable: (String) -> Boolean, onOpenSession: (String) -> Unit) {
+fun NextSessionCard(
+    next: NextSessionView, openable: (String) -> Boolean, onOpenSession: (String) -> Unit,
+    rescheduling: Boolean = false, onReschedule: () -> Unit = {}
+) {
     val session: SessionView? = next.session
     TrazoCard {
         Text(stringResource(R.string.next_title), style = MaterialTheme.typography.labelLarge, color = TrazoPalette.TextSecondary)
@@ -87,6 +90,13 @@ fun NextSessionCard(next: NextSessionView, openable: (String) -> Boolean, onOpen
 
         next.reentry?.let { Notice(it.message) }
         if (next.overdue.isNotEmpty()) Notice(stringResource(R.string.next_overdue, next.overdue.size))
+        // The calendar went on without the program: offer to move what is pending to this week (the weekdays are kept).
+        next.reschedule?.let { offer ->
+            Notice(stringResource(R.string.next_reschedule, offer.weeksBehind))
+            TrazoButton(onClick = onReschedule, secondary = true, enabled = !rescheduling, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) {
+                Text(stringResource(if (rescheduling) R.string.next_reschedule_busy else R.string.next_reschedule_action))
+            }
+        }
 
         if (openable(session.id)) TrazoButton(onClick = { onOpenSession(session.id) }, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) {
             Text(stringResource(R.string.next_view))

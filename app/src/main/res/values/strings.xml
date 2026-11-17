@@ -444,4 +444,7 @@
     <string name="onb_mode_sequence_hint">Entrenas cuando puedas: TRAZO te dice cuál es la siguiente sesión, sin calendario.</string>
     <string name="onb_sessions_per_cycle">Sesiones por ciclo (una vuelta completa al programa)</string>
     <string name="onb_sessions_hint">Entre %1$d y %2$d sesiones.</string>
+    <string name="next_reschedule">Tu programa va %1$d semana(s) por detrás del calendario. Puedes recolocar lo pendiente a esta semana, manteniendo tus días.</string>
+    <string name="next_reschedule_action">Recolocar desde hoy</string>
+    <string name="next_reschedule_busy">Recolocando…</string>
 </resources>

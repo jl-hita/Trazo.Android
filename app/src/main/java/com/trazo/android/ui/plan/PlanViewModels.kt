@@ -24,6 +24,8 @@ data class PlanUiState(
     /** The session to do next, decided by the backend. Null while unknown (offline): the week below still works. */
     val next: NextSessionView? = null,
     val fromCache: Boolean = false,
+    /** Moving the program to this week is in progress. */
+    val rescheduling: Boolean = false,
     val error: ApiError? = null
 )
 
@@ -40,6 +42,18 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
         viewModelScope.launchGuarded(R.string.feature_plan) {
             plans.archive()
             load()
+        }
+    }
+
+    /** Moves the program to this week (calendar plans that fell behind) and reloads the plan. */
+    fun reschedule() {
+        if (_state.value.rescheduling) return
+        _state.update { it.copy(rescheduling = true) }
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.update { it.copy(rescheduling = false, error = ApiError(ErrorKind.Unknown)) } }) {
+            when (val result = plans.reschedule()) {
+                is ApiResult.Success -> load()
+                is ApiResult.Failure -> _state.update { it.copy(rescheduling = false, error = result.error) }
+            }
         }
     }
 
