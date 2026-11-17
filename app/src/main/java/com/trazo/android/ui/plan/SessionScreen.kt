@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
 import com.trazo.android.data.model.ExerciseView
+import com.trazo.android.data.model.SessionView
 import com.trazo.android.data.model.WeekView
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
@@ -24,6 +25,8 @@ import kotlinx.coroutines.flow.StateFlow
 fun SessionScreen(
     week: StateFlow<WeekView?>,
     sessionId: String,
+    /** Finds a session the current week does not hold (a late one from an earlier week). */
+    lookup: (String) -> SessionView?,
     onBack: () -> Unit,
     onPremium: () -> Unit,
     onStart: () -> Unit,
@@ -31,14 +34,14 @@ fun SessionScreen(
 ) {
     SecureScreen()
     val current by week.collectAsStateWithLifecycle()
-    val session = current?.sessions?.firstOrNull { it.id == sessionId }
+    val session = current?.sessions?.firstOrNull { it.id == sessionId } ?: lookup(sessionId)
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(session?.title ?: stringResource(R.string.workout_title), onBack)
         if (session == null) { EmptyBox(stringResource(R.string.err_not_found)); return@Column }
         LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             item {
                 Text(
-                    "${Labels.day(session.day)} · ${formatDate(session.date)} · " + stringResource(R.string.plan_session_minutes, session.estimatedDurationMinutes),
+                    sessionWhen(session) + " · " + stringResource(R.string.plan_session_minutes, session.estimatedDurationMinutes),
                     color = TrazoPalette.TextSecondary
                 )
             }

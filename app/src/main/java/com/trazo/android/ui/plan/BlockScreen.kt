@@ -64,7 +64,8 @@ fun BlockScreen(viewModel: BlockViewModel, onBack: () -> Unit) {
                 block.mesocycle?.let { m ->
                     item {
                         val phase = Labels.phase(m.phaseType) + if (m.isDeload) " · ${stringResource(R.string.plan_deload)}" else ""
-                        Text(stringResource(R.string.plan_block, m.sequence, phase, m.weekInBlock, m.weeks), color = TrazoPalette.TextSecondary)
+                        val sequence = block.weeks.firstOrNull()?.weekStart == null
+                        Text(stringResource(if (sequence) R.string.plan_block_cycle else R.string.plan_block, m.sequence, phase, m.weekInBlock, m.weeks), color = TrazoPalette.TextSecondary)
                         Text(stringResource(R.string.block_note), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
                     }
                 }
@@ -79,16 +80,15 @@ private fun WeekSection(week: BlockWeekView) {
     val sets = week.sessions.sumOf { s -> s.exercises.sumOf { it.sets } }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         SectionTitle(
-            stringResource(R.string.block_week, week.weekNumber) + if (week.isCurrent) " · " + stringResource(R.string.block_current) else ""
+            // No dates means a sequence plan, whose periods are cycles.
+            stringResource(if (week.weekStart == null) R.string.block_cycle else R.string.block_week, week.weekNumber) + if (week.isCurrent) " · " + stringResource(R.string.block_current) else ""
         )
-        Text(
-            "${formatDate(week.weekStart)} – ${formatDate(week.weekEnd)} · " + stringResource(R.string.block_week_sets, sets),
-            color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
-        )
+        val range = if (week.weekStart != null && week.weekEnd != null) "${formatDate(week.weekStart)} – ${formatDate(week.weekEnd)} · " else ""
+        Text(range + stringResource(R.string.block_week_sets, sets), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
         week.sessions.forEach { session ->
             TrazoCard {
                 Text(session.title, style = MaterialTheme.typography.titleMedium)
-                Text("${Labels.day(session.day)} · ${formatDate(session.date)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                Text(sessionWhen(session), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 session.exercises.forEach { Text("• " + exerciseLine(it), style = MaterialTheme.typography.bodySmall) }
             }
         }

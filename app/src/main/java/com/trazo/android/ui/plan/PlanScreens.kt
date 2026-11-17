@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
-private fun appLocale(): Locale = if (Labels.english()) Locale.getDefault() else Locale("es", "ES")
+internal fun appLocale(): Locale = if (Labels.english()) Locale.getDefault() else Locale("es", "ES")
 
 fun formatDate(iso: String): String = runCatching {
     LocalDate.parse(iso).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(appLocale()))
@@ -68,6 +68,7 @@ fun PlanScreen(
                 Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 item { WeekHeader(state.plan, week) }
+                state.next?.let { next -> item { NextSessionCard(next, openable = { id -> week.sessions.any { it.id == id } || id == next.session?.id }, onOpenSession = onOpenSession) } }
                 if (state.fromCache) item { Notice(stringResource(R.string.offline_copy)) }
                 if (pending > 0) item {
                     Notice(stringResource(R.string.plan_pending_logs, pending))
@@ -77,14 +78,15 @@ fun PlanScreen(
                     Notice(stringResource(R.string.plan_finished))
                     TrazoButton(onClick = viewModel::startNextPlan, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_next_plan)) }
                 }
-                if (week.timeline == "NotStarted") item { Notice(stringResource(R.string.plan_not_started, formatDate(week.weekStart))) }
+                if (week.timeline == "NotStarted" && week.weekStart != null) item { Notice(stringResource(R.string.plan_not_started, formatDate(week.weekStart))) }
                 if (week.locked) item {
                     Notice(stringResource(R.string.plan_generated_premium_locked))
                     TrazoButton(onClick = onPremium, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
                 }
                 if (week.sessions.isEmpty() && week.timeline != "Finished" && !week.locked) item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
                 items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }
-                if (state.plan?.origin == "Manual") item {
+                // Editing writes the weekly routines of a calendar plan; a sequence plan has no weekdays to edit.
+                if (state.plan?.origin == "Manual" && state.plan?.schedulingMode != "Sequence") item {
                     TrazoButton(onClick = onEditPlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_edit_button)) }
                 }
                 item {
@@ -148,11 +150,13 @@ private fun OnboardingPrompt(onCreatePlan: () -> Unit, onCreateManualPlan: () ->
 @Composable
 private fun WeekHeader(plan: PlanView?, week: WeekView) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        if (plan != null) Text(stringResource(R.string.plan_week_of, week.weekNumber, plan.totalWeeks), style = MaterialTheme.typography.titleLarge)
-        Text("${formatDate(week.weekStart)} – ${formatDate(week.weekEnd)}", color = TrazoPalette.TextSecondary)
+        val sequence = plan?.schedulingMode == "Sequence"
+        if (plan != null) Text(stringResource(if (sequence) R.string.plan_cycle_of else R.string.plan_week_of, week.weekNumber, plan.totalWeeks), style = MaterialTheme.typography.titleLarge)
+        // A sequence plan has no calendar: only its position in the program is shown.
+        if (week.weekStart != null && week.weekEnd != null) Text("${formatDate(week.weekStart)} – ${formatDate(week.weekEnd)}", color = TrazoPalette.TextSecondary)
         week.mesocycle?.let {
             val phase = Labels.phase(it.phaseType) + if (it.isDeload) " · ${stringResource(R.string.plan_deload)}" else ""
-            Text(stringResource(R.string.plan_block, it.sequence, phase, it.weekInBlock, it.weeks), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+            Text(stringResource(if (sequence) R.string.plan_block_cycle else R.string.plan_block, it.sequence, phase, it.weekInBlock, it.weeks), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
         }
     }
 }
@@ -163,7 +167,7 @@ private fun SessionCard(session: SessionView, onClick: () -> Unit) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(session.title, style = MaterialTheme.typography.titleMedium)
-                Text("${Labels.day(session.day)} · ${formatDate(session.date)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                Text(sessionWhen(session), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
             }
             val done = session.log != null
             Text(
@@ -193,7 +197,11 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                     Text(plan.macrocycle.name, style = MaterialTheme.typography.titleLarge)
                     // The notes of a generated plan come from the engine and are not written for this app: only the user's own notes are shown.
                     if (plan.origin != "Generated") plan.macrocycle.notes?.takeIf { it.isNotBlank() }?.let { Text(it, color = TrazoPalette.TextSecondary) }
-                    Text("${formatDate(plan.startDate)} – ${formatDate(plan.endDate)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    Text(
+                        if (plan.endDate != null) "${formatDate(plan.startDate)} – ${formatDate(plan.endDate)}"
+                        else stringResource(R.string.overview_cycles, plan.totalWeeks),
+                        color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
+                    )
                 }
                 item {
                     SectionTitle(stringResource(R.string.overview_load_title))
@@ -213,7 +221,9 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                 items(plan.macrocycle.phases, key = { it.sequence }) { phase ->
                     TrazoCard {
                         Text(phase.name, style = MaterialTheme.typography.titleMedium)
-                        Text("${Labels.phase(phase.type)} · ${formatDate(phase.startDate)} – ${formatDate(phase.endDate)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                        val range = if (phase.startDate != null && phase.endDate != null) "${formatDate(phase.startDate)} – ${formatDate(phase.endDate)}"
+                        else stringResource(R.string.overview_phase_cycles, phase.startPeriod, phase.endPeriod)
+                        Text("${Labels.phase(phase.type)} · $range", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                         Text(phase.objective)
                     }
                 }
@@ -223,7 +233,8 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                     TrazoCard {
                         Text(stringResource(R.string.overview_goal, Labels.goal(plan.goal)))
                         Text(stringResource(R.string.overview_level, Labels.experience(plan.experience)))
-                        Text(stringResource(R.string.overview_days, Labels.inWeekOrder(plan.trainingDays).joinToString(", ") { Labels.day(it) }))
+                        if (plan.schedulingMode == "Sequence") Text(stringResource(R.string.overview_sessions_per_cycle, plan.sessionsPerPeriod))
+                        else Text(stringResource(R.string.overview_days, Labels.inWeekOrder(plan.trainingDays).joinToString(", ") { Labels.day(it) }))
                         Text(
                             stringResource(
                                 R.string.overview_limitations,
@@ -252,7 +263,9 @@ fun HistoryScreen(viewModel: HistoryViewModel, onBack: () -> Unit) {
                 items(state.items, key = { it.sessionId }) {
                     TrazoCard {
                         Text(it.title, style = MaterialTheme.typography.titleMedium)
-                        Text("${formatDate(it.date)} · ${statusLabel(it.outcome)} · ${stringResource(R.string.history_sets, it.completedSets, it.plannedSets)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                        // The day shown is the one the workout happened, not the one it was planned or registered.
+                        val day = it.performedAt?.let { at -> formatDateTime(at) } ?: it.date?.let { d -> formatDate(d) } ?: ""
+                        Text("$day · ${statusLabel(it.outcome)} · ${stringResource(R.string.history_sets, it.completedSets, it.plannedSets)}", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                     }
                 }
             }

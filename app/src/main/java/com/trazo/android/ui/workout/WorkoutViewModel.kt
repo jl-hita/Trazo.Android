@@ -64,7 +64,9 @@ class FinishForm(
     val pain: Boolean = false,
     val notes: String = "",
     val reason: String = "None",
-    val feedback: Map<String, ExerciseFeedbackRequest> = emptyMap()
+    val feedback: Map<String, ExerciseFeedbackRequest> = emptyMap(),
+    /** The day the workout happened when it was not today (a late registration); null means now. */
+    val performedOn: java.time.LocalDate? = null
 )
 
 /** Records the real sets of one session, runs the rest timer and sends the log (or queues it when offline). */
@@ -229,7 +231,17 @@ class WorkoutViewModel(
             "Motivation" to "motivation", "Illness" to "illness", "Other" to "other"
         )
 
-        fun buildLogRequest(entries: List<ExerciseEntry>, form: FinishForm): LogSessionRequest {
+        /**
+         * The instant to send when the user says the workout happened on another day: that day at the current time of day, in the
+         * device zone. Today (or nothing chosen) sends nothing: the repository stamps the moment the workout ends.
+         */
+        fun performedAtFor(day: java.time.LocalDate?, now: java.time.ZonedDateTime = java.time.ZonedDateTime.now()): String? {
+            if (day == null || day == now.toLocalDate()) return null
+            if (day.isAfter(now.toLocalDate())) return null
+            return day.atTime(now.toLocalTime()).atZone(now.zone).toInstant().toString()
+        }
+
+        fun buildLogRequest(entries: List<ExerciseEntry>, form: FinishForm, now: java.time.ZonedDateTime = java.time.ZonedDateTime.now()): LogSessionRequest {
             val total = entries.sumOf { it.sets.size }
             val done = entries.sumOf { e -> e.sets.count { it.done } }
             val outcome = when {
@@ -258,6 +270,7 @@ class WorkoutViewModel(
                 painReported = form.pain,
                 notes = form.notes.trim().take(1000).ifEmpty { null },
                 sets = sets,
+                performedAt = performedAtFor(form.performedOn, now),
                 // Only exercises with at least one completed set are asked about, and only answered questions are sent.
                 exerciseFeedback = form.feedback.filter { (id, answer) ->
                     !answer.isEmpty && entries.any { e -> e.exercise.exerciseId == id && e.sets.any { it.done } }

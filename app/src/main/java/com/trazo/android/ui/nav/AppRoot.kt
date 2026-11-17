@@ -248,7 +248,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 }
                 composable(Routes.SESSION, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
-                    SessionScreen(c.plans.week, id, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
+                    SessionScreen(c.plans.week, id, lookup = c.plans::session, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()

@@ -160,9 +160,9 @@ class ManualPlanViewModel(
 
         /** The routines of the sessions of a week, one per weekday, with the supersets as links between consecutive exercises. */
         fun routinesOf(sessions: List<com.trazo.android.data.model.SessionView>): Map<String, ManualDay> =
-            sessions.associate { session ->
+            sessions.filter { it.day != null }.associate { session ->
                 val list = session.exercises.sortedBy { it.order }
-                session.day to ManualDay(
+                session.day!! to ManualDay(
                     session.title,
                     list.mapIndexed { i, e ->
                         ManualExercise(

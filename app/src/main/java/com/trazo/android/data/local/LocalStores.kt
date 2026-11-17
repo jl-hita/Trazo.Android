@@ -77,7 +77,8 @@ class PlanCache(
 
     fun week(): WeekView? {
         val cached = store.read<CachedWeek>(WEEK, CachedWeek::class.java) ?: return null
-        val end = runCatching { LocalDate.parse(cached.week.weekEnd) }.getOrNull()
+        // A sequence plan has no calendar week: its copy only expires with the time limit.
+        val end = cached.week.weekEnd?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
         val fresh = now() - cached.savedAtMillis in 0..ttlMillis && (end == null || !today().isAfter(end))
         if (!fresh) store.delete(WEEK)
         return cached.week.takeIf { fresh }

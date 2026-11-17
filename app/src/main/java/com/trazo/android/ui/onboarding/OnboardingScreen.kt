@@ -40,9 +40,30 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 SectionTitle(stringResource(R.string.onb_level))
                 ChipGroup(options.experience, setOf(state.experience), Labels::experience, viewModel::setExperience)
 
-                SectionTitle(stringResource(R.string.onb_days))
-                Text(stringResource(R.string.onb_days_hint, options.minimumTrainingDays, options.maximumTrainingDays), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-                DayPicker(options.days, state.days, viewModel::toggleDay)
+                // The mode is only offered when the server announces it, so an older server keeps the fixed-days flow.
+                if ("Sequence" in options.schedulingModes) {
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    SectionTitle(stringResource(R.string.onb_mode))
+                    ChipGroup(
+                        listOf("Calendar", "Sequence"), setOf(state.schedulingMode),
+                        { context.getString(if (it == "Sequence") R.string.onb_mode_sequence else R.string.onb_mode_calendar) },
+                        viewModel::setSchedulingMode
+                    )
+                    if (state.isSequence) Text(stringResource(R.string.onb_mode_sequence_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                }
+
+                if (state.isSequence) {
+                    SectionTitle(stringResource(R.string.onb_sessions_per_cycle))
+                    Text(stringResource(R.string.onb_sessions_hint, options.minimumSessionsPerPeriod, options.maximumSessionsPerPeriod), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    ChipGroup(
+                        (options.minimumSessionsPerPeriod..options.maximumSessionsPerPeriod).map { it.toString() }, setOf(state.sessionsPerPeriod.toString()),
+                        { it }, { viewModel.setSessionsPerPeriod(it.toInt()) }
+                    )
+                } else {
+                    SectionTitle(stringResource(R.string.onb_days))
+                    Text(stringResource(R.string.onb_days_hint, options.minimumTrainingDays, options.maximumTrainingDays), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    DayPicker(options.days, state.days, viewModel::toggleDay)
+                }
 
                 SectionTitle(stringResource(R.string.onb_split))
                 Text(stringResource(R.string.onb_split_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
