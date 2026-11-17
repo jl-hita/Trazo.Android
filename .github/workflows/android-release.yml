@@ -28,6 +28,7 @@ jobs:
           PLAY_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
           API_BASE_URL: ${{ secrets.TRAZO_API_BASE_URL }}
           GOOGLE_WEB_CLIENT_ID: ${{ secrets.TRAZO_GOOGLE_WEB_CLIENT_ID }}
+          DIAGNOSTICS_KEY: ${{ secrets.TRAZO_DIAGNOSTICS_UPLOAD_KEY }}
         run: |
           missing=()
           [[ -n "$KEYSTORE_BASE64" ]] || missing+=("TRAZO_SIGNING_KEYSTORE_BASE64")
@@ -40,6 +41,11 @@ jobs:
           if [[ -n "$API_BASE_URL" && ! "$API_BASE_URL" =~ ^https:// ]]; then
             echo "TRAZO_API_BASE_URL debe comenzar por https://"
             exit 1
+          fi
+          if [[ -n "$DIAGNOSTICS_KEY" ]]; then
+            echo "mapping_upload_ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "mapping_upload_ready=false" >> "$GITHUB_OUTPUT"
           fi
           if (( ${#missing[@]} )); then
             echo "ready=false" >> "$GITHUB_OUTPUT"
@@ -75,6 +81,7 @@ jobs:
           chmod 600 "$RUNNER_TEMP/trazo-upload.jks"
 
       - name: Build signed release bundle
+        id: build
         if: steps.secrets.outputs.ready == 'true'
         shell: bash
         env:
@@ -88,11 +95,32 @@ jobs:
         run: |
           # 30002 is the last known Play versionCode. Each run of this workflow gets a unique higher code.
           VERSION_CODE=$((30002 + GITHUB_RUN_NUMBER))
-          echo "Building Trazo versionCode $VERSION_CODE"
+          VERSION_NAME="$(sed -n 's/^[[:space:]]*val appVersionName = "\([^"]*\)".*/\1/p' app/build.gradle.kts)"
+          [[ -n "$VERSION_NAME" ]] || { echo "Could not determine appVersionName"; exit 1; }
+          APP_VERSION="${VERSION_NAME}+${VERSION_CODE}"
+          echo "Building Trazo version $APP_VERSION"
+          echo "app_version=$APP_VERSION" >> "$GITHUB_OUTPUT"
           gradle --no-daemon :app:testDebugUnitTest :app:bundleRelease \
             -PversionCode="$VERSION_CODE" \
             -PapiBaseUrl="$TRAZO_API_BASE_URL" \
             -PgoogleWebClientId="$TRAZO_GOOGLE_WEB_CLIENT_ID"
+
+      - name: Upload R8 mapping to the diagnostics API
+        if: steps.secrets.outputs.ready == 'true' && steps.secrets.outputs.mapping_upload_ready == 'true'
+        shell: bash
+        env:
+          TRAZO_API_BASE_URL: ${{ secrets.TRAZO_API_BASE_URL }}
+          TRAZO_DIAGNOSTICS_UPLOAD_KEY: ${{ secrets.TRAZO_DIAGNOSTICS_UPLOAD_KEY }}
+          APP_VERSION: ${{ steps.build.outputs.app_version }}
+        run: |
+          set -euo pipefail
+          API_BASE_URL="${TRAZO_API_BASE_URL%/}"
+          ENCODED_VERSION="${APP_VERSION//+/%2B}"
+          curl --fail --silent --show-error \
+            -H "X-Trazo-Diagnostics-Key: $TRAZO_DIAGNOSTICS_UPLOAD_KEY" \
+            -H "Content-Type: text/plain" \
+            --data-binary "@app/build/outputs/mapping/release/mapping.txt" \
+            "$API_BASE_URL/api/internal/diagnostics/mappings?appVersion=$ENCODED_VERSION"
 
       - name: Preserve AAB and R8 mapping
         if: steps.secrets.outputs.ready == 'true'
