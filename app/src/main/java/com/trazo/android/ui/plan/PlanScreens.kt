@@ -88,10 +88,44 @@ fun PlanScreen(
                     TrazoButton(onClick = onEditPlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_edit_button)) }
                 }
                 item {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        TrazoButton(onClick = onBlock, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_block_button)) }
-                        TrazoButton(onClick = onOverview, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_overview)) }
-                        TrazoButton(onClick = onHistory, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_history)) }
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            TrazoButton(
+                                onClick = onBlock,
+                                secondary = true,
+                                modifier = Modifier.weight(1f).heightIn(min = 52.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.plan_block_button),
+                                    modifier = Modifier.fillMaxWidth(),
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                    maxLines = 2
+                                )
+                            }
+                            TrazoButton(
+                                onClick = onOverview,
+                                secondary = true,
+                                modifier = Modifier.weight(1f).heightIn(min = 52.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.plan_overview),
+                                    modifier = Modifier.fillMaxWidth(),
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                    maxLines = 2
+                                )
+                            }
+                        }
+                        TrazoButton(
+                            onClick = onHistory,
+                            secondary = true,
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)
+                        ) {
+                            Text(
+                                stringResource(R.string.plan_history),
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                        }
                     }
                 }
             }
