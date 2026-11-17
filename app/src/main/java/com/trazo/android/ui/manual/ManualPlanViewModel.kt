@@ -47,8 +47,20 @@ data class ManualPlanState(
     /** Editing the active plan instead of creating one. */
     val editing: Boolean = false,
     val loadingExisting: Boolean = false,
-    val notes: String? = null
+    val notes: String? = null,
+    /** "Calendar" (routines on weekdays, repeated every week) or "Sequence" (routines that rotate in order, no weekdays). */
+    val schedulingMode: String = "Calendar",
+    /** The server announces the sequence mode: only then it is offered when creating. */
+    val sequenceAvailable: Boolean = false,
+    /** Counter for the keys of the routines of a sequence plan, so a key is never reused after removing one. */
+    val nextRoutine: Int = 1,
+    /**
+     * The order of the routines of a sequence plan. It is a list on purpose: [days] is a map, and maps with the same entries are
+     * equal whatever their order, so a reordering kept only there would never reach the state flow.
+     */
+    val order: List<String> = emptyList()
 ) {
+    val isSequence: Boolean get() = schedulingMode == "Sequence"
     val canSubmit: Boolean
         get() = name.isNotBlank() && days.isNotEmpty() && days.values.all { it.exercises.isNotEmpty() } && !submitting
 }
@@ -60,7 +72,14 @@ class ManualPlanViewModel(
     private val _state = MutableStateFlow(ManualPlanState(editing = editing, loadingExisting = editing))
     val state: StateFlow<ManualPlanState> = _state.asStateFlow()
 
-    init { if (editing) loadExisting() }
+    init { if (editing) loadExisting() else loadOptions() }
+
+    private fun loadOptions() {
+        viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { }) {
+            val options = (plans.options() as? ApiResult.Success)?.value
+            _state.update { it.copy(sequenceAvailable = options != null && "Sequence" in options.schedulingModes) }
+        }
+    }
 
     /** Fills the editor with the routines of the active plan: the days and exercises of the current week. */
     private fun loadExisting() {
@@ -69,9 +88,13 @@ class ManualPlanViewModel(
             when (val week = plans.currentWeek()) {
                 is ApiResult.Failure -> _state.update { it.copy(loadingExisting = false, error = week.error) }
                 is ApiResult.Success -> _state.update {
+                    val sequence = plan?.schedulingMode == "Sequence"
+                    val routines = routinesOf(week.value.value.sessions, sequence)
                     it.copy(
                         loadingExisting = false, name = plan?.macrocycle?.name.orEmpty(), notes = plan?.macrocycle?.notes,
-                        totalWeeks = plan?.totalWeeks ?: it.totalWeeks, days = routinesOf(week.value.value.sessions)
+                        totalWeeks = plan?.totalWeeks ?: it.totalWeeks, days = routines,
+                        schedulingMode = if (sequence) "Sequence" else "Calendar", nextRoutine = routines.size + 1,
+                        order = if (sequence) routines.keys.toList() else emptyList()
                     )
                 }
             }
@@ -80,6 +103,32 @@ class ManualPlanViewModel(
 
     fun setName(value: String) = _state.update { it.copy(name = value.take(80)) }
     fun setTotalWeeks(value: Int) = _state.update { it.copy(totalWeeks = value.coerceIn(MIN_WEEKS, MAX_WEEKS)) }
+
+    /** Only when creating: an existing plan keeps its way of scheduling. Changing it starts the routines again. */
+    fun setSchedulingMode(mode: String) = _state.update {
+        if (it.editing || it.schedulingMode == mode || (mode == "Sequence" && !it.sequenceAvailable)) it
+        else it.copy(schedulingMode = mode, days = emptyMap(), nextRoutine = 1, order = emptyList())
+    }
+
+    /** Adds a routine at the end of the rotation of a sequence plan. */
+    fun addRoutine(defaultTitle: String) = _state.update {
+        if (!it.isSequence || it.days.size >= MAX_ROUTINES) it
+        else it.copy(days = it.days + ("r${it.nextRoutine}" to ManualDay(title = defaultTitle)), order = it.order + "r${it.nextRoutine}", nextRoutine = it.nextRoutine + 1)
+    }
+
+    fun removeRoutine(key: String) = _state.update { it.copy(days = it.days - key, order = it.order - key) }
+
+    /** Moves a routine earlier (-1) or later (+1) in the rotation. */
+    fun moveRoutine(key: String, delta: Int) = _state.update {
+        val keys = it.order.toMutableList()
+        val from = keys.indexOf(key)
+        val to = from + delta
+        if (from < 0 || to !in keys.indices) it
+        else {
+            keys.add(to, keys.removeAt(from))
+            it.copy(order = keys)
+        }
+    }
 
     fun toggleDay(day: String, defaultTitle: String) = _state.update {
         it.copy(days = if (day in it.days) it.days - day else it.days + (day to ManualDay(title = defaultTitle)))
@@ -159,10 +208,12 @@ class ManualPlanViewModel(
         const val MAX_SUPERSET = 3
 
         /** The routines of the sessions of a week, one per weekday, with the supersets as links between consecutive exercises. */
-        fun routinesOf(sessions: List<com.trazo.android.data.model.SessionView>): Map<String, ManualDay> =
-            sessions.filter { it.day != null }.associate { session ->
+        fun routinesOf(sessions: List<com.trazo.android.data.model.SessionView>, sequence: Boolean = false): Map<String, ManualDay> =
+            // A sequence plan has no weekdays: the routines are the sessions of one period, in program order, under their own keys.
+            (if (sequence) sessions.sortedBy { it.sequenceIndex }.mapIndexed { i, s -> "r${i + 1}" to s }
+            else sessions.filter { it.day != null }.map { it.day!! to it }).associate { (key, session) ->
                 val list = session.exercises.sortedBy { it.order }
-                session.day!! to ManualDay(
+                key to ManualDay(
                     session.title,
                     list.mapIndexed { i, e ->
                         ManualExercise(
@@ -176,6 +227,7 @@ class ManualPlanViewModel(
         const val MIN_WEEKS = 1
         const val MAX_WEEKS = 52
         const val MAX_SETS = 10
+        const val MAX_ROUTINES = 7
 
         /** Length of the superset run that contains [index]. */
         fun runLength(list: List<ManualExercise>, index: Int): Int {
@@ -209,10 +261,12 @@ class ManualPlanViewModel(
             name = s.name.trim(),
             totalWeeks = s.totalWeeks,
             notes = s.notes,
-            days = weekOrder.filter { it in s.days }.map { day ->
+            schedulingMode = if (s.isSequence) "Sequence" else null,
+            days = (if (s.isSequence) s.order.filter { it in s.days } else weekOrder.filter { it in s.days }).mapIndexed { index, day ->
                 val d = s.days.getValue(day)
                 val groups = supersetGroups(d.exercises)
-                ManualDayRequest(day, d.title.trim().ifEmpty { day }, d.exercises.mapIndexed { i, it ->
+                // A sequence routine has no weekday to send, nor to name it by: it falls back to its place in the rotation.
+                ManualDayRequest(if (s.isSequence) null else day, d.title.trim().ifEmpty { if (s.isSequence) "R${index + 1}" else day }, d.exercises.mapIndexed { i, it ->
                     ManualExerciseRequest(it.id, it.sets, it.minReps, it.maxReps, it.targetRir, it.restSeconds, groups[i])
                 })
             }

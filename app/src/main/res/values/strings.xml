@@ -452,4 +452,11 @@
     <string name="language_auto">Automático (el del dispositivo)</string>
     <string name="language_es">Español</string>
     <string name="language_en">English</string>
+    <string name="manual_mode">Cómo organizar tus rutinas</string>
+    <string name="manual_routines">Rutinas</string>
+    <string name="manual_routines_hint">Tus rutinas rotan en orden, sin días fijos: la app te dice cuál toca. Al terminar la última, vuelve a empezar la primera.</string>
+    <string name="manual_add_routine">Añadir rutina</string>
+    <string name="manual_remove_routine">Quitar</string>
+    <string name="manual_move_up">Subir</string>
+    <string name="manual_move_down">Bajar</string>
 </resources>

@@ -85,8 +85,8 @@ fun PlanScreen(
                 }
                 if (week.sessions.isEmpty() && week.timeline != "Finished" && !week.locked) item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
                 items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }
-                // Editing writes the weekly routines of a calendar plan; a sequence plan has no weekdays to edit.
-                if (state.plan?.origin == "Manual" && state.plan?.schedulingMode != "Sequence") item {
+                // Editing rewrites the routines: by weekday in a calendar plan, in rotation order in a sequence plan.
+                if (state.plan?.origin == "Manual") item {
                     TrazoButton(onClick = onEditPlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_edit_button)) }
                 }
                 item {

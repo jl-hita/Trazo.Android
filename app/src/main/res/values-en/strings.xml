@@ -448,4 +448,11 @@
     <string name="language_auto">Automatic (device language)</string>
     <string name="language_es">Español</string>
     <string name="language_en">English</string>
+    <string name="manual_mode">How to organise your routines</string>
+    <string name="manual_routines">Routines</string>
+    <string name="manual_routines_hint">Your routines rotate in order, with no fixed days: the app tells you which one is next. After the last one, the first starts again.</string>
+    <string name="manual_add_routine">Add routine</string>
+    <string name="manual_remove_routine">Remove</string>
+    <string name="manual_move_up">Move up</string>
+    <string name="manual_move_down">Move down</string>
 </resources>
