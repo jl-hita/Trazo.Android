@@ -110,6 +110,7 @@ dependencies {
  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
  implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
  implementation("com.android.billingclient:billing-ktx:9.1.0")
+ implementation("com.android.installreferrer:installreferrer:2.2")
  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
  implementation("androidx.work:work-runtime-ktx:2.10.0")
  // Push notifications. Firebase is started at run time with the options the API serves, so there is no google-services plugin.

@@ -37,7 +37,8 @@ fun AccountScreen(
     onPremium: () -> Unit,
     onPlanArchived: () -> Unit,
     /** The texts the server sent are in the old language: ask again. */
-    onLanguageChanged: () -> Unit = {}
+    onLanguageChanged: () -> Unit = {},
+    onReferrals: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var confirmLogout by remember { mutableStateOf(false) }
@@ -74,12 +75,14 @@ fun AccountScreen(
                         Text(stringResource(R.string.account_status, Labels.humanize(status.status)))
                         status.expiresAt?.let { Text(stringResource(R.string.account_expires, formatDate(it.take(10)))) }
                         if (status.hasAccess) Text(stringResource(R.string.account_access_ok), color = TrazoPalette.Ok)
+                        if (status.source == "promo") status.promoExpiresAt?.let { Text(stringResource(R.string.account_promo_until, formatDate(it.take(10))), color = TrazoPalette.Ok) }
                     }
                 }
             }
             if (state.status?.canUpgrade == true) {
                 TrazoButton(onClick = onPremium, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
             }
+            TrazoButton(onClick = onReferrals, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.referral_open)) }
             if (state.pendingLogs > 0) {
                 Notice(stringResource(R.string.plan_pending_logs, state.pendingLogs))
                 TrazoLink(onClick = viewModel::sendPending, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_send_now)) }

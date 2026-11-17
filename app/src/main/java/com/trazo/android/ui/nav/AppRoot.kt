@@ -33,6 +33,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import kotlinx.coroutines.launch
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
@@ -74,6 +75,7 @@ object Routes {
     const val HISTORY = "history"
     const val BLOCK = "block"
     const val PROGRESS = "progress"
+    const val REFERRALS = "referrals"
     const val SESSION = "session/{id}"
     const val WORKOUT = "workout/{id}"
     const val EXERCISE = "exercise/{id}"
@@ -216,11 +218,16 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
                     val planState by planVm.state.collectAsStateWithLifecycle()
                     LaunchedEffect(subscriptionVersion) { if (subscriptionVersion > 0) vm.load() }
-                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() })
+                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() }, onReferrals = { nav.navigate(Routes.REFERRALS) })
+                }
+                composable(Routes.REFERRALS) {
+                    val vm: com.trazo.android.ui.referral.ReferralViewModel = containerViewModel { com.trazo.android.ui.referral.ReferralViewModel(it.referrals) }
+                    com.trazo.android.ui.referral.ReferralScreen(vm, onBack = { nav.popBackStack() })
                 }
                 composable(Routes.ONBOARDING) {
+                    val milestone = rememberCoroutineScope()
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
-                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("onboarding")) }, onManualPlan = { nav.popBackStack(); nav.navigate(Routes.MANUAL_PLAN) }, onCreated = { planVm.load(); nav.popBackStack() })
+                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("onboarding")) }, onManualPlan = { nav.popBackStack(); nav.navigate(Routes.MANUAL_PLAN) }, onCreated = { milestone.launch { c.referrals.onboardingCompleted() }; planVm.load(); nav.popBackStack() })
                 }
                 composable(Routes.MANUAL_PLAN) {
                     val vm: ManualPlanViewModel = containerViewModel { ManualPlanViewModel(it.plans, it.exercises) }

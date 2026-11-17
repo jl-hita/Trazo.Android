@@ -73,7 +73,11 @@ class AppContainer(context: Context) {
         CoroutineScope(SupervisorJob() + Dispatchers.IO)
     )
 
-    val auth = AuthRepository(network.create(AuthApi::class.java), tokens)
+    /** The invitation code waiting for a registration (from a link or the Play install referrer). */
+    val pendingReferral = com.trazo.android.data.referral.SharedPreferencesPendingReferralStore(appContext)
+    val auth = AuthRepository(network.create(AuthApi::class.java), tokens, pendingReferral)
+    val referrals = com.trazo.android.data.referral.ReferralRepository(network.create(com.trazo.android.data.referral.ReferralApi::class.java))
+    private val referralAnonymous = network.createAnonymous(com.trazo.android.data.referral.ReferralAnonymousApi::class.java)
     val language = com.trazo.android.data.repo.LanguageRepository(network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.local.SharedPreferencesLanguageStore(appContext))
     val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext))
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
@@ -91,6 +95,20 @@ class AppContainer(context: Context) {
     /** Used by the messaging service when Firebase issues a new token while the app is not in the foreground. */
     fun registerPushIfSignedIn() {
         pushScope.launchGuarded(R.string.feature_push) { if (auth.hasStoredSession()) push.register() }
+    }
+
+    /**
+     * First launch only: reads the Google Play install referrer and keeps the invitation code it carries until the person registers.
+     * Best effort; a missing referrer (not installed from a link, another store) is normal.
+     */
+    suspend fun readInstallReferrer() {
+        if (pendingReferral.installReferrerChecked()) return
+        val code = com.trazo.android.data.referral.ReferralCodes.fromInstallReferrer(com.trazo.android.data.referral.InstallReferrerReader.read(appContext))
+        pendingReferral.markInstallReferrerChecked()
+        if (code != null) {
+            pendingReferral.save(code, com.trazo.android.data.referral.ReferralSource.INSTALL_REFERRER)
+            referralAnonymous.installReferrer(com.trazo.android.data.referral.InstallReferrerRequest(code)) // counts an attributable install; ignored if it fails
+        }
     }
 
     /** Ends the session and removes everything stored for the account: token, cached week, queued logs and drafts. */
@@ -121,6 +139,7 @@ class TrazoApp : Application() {
         val startup = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         startup.launchGuarded { container.errorReporter.flush() }
         startup.launchGuarded { container.plans.resumePendingSync() }
+        startup.launchGuarded { container.readInstallReferrer() }
         // Firebase has to be running before a message or a token refresh wakes the app's service.
         startup.launchGuarded(R.string.feature_push) { container.push.startFromCache() }
     }

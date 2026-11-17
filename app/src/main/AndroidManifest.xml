@@ -20,6 +20,7 @@
     <data android:scheme="https" android:host="${appLinkHost}"/>
     <data android:pathPrefix="/account/verify-email"/>
     <data android:pathPrefix="/account/reset-password"/>
+    <data android:pathPrefix="/invite"/>
    </intent-filter>
   </activity>
   <service android:name=".push.TrazoMessagingService" android:exported="false">

@@ -455,4 +455,58 @@
     <string name="manual_remove_routine">Remove</string>
     <string name="manual_move_up">Move up</string>
     <string name="manual_move_down">Move down</string>
+    <!-- Referrals -->
+    <string name="referral_open">Invite and earn Premium</string>
+    <string name="referral_title">Invite a friend</string>
+    <string name="referral_headline">If your friend ends up paying their first Premium subscription, you earn %1$d days of Premium for free.</string>
+    <string name="referral_how">Only the first real payment counts: the free trial and renewals give no days. Every reward adds up and none expire.</string>
+    <string name="referral_code_label">Your code</string>
+    <string name="referral_copy">Copy code</string>
+    <string name="referral_copied">Code copied</string>
+    <string name="referral_share">Share invitation</string>
+    <string name="referral_share_subject">I invite you to TRAZO</string>
+    <string name="referral_share_message">Try TRAZO to plan your workouts. Sign up with my invitation: {link} (or use my code %1$s)</string>
+    <string name="referral_stats">Your invitations in numbers</string>
+    <string name="referral_stat_invited">People invited</string>
+    <string name="referral_stat_waiting">Not Premium yet</string>
+    <string name="referral_stat_converted">Already Premium</string>
+    <string name="referral_stat_rewards">Rewards earned</string>
+    <string name="referral_stat_days">Premium earned</string>
+    <string name="referral_invitations">Status of each invitation</string>
+    <string name="referral_none">Nobody has joined with your invitation yet. Share your link or your code to start.</string>
+    <string name="referral_status_registered">Signed up · not Premium yet</string>
+    <string name="referral_status_rewarded">Now Premium · reward earned</string>
+    <string name="referral_status_voided">Reward cancelled</string>
+    <string name="referral_status_skipped">Now Premium · no reward</string>
+    <string name="referral_registered_on">Signed up on %1$s</string>
+    <string name="referral_plan_monthly">monthly plan</string>
+    <string name="referral_plan_annual">annual plan</string>
+    <string name="referral_reward_deferred">Applied as unpaid days on your next renewal.</string>
+    <string name="referral_reward_pending">Pending: it will be applied to your next charge or, if you cancel, when your subscription ends.</string>
+    <string name="referral_reward_active">Premium days added to your account.</string>
+    <string name="referral_history">Your free Premium</string>
+    <string name="referral_kind_welcome">Welcome period</string>
+    <string name="referral_kind_reward">Invitation reward</string>
+    <string name="referral_kind_other">Adjustment</string>
+    <string name="referral_grant_voided">Cancelled</string>
+    <string name="referral_grant_deferred">Your next renewal was postponed until %1$s.</string>
+    <string name="referral_grant_window">From %1$s to %2$s</string>
+    <string name="referral_refresh">Refresh</string>
+    <string name="referral_list_error">The lists could not be loaded. Your code and link still work.</string>
+    <string name="referral_off">The invitation programme is not active right now.</string>
+    <string name="referral_fine_print">For privacy we do not show who each invited person is. Rewards are confirmed with Google Play: if the first payment is refunded, the reward is cancelled.</string>
+    <string name="referral_code_field">Invitation code (optional)</string>
+    <string name="account_promo_until">Free Premium until %1$s.</string>
+    <plurals name="referral_days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <plurals name="referral_days_pending">
+        <item quantity="one">%1$d day waiting to be applied</item>
+        <item quantity="other">%1$d days waiting to be applied</item>
+    </plurals>
+    <plurals name="referral_reward_days">
+        <item quantity="one">+%1$d day of Premium</item>
+        <item quantity="other">+%1$d days of Premium</item>
+    </plurals>
 </resources>

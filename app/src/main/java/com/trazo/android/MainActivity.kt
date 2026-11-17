@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionUri = trustedLink(intent)
+        keepInvitation(intent)
         pushKind = pushKindOf(intent)
         setContent {
             TrazoTheme {
@@ -42,7 +43,14 @@ class MainActivity : ComponentActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         actionUri = trustedLink(intent)
+        keepInvitation(intent)
         pushKind = pushKindOf(intent)
+    }
+
+    /** An invitation link (https://host/invite/CODE): the code waits for the registration. Only the first one is kept; the server decides if it counts. */
+    private fun keepInvitation(intent: Intent?) {
+        val code = com.trazo.android.data.referral.ReferralCodes.fromLink(trustedLink(intent)) ?: return
+        (application as TrazoApp).container.pendingReferral.save(code, com.trazo.android.data.referral.ReferralSource.LINK)
     }
 
     /** The kind of a tapped push notification (set by [com.trazo.android.push.PushNotifier]); empty when the app was opened another way. */

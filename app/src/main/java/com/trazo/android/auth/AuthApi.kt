@@ -5,8 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 data class LoginRequest(val email:String,val password:String,val deviceName:String="Android")
-data class RegisterRequest(val email:String,val password:String,val displayName:String,val deviceName:String="Android")
-data class GoogleLoginRequest(val idToken:String,val deviceName:String="Android")
+data class RegisterRequest(val email:String,val password:String,val displayName:String,val deviceName:String="Android",val referralCode:String?=null,val referralSource:String?=null)
+data class GoogleLoginRequest(val idToken:String,val deviceName:String="Android",val referralCode:String?=null,val referralSource:String?=null)
 data class TwoFactorVerifyRequest(val challengeToken:String,val code:String,val deviceName:String="Android")
 data class RefreshRequest(val refreshToken:String,val deviceName:String="Android")
 data class AuthResponse(val accessToken:String?=null,val refreshToken:String?=null,val twoFactorRequired:Boolean=false,val challengeToken:String?=null,val emailVerificationRequired:Boolean=false,val message:String?=null)

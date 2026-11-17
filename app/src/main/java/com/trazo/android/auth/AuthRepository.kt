@@ -5,10 +5,28 @@ class AuthException(val code: AuthError, val http: Int? = null) : Exception(code
 
 enum class AuthError { Generic, IncompleteResponse, NoChallenge, NoSession, TwoFactorSetup, TwoFactorCode, TwoFactorDisable, LogoutAll, LinkGoogle, GoogleEmailInUse, EmailInUse }
 
-class AuthRepository(private val api: AuthApi, private val store: TokenStore) {
+class AuthRepository(
+    private val api: AuthApi,
+    private val store: TokenStore,
+    private val referral: com.trazo.android.data.referral.PendingReferralStore? = null
+) {
+    /** The invitation code that arrived through a link or the Play install referrer and is waiting for a registration. */
+    fun pendingReferral(): com.trazo.android.data.referral.PendingReferral? = referral?.peek()
+
     suspend fun login(email: String, password: String) = consume(api.login(LoginRequest(email.trim(), password)))
-    suspend fun register(email: String, password: String, name: String) = consume(api.register(RegisterRequest(email.trim(), password, name.trim())), conflict = AuthError.EmailInUse)
-    suspend fun google(idToken: String) = consume(api.google(GoogleLoginRequest(idToken)), conflict = AuthError.GoogleEmailInUse)
+    /** [referralCode] is what the person typed; without it the pending code of a link or install referrer goes along. The server decides whether it counts. */
+    suspend fun register(email: String, password: String, name: String, referralCode: String? = null): Outcome {
+        val r = com.trazo.android.data.referral.referralFor(referralCode, referral?.peek())
+        val outcome = consume(api.register(RegisterRequest(email.trim(), password, name.trim(), referralCode = r?.code, referralSource = r?.source)), conflict = AuthError.EmailInUse)
+        if (r != null && outcome !is Outcome.Error) referral?.clear()
+        return outcome
+    }
+    suspend fun google(idToken: String): Outcome {
+        val r = referral?.peek()
+        val outcome = consume(api.google(GoogleLoginRequest(idToken, referralCode = r?.code, referralSource = r?.source)), conflict = AuthError.GoogleEmailInUse)
+        if (r != null && outcome !is Outcome.Error) referral?.clear()
+        return outcome
+    }
 
     /** Single-use nonce for the next Google ID token. Null when the API has none to give (older server, no connection). */
     suspend fun googleNonce(): String? =
