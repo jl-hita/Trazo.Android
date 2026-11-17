@@ -107,9 +107,12 @@ data class PlanOptions(
 /** A plan the user writes: their weekly routines, repeated every week. Free; Premium adapts it as they train. */
 data class ManualPlanRequest(
     val name: String, val totalWeeks: Int, val days: List<ManualDayRequest>, val notes: String? = null,
-    val startDate: String? = null, val goal: String? = null, val experience: String? = null
+    val startDate: String? = null, val goal: String? = null, val experience: String? = null,
+    /** "Sequence": the routines are a rotation in the order given and have no weekday. */
+    val schedulingMode: String? = null
 )
-data class ManualDayRequest(val day: String, val title: String, val exercises: List<ManualExerciseRequest>)
+/** [day] is null in a sequence plan (the routines rotate; there are no weekdays). */
+data class ManualDayRequest(val day: String?, val title: String, val exercises: List<ManualExerciseRequest>)
 data class ManualExerciseRequest(
     val exerciseId: String, val sets: Int, val minRepetitions: Int, val maxRepetitions: Int, val targetRir: Double? = null,
     val restSeconds: Int? = null, val supersetGroup: String? = null

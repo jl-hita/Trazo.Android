@@ -43,12 +43,44 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
                 modifier = Modifier.heightIn(min = MinTouch)
             )
 
-            SectionTitle(stringResource(R.string.manual_days))
-            Text(stringResource(R.string.manual_days_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-            DayPicker(WEEK, state.days.keys, { day -> viewModel.toggleDay(day, context.getString(R.string.manual_default_routine, state.days.size + 1)) })
+            // The way of scheduling is chosen when creating, and only when the server offers the sequence mode.
+            if (!state.editing && state.sequenceAvailable) {
+                SectionTitle(stringResource(R.string.manual_mode))
+                ChipGroup(
+                    listOf("Calendar", "Sequence"), setOf(state.schedulingMode),
+                    { context.getString(if (it == "Sequence") R.string.onb_mode_sequence else R.string.onb_mode_calendar) },
+                    viewModel::setSchedulingMode
+                )
+            }
 
-            order.filter { it in state.days }.forEach { day ->
-                DayCard(day, state.days.getValue(day), viewModel)
+            if (state.isSequence) {
+                SectionTitle(stringResource(R.string.manual_routines))
+                Text(stringResource(R.string.manual_routines_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                val keys = state.order.filter { it in state.days }
+                keys.forEachIndexed { index, key ->
+                    DayCard(
+                        stringResource(R.string.manual_default_routine, index + 1), key, state.days.getValue(key), viewModel,
+                        actions = {
+                            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                TextButton(onClick = { viewModel.moveRoutine(key, -1) }, enabled = index > 0, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_move_up)) }
+                                TextButton(onClick = { viewModel.moveRoutine(key, 1) }, enabled = index < keys.lastIndex, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_move_down)) }
+                                TextButton(onClick = { viewModel.removeRoutine(key) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_remove_routine)) }
+                            }
+                        }
+                    )
+                }
+                if (keys.size < ManualPlanViewModel.MAX_ROUTINES) TrazoButton(
+                    onClick = { viewModel.addRoutine(context.getString(R.string.manual_default_routine, keys.size + 1)) }, secondary = true,
+                    modifier = Modifier.heightIn(min = MinTouch)
+                ) { Text(stringResource(R.string.manual_add_routine)) }
+            } else {
+                SectionTitle(stringResource(R.string.manual_days))
+                Text(stringResource(R.string.manual_days_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                DayPicker(WEEK, state.days.keys, { day -> viewModel.toggleDay(day, context.getString(R.string.manual_default_routine, state.days.size + 1)) })
+
+                order.filter { it in state.days }.forEach { day ->
+                    DayCard(Labels.day(day), day, state.days.getValue(day), viewModel)
+                }
             }
 
             state.error?.let { InlineError(it, Modifier.padding(top = 8.dp)) }
@@ -62,9 +94,10 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
 }
 
 @Composable
-private fun DayCard(day: String, routine: ManualDay, vm: ManualPlanViewModel) {
+private fun DayCard(header: String, day: String, routine: ManualDay, vm: ManualPlanViewModel, actions: @Composable () -> Unit = {}) {
     TrazoCard(Modifier.fillMaxWidth()) {
-        Text(Labels.day(day), style = MaterialTheme.typography.titleSmall)
+        Text(header, style = MaterialTheme.typography.titleSmall)
+        actions()
         TrazoField(routine.title, { vm.setTitle(day, it) }, Modifier.fillMaxWidth().padding(top = 8.dp), label = { Text(stringResource(R.string.manual_routine_title)) })
         if (routine.exercises.isEmpty()) {
             Text(stringResource(R.string.manual_no_exercises), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 8.dp))
