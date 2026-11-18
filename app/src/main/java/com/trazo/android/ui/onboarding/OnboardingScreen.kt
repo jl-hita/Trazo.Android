@@ -23,11 +23,12 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
     // The account turned out not to have Premium (the app could not know, or it lapsed): same choice as before opening this form.
     var promptDismissed by remember(state.error) { mutableStateOf(false) }
     var showEquipmentDialog by remember { mutableStateOf(false) }
+    val availableEquipmentOptions = state.options?.equipment.orEmpty()
     if (state.error?.kind == com.trazo.android.data.net.ErrorKind.SubscriptionRequired && !promptDismissed) {
         com.trazo.android.ui.billing.PremiumRequiredDialog(onPremium = onPremium, onManualPlan = onManualPlan, onDismiss = { promptDismissed = true })
     }
     if (showEquipmentDialog && state.options != null) {
-        val equipmentOptions = state.options.equipment
+        val equipmentOptions = availableEquipmentOptions
         AlertDialog(
             onDismissRequest = { showEquipmentDialog = false },
             title = { Text(stringResource(R.string.onb_equipment)) },
@@ -48,7 +49,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                             Text(
                                 Labels.equipment(item),
                                 modifier = Modifier.weight(1f),
-                                color = TrazoPalette.TextPrimary
+                                color = TrazoPalette.Text
                             )
                         }
                     }
