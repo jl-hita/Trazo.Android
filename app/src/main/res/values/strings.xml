@@ -289,6 +289,9 @@
     <string name="sec_2fa_enable">Activar 2FA</string>
     <string name="sec_2fa_enabled">2FA activado. Guarda los códigos de recuperación: solo se muestran ahora.</string>
     <string name="sec_2fa_recovery">Códigos de recuperación — guárdalos ahora</string>
+    <string name="sec_password_setup">Configurar contraseña de acceso</string>
+    <string name="sec_password_setup_sent">Te hemos enviado un enlace para configurar tu contraseña.</string>
+    <string name="sec_password_setup_conflict">Esta cuenta ya tiene una contraseña o necesita verificar el correo.</string>
     <string name="sec_google_link">Vincular mi cuenta de Google</string>
     <string name="sec_google_linked">Cuenta de Google vinculada.</string>
     <string name="sec_logout_all">Cerrar sesión en todos los dispositivos</string>

@@ -235,6 +235,26 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
         message?.let { Text(it, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall) }
     }
 
+    if (user.googleLinked && !user.hasPassword) {
+        TrazoButton(
+            enabled = !busy,
+            secondary = true,
+            modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch),
+            onClick = {
+                busy = true
+                scope.launch {
+                    try {
+                        auth.setupPassword()
+                        message = str(R.string.sec_password_setup_sent)
+                    } catch (e: Exception) {
+                        fail(e, R.string.auth_err_generic)
+                        if ((e as? AuthException)?.http == 409) message = str(R.string.sec_password_setup_conflict)
+                    } finally { busy = false }
+                }
+            }
+        ) { Text(stringResource(R.string.sec_password_setup)) }
+    }
+
     if (BuildConfig.GOOGLE_WEB_CLIENT_ID.isNotBlank() && !user.googleLinked) TrazoButton(
         enabled = !busy, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch),
         onClick = {

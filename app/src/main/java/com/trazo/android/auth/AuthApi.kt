@@ -16,7 +16,7 @@ data class EmailRequest(val email:String)
 data class EmailTokenRequest(val token:String)
 data class ResetPasswordRequest(val token:String,val newPassword:String)
 data class TwoFactorCodeRequest(val code:String)
-data class UserSummary(val id:String,val email:String,val displayName:String,val role:String,val twoFactorEnabled:Boolean,val googleLinked:Boolean=false,val language:String?=null)
+data class UserSummary(val id:String,val email:String,val displayName:String,val role:String,val twoFactorEnabled:Boolean,val googleLinked:Boolean=false,val language:String?=null,val hasPassword:Boolean=false)
 data class TwoFactorSetupResponse(val secret:String,val provisioningUri:String)
 data class TwoFactorEnableResponse(val enabled:Boolean,val recoveryCodes:List<String>)
 interface AuthApi {
@@ -35,6 +35,7 @@ interface AuthApi {
  @POST("api/v1/auth/2fa/disable") suspend fun disableTwoFactor(@Header("Authorization") authorization:String,@Body request:TwoFactorCodeRequest):Response<Unit>
  @POST("api/v1/auth/email/resend") suspend fun resendVerification(@Body request:EmailRequest):Response<Unit>
  @POST("api/v1/auth/password/forgot") suspend fun forgotPassword(@Body request:EmailRequest):Response<Unit>
+ @POST("api/v1/account/password/setup") suspend fun setupPassword(@Header("Authorization") authorization:String):Response<Unit>
  @POST("api/v1/auth/email/verify") suspend fun verifyEmail(@Body request:EmailTokenRequest):Response<Unit>
  @POST("api/v1/auth/password/reset") suspend fun resetPassword(@Body request:ResetPasswordRequest):Response<Unit>
 }

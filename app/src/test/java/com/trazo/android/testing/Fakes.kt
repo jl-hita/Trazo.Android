@@ -93,6 +93,7 @@ class FakeAuthApi(var refreshResponse: () -> Response<AuthResponse> = { Response
     override suspend fun forgotPassword(request: EmailRequest): Response<Unit> = TODO()
     override suspend fun verifyEmail(request: EmailTokenRequest): Response<Unit> = TODO()
     override suspend fun resetPassword(request: ResetPasswordRequest): Response<Unit> = TODO()
+    override suspend fun setupPassword(authorization: String): Response<Unit> = Response.success(Unit)
 }
 
 fun networkFailure(): Nothing = throw IOException("offline")
