@@ -235,6 +235,26 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
         message?.let { Text(it, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall) }
     }
 
+    if (user.googleLinked) {
+        TrazoButton(
+            enabled = !busy,
+            secondary = true,
+            modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch),
+            onClick = {
+                busy = true
+                scope.launch {
+                    try {
+                        auth.setupPassword()
+                        message = "Te hemos enviado un enlace para configurar tu contraseña."
+                    } catch (e: Exception) {
+                        fail(e, R.string.auth_err_generic)
+                        if ((e as? AuthException)?.http == 409) message = "Esta cuenta ya tiene una contraseña o necesita verificar el correo."
+                    } finally { busy = false }
+                }
+            }
+        ) { Text("Configurar contraseña de acceso") }
+    }
+
     if (BuildConfig.GOOGLE_WEB_CLIENT_ID.isNotBlank() && !user.googleLinked) TrazoButton(
         enabled = !busy, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch),
         onClick = {
