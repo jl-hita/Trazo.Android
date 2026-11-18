@@ -117,7 +117,7 @@ class LoadViewModel(private val plans: PlanRepository) : ViewModel() {
     }
 }
 
-data class AdaptationsUiState(val loading: Boolean = true, val history: AdaptationHistoryView? = null, val error: ApiError? = null)
+data class AdaptationsUiState(val loading: Boolean = true, val history: AdaptationHistoryView? = null, val error: ApiError? = null, val wholePlan: Boolean = false)
 
 /** "What TRAZO adjusted": the engine's decisions with their numbers, so the value of the automatic adaptation is visible from the first sessions. */
 class AdaptationsViewModel(private val plans: PlanRepository) : ViewModel() {
@@ -126,15 +126,18 @@ class AdaptationsViewModel(private val plans: PlanRepository) : ViewModel() {
 
     init { load() }
 
-    fun load() {
-        _state.value = AdaptationsUiState()
-        viewModelScope.launchGuarded(R.string.feature_adaptations, onFailure = { _state.value = AdaptationsUiState(false, error = ApiError(ErrorKind.Unknown)) }) {
-            _state.value = when (val result = plans.adaptations()) {
-                is ApiResult.Success -> AdaptationsUiState(false, result.value)
-                is ApiResult.Failure -> AdaptationsUiState(false, error = result.error)
+    fun load(wholePlan: Boolean = _state.value.wholePlan) {
+        _state.value = AdaptationsUiState(wholePlan = wholePlan)
+        viewModelScope.launchGuarded(R.string.feature_adaptations, onFailure = { _state.value = AdaptationsUiState(false, error = ApiError(ErrorKind.Unknown), wholePlan = wholePlan) }) {
+            _state.value = when (val result = plans.adaptations(wholePlan)) {
+                is ApiResult.Success -> AdaptationsUiState(false, result.value, wholePlan = wholePlan)
+                is ApiResult.Failure -> AdaptationsUiState(false, error = result.error, wholePlan = wholePlan)
             }
         }
     }
+
+    /** The block in progress is the default; the rest of the plan is one tap away. */
+    fun showWholePlan(whole: Boolean) = load(whole)
 }
 
 data class HistoryUiState(val loading: Boolean = true, val items: List<HistoryItem> = emptyList(), val error: ApiError? = null)

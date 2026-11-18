@@ -46,7 +46,11 @@
     <string name="plan_adjustments">Ajustes de TRAZO</string>
     <string name="feature_adaptations">ajustes</string>
     <string name="adjustments_title">Ajustes de TRAZO</string>
-    <string name="adjustments_totals">%1$d ajuste(s) en %2$d sesiones · %3$d revisiones sin cambios</string>
+    <string name="adjustments_totals_block">Este bloque: %1$d ajuste(s) en %2$d sesiones · %3$d revisiones sin cambios</string>
+    <string name="adjustments_totals_plan">Todo el plan: %1$d ajuste(s) en %2$d sesiones · %3$d revisiones sin cambios</string>
+    <string name="adjustments_block_empty">Todavía no hay ajustes en este bloque.</string>
+    <string name="adjustments_whole_plan">Ver todo el plan (%1$d ajuste(s))</string>
+    <string name="adjustments_only_block">Ver solo este bloque</string>
     <string name="adjustments_after">Tras: %1$s</string>
     <string name="adjustments_empty">Aún no hay ajustes. Cada vez que registres una sesión, TRAZO la revisará y verás aquí qué ha cambiado y por qué, o que el plan se mantiene.</string>
     <string name="adjustments_empty_manual">Aquí verás las sesiones que omitas o recoloques. Los ajustes automáticos de series, cargas y descargas son parte de Premium.</string>
