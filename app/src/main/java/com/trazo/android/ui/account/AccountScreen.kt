@@ -235,7 +235,7 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
         message?.let { Text(it, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall) }
     }
 
-    if (user.googleLinked) {
+    if (user.googleLinked && !user.hasPassword) {
         TrazoButton(
             enabled = !busy,
             secondary = true,
