@@ -36,8 +36,30 @@ data class ExerciseView(
 
 data class LastSetView(val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?)
 
-/** [suggestionBasis] is "repeat" (same load) or "increase" (every set reached the top of the range). */
-data class LastPerformanceView(val date: String, val sets: List<LastSetView>, val suggestedLoadKg: Double?, val suggestionBasis: String?)
+/**
+ * [suggestionBasis] is "repeat" (same load), "increase" (every set reached the top of the range) or "estimate" (Premium: estimated from
+ * the best of the last [basedOnSessions] sessions of the exercise).
+ */
+data class LastPerformanceView(
+    val date: String, val sets: List<LastSetView>, val suggestedLoadKg: Double?, val suggestionBasis: String?, val basedOnSessions: Int? = null
+)
+
+data class ExerciseRefView(val exerciseId: String, val name: String)
+
+/**
+ * One thing the engine did (or decided not to do) after a session. [kind] is reduction_sets, raise_reserve, restore_sets, deload, hold_progression,
+ * muscle_add_set, muscle_reduce_set, load_update, reentry, reschedule, skip or review; [changed] is false for a review that left the plan as it was.
+ */
+data class AdaptationEntryView(
+    val id: String, val at: String, val kind: String, val summary: String, val explanation: String, val exercises: List<ExerciseRefView> = emptyList(),
+    val sessionsChanged: Int = 0, val changed: Boolean = false, val sourceSession: String? = null, val sourceDate: String? = null
+)
+
+/** What the engine adjusted in the plan, newest first. [automatic] is false when the account has no automatic adaptation. */
+data class AdaptationHistoryView(
+    val reviews: Int = 0, val changes: Int = 0, val sessionsAdjusted: Int = 0, val automatic: Boolean = false,
+    val entries: List<AdaptationEntryView> = emptyList()
+)
 
 data class LoggedSetView(
     val exerciseId: String, val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?,

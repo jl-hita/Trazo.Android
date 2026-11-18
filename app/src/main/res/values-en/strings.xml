@@ -43,6 +43,16 @@
     <string name="plan_no_sessions">There are no sessions planned this week.</string>
     <string name="plan_overview">View the full plan</string>
     <string name="plan_history">Session history</string>
+    <string name="plan_adjustments">TRAZO adjustments</string>
+    <string name="feature_adaptations">adjustments</string>
+    <string name="adjustments_title">TRAZO adjustments</string>
+    <string name="adjustments_totals">%1$d adjustment(s) across %2$d sessions · %3$d reviews with no change</string>
+    <string name="adjustments_after">After: %1$s</string>
+    <string name="adjustments_empty">No adjustments yet. Every time you log a session TRAZO reviews it and you will see here what changed and why, or that the plan stays as it is.</string>
+    <string name="adjustments_empty_manual">Here you will see the sessions you skip or move. Automatic adjustments of sets, loads and deloads are part of Premium.</string>
+    <string name="workout_proposal_estimate">Proposed load: %1$s kg (estimated from your last %2$d sessions of this exercise)</string>
+    <string name="finish_recalculated">TRAZO has recalculated your upcoming sessions with this workout: %1$d adjustment(s).</string>
+    <string name="finish_reviewed_kept">TRAZO reviewed this session and your plan stays as it is: nothing needed to change.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d exercises</string>
     <string name="plan_pending_logs">%1$d workouts are waiting for a connection to be sent.</string>

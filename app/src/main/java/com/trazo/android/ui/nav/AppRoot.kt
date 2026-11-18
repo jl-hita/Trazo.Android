@@ -73,6 +73,7 @@ object Routes {
     const val PREMIUM = "premium?source={source}"
     const val OVERVIEW = "overview"
     const val HISTORY = "history"
+    const val ADJUSTMENTS = "adjustments"
     const val BLOCK = "block"
     const val PROGRESS = "progress"
     const val REFERRALS = "referrals"
@@ -202,6 +203,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                         onOpenSession = { nav.navigate(Routes.session(it)) },
                         onOverview = { nav.navigate(Routes.OVERVIEW) },
                         onHistory = { nav.navigate(Routes.HISTORY) },
+                        onAdjustments = { nav.navigate(Routes.ADJUSTMENTS) },
                         onBlock = { nav.navigate(Routes.BLOCK) },
                         onEditPlan = { nav.navigate(Routes.MANUAL_EDIT) },
                         onCreatePlan = { if (access?.canUpgrade == true) premiumPrompt = true else nav.navigate(Routes.ONBOARDING) },
@@ -255,6 +257,10 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 composable(Routes.PROGRESS) {
                     val vm: com.trazo.android.ui.progress.ProgressViewModel = containerViewModel { com.trazo.android.ui.progress.ProgressViewModel(it.plans) }
                     com.trazo.android.ui.progress.ProgressScreen(vm)
+                }
+                composable(Routes.ADJUSTMENTS) {
+                    val vm: AdaptationsViewModel = containerViewModel { AdaptationsViewModel(it.plans) }
+                    AdaptationsScreen(vm, onBack = { nav.popBackStack() })
                 }
                 composable(Routes.HISTORY) {
                     val vm: HistoryViewModel = containerViewModel { HistoryViewModel(it.plans) }

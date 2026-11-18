@@ -134,6 +134,9 @@ class PlanRepository(
 
     suspend fun history(take: Int = 30): ApiResult<List<HistoryItem>> = apiCall { api.history(take) }
 
+    /** What the engine adjusted in the plan and why, newest first. */
+    suspend fun adaptations(take: Int = 50): ApiResult<AdaptationHistoryView> = apiCall { api.adaptations(take) }
+
     /** The latest manual-review request of the active plan; success with null when none was made yet. */
     suspend fun reviewRequest(messages: Boolean = false): ApiResult<ReviewRequestView?> {
         val result = apiCall { api.reviewRequest(messages) }

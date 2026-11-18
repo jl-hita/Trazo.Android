@@ -117,6 +117,26 @@ class LoadViewModel(private val plans: PlanRepository) : ViewModel() {
     }
 }
 
+data class AdaptationsUiState(val loading: Boolean = true, val history: AdaptationHistoryView? = null, val error: ApiError? = null)
+
+/** "What TRAZO adjusted": the engine's decisions with their numbers, so the value of the automatic adaptation is visible from the first sessions. */
+class AdaptationsViewModel(private val plans: PlanRepository) : ViewModel() {
+    private val _state = MutableStateFlow(AdaptationsUiState())
+    val state: StateFlow<AdaptationsUiState> = _state.asStateFlow()
+
+    init { load() }
+
+    fun load() {
+        _state.value = AdaptationsUiState()
+        viewModelScope.launchGuarded(R.string.feature_adaptations, onFailure = { _state.value = AdaptationsUiState(false, error = ApiError(ErrorKind.Unknown)) }) {
+            _state.value = when (val result = plans.adaptations()) {
+                is ApiResult.Success -> AdaptationsUiState(false, result.value)
+                is ApiResult.Failure -> AdaptationsUiState(false, error = result.error)
+            }
+        }
+    }
+}
+
 data class HistoryUiState(val loading: Boolean = true, val items: List<HistoryItem> = emptyList(), val error: ApiError? = null)
 
 class HistoryViewModel(private val plans: PlanRepository) : ViewModel() {
