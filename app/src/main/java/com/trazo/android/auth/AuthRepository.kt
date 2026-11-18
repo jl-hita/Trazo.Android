@@ -91,6 +91,10 @@ class AuthRepository(
 
     suspend fun resendVerification(email: String) = api.resendVerification(EmailRequest(email.trim()))
     suspend fun forgotPassword(email: String) = api.forgotPassword(EmailRequest(email.trim()))
+    suspend fun setupPassword() {
+        val response = api.setupPassword(bearer())
+        if (!response.isSuccessful) throw AuthException(AuthError.Generic, response.code())
+    }
     suspend fun verifyEmail(token: String) = api.verifyEmail(EmailTokenRequest(token))
     suspend fun resetPassword(token: String, newPassword: String) = api.resetPassword(ResetPasswordRequest(token, newPassword))
 
