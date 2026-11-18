@@ -169,7 +169,12 @@ class ErrorReporter(
             val writer = StringWriter()
             error.printStackTrace(PrintWriter(writer))
             val text = writer.toString().trim()
-            return if (text.length <= MAX_TRACE_LENGTH) text else text.take(MAX_TRACE_LENGTH)
+            // ART may omit the message entirely (e.g. a ClassCastException with a null message). Keep the
+            // first line machine-readable for the backend, but make the absence explicit rather than ambiguous.
+            val firstLine = "${error.javaClass.name}: ${error.message ?: "<no message>"}"
+            val remainder = text.substringAfter('\n', "")
+            val enriched = if (remainder.isEmpty()) firstLine else "$firstLine\n$remainder"
+            return if (enriched.length <= MAX_TRACE_LENGTH) enriched else enriched.take(MAX_TRACE_LENGTH)
         }
     }
 }

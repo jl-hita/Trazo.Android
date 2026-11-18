@@ -44,7 +44,7 @@ class ErrorReporterTest {
         store = PendingErrorStore(folder.newFolder("reports"))
         api = FakeApi()
         // Errors are only stored here; the tests flush by hand, so the scope has nothing to run on.
-        reporter = ErrorReporter(store, api, "1.2.3", CoroutineScope(Job() + Dispatchers.Unconfined))
+        reporter = ErrorReporter(store, api, "1.2.3+30029", CoroutineScope(Job() + Dispatchers.Unconfined))
     }
 
     @After fun tearDown() {
@@ -58,11 +58,19 @@ class ErrorReporterTest {
         reporter.record(failure())
         assertEquals(1, api.sent.size) // an unexpected error is sent right away
         val body = api.sent.single()
-        assertEquals("1.2.3", body.appVersion)
+        assertEquals("1.2.3+30029", body.appVersion)
         assertTrue(body.stackTrace.startsWith("java.lang.IllegalStateException: boom"))
         assertTrue(body.stackTrace.contains("Caused by: java.lang.IllegalArgumentException: root cause"))
         assertTrue(body.stackTrace.contains("ErrorReporterTest"))
         assertTrue(store.all().isEmpty()) // sent, so nothing is left on disk
+    }
+
+    @Test fun `a missing exception message is explicit in the report header`() {
+        val error = ClassCastException()
+        error.stackTrace = arrayOf(StackTraceElement("obfuscated.a", "b", "SourceFile", 42))
+        val trace = ErrorReporter.traceOf(error)
+        assertTrue(trace.startsWith("java.lang.ClassCastException: <no message>"))
+        assertTrue(trace.contains("at obfuscated.a.b(SourceFile:42)"))
     }
 
     @Test fun `only the tester account sees the test buttons`() {
@@ -187,7 +195,7 @@ class ErrorReporterTest {
             server.enqueue(MockResponse().setResponseCode(202).setBody("""{"accepted":true}"""))
             val tokens = MemoryTokenStore("secret-access", "secret-refresh")
             val anonymous = NetworkModule(server.url("/").toString(), tokens, SessionEvents(), Gson()).createAnonymous(DiagnosticsApi::class.java)
-            val real = ErrorReporter(store, anonymous, "1.2.3", CoroutineScope(Job() + Dispatchers.Unconfined))
+            val real = ErrorReporter(store, anonymous, "1.2.3+30029", CoroutineScope(Job() + Dispatchers.Unconfined))
             real.record(failure("over http"))
 
             val request = server.takeRequest()
@@ -195,7 +203,7 @@ class ErrorReporterTest {
             assertNull(request.getHeader("Authorization"))
             val json = JsonParser.parseString(request.body.readUtf8()).asJsonObject
             assertEquals(setOf("appVersion", "stackTrace"), json.keySet())
-            assertEquals("1.2.3", json["appVersion"].asString)
+            assertEquals("1.2.3+30029", json["appVersion"].asString)
             assertTrue(json["stackTrace"].asString.contains("over http"))
             real.flush() // waits for the send above to finish (they share a lock) before looking at the disk
             assertTrue(store.all().isEmpty())
