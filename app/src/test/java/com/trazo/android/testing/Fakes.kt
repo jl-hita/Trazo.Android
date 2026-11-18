@@ -48,7 +48,7 @@ class FakePlansApi : PlansApi {
     var rescheduleCalls = 0
     override suspend fun reschedule(): Response<RescheduleResult> { rescheduleCalls++; return rescheduleResponse() }
     var adaptationsResponse: () -> Response<AdaptationHistoryView> = { Response.success(AdaptationHistoryView()) }
-    override suspend fun adaptations(take: Int): Response<AdaptationHistoryView> = adaptationsResponse()
+    override suspend fun adaptations(take: Int, scope: String): Response<AdaptationHistoryView> = adaptationsResponse()
     var skipResponse: () -> Response<SkipResult> = { Response.success(SkipResult(sampleSession(), false, "ok")) }
     val skipped = mutableListOf<Pair<String, SkipSessionRequest>>()
     override suspend fun skip(sessionId: String, request: SkipSessionRequest): Response<SkipResult> { skipped += sessionId to request; return skipResponse() }

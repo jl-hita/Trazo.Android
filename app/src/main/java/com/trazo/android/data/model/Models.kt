@@ -58,7 +58,9 @@ data class AdaptationEntryView(
 /** What the engine adjusted in the plan, newest first. [automatic] is false when the account has no automatic adaptation. */
 data class AdaptationHistoryView(
     val reviews: Int = 0, val changes: Int = 0, val sessionsAdjusted: Int = 0, val automatic: Boolean = false,
-    val entries: List<AdaptationEntryView> = emptyList()
+    val entries: List<AdaptationEntryView> = emptyList(),
+    /** "block" (the block in progress, the default) or "plan" (every block of the active plan). */
+    val scope: String = "block", val planChanges: Int = 0, val hasEarlier: Boolean = false
 )
 
 data class LoggedSetView(

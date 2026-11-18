@@ -63,4 +63,15 @@ class AdaptationHistoryTest {
         api.adaptationsResponse = { httpError(404, problem(404, "no_active_plan")) }
         assertTrue(repo.adaptations() is ApiResult.Failure)
     }
+
+    @Test fun `the block in progress is the default and the earlier ones are offered`() {
+        val history = Gson().fromJson(
+            """{"reviews":0,"changes":0,"sessionsAdjusted":0,"automatic":true,"entries":[],"scope":"block","planChanges":4,"hasEarlier":true}""",
+            AdaptationHistoryView::class.java
+        )
+        assertEquals("block", history.scope)
+        assertEquals(4, history.planChanges)
+        assertTrue(history.hasEarlier)
+        assertEquals("block", AdaptationHistoryView().scope)
+    }
 }

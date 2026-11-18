@@ -272,13 +272,21 @@ fun AdaptationsScreen(viewModel: AdaptationsViewModel, onBack: () -> Unit) {
         when {
             state.loading -> LoadingBox()
             state.error != null -> ErrorBox(state.error!!, viewModel::load)
-            history == null || history.entries.isEmpty() -> EmptyBox(stringResource(if (history?.automatic == false) R.string.adjustments_empty_manual else R.string.adjustments_empty))
+            history == null || (history.entries.isEmpty() && !history.hasEarlier) ->
+                EmptyBox(stringResource(if (history?.automatic == false) R.string.adjustments_empty_manual else R.string.adjustments_empty))
             else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 item {
                     Text(
-                        stringResource(R.string.adjustments_totals, history.changes, history.sessionsAdjusted, history.reviews),
+                        stringResource(if (state.wholePlan) R.string.adjustments_totals_plan else R.string.adjustments_totals_block, history.changes, history.sessionsAdjusted, history.reviews),
                         style = MaterialTheme.typography.titleMedium
                     )
+                }
+                if (history.entries.isEmpty()) item { Text(stringResource(R.string.adjustments_block_empty), color = TrazoPalette.TextSecondary) }
+                // Earlier blocks are not forgotten, but the screen is about what is being trained now.
+                if (history.hasEarlier || state.wholePlan) item {
+                    TrazoLink(onClick = { viewModel.showWholePlan(!state.wholePlan) }, modifier = Modifier.heightIn(min = MinTouch)) {
+                        Text(stringResource(if (state.wholePlan) R.string.adjustments_only_block else R.string.adjustments_whole_plan, history.planChanges))
+                    }
                 }
                 items(history.entries, key = { it.id }) { entry ->
                     TrazoCard {
