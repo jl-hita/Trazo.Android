@@ -26,6 +26,8 @@ data class PlanUiState(
     val fromCache: Boolean = false,
     /** Moving the program to this week is in progress. */
     val rescheduling: Boolean = false,
+    /** Omitting a session is in progress. */
+    val skipping: Boolean = false,
     val error: ApiError? = null
 )
 
@@ -53,6 +55,18 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
             when (val result = plans.reschedule()) {
                 is ApiResult.Success -> load()
                 is ApiResult.Failure -> _state.update { it.copy(rescheduling = false, error = result.error) }
+            }
+        }
+    }
+
+    /** Omits a pending session on purpose (the backend decides what that means for the plan) and reloads. */
+    fun skip(sessionId: String, reason: String) {
+        if (_state.value.skipping) return
+        _state.update { it.copy(skipping = true) }
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.update { it.copy(skipping = false, error = ApiError(ErrorKind.Unknown)) } }) {
+            when (val result = plans.skip(sessionId, reason)) {
+                is ApiResult.Success -> load()
+                is ApiResult.Failure -> _state.update { it.copy(skipping = false, error = result.error) }
             }
         }
     }

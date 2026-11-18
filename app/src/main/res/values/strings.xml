@@ -456,6 +456,15 @@
     <string name="next_reschedule">Tu programa va %1$d semana(s) por detrás del calendario. Puedes recolocar lo pendiente a esta semana, manteniendo tus días.</string>
     <string name="next_reschedule_action">Recolocar desde hoy</string>
     <string name="next_reschedule_busy">Recolocando…</string>
+    <string name="next_skip_action">Omitir esta sesión</string>
+    <string name="next_skip_busy">Omitiendo…</string>
+    <string name="next_skip_title">Omitir esta sesión</string>
+    <string name="next_skip_text">No la harás ni quieres recuperarla. No cuenta como entrenamiento y tu plan sigue con la siguiente. Si solo no puedes hoy, no hace falta que hagas nada: seguirá pendiente.</string>
+    <string name="next_skip_confirm">Omitir</string>
+    <string name="next_rebuild_action">Crear un plan nuevo</string>
+    <string name="next_rebuild_title">¿Crear un plan nuevo?</string>
+    <string name="next_rebuild_text">Se cierra este plan (el historial se conserva) y podrás crear otro con tu perfil y disponibilidad actuales.</string>
+    <string name="next_rebuild_confirm">Crear plan nuevo</string>
     <string name="account_language">Idioma</string>
     <string name="account_language_hint">Se usa en la app y en los textos, correos y avisos que te envía TRAZO.</string>
     <string name="language_auto">Automático (el del dispositivo)</string>

@@ -452,6 +452,15 @@
     <string name="next_reschedule">Your program is %1$d week(s) behind the calendar. You can move what is pending to this week, keeping your days.</string>
     <string name="next_reschedule_action">Reschedule from today</string>
     <string name="next_reschedule_busy">Rescheduling…</string>
+    <string name="next_skip_action">Skip this session</string>
+    <string name="next_skip_busy">Skipping…</string>
+    <string name="next_skip_title">Skip this session</string>
+    <string name="next_skip_text">You will not do it and do not want it back. It does not count as training and your plan goes on with the next one. If you just cannot today, there is nothing to do: it stays pending.</string>
+    <string name="next_skip_confirm">Skip</string>
+    <string name="next_rebuild_action">Create a new plan</string>
+    <string name="next_rebuild_title">Create a new plan?</string>
+    <string name="next_rebuild_text">This plan is closed (your history is kept) and you can create another one with your current profile and availability.</string>
+    <string name="next_rebuild_confirm">Create new plan</string>
     <string name="account_language">Language</string>
     <string name="account_language_hint">Used in the app and in the texts, emails and notifications TRAZO sends you.</string>
     <string name="language_auto">Automatic (device language)</string>

@@ -2,11 +2,22 @@ package com.trazo.android.ui.plan
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -48,8 +59,11 @@ fun formatAvailableAt(iso: String): String = runCatching {
 @Composable
 fun NextSessionCard(
     next: NextSessionView, openable: (String) -> Boolean, onOpenSession: (String) -> Unit,
-    rescheduling: Boolean = false, onReschedule: () -> Unit = {}
+    rescheduling: Boolean = false, onReschedule: () -> Unit = {},
+    skipping: Boolean = false, onSkip: (String, String) -> Unit = { _, _ -> }, onRebuild: () -> Unit = {}
 ) {
+    var skipDialog by rememberSaveable { mutableStateOf(false) }
+    var rebuildDialog by rememberSaveable { mutableStateOf(false) }
     val session: SessionView? = next.session
     TrazoCard {
         Text(stringResource(R.string.next_title), style = MaterialTheme.typography.labelLarge, color = TrazoPalette.TextSecondary)
@@ -89,7 +103,15 @@ fun NextSessionCard(
         }
 
         next.reentry?.let { Notice(it.message) }
-        if (next.overdue.isNotEmpty()) Notice(stringResource(R.string.next_overdue, next.overdue.size))
+        val adjustment = next.adjustment
+        // The backend's advice replaces the plain count when it has something to suggest (omit the oldest late session).
+        if (adjustment?.suggestSkip == true) Notice(adjustment.message)
+        else if (next.overdue.isNotEmpty()) Notice(stringResource(R.string.next_overdue, next.overdue.size))
+        // The plan may no longer fit the person (a very long absence or repeated omissions): suggest a new one, never rewrite it.
+        if (adjustment?.strategy == "Rebuild") {
+            Notice(adjustment.message)
+            TrazoLink(onClick = { rebuildDialog = true }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.next_rebuild_action)) }
+        }
         // The calendar went on without the program: offer to move what is pending to this week (the weekdays are kept).
         next.reschedule?.let { offer ->
             Notice(stringResource(R.string.next_reschedule, offer.weeksBehind))
@@ -101,7 +123,47 @@ fun NextSessionCard(
         if (openable(session.id)) TrazoButton(onClick = { onOpenSession(session.id) }, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) {
             Text(stringResource(R.string.next_view))
         }
+        // Omitting is always the user's decision: the session is not done, not counted as training and the plan goes on with the next one.
+        if (adjustment?.canSkip != false) TrazoLink(onClick = { skipDialog = true }, modifier = Modifier.heightIn(min = MinTouch)) {
+            Text(stringResource(if (skipping) R.string.next_skip_busy else R.string.next_skip_action))
+        }
     }
+    if (skipDialog) SkipDialog(
+        enabled = !skipping, onDismiss = { skipDialog = false },
+        onConfirm = { reason -> skipDialog = false; next.session?.id?.let { onSkip(it, reason) } }
+    )
+    if (rebuildDialog) AlertDialog(
+        onDismissRequest = { rebuildDialog = false },
+        title = { Text(stringResource(R.string.next_rebuild_title)) },
+        text = { Text(stringResource(R.string.next_rebuild_text)) },
+        confirmButton = { TextButton(onClick = { rebuildDialog = false; onRebuild() }) { Text(stringResource(R.string.next_rebuild_confirm)) } },
+        dismissButton = { TextButton(onClick = { rebuildDialog = false }) { Text(stringResource(R.string.cancel)) } }
+    )
+}
+
+/** The reasons an omitted session can carry. Agenda reasons change nothing else; Fatigue and Illness let the plan adapt (Premium). */
+private val skipReasons = listOf("Time", "Equipment", "Motivation", "Fatigue", "Illness", "Other")
+
+@Composable
+private fun SkipDialog(enabled: Boolean, onDismiss: () -> Unit, onConfirm: (String) -> Unit) {
+    var reason by rememberSaveable { mutableStateOf("Time") }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.next_skip_title)) },
+        text = {
+            Column {
+                Text(stringResource(R.string.next_skip_text), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                skipReasons.forEach { value ->
+                    Row(Modifier.fillMaxWidth().heightIn(min = MinTouch).clickable { reason = value }, verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(selected = reason == value, onClick = { reason = value })
+                        Text(Labels.reason(value))
+                    }
+                }
+            }
+        },
+        confirmButton = { TextButton(onClick = { onConfirm(reason) }, enabled = enabled) { Text(stringResource(R.string.next_skip_confirm)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }
+    )
 }
 
 /** The line under a session title: its day and date in a calendar plan, its place in the program in a sequence plan. */
