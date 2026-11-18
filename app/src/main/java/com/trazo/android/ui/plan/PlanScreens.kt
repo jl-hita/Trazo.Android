@@ -47,6 +47,7 @@ fun PlanScreen(
     onOpenSession: (String) -> Unit,
     onOverview: () -> Unit,
     onHistory: () -> Unit,
+    onAdjustments: () -> Unit = {},
     onBlock: () -> Unit,
     onEditPlan: () -> Unit,
     onCreatePlan: () -> Unit,
@@ -116,6 +117,17 @@ fun PlanScreen(
                                     maxLines = 2
                                 )
                             }
+                        }
+                        TrazoButton(
+                            onClick = onAdjustments,
+                            secondary = true,
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)
+                        ) {
+                            Text(
+                                stringResource(R.string.plan_adjustments),
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
                         }
                         TrazoButton(
                             onClick = onHistory,
@@ -244,6 +256,39 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                     }
                 }
                 item { Text(plan.disclaimer, color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall) }
+            }
+        }
+    }
+}
+
+/** Every adjustment the engine made (or decided not to make) with its numbers and the session that caused it. */
+@Composable
+fun AdaptationsScreen(viewModel: AdaptationsViewModel, onBack: () -> Unit) {
+    SecureScreen()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    Column(Modifier.fillMaxSize()) {
+        TrazoTopBar(stringResource(R.string.adjustments_title), onBack)
+        val history = state.history
+        when {
+            state.loading -> LoadingBox()
+            state.error != null -> ErrorBox(state.error!!, viewModel::load)
+            history == null || history.entries.isEmpty() -> EmptyBox(stringResource(if (history?.automatic == false) R.string.adjustments_empty_manual else R.string.adjustments_empty))
+            else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                item {
+                    Text(
+                        stringResource(R.string.adjustments_totals, history.changes, history.sessionsAdjusted, history.reviews),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+                items(history.entries, key = { it.id }) { entry ->
+                    TrazoCard {
+                        Text(entry.summary, style = MaterialTheme.typography.titleMedium, color = if (entry.changed) TrazoPalette.Text else TrazoPalette.TextSecondary)
+                        if (entry.explanation.isNotBlank() && entry.explanation != entry.summary)
+                            Text(entry.explanation, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                        val source = listOfNotNull(entry.sourceSession, entry.sourceDate?.let { formatDate(it) }).joinToString(" · ")
+                        if (source.isNotBlank()) Text(stringResource(R.string.adjustments_after, source), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
+                    }
+                }
             }
         }
     }

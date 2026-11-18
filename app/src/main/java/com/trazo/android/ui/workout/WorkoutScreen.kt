@@ -110,10 +110,11 @@ private fun LastTimeInfo(last: LastPerformanceView, showProposal: Boolean) {
     )
     val proposed = last.suggestedLoadKg
     if (showProposal && proposed != null) Text(
-        stringResource(
-            if (last.suggestionBasis == "increase") R.string.workout_proposal_increase else R.string.workout_proposal_repeat,
-            WorkoutViewModel.formatKg(proposed)
-        ),
+        when (last.suggestionBasis) {
+            "increase" -> stringResource(R.string.workout_proposal_increase, WorkoutViewModel.formatKg(proposed))
+            "estimate" -> stringResource(R.string.workout_proposal_estimate, WorkoutViewModel.formatKg(proposed), last.basedOnSessions ?: 2)
+            else -> stringResource(R.string.workout_proposal_repeat, WorkoutViewModel.formatKg(proposed))
+        },
         color = TrazoPalette.Link, style = MaterialTheme.typography.bodySmall
     )
 }
@@ -324,8 +325,12 @@ private fun FinishedScreen(done: FinishState.Done, onExit: () -> Unit) {
                     }
                 }
                 if (report.applied.isNotEmpty()) {
+                    // The engine recalculated the rest of the block with this session: say it, with what changed.
                     SectionTitle(stringResource(R.string.finish_applied))
+                    Text(stringResource(R.string.finish_recalculated, report.applied.size), color = TrazoPalette.Link)
                     report.applied.forEach { Text("• ${it.explanation}") }
+                } else if (!report.locked) {
+                    Text(stringResource(R.string.finish_reviewed_kept), color = TrazoPalette.TextSecondary)
                 }
                 if (report.notes.isNotEmpty()) {
                     SectionTitle(stringResource(R.string.finish_notes_title))

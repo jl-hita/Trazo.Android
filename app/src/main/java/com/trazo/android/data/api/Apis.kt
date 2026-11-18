@@ -20,6 +20,7 @@ interface PlansApi {
     @GET("api/v1/plans/current/block") suspend fun block(): Response<BlockView>
     @GET("api/v1/plans/current/next") suspend fun next(): Response<NextSessionView>
     @GET("api/v1/plans/progress") suspend fun progress(): Response<ProgressView>
+    @GET("api/v1/plans/current/adaptations") suspend fun adaptations(@Query("take") take: Int = 50): Response<AdaptationHistoryView>
     @GET("api/v1/plans/current/history") suspend fun history(@Query("take") take: Int = 30): Response<List<HistoryItem>>
     @GET("api/v1/plans/current/review-request") suspend fun reviewRequest(@Query("messages") messages: Boolean = false): Response<ReviewRequestView>
     @POST("api/v1/plans/current/review-request") suspend fun requestReview(@Body request: ReviewRequestBody): Response<ReviewRequestView>
