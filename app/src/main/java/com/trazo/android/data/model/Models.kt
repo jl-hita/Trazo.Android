@@ -92,7 +92,10 @@ data class WeekLoadView(
     val week: Int, val weekStart: String?, val phaseType: String?, val isDeload: Boolean, val plannedSets: Int?,
     val completedSets: Int?, val plannedSessions: Int, val loggedSessions: Int
 )
-data class PlanLoadView(val planId: String, val totalWeeks: Int, val currentWeek: Int, val unit: String, val weeks: List<WeekLoadView>)
+data class PlanLoadView(val planId: String, val totalWeeks: Int, val currentWeek: Int, val unit: String, val weeks: List<WeekLoadView>,
+    /** "Week" for a calendar plan, "Rotation" for a sequence plan, whose periods are cycles of sessions and not seven days. */
+    val periodKind: String? = null
+)
 
 data class PlanOptions(
     val goals: List<String>, val experience: List<String>, val splits: List<String>, val days: List<String>,

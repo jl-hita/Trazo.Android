@@ -28,10 +28,12 @@ fun LoadChart(load: PlanLoadView, modifier: Modifier = Modifier) {
     val actual = TrazoPalette.Ok
     val grid = TrazoPalette.Muted.copy(alpha = 0.35f)
     val band = TrazoPalette.Muted.copy(alpha = 0.15f)
+    val rotation = load.periodKind == "Rotation"
+    val periodLabel = if (rotation) R.string.overview_load_cycle else R.string.overview_load_week
     val weeks = load.weeks
     val top = niceTop(weeks.maxOfOrNull { maxOf(it.plannedSets ?: 0, it.completedSets ?: 0) } ?: 0)
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text(stringResource(R.string.overview_load_axis), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+        Text(stringResource(if (rotation) R.string.overview_load_axis_rotation else R.string.overview_load_axis), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
         Row(Modifier.fillMaxWidth().height(160.dp)) {
             Column(Modifier.fillMaxHeight().padding(end = 6.dp), verticalArrangement = Arrangement.SpaceBetween, horizontalAlignment = Alignment.End) {
                 Text("$top", color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall)
@@ -69,9 +71,9 @@ fun LoadChart(load: PlanLoadView, modifier: Modifier = Modifier) {
             }
         }
         Row(Modifier.fillMaxWidth().padding(start = 28.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(stringResource(R.string.overview_load_week, 1), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall)
-            if (weeks.size > 2) Text(stringResource(R.string.overview_load_week, (weeks.size + 1) / 2), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall)
-            if (weeks.size > 1) Text(stringResource(R.string.overview_load_week, weeks.size), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall)
+            Text(stringResource(periodLabel, 1), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall)
+            if (weeks.size > 2) Text(stringResource(periodLabel, (weeks.size + 1) / 2), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall)
+            if (weeks.size > 1) Text(stringResource(periodLabel, weeks.size), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.labelSmall)
         }
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             Legend(planned, stringResource(R.string.overview_load_planned))

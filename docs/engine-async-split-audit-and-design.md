@@ -3,6 +3,9 @@
 Estado: **Implementado** (backend: jl-hita/Trazo #77, #79, #80; Android: este PR). Texto original de las fases 1 y 2: Pensado para vivir en `jl-hita/Trazo/docs/` (backend); está aquí
 porque esta sesión solo puede escribir en `Trazo.Android`. Auditado sobre `jl-hita/Trazo` @ `7301a11` (main).
 
+
+> **Actualización (motor 0.11.0, jl-hita/Trazo `docs/planning-engine.md`, sección "One engine, two scheduling policies"):** el punto 3.2 de este diseño (generar con días sintéticos y reiniciar el split en cada periodo) quedó sustituido. El modo secuencia sigue una rotación continua de sesiones (el periodo solo agrupa sesiones y nunca reinicia el split), admite más combinaciones (cuerpo completo y torso/pierna de 2 a 6, push/pull/legs de 3 a 6, automático de 2 a 6), y el volumen real se mide en una ventana de siete días reales (`rolling` en `GET /plans/current/load`), no por periodo. La app solo cambió en la gráfica de carga, que dice "ciclo" en vez de "semana" cuando `periodKind` es `Rotation`.
+
 ---
 
 ## 1. Auditoría: qué hace hoy el sistema

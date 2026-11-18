@@ -310,6 +310,10 @@
     <string name="overview_load_unavailable">No se pudo cargar la gráfica.</string>
     <string name="overview_load_axis">Series por semana</string>
     <string name="overview_load_note">Las semanas futuras no tienen volumen planificado porque cada bloque se genera cuando llegas a él. Las franjas grises son semanas de descarga.</string>
+    <string name="overview_load_title_rotation">Carga por ciclo</string>
+    <string name="overview_load_cycle">Ciclo %1$d</string>
+    <string name="overview_load_axis_rotation">Series por ciclo</string>
+    <string name="overview_load_note_rotation">Un ciclo es una vuelta completa a tus sesiones, no siete días: puede durar más o menos según cuándo entrenes. Los ciclos futuros no tienen volumen planificado porque cada bloque se genera cuando llegas a él. Las franjas grises son ciclos de descarga.</string>
     <string name="manual_free_hint">Gratis. Con Premium, TRAZO adapta tus cargas y series según cómo entrenas.</string>
     <string name="premium_auto_title">Plan automático: Premium</string>
     <string name="premium_auto_text">Con la cuenta gratuita puedes crear tus propios planes manuales, registrar tus entrenamientos y ver tu historial. Que TRAZO genere el plan por ti es una función Premium.</string>
