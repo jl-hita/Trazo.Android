@@ -47,6 +47,9 @@ class FakePlansApi : PlansApi {
     var rescheduleResponse: () -> Response<RescheduleResult> = { Response.success(RescheduleResult(1, 8, "2026-11-16", "2027-02-07")) }
     var rescheduleCalls = 0
     override suspend fun reschedule(): Response<RescheduleResult> { rescheduleCalls++; return rescheduleResponse() }
+    var skipResponse: () -> Response<SkipResult> = { Response.success(SkipResult(sampleSession(), false, "ok")) }
+    val skipped = mutableListOf<Pair<String, SkipSessionRequest>>()
+    override suspend fun skip(sessionId: String, request: SkipSessionRequest): Response<SkipResult> { skipped += sessionId to request; return skipResponse() }
     var nextResponse: () -> Response<NextSessionView> = { Response.success(sampleNext()) }
     override suspend fun next(): Response<NextSessionView> = nextResponse()
     override suspend fun progress(): Response<ProgressView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))

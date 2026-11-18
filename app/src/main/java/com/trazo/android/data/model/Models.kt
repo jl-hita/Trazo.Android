@@ -258,5 +258,20 @@ data class RescheduleResult(val weeksShifted: Int, val sessionsMoved: Int, val s
 data class NextSessionView(
     val planId: String, val schedulingMode: String, val timeline: String, val session: SessionView?, val position: NextPositionView?,
     val availability: AvailabilityView?, val availabilityLocked: Boolean = false, val overdue: List<OverdueSessionView> = emptyList(),
-    val locked: Boolean = false, val reentry: ReentryView? = null, val reschedule: RescheduleOfferView? = null
+    val locked: Boolean = false, val reentry: ReentryView? = null, val reschedule: RescheduleOfferView? = null,
+    val adjustment: AdjustmentView? = null
 )
+
+/**
+ * What to do about the sessions not done, decided by the backend. [strategy] is Continue, Shift, EaseBack or Rebuild; [message] explains it in the
+ * app language. [suggestSkip]: omitting the oldest late session is better than recovering it. [canSkip]: any pending session can be omitted.
+ */
+data class AdjustmentView(
+    val strategy: String, val reason: String, val message: String, val easeBackSessions: Int = 0,
+    val canReschedule: Boolean = false, val suggestSkip: Boolean = false, val canSkip: Boolean = true
+)
+
+/** Omits a pending session on purpose: [reason] is Time, Fatigue, Equipment, Motivation, Illness or Other. */
+data class SkipSessionRequest(val reason: String, val notes: String? = null)
+
+data class SkipResult(val session: SessionView, val adapted: Boolean = false, val message: String = "")

@@ -157,6 +157,13 @@ class PlanRepository(
         return result
     }
 
+    /** Omits a pending session on purpose; the cached week is dropped so the next read shows it resolved. */
+    suspend fun skip(sessionId: String, reason: String): ApiResult<SkipResult> {
+        val result = apiCall { api.skip(sessionId, SkipSessionRequest(reason)) }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear() } }
+        return result
+    }
+
     suspend fun archive(): ApiResult<Unit> {
         val result = apiCall { api.archive() }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear() } }
