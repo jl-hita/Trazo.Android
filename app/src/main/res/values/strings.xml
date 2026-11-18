@@ -83,6 +83,8 @@
     <string name="onb_weeks">Duración del plan: %1$d semanas</string>
     <string name="onb_equipment">Material disponible</string>
     <string name="onb_equipment_hint">Si no marcas nada, se supone que tienes de todo.</string>
+    <string name="onb_equipment_select">Seleccionar material</string>
+    <string name="onb_equipment_selected_count">%1$d materiales seleccionados</string>
     <string name="onb_limitations">Molestias o lesiones</string>
     <string name="onb_limitations_hint">Evitaremos los ejercicios más habituales para esa zona. No es consejo médico: consulta a un profesional si tienes dudas.</string>
     <string name="onb_create">Generar mi plan</string>
