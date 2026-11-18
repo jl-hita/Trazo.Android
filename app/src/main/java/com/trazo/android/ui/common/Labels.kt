@@ -72,7 +72,7 @@ object Labels {
     private val equipment = Dict(
         mapOf(
             "barbell" to "Barra", "dumbbell" to "Mancuernas", "bench" to "Banco", "cable" to "Polea", "kettlebell" to "Pesa rusa",
-            "bodyweight" to "Peso corporal", "band" to "Banda elástica", "pull-up-bar" to "Barra de dominadas", "rack" to "Rack", "smith-machine" to "Máquina Smith", "ez-bar" to "Barra Z"
+            "bodyweight" to "Peso corporal", "band" to "Banda elástica", "resistance-band" to "Banda elástica", "pull-up-bar" to "Barra de dominadas", "rack" to "Rack", "smith-machine" to "Máquina Smith", "leg-press-machine" to "Prensa de piernas", "dip-station" to "Estación de fondos", "ab-wheel" to "Rueda abdominal", "step" to "Escalón o plataforma", "ez-bar" to "Barra Z"
         ),
         mapOf(
             "barbell" to "Barbell", "dumbbell" to "Dumbbells", "bench" to "Bench", "cable" to "Cable", "kettlebell" to "Kettlebell",
