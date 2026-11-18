@@ -1,6 +1,8 @@
 package com.trazo.android.ui.plan
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -58,8 +60,7 @@ fun PlanScreen(
     SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pending by viewModel.pendingLogs.collectAsStateWithLifecycle()
-    Column(Modifier.fillMaxSize()) {
-        TrazoTopBar(stringResource(R.string.plan_title))
+    Column(Modifier.fillMaxSize().statusBarsPadding()) {
         val week = state.week
         when {
             state.loading && week == null -> LoadingBox()
@@ -149,13 +150,19 @@ fun PlanScreen(
 
 @Composable
 private fun OnboardingPrompt(onCreatePlan: () -> Unit, onCreateManualPlan: () -> Unit) {
-    Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(stringResource(R.string.plan_empty_intro), color = TrazoPalette.TextSecondary)
-        Spacer(Modifier.height(16.dp))
-        TrazoButton(onClick = onCreateManualPlan, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
-        Text(stringResource(R.string.manual_free_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
-        TrazoButton(onClick = onCreatePlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title_auto)) }
-        Text(stringResource(R.string.generated_premium_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 4.dp))
+    Column(
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(stringResource(R.string.plan_empty_intro), style = MaterialTheme.typography.headlineSmall, color = TrazoPalette.Text, modifier = Modifier.padding(top = 24.dp, bottom = 8.dp))
+        TrazoCard {
+            Text(stringResource(R.string.manual_free_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 14.dp))
+            TrazoButton(onClick = onCreateManualPlan, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
+        }
+        TrazoCard {
+            Text(stringResource(R.string.generated_premium_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 14.dp))
+            TrazoButton(onClick = onCreatePlan, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title_auto)) }
+        }
     }
 }
 
