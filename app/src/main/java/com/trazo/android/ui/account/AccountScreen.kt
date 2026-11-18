@@ -245,14 +245,14 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
                 scope.launch {
                     try {
                         auth.setupPassword()
-                        message = "Te hemos enviado un enlace para configurar tu contraseña."
+                        message = str(R.string.sec_password_setup_sent)
                     } catch (e: Exception) {
                         fail(e, R.string.auth_err_generic)
-                        if ((e as? AuthException)?.http == 409) message = "Esta cuenta ya tiene una contraseña o necesita verificar el correo."
+                        if ((e as? AuthException)?.http == 409) message = str(R.string.sec_password_setup_conflict)
                     } finally { busy = false }
                 }
             }
-        ) { Text("Configurar contraseña de acceso") }
+        ) { Text(stringResource(R.string.sec_password_setup)) }
     }
 
     if (BuildConfig.GOOGLE_WEB_CLIENT_ID.isNotBlank() && !user.googleLinked) TrazoButton(
