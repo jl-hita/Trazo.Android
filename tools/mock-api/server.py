@@ -33,6 +33,11 @@ T = {
         "sessions": ["Tren superior A", "Tren inferior A", "Tren superior B"],
         "disclaimer": "Plan orientativo generado automáticamente; no sustituye el consejo de un profesional sanitario.",
         "adapt": "Vas bien: mantén la carga y busca una repetición más por serie.",
+        "advice": [("squat", "Has llegado al tope del rango (10 reps) con RIR 2 en todas las series: la próxima vez sube a 65 kg.", 65.0),
+                   ("romanian-deadlift", "Aún no has completado el rango en todas las series: mantén 50 kg y busca una repetición más.", 50.0)],
+        "applied": ["Sentadilla: +5 kg en las dos próximas sesiones de tren inferior.",
+                    "Cuádriceps: recuperación al 100 %, el volumen de la semana se mantiene."],
+        "notes": ["Si notas dolor, TRAZO nunca sube la carga: avísanos en el cuestionario."],
         "names": {"db-bench-press": "Press de Banca con Mancuernas", "seated-cable-row": "Remo Sentado en Polea",
                   "dumbbell-shoulder-press": "Press de Hombros con Mancuernas", "lat-pulldown": "Jalón al Pecho",
                   "hammer-curl": "Curl de Martillo con Mancuernas", "squat": "Sentadilla Trasera con Barra",
@@ -46,6 +51,11 @@ T = {
         "sessions": ["Upper body A", "Lower body A", "Upper body B"],
         "disclaimer": "Auto-generated guidance; it does not replace the advice of a health professional.",
         "adapt": "You're on track: keep the load and aim for one more rep per set.",
+        "advice": [("squat", "You reached the top of the range (10 reps) at RIR 2 on every set: next time go up to 65 kg.", 65.0),
+                   ("romanian-deadlift", "You have not completed the range on every set yet: hold 50 kg and aim for one more rep.", 50.0)],
+        "applied": ["Squat: +5 kg in the next two lower-body sessions.",
+                    "Quadriceps: fully recovered, this week's volume stays as planned."],
+        "notes": ["If you feel pain, TRAZO never raises the load: tell us in the questionnaire."],
         "names": {"db-bench-press": "Dumbbell Bench Press", "seated-cable-row": "Seated Cable Row",
                   "dumbbell-shoulder-press": "Dumbbell Shoulder Press", "lat-pulldown": "Lat Pulldown",
                   "hammer-curl": "Dumbbell Hammer Curl", "squat": "Barbell Back Squat",
@@ -58,6 +68,7 @@ MODE = "calendar"    # --mode
 RECOVERY = "ready"   # --recovery
 BEHIND = 0           # --behind: weeks a calendar plan is behind the calendar (the offer to reschedule)
 REENTRY = 0          # --reentry: days without training
+NOPLAN = False       # --noplan: the account has no plan yet (the plan tab offers the creation wizard)
 _ctx = threading.local()
 
 
@@ -284,6 +295,8 @@ class Handler(BaseHTTPRequestHandler):
         if self.command == "POST" and path == "/api/v1/plans/manual":
             self.rfile.read(int(self.headers.get("Content-Length") or 0))
             return self._send(201, plan())
+        if NOPLAN and path.startswith("/api/v1/plans/current") and self.command == "GET":
+            return self._send(404, {"title": "no_active_plan", "status": 404, "detail": "No active plan."})
         if path == "/api/v1/plans/current":
             return self._send(200, plan())
         if self.command == "PUT" and path == "/api/v1/plans/current/manual":
@@ -318,7 +331,10 @@ class Handler(BaseHTTPRequestHandler):
             n = int(self.headers.get("Content-Length") or 0)
             self.rfile.read(n)
             return self._send(200, {"session": session(2, 2, LOWER, 60, logged=True),
-                                    "adaptation": {"exercises": [], "sessionAction": "Hold", "sessionExplanation": T[lang()]["adapt"], "applied": [], "notes": []},
+                                    "adaptation": {"exercises": [{"exerciseId": e, "action": "Hold", "explanation": x, "nextLoadKg": kg, "suggestedRepetitions": None} for e, x, kg in T[lang()]["advice"]],
+                                   "sessionAction": "Hold", "sessionExplanation": T[lang()]["adapt"],
+                                   "applied": [{"kind": "load", "exerciseIds": [], "sessionsChanged": 2, "explanation": x} for x in T[lang()]["applied"]],
+                                   "notes": T[lang()]["notes"]},
                                     "replayed": False})
         self._send(404, {"title": "not_found"})
 
@@ -336,7 +352,8 @@ if __name__ == "__main__":
     ap.add_argument("--recovery", choices=["ready", "wait"], default="ready")
     ap.add_argument("--behind", type=int, default=0)
     ap.add_argument("--reentry", type=int, default=0)
+    ap.add_argument("--noplan", action="store_true")
     a = ap.parse_args()
-    LANG, MODE, RECOVERY, BEHIND, REENTRY = a.lang, a.mode, a.recovery, a.behind, a.reentry
+    LANG, MODE, RECOVERY, BEHIND, REENTRY, NOPLAN = a.lang, a.mode, a.recovery, a.behind, a.reentry, a.noplan
     print(f"Mock TRAZO API ({LANG}) on http://0.0.0.0:{a.port}/")
     ThreadingHTTPServer(("0.0.0.0", a.port), Handler).serve_forever()

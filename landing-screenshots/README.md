@@ -15,6 +15,16 @@ la semana son ficticios (servidor local `tools/mock-api`), así que no hay datos
 | `07-catalog-filters` | Filtros del catálogo |
 | `08-exercise-detail` | Ficha del ejercicio con imágenes |
 | `09-account` | Cuenta, suscripción y seguridad |
+| `10-wizard-goal` | Asistente de creación del plan: objetivo, nivel, días y reparto |
+| `11-wizard-flexible` | Asistente con «Sin días fijos» (ciclo de sesiones) |
+| `12-wizard-details` | Asistente: descargas, duración, material y molestias |
+| `13-plan-next` | Semana con la tarjeta «Siguiente sesión» y la recuperación |
+| `14-plan-sequence` | Plan sin fechas (ciclos y sesiones) |
+| `15-block` | El bloque completo |
+| `16-session` | Sesión con la carga objetivo |
+| `17-workout` | Registro con «última vez» y temporizador |
+| `18-adaptation` | Qué ha ajustado el motor tras la sesión |
+| `19-progress` | Pestaña Progreso |
 
 Sugerencias para Angular: servir los PNG desde `assets/screenshots/{lang}/` y usar `<img loading="lazy" width="1280" height="2856">`
 con `srcset` generado al construir (los originales pesan ~100–200 KB). Para un marco de dispositivo, recortar la barra de
@@ -22,7 +32,7 @@ estado del emulador (los ~110 px superiores) o usar un mockup CSS.
 
 ## Regenerarlas
 
-1. `python tools/mock-api/server.py --lang es` (o `en`).
+1. `python tools/mock-api/server.py --lang es` (o `en`; `--noplan` para el asistente de creación; `--mode sequence` para el plan sin fechas).
 2. `./gradlew assembleDebug -PapiBaseUrl=http://10.0.2.2:8099/ -PsecureScreens=false`, instalar en el emulador y entrar con cualquier correo/contraseña.
 3. Cambiar el idioma de la app: `adb shell cmd locale set-app-locales com.trazo.android --locales en`.
 
