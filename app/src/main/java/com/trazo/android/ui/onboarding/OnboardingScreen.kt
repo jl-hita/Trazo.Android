@@ -22,8 +22,44 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
     LaunchedEffect(state.created) { if (state.created) onCreated() }
     // The account turned out not to have Premium (the app could not know, or it lapsed): same choice as before opening this form.
     var promptDismissed by remember(state.error) { mutableStateOf(false) }
+    var showEquipmentDialog by remember { mutableStateOf(false) }
     if (state.error?.kind == com.trazo.android.data.net.ErrorKind.SubscriptionRequired && !promptDismissed) {
         com.trazo.android.ui.billing.PremiumRequiredDialog(onPremium = onPremium, onManualPlan = onManualPlan, onDismiss = { promptDismissed = true })
+    }
+    if (showEquipmentDialog && state.options != null) {
+        val equipmentOptions = state.options.equipment
+        AlertDialog(
+            onDismissRequest = { showEquipmentDialog = false },
+            title = { Text(stringResource(R.string.onb_equipment)) },
+            text = {
+                Column(
+                    Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
+                    equipmentOptions.forEach { item ->
+                        Row(
+                            Modifier.fillMaxWidth().heightIn(min = MinTouch),
+                            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = item in state.equipment,
+                                onCheckedChange = { viewModel.toggleEquipment(item) }
+                            )
+                            Text(
+                                Labels.equipment(item),
+                                modifier = Modifier.weight(1f),
+                                color = TrazoPalette.TextPrimary
+                            )
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showEquipmentDialog = false }) {
+                    Text(stringResource(R.string.close))
+                }
+            }
+        )
     }
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.onb_title), onBack)
@@ -106,7 +142,21 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
 
                 SectionTitle(stringResource(R.string.onb_equipment))
                 Text(stringResource(R.string.onb_equipment_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-                ChipGroup(options.equipment, state.equipment, Labels::equipment, viewModel::toggleEquipment)
+                OutlinedButton(
+                    onClick = { showEquipmentDialog = true },
+                    modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)
+                ) {
+                    Text(if (state.equipment.isEmpty()) stringResource(R.string.onb_equipment_select)
+                        else stringResource(R.string.onb_equipment_selected_count, state.equipment.size))
+                }
+                if (state.equipment.isNotEmpty()) {
+                    Text(
+                        state.equipment.sorted().take(4).joinToString(" · ", transform = Labels::equipment) +
+                            if (state.equipment.size > 4) " · +${state.equipment.size - 4}" else "",
+                        color = TrazoPalette.TextSecondary,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
 
                 SectionTitle(stringResource(R.string.onb_limitations))
                 Text(stringResource(R.string.onb_limitations_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
