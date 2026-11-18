@@ -16,7 +16,7 @@ data class EmailRequest(val email:String)
 data class EmailTokenRequest(val token:String)
 data class ResetPasswordRequest(val token:String,val newPassword:String)
 data class TwoFactorCodeRequest(val code:String)
-data class UserSummary(val id:String,val email:String,val displayName:String,val role:String,val twoFactorEnabled:Boolean,val googleLinked:Boolean=false,val language:String?=null)
+data class UserSummary(val id:String,val email:String,val displayName:String,val role:String,val twoFactorEnabled:Boolean,val googleLinked:Boolean=false,val language:String?=null,val hasPassword:Boolean=false)
 data class TwoFactorSetupResponse(val secret:String,val provisioningUri:String)
 data class TwoFactorEnableResponse(val enabled:Boolean,val recoveryCodes:List<String>)
 interface AuthApi {
