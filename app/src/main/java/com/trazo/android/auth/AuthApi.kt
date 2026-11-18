@@ -35,6 +35,7 @@ interface AuthApi {
  @POST("api/v1/auth/2fa/disable") suspend fun disableTwoFactor(@Header("Authorization") authorization:String,@Body request:TwoFactorCodeRequest):Response<Unit>
  @POST("api/v1/auth/email/resend") suspend fun resendVerification(@Body request:EmailRequest):Response<Unit>
  @POST("api/v1/auth/password/forgot") suspend fun forgotPassword(@Body request:EmailRequest):Response<Unit>
+ @POST("api/v1/account/password/setup") suspend fun setupPassword(@Header("Authorization") authorization:String):Response<Unit>
  @POST("api/v1/auth/email/verify") suspend fun verifyEmail(@Body request:EmailTokenRequest):Response<Unit>
  @POST("api/v1/auth/password/reset") suspend fun resetPassword(@Body request:ResetPasswordRequest):Response<Unit>
 }
