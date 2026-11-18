@@ -285,6 +285,9 @@
     <string name="sec_2fa_enable">Turn on 2FA</string>
     <string name="sec_2fa_enabled">2FA is on. Save your recovery codes: they are only shown now.</string>
     <string name="sec_2fa_recovery">Recovery codes — save them now</string>
+    <string name="sec_password_setup">Set an account password</string>
+    <string name="sec_password_setup_sent">We sent you a link to set your password.</string>
+    <string name="sec_password_setup_conflict">This account already has a password or needs email verification.</string>
     <string name="sec_google_link">Link my Google account</string>
     <string name="sec_google_linked">Google account linked.</string>
     <string name="sec_logout_all">Sign out on all devices</string>
