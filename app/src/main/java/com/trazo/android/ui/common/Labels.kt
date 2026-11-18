@@ -71,12 +71,12 @@ object Labels {
     )
     private val equipment = Dict(
         mapOf(
-            "barbell" to "Barra", "dumbbell" to "Mancuernas", "bench" to "Banco", "cable" to "Polea", "machine" to "Máquina", "kettlebell" to "Pesa rusa",
+            "barbell" to "Barra", "dumbbell" to "Mancuernas", "bench" to "Banco", "cable" to "Polea", "kettlebell" to "Pesa rusa",
             "bodyweight" to "Peso corporal", "band" to "Banda elástica", "pull-up-bar" to "Barra de dominadas", "rack" to "Rack", "smith-machine" to "Máquina Smith", "ez-bar" to "Barra Z"
         ),
         mapOf(
-            "barbell" to "Barbell", "dumbbell" to "Dumbbells", "bench" to "Bench", "cable" to "Cable", "machine" to "Machine", "kettlebell" to "Kettlebell",
-            "bodyweight" to "Bodyweight", "band" to "Resistance band", "pull-up-bar" to "Pull-up bar", "rack" to "Rack", "smith-machine" to "Smith machine", "ez-bar" to "EZ bar"
+            "barbell" to "Barbell", "dumbbell" to "Dumbbells", "bench" to "Bench", "cable" to "Cable", "kettlebell" to "Kettlebell",
+            "bodyweight" to "Bodyweight", "band" to "Resistance band", "resistance-band" to "Resistance band", "pull-up-bar" to "Pull-up bar", "rack" to "Rack", "smith-machine" to "Smith machine", "leg-press-machine" to "Leg press machine", "dip-station" to "Dip station", "ab-wheel" to "Ab wheel", "step" to "Step / stable platform", "ez-bar" to "EZ bar"
         )
     )
     private val difficulty = Dict(
@@ -95,7 +95,7 @@ object Labels {
         "Quadriceps", "Hamstrings", "Calves", "Adductors", "Abductors", "HipFlexors", "Serratus", "TibialisAnterior", "RotatorCuff"
     )
     val experienceLevels = listOf("Beginner", "Intermediate", "Advanced")
-    val commonEquipment = listOf("barbell", "dumbbell", "machine", "cable", "bench", "kettlebell", "bodyweight", "band")
+    val commonEquipment = listOf("barbell", "dumbbell", "cable", "bench", "kettlebell", "resistance-band", "pull-up-bar", "smith-machine", "leg-press-machine", "dip-station", "ab-wheel", "step")
 
     fun goal(v: String) = lookup(goal, v)
     fun experience(v: String) = lookup(experience, v)
