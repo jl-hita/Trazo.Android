@@ -204,7 +204,7 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                     )
                 }
                 item {
-                    SectionTitle(stringResource(R.string.overview_load_title))
+                    SectionTitle(stringResource(if (load.load?.periodKind == "Rotation") R.string.overview_load_title_rotation else R.string.overview_load_title))
                     TrazoCard {
                         val data = load.load
                         when {
@@ -212,7 +212,7 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                             data == null -> Text(stringResource(R.string.overview_load_unavailable), color = TrazoPalette.TextSecondary)
                             else -> {
                                 LoadChart(data, Modifier.fillMaxWidth())
-                                Text(stringResource(R.string.overview_load_note), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
+                                Text(stringResource(if (data.periodKind == "Rotation") R.string.overview_load_note_rotation else R.string.overview_load_note), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
                             }
                         }
                     }
