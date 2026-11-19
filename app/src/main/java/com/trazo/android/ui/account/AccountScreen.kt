@@ -33,6 +33,7 @@ fun AccountScreen(
     language: com.trazo.android.data.repo.LanguageRepository,
     user: UserSummary?,
     hasPlan: Boolean,
+    generatedPlan: Boolean = false,
     onLogout: () -> Unit,
     onPremium: () -> Unit,
     onPlanArchived: () -> Unit,
@@ -95,6 +96,8 @@ fun AccountScreen(
                 Text(stringResource(R.string.account_archive))
             }
 
+            // Manual review is for Premium users with an automatically generated plan.
+            if (generatedPlan && state.status?.hasAccess == true) {
             SectionTitle(stringResource(R.string.account_review))
             TrazoCard {
                 val review = state.review
@@ -117,6 +120,7 @@ fun AccountScreen(
                 TrazoButton(onClick = { reviewDialog = true }, enabled = !state.requestingReview, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
                     Text(stringResource(R.string.account_review_request))
                 }
+            }
             }
             }
 
