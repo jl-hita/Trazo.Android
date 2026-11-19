@@ -297,9 +297,9 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                             Text(
                                 stringResource(
                                     R.string.overview_priorities,
-                                    chosen.entries.sortedBy { it.key }.takeIf { it.isNotEmpty() }
-                                        ?.joinToString(", ") { "${Labels.muscle(it.key)}: ${stringResource(MusclePriorities.label(it.value))}" }
-                                        ?: stringResource(R.string.overview_none)
+                                    // map is inline, so stringResource may be read inside it; joinToString is not.
+                                    chosen.entries.sortedBy { it.key }.map { "${Labels.muscle(it.key)}: ${stringResource(MusclePriorities.label(it.value))}" }
+                                        .takeIf { it.isNotEmpty() }?.joinToString(", ") ?: stringResource(R.string.overview_none)
                                 )
                             )
                             TrazoLink(onClick = { editPriorities = true }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.overview_priorities_edit)) }
