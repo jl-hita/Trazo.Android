@@ -541,4 +541,9 @@
         <item quantity="one">+%1$d day of Premium</item>
         <item quantity="other">+%1$d days of Premium</item>
     </plurals>
+    <string name="plan_create_manual">Create manual plan</string>
+    <string name="plan_create_auto">Create automatic plan</string>
+    <string name="plan_auto_needs_premium">To use the automatic plan generator you need to be a Premium user.</string>
+    <string name="plan_premium_includes_title">Your Premium includes</string>
+    <string name="plan_premium_includes">The automatic plan generator engine and plan adaptation based on the feedback from each session.</string>
 </resources>

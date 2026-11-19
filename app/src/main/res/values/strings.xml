@@ -545,4 +545,9 @@
         <item quantity="one">+%1$d día de Premium</item>
         <item quantity="other">+%1$d días de Premium</item>
     </plurals>
+    <string name="plan_create_manual">Crear plan manual</string>
+    <string name="plan_create_auto">Crear plan automático</string>
+    <string name="plan_auto_needs_premium">Para usar el generador automático de planes necesitas ser usuario Premium.</string>
+    <string name="plan_premium_includes_title">Tu Premium incluye</string>
+    <string name="plan_premium_includes">El motor generador de planes automáticos y la adaptación de tu plan según el feedback de cada sesión.</string>
 </resources>
