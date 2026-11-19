@@ -100,6 +100,16 @@
     <string name="onb_equipment_hint">If you pick nothing, we assume you have everything.</string>
     <string name="onb_equipment_select">Select equipment</string>
     <string name="onb_equipment_selected_count">%1$d items selected</string>
+    <string name="onb_priorities">Priority per muscle</string>
+    <string name="onb_priorities_hint">Optional. Emphasize gives a muscle more work (up to %1$d); Maintain gives it half and frees time for the others. Anything you leave alone grows at the normal dose. These are internal planning rules, not medical guidance.</string>
+    <string name="priority_emphasize">Emphasize</string>
+    <string name="priority_grow">Normal</string>
+    <string name="priority_maintain">Maintain</string>
+    <string name="overview_priorities">Priorities: %1$s</string>
+    <string name="overview_priorities_edit">Change priorities</string>
+    <string name="overview_priorities_title">Priority per muscle</string>
+    <string name="overview_priorities_note">The change applies to the blocks generated from now on; the block in progress is not rewritten.</string>
+    <string name="overview_priorities_save">Save</string>
     <string name="onb_limitations">Aches or injuries</string>
     <string name="onb_limitations_hint">We\'ll avoid the most common exercises for that area. This is not medical advice: ask a professional if in doubt.</string>
     <string name="onb_create">Generate my plan</string>

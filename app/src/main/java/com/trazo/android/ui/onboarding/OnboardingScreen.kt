@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
 import com.trazo.android.ui.common.*
+import com.trazo.android.ui.plan.MusclePriorities
+import com.trazo.android.ui.plan.MusclePriorityEditor
 import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
@@ -162,6 +164,12 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 SectionTitle(stringResource(R.string.onb_limitations))
                 Text(stringResource(R.string.onb_limitations_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 ChipGroup(options.limitations, state.limitations, Labels::limitation, viewModel::toggleLimitation)
+
+                if (state.goal == "Hypertrophy") {
+                    SectionTitle(stringResource(R.string.onb_priorities))
+                    Text(stringResource(R.string.onb_priorities_hint, MusclePriorities.MAX_EMPHASIZED), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    MusclePriorityEditor(state.musclePriorities, viewModel::setMusclePriority)
+                }
 
                 state.error?.let { InlineError(it, Modifier.padding(top = 8.dp)) }
                 if (state.error?.kind == com.trazo.android.data.net.ErrorKind.SubscriptionRequired) {

@@ -28,6 +28,8 @@ data class PlanUiState(
     val rescheduling: Boolean = false,
     /** Omitting a session is in progress. */
     val skipping: Boolean = false,
+    /** Saving the muscle priorities is in progress. */
+    val savingPriorities: Boolean = false,
     val error: ApiError? = null
 )
 
@@ -55,6 +57,18 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
             when (val result = plans.reschedule()) {
                 is ApiResult.Success -> load()
                 is ApiResult.Failure -> _state.update { it.copy(rescheduling = false, error = result.error) }
+            }
+        }
+    }
+
+    /** Replaces the muscle priorities of the plan. They apply to the blocks generated from now on, so the week on screen is left alone. */
+    fun updateMusclePriorities(priorities: Map<String, String>) {
+        if (_state.value.savingPriorities) return
+        _state.update { it.copy(savingPriorities = true, error = null) }
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.update { it.copy(savingPriorities = false, error = ApiError(ErrorKind.Unknown)) } }) {
+            when (val result = plans.updateMusclePriorities(priorities)) {
+                is ApiResult.Success -> _state.update { it.copy(savingPriorities = false, plan = result.value) }
+                is ApiResult.Failure -> _state.update { it.copy(savingPriorities = false, error = result.error) }
             }
         }
     }
