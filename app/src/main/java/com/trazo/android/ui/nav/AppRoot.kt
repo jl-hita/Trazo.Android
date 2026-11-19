@@ -209,8 +209,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                         onCreatePlan = { if (access?.canUpgrade == true) premiumPrompt = true else nav.navigate(Routes.ONBOARDING) },
                         onCreateManualPlan = { nav.navigate(Routes.MANUAL_PLAN) },
                         onPremium = { nav.navigate(Routes.premium("plan")) },
-                        onSendPending = { planVm.sendPending() },
-                        status = access
+                        onSendPending = { planVm.sendPending() }
                     )
                 }
                 composable(Routes.CATALOG) {
