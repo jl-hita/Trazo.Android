@@ -68,6 +68,7 @@ fun apiErrorText(error: ApiError): String = when {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrazoTopBar(title: String, onBack: (() -> Unit)? = null, actions: @Composable RowScope.() -> Unit = {}) {
+    if (onBack == null) return
     TopAppBar(
         title = { Text(title) },
         navigationIcon = {
