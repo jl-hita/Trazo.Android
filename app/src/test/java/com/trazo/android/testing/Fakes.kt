@@ -44,6 +44,11 @@ class FakePlansApi : PlansApi {
     override suspend fun updateManual(request: ManualPlanRequest): Response<PlanView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
     override suspend fun load() = loadResponse()
     override suspend fun block(): Response<BlockView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
+    var prioritiesResponse: (Map<String, String>) -> Response<PlanView> = { Response.success(samplePlan().copy(musclePriorities = it)) }
+    val prioritiesSent = mutableListOf<Map<String, String>>()
+    override suspend fun updateMusclePriorities(request: UpdateMusclePrioritiesRequest): Response<PlanView> {
+        prioritiesSent += request.musclePriorities; return prioritiesResponse(request.musclePriorities)
+    }
     var rescheduleResponse: () -> Response<RescheduleResult> = { Response.success(RescheduleResult(1, 8, "2026-11-16", "2027-02-07")) }
     var rescheduleCalls = 0
     override suspend fun reschedule(): Response<RescheduleResult> { rescheduleCalls++; return rescheduleResponse() }

@@ -10,6 +10,7 @@ import com.trazo.android.data.model.PlanProfileRequest
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.repo.PlanRepository
+import com.trazo.android.ui.plan.MusclePriorities
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,6 +32,8 @@ data class OnboardingState(
     val equipment: Set<String> = emptySet(),
     val limitations: Set<String> = emptySet(),
     val split: String = "Automatic",
+    /** Muscle to "Emphasize" / "Maintain"; a muscle that is absent is "Grow". Only sent for a hypertrophy plan. */
+    val musclePriorities: Map<String, String> = emptyMap(),
     val includeDeload: Boolean = true,
     /** Training weeks between deloads, or null to let the server place them. */
     val deloadEvery: Int? = null,
@@ -81,6 +84,8 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     fun setTotalWeeks(value: Int) = _state.update { it.copy(totalWeeks = value) }
     fun setSchedulingMode(value: String) = _state.update { it.copy(schedulingMode = value) }
     fun setSessionsPerPeriod(value: Int) = _state.update { it.copy(sessionsPerPeriod = value) }
+    fun setMusclePriority(muscle: String, priority: String) =
+        _state.update { it.copy(musclePriorities = MusclePriorities.with(it.musclePriorities, muscle, priority)) }
     fun toggleDay(day: String) = _state.update { it.copy(days = it.days.toggle(day)) }
     fun toggleEquipment(item: String) = _state.update { it.copy(equipment = it.equipment.toggle(item)) }
     fun toggleLimitation(area: String) = _state.update { it.copy(limitations = it.limitations.toggle(area)) }
@@ -116,6 +121,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
             includeDeloadPhases = s.includeDeload,
             // Null lets the server spread the deloads so the training blocks stay full.
             deloadEveryTrainingWeeks = s.deloadEvery.takeIf { s.includeDeload },
+            musclePriorities = MusclePriorities.forRequest(s.goal, s.musclePriorities),
             split = if (s.split == "Automatic" && (if (s.isSequence) s.sessionsPerPeriod else s.days.size) > 4) "PushPullLegs" else s.split
         )
     }

@@ -99,6 +99,16 @@
     <string name="onb_equipment_hint">Si no marcas nada, se supone que tienes de todo.</string>
     <string name="onb_equipment_select">Seleccionar material</string>
     <string name="onb_equipment_selected_count">%1$d materiales seleccionados</string>
+    <string name="onb_priorities">Prioridad por músculo</string>
+    <string name="onb_priorities_hint">Opcional. Énfasis da más trabajo a un músculo (máximo %1$d); Mantener le da la mitad y libera tiempo para los demás. Lo que no marques crece con la dosis normal. Son criterios internos de planificación, no una pauta médica.</string>
+    <string name="priority_emphasize">Énfasis</string>
+    <string name="priority_grow">Normal</string>
+    <string name="priority_maintain">Mantener</string>
+    <string name="overview_priorities">Prioridades: %1$s</string>
+    <string name="overview_priorities_edit">Cambiar prioridades</string>
+    <string name="overview_priorities_title">Prioridad por músculo</string>
+    <string name="overview_priorities_note">El cambio se aplica a los bloques que se generen a partir de ahora; el bloque en curso no se reescribe.</string>
+    <string name="overview_priorities_save">Guardar</string>
     <string name="onb_limitations">Molestias o lesiones</string>
     <string name="onb_limitations_hint">Evitaremos los ejercicios más habituales para esa zona. No es consejo médico: consulta a un profesional si tienes dudas.</string>
     <string name="onb_create">Generar mi plan</string>
