@@ -154,6 +154,13 @@ class PlanRepository(
     suspend fun sendReviewMessage(body: String): ApiResult<ReviewRequestView> =
         apiCall { api.sendReviewMessage(ReviewMessageBody(body.trim())) }
 
+    /** Replaces the muscle priorities; they shape the blocks generated from now on, so the cached plan is refreshed and the week is kept. */
+    suspend fun updateMusclePriorities(priorities: Map<String, String>): ApiResult<PlanView> {
+        val result = apiCall { api.updateMusclePriorities(UpdateMusclePrioritiesRequest(priorities)) }
+        if (result is ApiResult.Success) disk { cache.savePlan(result.value) }
+        return result
+    }
+
     /** Moves the pending program of a calendar plan to the current week; the cached week is dropped so the next read is fresh. */
     suspend fun reschedule(): ApiResult<RescheduleResult> {
         val result = apiCall { api.reschedule() }

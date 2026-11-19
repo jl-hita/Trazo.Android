@@ -18,8 +18,12 @@ data class PlanView(
     val excludedExerciseIds: List<String>, val limitations: List<String>, val currentPhase: Int?,
     val macrocycle: MacrocycleView, val disclaimer: String, val origin: String? = null,
     /** "Calendar" (weeks and days) or "Sequence" (the program follows the order of its sessions; no days or dates). */
-    val schedulingMode: String = "Calendar", val sessionsPerPeriod: Int = 0
-)
+    val schedulingMode: String = "Calendar", val sessionsPerPeriod: Int = 0,
+    /** Muscle to "Emphasize" or "Maintain"; a muscle that is absent is "Grow". Null when an older server does not send it (read it with [priorities]). */
+    val musclePriorities: Map<String, String>? = null
+) {
+    val priorities: Map<String, String> get() = musclePriorities.orEmpty()
+}
 
 data class ExerciseView(
     val exerciseId: String, val name: String, val order: Int, val sets: Int, val minRepetitions: Int, val maxRepetitions: Int,
@@ -151,8 +155,13 @@ data class PlanProfileRequest(
     val excludedExerciseIds: List<String> = emptyList(), val limitations: List<String> = emptyList(),
     val split: String = "Automatic", val includeDeloadPhases: Boolean = true, val deloadEveryTrainingWeeks: Int? = null,
     /** "Sequence" plans have no fixed days: send [sessionsPerPeriod] instead of [trainingDays]. */
-    val schedulingMode: String? = null, val sessionsPerPeriod: Int? = null
+    val schedulingMode: String? = null, val sessionsPerPeriod: Int? = null,
+    /** Hypertrophy only. Muscle to "Emphasize" / "Maintain"; leave a muscle out for the default dose. Null when nothing is chosen. */
+    val musclePriorities: Map<String, String>? = null
 )
+
+/** Replaces every priority of the current plan: an empty map clears them. */
+data class UpdateMusclePrioritiesRequest(val musclePriorities: Map<String, String>)
 
 data class LogSetRequest(
     val exerciseId: String, val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?,

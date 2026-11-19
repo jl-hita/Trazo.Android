@@ -218,6 +218,27 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
     SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val load by loadViewModel.state.collectAsStateWithLifecycle()
+    var editPriorities by remember { mutableStateOf(false) }
+    state.plan?.takeIf { editPriorities }?.let { plan ->
+        var draft by remember(plan.musclePriorities) { mutableStateOf(plan.priorities) }
+        AlertDialog(
+            onDismissRequest = { editPriorities = false },
+            title = { Text(stringResource(R.string.overview_priorities_title)) },
+            text = {
+                Column(Modifier.heightIn(max = 460.dp).verticalScroll(rememberScrollState())) {
+                    Text(stringResource(R.string.overview_priorities_note), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    MusclePriorityEditor(draft, { muscle, priority -> draft = MusclePriorities.with(draft, muscle, priority) })
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.updateMusclePriorities(draft); editPriorities = false },
+                    enabled = !state.savingPriorities, modifier = Modifier.heightIn(min = MinTouch)
+                ) { Text(stringResource(R.string.overview_priorities_save)) }
+            },
+            dismissButton = { TextButton(onClick = { editPriorities = false }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.cancel)) } }
+        )
+    }
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.overview_title), onBack)
         val plan = state.plan
@@ -271,6 +292,18 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                                 plan.limitations.takeIf { it.isNotEmpty() }?.joinToString(", ") { Labels.limitation(it) } ?: stringResource(R.string.overview_none)
                             )
                         )
+                        if (plan.origin == "Generated" && plan.goal == "Hypertrophy") {
+                            val chosen = plan.priorities
+                            Text(
+                                stringResource(
+                                    R.string.overview_priorities,
+                                    chosen.entries.sortedBy { it.key }.takeIf { it.isNotEmpty() }
+                                        ?.joinToString(", ") { "${Labels.muscle(it.key)}: ${stringResource(MusclePriorities.label(it.value))}" }
+                                        ?: stringResource(R.string.overview_none)
+                                )
+                            )
+                            TrazoLink(onClick = { editPriorities = true }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.overview_priorities_edit)) }
+                        }
                     }
                 }
                 item { Text(plan.disclaimer, color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall) }
