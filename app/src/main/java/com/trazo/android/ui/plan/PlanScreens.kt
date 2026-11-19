@@ -55,8 +55,7 @@ fun PlanScreen(
     onCreatePlan: () -> Unit,
     onCreateManualPlan: () -> Unit,
     onPremium: () -> Unit,
-    onSendPending: () -> Unit,
-    status: com.trazo.android.data.model.SubscriptionStatus? = null
+    onSendPending: () -> Unit
 ) {
     SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -65,7 +64,7 @@ fun PlanScreen(
         val week = state.week
         when {
             state.loading && week == null -> LoadingBox()
-            state.needsOnboarding -> OnboardingPrompt(status, onCreatePlan, onCreateManualPlan, onPremium)
+            state.needsOnboarding -> OnboardingPrompt(onCreatePlan, onCreateManualPlan)
             state.error != null && week == null -> ErrorBox(state.error!!, viewModel::load)
             week != null -> LazyColumn(
                 Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -150,29 +149,19 @@ fun PlanScreen(
 }
 
 @Composable
-private fun OnboardingPrompt(
-    status: com.trazo.android.data.model.SubscriptionStatus?,
-    onCreatePlan: () -> Unit,
-    onCreateManualPlan: () -> Unit,
-    onPremium: () -> Unit
-) {
+private fun OnboardingPrompt(onCreatePlan: () -> Unit, onCreateManualPlan: () -> Unit) {
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(stringResource(R.string.plan_empty_intro), style = MaterialTheme.typography.headlineSmall, color = TrazoPalette.Text, modifier = Modifier.padding(top = 24.dp, bottom = 8.dp))
-        // The automatic plan is the Premium path, so it carries the lighter (primary) button.
-        TrazoButton(onClick = onCreatePlan, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_create_auto)) }
-        TrazoButton(onClick = onCreateManualPlan, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_create_manual)) }
-        when {
-            status?.canUpgrade == true -> TrazoCard {
-                Text(stringResource(R.string.plan_auto_needs_premium), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 14.dp))
-                TrazoButton(onClick = onPremium, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
-            }
-            status != null && status.enforced && status.hasAccess -> TrazoCard {
-                Text(stringResource(R.string.plan_premium_includes_title), style = MaterialTheme.typography.titleSmall, color = TrazoPalette.Text, modifier = Modifier.padding(bottom = 6.dp))
-                Text(stringResource(R.string.plan_premium_includes), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium)
-            }
+        TrazoCard {
+            Text(stringResource(R.string.manual_free_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 14.dp))
+            TrazoButton(onClick = onCreateManualPlan, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
+        }
+        TrazoCard {
+            Text(stringResource(R.string.generated_premium_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 14.dp))
+            TrazoButton(onClick = onCreatePlan, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title_auto)) }
         }
     }
 }
