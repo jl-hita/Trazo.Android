@@ -209,7 +209,9 @@ class PlanRepository(
             is ApiResult.Success -> { replaceSession(result.value.session); LogOutcome.Sent(result.value) }
             is ApiResult.Failure -> when {
                 result.error.code == SESSION_ALREADY_LOGGED -> LogOutcome.AlreadyLogged
-                result.error.retryable -> { _pending.value = disk { queue.add(PendingLog(sessionId, stamped, now)); queue.all().size }; sync.schedule(); LogOutcome.Queued }
+                // The server rejected it only because another change reached the plan at the same moment and stored nothing: the same log
+                // (same ClientRequestId) will be accepted later. Any other 409 stays a final answer.
+                result.error.retryable || result.error.code == PLAN_MODIFIED_CONCURRENTLY -> { _pending.value = disk { queue.add(PendingLog(sessionId, stamped, now)); queue.all().size }; sync.schedule(); LogOutcome.Queued }
                 else -> LogOutcome.Rejected(result.error)
             }
         }
@@ -230,12 +232,15 @@ class PlanRepository(
                 is ApiResult.Success -> true.also { replaceSession(result.value.session) }
                 is ApiResult.Failure -> when {
                     result.error.code == SESSION_ALREADY_LOGGED -> true
+                    // Not final: the entry stays, untouched, and is sent again by a later pass (see below).
+                    result.error.code == PLAN_MODIFIED_CONCURRENTLY -> false
                     // Retrying cannot fix these: drop the entry instead of blocking the queue forever.
                     result.error.kind == ErrorKind.Validation || result.error.kind == ErrorKind.NotFound || result.error.kind == ErrorKind.Conflict -> true
                     else -> false
                 }
             }
-            if (done) { disk { queue.remove(item.sessionId) }; removed++ } else if (result is ApiResult.Failure && result.error.kind == ErrorKind.Network) break
+            if (done) { disk { queue.remove(item.sessionId) }; removed++ }
+            else if (result is ApiResult.Failure && (result.error.kind == ErrorKind.Network || result.error.code == PLAN_MODIFIED_CONCURRENTLY)) break
         }
         _pending.value = disk { queue.all().size }
         removed
@@ -276,5 +281,6 @@ class PlanRepository(
 
         const val NO_ACTIVE_PLAN = "no_active_plan"
         const val SESSION_ALREADY_LOGGED = "session_already_logged"
+        const val PLAN_MODIFIED_CONCURRENTLY = "plan_modified_concurrently"
     }
 }
