@@ -2,6 +2,7 @@ package com.trazo.android.data
 
 import com.trazo.android.data.local.*
 import com.trazo.android.data.model.LogResult
+import com.trazo.android.data.model.LogSessionRequest
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.net.ErrorKind
 import com.trazo.android.data.repo.LogOutcome
@@ -185,5 +186,91 @@ class PlanRepositoryTest {
         r.clearLocal()
         assertNull(cache.week()); assertNull(cache.plan()); assertEquals(0, queue.all().size); assertTrue(draftsCleared)
         assertNull(r.week.value)
+    }
+
+    // ---- 409 plan_modified_concurrently: the server stored nothing; the workout must stay queued and be sent again, unchanged
+
+    private val concurrent: (String, LogSessionRequest) -> Response<LogResult> = { _, _ -> httpError(409, problem(409, "plan_modified_concurrently")) }
+
+    @Test fun `a concurrency conflict keeps the queued entry complete, with its request id`() = runTest {
+        queue.add(PendingLog("s1", logRequest(), now))
+        val before = queue.all().single()
+        api.logResponse = concurrent
+        assertEquals(0, repo.flushPending())
+        val kept = queue.all().single()
+        assertEquals(before.sessionId, kept.sessionId)
+        assertEquals(before.createdAtMillis, kept.createdAtMillis)
+        assertEquals(before.request, kept.request)
+        assertEquals(1, repo.pendingCount.value)
+    }
+
+    @Test fun `a concurrency conflict stops the pass so later entries wait and order is kept`() = runTest {
+        queue.add(PendingLog("a", logRequest(), 1))
+        queue.add(PendingLog("b", logRequest(), 2))
+        api.logResponse = concurrent
+        assertEquals(0, repo.flushPending())
+        assertEquals(listOf("a"), api.logCalls.map { it.first }) // b was not even tried
+        assertEquals(listOf("a", "b"), queue.all().map { it.sessionId })
+    }
+
+    @Test fun `a later pass completes what the conflict left, with the same request id`() = runTest {
+        queue.add(PendingLog("a", logRequest(), 1))
+        queue.add(PendingLog("b", logRequest(), 2))
+        api.logResponse = concurrent
+        repo.flushPending()
+        api.logResponse = { _, _ -> ok() }
+        assertEquals(2, repo.flushPending())
+        assertEquals(0, queue.all().size)
+        val sentFirst = api.logCalls.first { it.first == "a" }.second.clientRequestId
+        assertNotNull(sentFirst)
+        assertEquals(sentFirst, api.logCalls.last { it.first == "a" }.second.clientRequestId)
+    }
+
+    @Test fun `a log that hits a concurrency conflict online is queued, not rejected`() = runTest {
+        val scheduler = CountingScheduler()
+        val synced = PlanRepository(api, cache, queue, sync = scheduler)
+        api.logResponse = concurrent
+        assertEquals(LogOutcome.Queued, synced.submitLog("s1", logRequest(), now))
+        assertEquals(1, queue.all().size)
+        assertNotNull(queue.all().single().request.clientRequestId)
+        assertEquals(1, scheduler.scheduled)
+    }
+
+    @Test fun `other 409 answers keep their behaviour`() = runTest {
+        api.logResponse = { _, _ -> httpError(409, problem(409, "active_plan_exists")) }
+        assertTrue(repo.submitLog("s1", logRequest(), now) is LogOutcome.Rejected) // not queued online
+        assertEquals(0, queue.all().size)
+        queue.add(PendingLog("s2", logRequest(), now))
+        assertEquals(1, repo.flushPending()) // dropped from the queue, as before
+        assertEquals(0, queue.all().size)
+    }
+
+    @Test fun `a conflict entry survives a restart and is delivered afterwards`() = runTest {
+        api.logResponse = concurrent
+        repo.submitLog("s1", logRequest(), now)
+        val scheduler = CountingScheduler()
+        val restarted = PlanRepository(api, cache, PendingLogQueue(JsonFileStore(File(tmp.root, "queue"))), sync = scheduler)
+        restarted.resumePendingSync()
+        assertEquals(1, restarted.pendingCount.value)
+        assertEquals(1, scheduler.scheduled)
+        api.logResponse = { _, _ -> ok() }
+        assertEquals(1, restarted.flushPending())
+        assertEquals(0, restarted.pendingCount.value)
+    }
+
+    @Test fun `repeating a log the server already accepted does not duplicate it`() = runTest {
+        api.logResponse = concurrent
+        repo.submitLog("s1", logRequest(), now)
+        val key = queue.all().single().request.clientRequestId
+        // The first attempt had in fact been stored (the answer was lost); the repeat finds the session resolved.
+        api.logResponse = { _, _ -> httpError(409, problem(409, "session_already_logged")) }
+        assertEquals(1, repo.flushPending())
+        assertEquals(0, queue.all().size)
+        // Queuing the same workout twice before delivery keeps one entry, and both sends carry one request id.
+        api.logResponse = concurrent
+        repo.submitLog("s1", logRequest(), now)
+        repo.submitLog("s1", logRequest(), now)
+        assertEquals(1, queue.all().size)
+        assertEquals(key, queue.all().single().request.clientRequestId)
     }
 }
