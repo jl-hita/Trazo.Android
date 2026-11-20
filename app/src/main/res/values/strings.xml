@@ -324,8 +324,19 @@
     <string name="sec_logout_all_title">¿Cerrar todas las sesiones?</string>
     <string name="sec_logout_all_text">Se cerrará la sesión en este y en el resto de dispositivos donde hayas entrado.</string>
     <!-- Manual plan -->
-    <string name="plan_empty_intro">Crea tu propio plan o deja que TRAZO te lo genere.</string>
-    <string name="manual_start">Crear mi propio plan (manual)</string>
+    <string name="plan_empty_intro">¿Cómo quieres empezar?</string>
+    <string name="plan_choice_recommended">Recomendado</string>
+    <string name="plan_choice_premium_tag">Premium</string>
+    <string name="plan_choice_auto_title">Plan automático</string>
+    <string name="plan_choice_auto_desc">TRAZO diseña tu plan según tu nivel, tus días y tu material, y lo ajusta a cómo entrenas.</string>
+    <string name="plan_choice_auto_b1">Listo en un par de minutos</string>
+    <string name="plan_choice_auto_b2">Cargas y series que se adaptan a tu progreso</string>
+    <string name="plan_choice_manual_title">Plan manual</string>
+    <string name="plan_choice_manual_desc">Monta tú los días y los ejercicios. Gratis siempre.</string>
+    <string name="plan_choice_manual_b1">Control total de cada rutina</string>
+    <string name="plan_choice_manual_b2">Sin ajustes automáticos</string>
+    <string name="plan_choice_hint">¿Dudas? El plan automático es el camino más corto para empezar a entrenar.</string>
+    <string name="manual_start">Crear plan manual</string>
     <string name="onb_title_auto">Crear plan automático</string>
     <string name="overview_load_title">Carga semanal</string>
     <string name="overview_load_planned">Planificado</string>
@@ -338,11 +349,9 @@
     <string name="overview_load_cycle">Ciclo %1$d</string>
     <string name="overview_load_axis_rotation">Series por ciclo</string>
     <string name="overview_load_note_rotation">Un ciclo es una vuelta completa a tus sesiones, no siete días: puede durar más o menos según cuándo entrenes. Los ciclos futuros no tienen volumen planificado porque cada bloque se genera cuando llegas a él. Las franjas grises son ciclos de descarga.</string>
-    <string name="manual_free_hint">Gratis. Con Premium, TRAZO adapta tus cargas y series según cómo entrenas.</string>
     <string name="premium_auto_title">Plan automático: Premium</string>
     <string name="premium_auto_text">Con la cuenta gratuita puedes crear tus propios planes manuales, registrar tus entrenamientos y ver tu historial. Que TRAZO genere el plan por ti es una función Premium.</string>
     <string name="premium_auto_manual">Crear plan manual</string>
-    <string name="generated_premium_hint">La generación automática del plan es Premium.</string>
     <string name="manual_title">Plan manual</string>
     <string name="manual_name">Nombre del plan</string>
     <string name="manual_weeks">Duración: %1$d semanas</string>

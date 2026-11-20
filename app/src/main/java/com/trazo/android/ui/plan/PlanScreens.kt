@@ -55,7 +55,8 @@ fun PlanScreen(
     onCreatePlan: () -> Unit,
     onCreateManualPlan: () -> Unit,
     onPremium: () -> Unit,
-    onSendPending: () -> Unit
+    onSendPending: () -> Unit,
+    autoNeedsPremium: Boolean = false
 ) {
     SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -64,7 +65,7 @@ fun PlanScreen(
         val week = state.week
         when {
             state.loading && week == null -> LoadingBox()
-            state.needsOnboarding -> OnboardingPrompt(onCreatePlan, onCreateManualPlan)
+            state.needsOnboarding -> OnboardingPrompt(autoNeedsPremium, onCreatePlan, onCreateManualPlan)
             state.error != null && week == null -> ErrorBox(state.error!!, viewModel::load)
             week != null -> LazyColumn(
                 Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -148,23 +149,50 @@ fun PlanScreen(
     }
 }
 
+/**
+ * First screen of an account with no plan: the automatic plan is the recommended path and the manual one the free alternative.
+ * [autoNeedsPremium] is true when the account has no Premium access: the automatic card then carries a Premium tag and its button offers Premium.
+ */
 @Composable
-private fun OnboardingPrompt(onCreatePlan: () -> Unit, onCreateManualPlan: () -> Unit) {
+private fun OnboardingPrompt(autoNeedsPremium: Boolean, onCreatePlan: () -> Unit, onCreateManualPlan: () -> Unit) {
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(stringResource(R.string.plan_empty_intro), style = MaterialTheme.typography.headlineSmall, color = TrazoPalette.Text, modifier = Modifier.padding(top = 24.dp, bottom = 8.dp))
         TrazoCard {
-            Text(stringResource(R.string.manual_free_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 14.dp))
-            TrazoButton(onClick = onCreateManualPlan, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(stringResource(R.string.plan_choice_auto_title), style = MaterialTheme.typography.titleMedium, color = TrazoPalette.Text)
+                Text(
+                    stringResource(if (autoNeedsPremium) R.string.plan_choice_premium_tag else R.string.plan_choice_recommended),
+                    style = MaterialTheme.typography.labelMedium, color = TrazoPalette.TextSecondary
+                )
+            }
+            ChoiceText(stringResource(R.string.plan_choice_auto_desc))
+            ChoiceBullet(stringResource(R.string.plan_choice_auto_b1))
+            ChoiceBullet(stringResource(R.string.plan_choice_auto_b2))
+            TrazoButton(onClick = onCreatePlan, modifier = Modifier.fillMaxWidth().padding(top = 10.dp).heightIn(min = MinTouch)) {
+                Text(stringResource(if (autoNeedsPremium) R.string.premium_get else R.string.onb_title_auto))
+            }
         }
         TrazoCard {
-            Text(stringResource(R.string.generated_premium_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 14.dp))
-            TrazoButton(onClick = onCreatePlan, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.onb_title_auto)) }
+            Text(stringResource(R.string.plan_choice_manual_title), style = MaterialTheme.typography.titleMedium, color = TrazoPalette.Text)
+            ChoiceText(stringResource(R.string.plan_choice_manual_desc))
+            ChoiceBullet(stringResource(R.string.plan_choice_manual_b1))
+            ChoiceBullet(stringResource(R.string.plan_choice_manual_b2))
+            TrazoButton(onClick = onCreateManualPlan, secondary = true, modifier = Modifier.fillMaxWidth().padding(top = 10.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
         }
+        Text(stringResource(R.string.plan_choice_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
     }
 }
+
+@Composable
+private fun ChoiceText(text: String) =
+    Text(text, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 4.dp))
+
+@Composable
+private fun ChoiceBullet(text: String) =
+    Text("•  $text", color = TrazoPalette.Text, style = MaterialTheme.typography.bodyMedium)
 
 @Composable
 private fun WeekHeader(plan: PlanView?, week: WeekView) {

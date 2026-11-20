@@ -320,8 +320,19 @@
     <string name="sec_logout_all_title">Sign out everywhere?</string>
     <string name="sec_logout_all_text">You\'ll be signed out here and on every other device where you signed in.</string>
     <!-- Manual plan -->
-    <string name="plan_empty_intro">Build your own plan or let TRAZO generate one for you.</string>
-    <string name="manual_start">Create my own plan (manual)</string>
+    <string name="plan_empty_intro">How do you want to start?</string>
+    <string name="plan_choice_recommended">Recommended</string>
+    <string name="plan_choice_premium_tag">Premium</string>
+    <string name="plan_choice_auto_title">Automatic plan</string>
+    <string name="plan_choice_auto_desc">TRAZO designs your plan around your level, your days and your equipment, and adjusts it to how you train.</string>
+    <string name="plan_choice_auto_b1">Ready in a couple of minutes</string>
+    <string name="plan_choice_auto_b2">Loads and sets that adapt to your progress</string>
+    <string name="plan_choice_manual_title">Manual plan</string>
+    <string name="plan_choice_manual_desc">Build the days and exercises yourself. Free, always.</string>
+    <string name="plan_choice_manual_b1">Full control of every routine</string>
+    <string name="plan_choice_manual_b2">No automatic adjustments</string>
+    <string name="plan_choice_hint">Not sure? The automatic plan is the shortest way to start training.</string>
+    <string name="manual_start">Create manual plan</string>
     <string name="onb_title_auto">Create automatic plan</string>
     <string name="overview_load_title">Weekly load</string>
     <string name="overview_load_planned">Planned</string>
@@ -334,11 +345,9 @@
     <string name="overview_load_cycle">Cycle %1$d</string>
     <string name="overview_load_axis_rotation">Sets per cycle</string>
     <string name="overview_load_note_rotation">A cycle is one full pass through your sessions, not seven days: it can take longer or shorter depending on when you train. Future cycles have no planned volume yet because each block is generated when you reach it. Grey bands are deload cycles.</string>
-    <string name="manual_free_hint">Free. With Premium, TRAZO adapts your loads and sets to how you train.</string>
     <string name="premium_auto_title">Automatic plan: Premium</string>
     <string name="premium_auto_text">With a free account you can create your own manual plans, log your workouts and see your history. Having TRAZO generate the plan for you is a Premium feature.</string>
     <string name="premium_auto_manual">Create manual plan</string>
-    <string name="generated_premium_hint">Automatic plan generation is Premium.</string>
     <string name="manual_title">Manual plan</string>
     <string name="manual_name">Plan name</string>
     <string name="manual_weeks">Length: %1$d weeks</string>
