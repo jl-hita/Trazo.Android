@@ -42,8 +42,8 @@ object Labels {
         mapOf("Time" to "Lack of time", "Fatigue" to "Fatigue", "Equipment" to "Equipment", "Motivation" to "Motivation", "Illness" to "Illness", "Other" to "Other")
     )
     private val phase = Dict(
-        mapOf("accumulation" to "Acumulación", "intensification" to "Intensificación", "deload" to "Descarga"),
-        mapOf("accumulation" to "Accumulation", "intensification" to "Intensification", "deload" to "Deload")
+        mapOf("accumulation" to "Acumulación", "intensification" to "Intensificación", "deload" to "Descarga", "preparation" to "Preparación"),
+        mapOf("accumulation" to "Accumulation", "intensification" to "Intensification", "deload" to "Deload", "preparation" to "Preparation")
     )
     private val pattern = Dict(
         mapOf(

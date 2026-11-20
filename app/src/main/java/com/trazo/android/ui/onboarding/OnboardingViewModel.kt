@@ -34,6 +34,12 @@ data class OnboardingState(
     val split: String = "Automatic",
     /** Muscle to "Emphasize" / "Maintain"; a muscle that is absent is "Grow". Only sent for a hypertrophy plan. */
     val musclePriorities: Map<String, String> = emptyMap(),
+    /** "Regular", "New" or "Returning": the last two start the plan with a few weeks of preparation. */
+    val readiness: String = PreparationChoice.REGULAR,
+    /** Only for "Returning": the break lasted the months the server marks as long, which suggests a longer preparation. */
+    val longBreak: Boolean = false,
+    /** Weeks of preparation, inside [totalWeeks]; zero for a regular plan. */
+    val preparationWeeks: Int = 0,
     val includeDeload: Boolean = true,
     /** Training weeks between deloads, or null to let the server place them. */
     val deloadEvery: Int? = null,
@@ -81,7 +87,15 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     fun setIncludeDeload(value: Boolean) = _state.update { it.copy(includeDeload = value) }
     fun setDeloadEvery(value: Int?) = _state.update { it.copy(deloadEvery = value) }
     fun setSessionMinutes(value: Int) = _state.update { it.copy(sessionMinutes = value) }
-    fun setTotalWeeks(value: Int) = _state.update { it.copy(totalWeeks = value) }
+    fun setTotalWeeks(value: Int) = _state.update { s ->
+        val o = s.options
+        val prep = o?.preparation
+        val min = if (o != null && prep != null) PreparationChoice.minimumTotalWeeks(o.minimumTotalWeeks, s.preparationWeeks, prep) else 0
+        s.copy(totalWeeks = maxOf(value, min))
+    }
+    fun setReadiness(value: String) = _state.update { applyPreparation(it, value, it.longBreak, null) }
+    fun setLongBreak(value: Boolean) = _state.update { applyPreparation(it, it.readiness, value, null) }
+    fun setPreparationWeeks(value: Int) = _state.update { applyPreparation(it, it.readiness, it.longBreak, value) }
     fun setSchedulingMode(value: String) = _state.update { it.copy(schedulingMode = value) }
     fun setSessionsPerPeriod(value: Int) = _state.update { it.copy(sessionsPerPeriod = value) }
     fun setMusclePriority(muscle: String, priority: String) =
@@ -105,6 +119,16 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     }
 
     companion object {
+        /** Sets the starting point and its weeks (the suggestion unless [weeks] is given) and lengthens the plan when it would be too short. */
+        fun applyPreparation(s: OnboardingState, readiness: String, longBreak: Boolean, weeks: Int?): OnboardingState {
+            val prep = s.options?.preparation ?: return s
+            val chosen = if (readiness == PreparationChoice.REGULAR) 0
+            else (weeks ?: PreparationChoice.suggestedWeeks(readiness, longBreak, prep)).coerceIn(prep.minimumWeeks, prep.maximumWeeks)
+            val min = PreparationChoice.minimumTotalWeeks(s.options.minimumTotalWeeks, chosen, prep)
+            return s.copy(readiness = readiness, longBreak = longBreak && readiness == PreparationChoice.RETURNING, preparationWeeks = chosen,
+                totalWeeks = maxOf(s.totalWeeks, min))
+        }
+
         /** An explicit split is sent as chosen. "Automatic" only covers 2-4 days, so 5-6 days ask for Push/Pull/Legs; the server may still refine the rest. */
         fun buildRequest(s: OnboardingState, options: PlanOptions) = PlanProfileRequest(
             goal = s.goal,
@@ -122,6 +146,9 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
             // Null lets the server spread the deloads so the training blocks stay full.
             deloadEveryTrainingWeeks = s.deloadEvery.takeIf { s.includeDeload },
             musclePriorities = MusclePriorities.forRequest(s.goal, s.musclePriorities),
+            // Only a server that offers the preparation understands it; a regular plan sends nothing.
+            readiness = s.readiness.takeIf { options.preparation != null && s.preparationWeeks > 0 },
+            preparationWeeks = s.preparationWeeks.takeIf { options.preparation != null && it > 0 },
             split = if (s.split == "Automatic" && (if (s.isSequence) s.sessionsPerPeriod else s.days.size) > 4) "PushPullLegs" else s.split
         )
     }

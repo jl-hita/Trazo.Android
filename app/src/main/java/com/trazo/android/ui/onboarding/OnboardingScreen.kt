@@ -79,6 +79,44 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 SectionTitle(stringResource(R.string.onb_level))
                 ChipGroup(options.experience, setOf(state.experience), Labels::experience, viewModel::setExperience)
 
+                // The starting point is only offered when the server announces the preparation.
+                options.preparation?.let { prep ->
+                    SectionTitle(stringResource(R.string.onb_start))
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    ChipGroup(
+                        prep.readiness.filter { it in listOf(PreparationChoice.REGULAR, PreparationChoice.NEW, PreparationChoice.RETURNING) },
+                        setOf(state.readiness),
+                        {
+                            context.getString(when (it) {
+                                PreparationChoice.NEW -> R.string.onb_ready_new
+                                PreparationChoice.RETURNING -> R.string.onb_ready_returning
+                                else -> R.string.onb_ready_regular
+                            })
+                        },
+                        viewModel::setReadiness
+                    )
+                    if (state.readiness != PreparationChoice.REGULAR) {
+                        Text(stringResource(R.string.onb_ready_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                        if (state.readiness == PreparationChoice.RETURNING) {
+                            ChipGroup(
+                                listOf("short", "long"), setOf(if (state.longBreak) "long" else "short"),
+                                { context.getString(if (it == "long") R.string.onb_break_long else R.string.onb_break_short, prep.longBreakMonths) },
+                                { viewModel.setLongBreak(it == "long") }
+                            )
+                        }
+                        Text(androidx.compose.ui.res.pluralStringResource(R.plurals.onb_prep_weeks, state.preparationWeeks, state.preparationWeeks))
+                        Slider(
+                            value = state.preparationWeeks.toFloat(),
+                            onValueChange = { viewModel.setPreparationWeeks(it.toInt()) },
+                            valueRange = prep.minimumWeeks.toFloat()..prep.maximumWeeks.toFloat(),
+                            steps = (prep.maximumWeeks - prep.minimumWeeks - 1).coerceAtLeast(0),
+                            modifier = Modifier.heightIn(min = MinTouch)
+                        )
+                        val after = PreparationChoice.weeksAfter(state.totalWeeks, state.preparationWeeks)
+                        Text(androidx.compose.ui.res.pluralStringResource(R.plurals.onb_prep_then, after, after), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    }
+                }
+
                 // The mode is only offered when the server announces it, so an older server keeps the fixed-days flow.
                 if ("Sequence" in options.schedulingModes) {
                     val context = androidx.compose.ui.platform.LocalContext.current
@@ -139,7 +177,8 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 Slider(
                     value = state.totalWeeks.toFloat(),
                     onValueChange = { viewModel.setTotalWeeks(it.toInt()) },
-                    valueRange = options.minimumTotalWeeks.toFloat()..options.maximumTotalWeeks.toFloat(),
+                    valueRange = (state.options?.preparation?.let { PreparationChoice.minimumTotalWeeks(options.minimumTotalWeeks, state.preparationWeeks, it) } ?: options.minimumTotalWeeks)
+                        .toFloat()..options.maximumTotalWeeks.toFloat(),
                     modifier = Modifier.heightIn(min = MinTouch)
                 )
 

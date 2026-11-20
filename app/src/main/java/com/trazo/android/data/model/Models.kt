@@ -130,7 +130,15 @@ data class PlanOptions(
     val limitations: List<String>, val equipment: List<String>, val minimumTrainingDays: Int, val maximumTrainingDays: Int,
     val minimumSessionMinutes: Int, val maximumSessionMinutes: Int, val minimumTotalWeeks: Int, val maximumTotalWeeks: Int,
     val defaultTotalWeeks: Int,
-    val schedulingModes: List<String> = listOf("Calendar"), val minimumSessionsPerPeriod: Int = 2, val maximumSessionsPerPeriod: Int = 6
+    val schedulingModes: List<String> = listOf("Calendar"), val minimumSessionsPerPeriod: Int = 2, val maximumSessionsPerPeriod: Int = 6,
+    /** Null on a server that does not offer the preparation: the wizard then does not show the choice. */
+    val preparation: PreparationOptions? = null
+)
+
+/** The starting points a plan can declare and the weeks of preparation each one suggests; the user may change them within the limits. */
+data class PreparationOptions(
+    val readiness: List<String>, val minimumWeeks: Int, val maximumWeeks: Int, val newWeeks: Int, val returningShortBreakWeeks: Int,
+    val returningLongBreakWeeks: Int, val longBreakMonths: Int, val minimumWeeksAfter: Int
 )
 
 // Requests.
@@ -157,7 +165,9 @@ data class PlanProfileRequest(
     /** "Sequence" plans have no fixed days: send [sessionsPerPeriod] instead of [trainingDays]. */
     val schedulingMode: String? = null, val sessionsPerPeriod: Int? = null,
     /** Hypertrophy only. Muscle to "Emphasize" / "Maintain"; leave a muscle out for the default dose. Null when nothing is chosen. */
-    val musclePriorities: Map<String, String>? = null
+    val musclePriorities: Map<String, String>? = null,
+    /** "New" or "Returning" start the plan with a few weeks of preparation, counted inside [totalWeeks]; null for a regular plan. */
+    val readiness: String? = null, val preparationWeeks: Int? = null
 )
 
 /** Replaces every priority of the current plan: an empty map clears them. */
