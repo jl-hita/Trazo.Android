@@ -569,4 +569,19 @@
     <string name="plan_auto_needs_premium">Para usar el generador automático de planes necesitas ser usuario Premium.</string>
     <string name="plan_premium_includes_title">Tu Premium incluye</string>
     <string name="plan_premium_includes">El motor generador de planes automáticos y la adaptación de tu plan según el feedback de cada sesión.</string>
+    <string name="onb_start">Tu punto de partida</string>
+    <string name="onb_ready_regular">Entreno con regularidad</string>
+    <string name="onb_ready_new">Soy nuevo en el gimnasio</string>
+    <string name="onb_ready_returning">Vuelvo tras una pausa</string>
+    <string name="onb_ready_hint">Si empiezas o vuelves, el plan arranca con unas semanas de preparación: pocas series, lejos del fallo y con tiempo para recuperar entre sesiones. Es una decisión de diseño de Trazo, no una pauta médica.</string>
+    <string name="onb_break_short">Menos de %1$d meses parado</string>
+    <string name="onb_break_long">%1$d meses o más</string>
+    <plurals name="onb_prep_weeks">
+        <item quantity="one">Preparación: %1$d semana</item>
+        <item quantity="other">Preparación: %1$d semanas</item>
+    </plurals>
+    <plurals name="onb_prep_then">
+        <item quantity="one">Después, %1$d semana de plan completo (cuenta dentro de la duración total).</item>
+        <item quantity="other">Después, %1$d semanas de plan completo (cuentan dentro de la duración total).</item>
+    </plurals>
 </resources>

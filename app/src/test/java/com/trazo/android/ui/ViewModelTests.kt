@@ -12,6 +12,7 @@ import com.trazo.android.ui.account.PaywallViewModel
 import com.trazo.android.ui.nav.AppState
 import com.trazo.android.ui.nav.AppViewModel
 import com.trazo.android.ui.onboarding.OnboardingViewModel
+import com.trazo.android.ui.onboarding.PreparationChoice
 import com.trazo.android.ui.plan.LoadViewModel
 import com.trazo.android.ui.plan.PlanViewModel
 import com.trazo.android.ui.plan.niceTop
@@ -280,6 +281,57 @@ class OnboardingViewModelTest : ViewModelTestBase() {
         assertEquals(5, request().deloadEveryTrainingWeeks)
         vm.setIncludeDeload(false)
         assertFalse(request().includeDeloadPhases); assertNull(request().deloadEveryTrainingWeeks)
+    }
+
+    private fun withPreparation() = FakePlansApi().apply {
+        optionsResponse = { retrofit2.Response.success(sampleOptions().copy(preparation = com.trazo.android.data.model.PreparationOptions(
+            listOf("Regular", "New", "Returning"), 1, 4, 2, 2, 3, 3, 4))) }
+    }
+
+    @Test fun `a regular plan sends no preparation and a server without it never shows the choice`() = runTest(dispatcher) {
+        val vm = OnboardingViewModel(plansRepo(withPreparation()))
+        advanceUntilIdle()
+        val request = OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!)
+        assertNull(request.readiness); assertNull(request.preparationWeeks)
+        // An older server has no preparation options: choosing changes nothing and nothing is sent.
+        val old = OnboardingViewModel(plansRepo(FakePlansApi()))
+        advanceUntilIdle()
+        old.setReadiness("New")
+        assertEquals("Regular", old.state.value.readiness)
+        assertNull(OnboardingViewModel.buildRequest(old.state.value, old.state.value.options!!).readiness)
+    }
+
+    @Test fun `new suggests two weeks and returning two or three according to the break, and the user may change them`() = runTest(dispatcher) {
+        val vm = OnboardingViewModel(plansRepo(withPreparation()))
+        advanceUntilIdle()
+        vm.setReadiness("New")
+        assertEquals(2, vm.state.value.preparationWeeks)
+        vm.setReadiness("Returning")
+        assertEquals(2, vm.state.value.preparationWeeks)
+        vm.setLongBreak(true)
+        assertEquals(3, vm.state.value.preparationWeeks)
+        vm.setPreparationWeeks(9)
+        assertEquals(4, vm.state.value.preparationWeeks) // limited to what the server allows
+        vm.setPreparationWeeks(1)
+        val request = OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!)
+        assertEquals("Returning", request.readiness); assertEquals(1, request.preparationWeeks)
+        vm.setReadiness("Regular")
+        assertEquals(0, vm.state.value.preparationWeeks)
+        assertFalse(vm.state.value.longBreak)
+        assertNull(OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).readiness)
+    }
+
+    @Test fun `the plan keeps its own weeks after the preparation`() = runTest(dispatcher) {
+        val vm = OnboardingViewModel(plansRepo(withPreparation()))
+        advanceUntilIdle()
+        vm.setTotalWeeks(4)
+        vm.setReadiness("New")
+        assertEquals(6, vm.state.value.totalWeeks) // 2 weeks of preparation + the 4 the server asks for after it
+        vm.setTotalWeeks(5)
+        assertEquals(6, vm.state.value.totalWeeks)
+        vm.setPreparationWeeks(4)
+        assertEquals(8, vm.state.value.totalWeeks)
+        assertEquals(4, PreparationChoice.weeksAfter(vm.state.value.totalWeeks, vm.state.value.preparationWeeks))
     }
 
     @Test fun `server rejection is shown and does not mark the plan as created`() = runTest(dispatcher) {

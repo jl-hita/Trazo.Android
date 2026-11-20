@@ -565,4 +565,19 @@
     <string name="plan_auto_needs_premium">To use the automatic plan generator you need to be a Premium user.</string>
     <string name="plan_premium_includes_title">Your Premium includes</string>
     <string name="plan_premium_includes">The automatic plan generator engine and plan adaptation based on the feedback from each session.</string>
+    <string name="onb_start">Where you are starting from</string>
+    <string name="onb_ready_regular">I train regularly</string>
+    <string name="onb_ready_new">I’m new to the gym</string>
+    <string name="onb_ready_returning">I’m coming back after a break</string>
+    <string name="onb_ready_hint">If you are starting or coming back, the plan begins with a few weeks of preparation: few sets, far from failure and with time to recover between sessions. It is a Trazo design decision, not medical advice.</string>
+    <string name="onb_break_short">Less than %1$d months off</string>
+    <string name="onb_break_long">%1$d months or more</string>
+    <plurals name="onb_prep_weeks">
+        <item quantity="one">Preparation: %1$d week</item>
+        <item quantity="other">Preparation: %1$d weeks</item>
+    </plurals>
+    <plurals name="onb_prep_then">
+        <item quantity="one">Then %1$d week of the full plan (it counts inside the total length).</item>
+        <item quantity="other">Then %1$d weeks of the full plan (they count inside the total length).</item>
+    </plurals>
 </resources>
