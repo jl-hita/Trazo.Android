@@ -10,6 +10,8 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Route
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -92,11 +94,9 @@ class TokenAuthenticator(
 
 
 /**
- * Temporary, endpoint-scoped diagnostics for the referral invitations crash.
- *
- * Logs the actual response JSON shape before Retrofit/Gson consumes it. Opaque identifiers and
- * account-like values are redacted; field names, JSON types, statuses and timestamps remain visible.
- * The log is local to the device (Logcat), bounded, and never uploaded.
+ * Captures the invitations response before Retrofit/Gson conversion and reports a bounded,
+ * redacted preview to the authenticated backend log pipeline. The reporting client is isolated
+ * from the main interceptor chain, so it cannot recurse or affect the original response.
  */
 internal fun sanitizedReferralResponseBody(body: String): String {
     val sensitiveKeys = setOf("id", "userid", "code", "link", "email", "name", "token", "accesstoken", "refreshtoken")
@@ -119,7 +119,7 @@ internal fun sanitizedReferralResponseBody(body: String): String {
     }
 }
 
-class ReferralResponseLogInterceptor : Interceptor {
+class ReferralResponseDiagnosticsInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         if (request.method != "GET" || !request.url.encodedPath.endsWith("/api/v1/referrals/invitations")) {
@@ -127,21 +127,43 @@ class ReferralResponseLogInterceptor : Interceptor {
         }
 
         val response = chain.proceed(request)
-        val body = runCatching { response.peekBody(MAX_LOG_BYTES).string() }.getOrNull()
-        val contentLength = response.body?.contentLength() ?: -1L
-        val preview = body?.let(::sanitizedReferralResponseBody) ?: "<body unavailable>"
-        android.util.Log.i(
-            TAG,
-            "GET /api/v1/referrals/invitations HTTP ${response.code}; contentType=${response.header("Content-Type")}; " +
-                "contentLength=$contentLength; bodyPreview=${preview.take(MAX_LOG_CHARS)}"
-        )
+        runCatching {
+            val raw = response.peekBody(MAX_PREVIEW_BYTES).string()
+            val preview = sanitizedReferralResponseBody(raw).take(MAX_PREVIEW_CHARS)
+            val payload = Gson().toJson(mapOf(
+                "httpStatus" to response.code,
+                "contentType" to response.header("Content-Type")?.take(120),
+                "contentLength" to (response.body?.contentLength() ?: -1L),
+                "preview" to preview,
+                "appVersion" to response.request.header("X-App-Version")?.take(40)
+            ))
+            val diagnosticUrl = response.request.url.newBuilder()
+                .encodedPath("/api/v1/referrals/invitations/diagnostics")
+                .query(null)
+                .build()
+            val diagnosticRequest = okhttp3.Request.Builder()
+                .url(diagnosticUrl)
+                .post(payload.toRequestBody(JSON_MEDIA_TYPE))
+                .apply {
+                    response.request.header("Authorization")?.let { header("Authorization", it) }
+                    response.request.header("X-App-Version")?.let { header("X-App-Version", it) }
+                }
+                .build()
+            REPORTING_CLIENT.newCall(diagnosticRequest).execute().use { /* best effort; never alter the original response */ }
+        }
         return response
     }
 
     private companion object {
-        const val TAG = "TRAZO_REFERRAL"
-        const val MAX_LOG_BYTES = 16L * 1024L
-        const val MAX_LOG_CHARS = 8 * 1024
+        const val MAX_PREVIEW_BYTES = 16L * 1024L
+        const val MAX_PREVIEW_CHARS = 8 * 1024
+        val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
+        val REPORTING_CLIENT = OkHttpClient.Builder()
+            .connectTimeout(2, TimeUnit.SECONDS)
+            .readTimeout(2, TimeUnit.SECONDS)
+            .writeTimeout(2, TimeUnit.SECONDS)
+            .callTimeout(3, TimeUnit.SECONDS)
+            .build()
     }
 }
 
@@ -164,7 +186,7 @@ class NetworkModule(
     private val plainAuthApi: AuthApi = retrofit(baseClient().build()).create(AuthApi::class.java)
 
     val client: OkHttpClient = baseClient()
-        .addInterceptor(ReferralResponseLogInterceptor())
+        .addInterceptor(ReferralResponseDiagnosticsInterceptor())
         .addInterceptor(AuthInterceptor(tokens))
         .authenticator(TokenAuthenticator(tokens, plainAuthApi, events))
         .build()
