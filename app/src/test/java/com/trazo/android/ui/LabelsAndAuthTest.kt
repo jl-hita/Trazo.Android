@@ -59,6 +59,18 @@ class LabelsAndAuthTest {
         assertEquals("Intermedio", Labels.difficulty("intermediate"))
     }
 
+    @Test fun `all backend equipment codes have translated labels`() {
+        assertEquals(54, Labels.allEquipment.size)
+        Locale.setDefault(Locale("es", "ES"))
+        assertEquals("Barra hexagonal", Labels.equipment("trap-bar"))
+        assertEquals("Máquina de curl femoral", Labels.equipment("leg-curl-machine"))
+        assertEquals("Anillas", Labels.equipment("rings"))
+        Locale.setDefault(Locale.ENGLISH)
+        assertEquals("Trap bar / hex bar", Labels.equipment("trap-bar"))
+        assertEquals("Leg curl machine", Labels.equipment("leg-curl-machine"))
+        assertEquals("Gymnastics rings", Labels.equipment("rings"))
+    }
+
     @Test fun `logout everywhere revokes on the server and clears the tokens`() = runBlocking {
         val store = MemoryTokenStore("a", "r")
         AuthRepository(FakeAuthApi(), store).logoutAll()
