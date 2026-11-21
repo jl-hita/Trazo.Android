@@ -145,5 +145,6 @@ class FakeExercisesApi : ExercisesApi {
     override suspend fun search(q: String?, movementPattern: String?, difficulty: String?, experience: String?, equipment: String?, muscle: String?, page: Int, pageSize: Int): Response<ExercisePage> =
         Response.success(ExercisePage(listOf(item), page, pageSize, 1, 1))
     override suspend fun detail(id: String): Response<ExerciseDetail> = TODO()
+    override suspend fun localizedDetail(id: String): Response<LocalizedExerciseText> = TODO()
     override suspend fun images(id: String): Response<ExerciseImageSlots> = TODO()
 }
