@@ -54,7 +54,8 @@ fun apiErrorText(error: ApiError): String = when {
     error.code == "purchase_account_mismatch" -> stringResource(R.string.err_purchase_account_mismatch)
     else -> when (error.kind) {
         ErrorKind.Network -> stringResource(R.string.err_network)
-        ErrorKind.Server -> stringResource(R.string.err_server)
+        // A server-side failure quotes the incident reference, so what the person reports can be matched with the ticket and the logs.
+        ErrorKind.Server -> error.reference?.let { stringResource(R.string.err_server_reference, stringResource(R.string.err_server), it) } ?: stringResource(R.string.err_server)
         ErrorKind.Unauthorized -> stringResource(R.string.err_unauthorized)
         ErrorKind.SubscriptionRequired -> stringResource(R.string.err_subscription)
         ErrorKind.NotFound -> stringResource(R.string.err_not_found)

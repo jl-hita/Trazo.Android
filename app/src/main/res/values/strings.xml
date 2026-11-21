@@ -18,6 +18,7 @@
     <!-- Errors -->
     <string name="err_network">No hay conexión con TRAZO. Comprueba tu conexión e inténtalo de nuevo.</string>
     <string name="err_server">TRAZO no está disponible ahora mismo. Inténtalo de nuevo en unos minutos.</string>
+    <string name="err_server_reference">%1$s (ref. %2$s)</string>
     <string name="err_unauthorized">Tu sesión ha caducado. Vuelve a iniciar sesión.</string>
     <string name="err_subscription">Necesitas una suscripción activa para continuar.</string>
     <string name="err_not_found">No se ha encontrado lo que buscabas.</string>

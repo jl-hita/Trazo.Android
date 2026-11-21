@@ -10,14 +10,20 @@ enum class ErrorKind { Network, Unauthorized, SubscriptionRequired, NotFound, Co
 /**
  * An API or transport failure. [code] is the stable code the backend puts in the problem `title`
  * (`no_active_plan`, `session_already_logged`...) or in `error`; the UI turns it into Spanish text.
+ * [traceId] is the incident reference the API puts in every error answer (the same id is in the server log and, for an unexpected error,
+ * next to its ticket); [reference] is the short form that is shown to the person.
  */
 data class ApiError(
     val kind: ErrorKind,
     val code: String? = null,
     val serverMessage: String? = null,
     val fields: Map<String, List<String>> = emptyMap(),
-    val httpStatus: Int? = null
+    val httpStatus: Int? = null,
+    val traceId: String? = null
 ) {
+    /** What the person can quote to support: the 32-hex trace of a W3C id (`00-<trace>-<span>-<flags>`), or the id itself, shortened. */
+    val reference: String? get() = referenceOf(traceId)
+
     /** True when sending the same request again later may succeed. */
     val retryable: Boolean get() = kind == ErrorKind.Network || kind == ErrorKind.Server
 }
@@ -81,6 +87,16 @@ suspend fun <T> apiCallWithBody(operation: String, block: suspend () -> Response
     return ApiResult.Failure(ApiError(ErrorKind.Unknown, code = "empty_response", httpStatus = response.code()))
 }
 
+private val TRACE_ID = Regex("^[0-9A-Za-z:-]{8,64}$")
+
+/** The short, safe-to-show form of a `traceId`; null when it is missing or not shaped like one (a proxy's page, hostile text). */
+fun referenceOf(traceId: String?): String? {
+    if (traceId == null || !TRACE_ID.matches(traceId)) return null
+    val parts = traceId.split('-')
+    val id = if (parts.size >= 3 && parts[1].length == 32) parts[1] else traceId
+    return id.take(12)
+}
+
 fun parseError(status: Int, body: String?): ApiError {
     val json: JsonObject? = runCatching { JsonParser.parseString(body.orEmpty()).asJsonObject }.getOrNull()
     fun text(name: String) = json?.get(name)?.takeIf { it.isJsonPrimitive }?.asString
@@ -100,5 +116,5 @@ fun parseError(status: Int, body: String?): ApiError {
         status >= 500 -> ErrorKind.Server
         else -> ErrorKind.Unknown
     }
-    return ApiError(kind, code, message, fields, status)
+    return ApiError(kind, code, message, fields, status, text("traceId"))
 }
