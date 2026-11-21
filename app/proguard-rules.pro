@@ -1,5 +1,8 @@
 # Gson reads and writes the API contracts by reflection: keep their fields and constructors.
 -keepattributes Signature, InnerClasses, EnclosingMethod, *Annotation*
+# Referral DTOs are also parsed reflectively by Retrofit/Gson. Keeping only data.model/auth is not enough:
+# R8 can otherwise rename/remove their JSON fields or generic list signatures in minified release builds.
+-keep class com.trazo.android.data.referral.** { *; }
 -keep class com.trazo.android.data.model.** { *; }
 -keep class com.trazo.android.auth.** { *; }
 -keep class com.trazo.android.data.local.Pending** { *; }
