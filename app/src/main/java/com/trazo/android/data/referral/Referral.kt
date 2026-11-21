@@ -241,8 +241,36 @@ class ReferralRepository(private val api: ReferralApi) {
         Diagnostics.report(IllegalStateException(stage, cause))
         return ApiResult.Failure(ApiError(ErrorKind.Unknown, code = stage.lowercase()))
     }
-    suspend fun rewards(): ApiResult<List<PremiumGrant>> = apiCallWithBody("GET /api/v1/referrals/rewards") { api.rewards() }.let {
-        when (it) { is ApiResult.Success -> ApiResult.Success(it.value.items); is ApiResult.Failure -> it }
+    suspend fun rewards(): ApiResult<List<PremiumGrant>> {
+        val result = apiCallWithBody("GET /api/v1/referrals/rewards") { api.rewards() }
+        return when (result) {
+            is ApiResult.Failure -> result
+            is ApiResult.Success -> try {
+                val payload: Any? = result.value
+                if (payload !is PremiumGrants) {
+                    referralFailure(
+                        "REFERRAL_REWARDS_RESPONSE_TYPE",
+                        ClassCastException("Expected PremiumGrants but received ${payload?.javaClass?.name ?: "null"}.")
+                    )
+                } else {
+                    val items: Any? = payload.items
+                    val grants = items as? List<*>
+                    if (grants == null || grants.any { it !is PremiumGrant }) {
+                        referralFailure(
+                            "REFERRAL_REWARDS_ITEM_VALIDATION",
+                            ClassCastException("Expected a list of PremiumGrant items.")
+                        )
+                    } else {
+                        @Suppress("UNCHECKED_CAST")
+                        ApiResult.Success(grants as List<PremiumGrant>)
+                    }
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                referralFailure("REFERRAL_REWARDS_RESPONSE_VALIDATION", e)
+            }
+        }
     }
 
     /** Best effort counter: the share sheet was opened. The app cannot know whether anyone received the invitation. */
