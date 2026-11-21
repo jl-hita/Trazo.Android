@@ -217,7 +217,7 @@ class ReferralScreenModelTest {
     }
 
     @Test fun `an empty rewards response does not crash or hide the referral screen`() = runTest(dispatcher) {
-        val api = FakeReferralApi().apply { rewards = { Response.success(204, null) } }
+        val api = FakeReferralApi().apply { rewards = { Response.success<PremiumGrants>(204, null) } }
         val vm = ReferralViewModel(ReferralRepository(api))
         advanceUntilIdle()
 
