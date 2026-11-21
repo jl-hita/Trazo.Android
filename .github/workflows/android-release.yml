@@ -46,6 +46,8 @@ jobs:
             echo "mapping_upload_ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "mapping_upload_ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::TRAZO_DIAGNOSTICS_UPLOAD_KEY no está configurado; el mapping R8 de esta versión no se enviará al backend."
+            echo "⚠️ **Mapping R8 no subido:** configura el secret `TRAZO_DIAGNOSTICS_UPLOAD_KEY` para que los tickets Android de esta versión puedan desofuscarse automáticamente." >> "$GITHUB_STEP_SUMMARY"
           fi
           if (( ${#missing[@]} )); then
             echo "ready=false" >> "$GITHUB_OUTPUT"
