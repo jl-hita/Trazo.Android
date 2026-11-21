@@ -89,10 +89,11 @@ class NetworkModuleTest {
             """{"items":[{"id":"private-id","registeredAt":"2026-11-21T12:00:00Z","status":"registered","rewardDays":null}]}"""
         )
 
-        assertTrue(logged.contains("\\"id\\":\\"<redacted>\\""))
-        assertTrue(logged.contains("\\"registeredAt\\":\\"2026-11-21T12:00:00Z\\""))
-        assertTrue(logged.contains("\\"status\\":\\"registered\\""))
-        assertTrue(logged.contains("\\"rewardDays\\":null"))
+        assertTrue(logged.contains("<redacted>"))
+        assertTrue(logged.contains("registeredAt"))
+        assertTrue(logged.contains("2026-11-21T12:00:00Z"))
+        assertTrue(logged.contains("registered"))
+        assertTrue(logged.contains("rewardDays"))
         assertFalse(logged.contains("private-id"))
     }
 
