@@ -231,6 +231,34 @@ class ReferralScreenModelTest {
         assertEquals(204, state.listError?.httpStatus)
     }
 
+    @Test fun `a ClassCastException during the Retrofit invitation call becomes a diagnostic failure`() = runTest(dispatcher) {
+        val api = FakeReferralApi().apply {
+            invitations = { throw ClassCastException("unexpected Retrofit response type") }
+        }
+
+        val result = ReferralRepository(api).invitations()
+
+        assertTrue(result is ApiResult.Failure)
+        val failure = result as ApiResult.Failure
+        assertEquals(ErrorKind.Unknown, failure.error.kind)
+        assertEquals("referral_invitations_retrofit_or_deserialization", failure.error.code)
+    }
+
+    @Test fun `an invitation list containing an element of the wrong runtime type is isolated`() = runTest(dispatcher) {
+        @Suppress("UNCHECKED_CAST")
+        val malformedItems = listOf("not a ReferralInvitation") as List<ReferralInvitation>
+        val api = FakeReferralApi().apply {
+            invitations = { Response.success(ReferralInvitations(malformedItems)) }
+        }
+
+        val result = ReferralRepository(api).invitations()
+
+        assertTrue(result is ApiResult.Failure)
+        val failure = result as ApiResult.Failure
+        assertEquals(ErrorKind.Unknown, failure.error.kind)
+        assertEquals("referral_invitations_item_validation", failure.error.code)
+    }
+
     @Test fun `no invitations yet is an empty list, not an error`() = runTest(dispatcher) {
         val api = FakeReferralApi().apply {
             me = { Response.success(ReferralMe(true, 30, "ABCD2345", "l", ReferralStats())) }
