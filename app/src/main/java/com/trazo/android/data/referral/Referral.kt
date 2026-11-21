@@ -164,11 +164,11 @@ fun referralFor(typed: String?, pending: PendingReferral?): PendingReferral? {
 }
 
 class ReferralRepository(private val api: ReferralApi) {
-    suspend fun me(): ApiResult<ReferralMe> = apiCallWithBody { api.me() }
-    suspend fun invitations(): ApiResult<List<ReferralInvitation>> = apiCallWithBody { api.invitations() }.let {
+    suspend fun me(): ApiResult<ReferralMe> = apiCallWithBody("GET /api/v1/referrals/me") { api.me() }
+    suspend fun invitations(): ApiResult<List<ReferralInvitation>> = apiCallWithBody("GET /api/v1/referrals/invitations") { api.invitations() }.let {
         when (it) { is ApiResult.Success -> ApiResult.Success(it.value.items); is ApiResult.Failure -> it }
     }
-    suspend fun rewards(): ApiResult<List<PremiumGrant>> = apiCallWithBody { api.rewards() }.let {
+    suspend fun rewards(): ApiResult<List<PremiumGrant>> = apiCallWithBody("GET /api/v1/referrals/rewards") { api.rewards() }.let {
         when (it) { is ApiResult.Success -> ApiResult.Success(it.value.items); is ApiResult.Failure -> it }
     }
 
