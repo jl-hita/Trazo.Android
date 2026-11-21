@@ -55,6 +55,30 @@ suspend fun <T> apiCall(block: suspend () -> Response<T>): ApiResult<T> {
     return ApiResult.Failure(parseError(response.code(), response.errorBody()?.use { runCatching { it.string() }.getOrNull() }))
 }
 
+/**
+ * Same as [apiCall], but this endpoint's successful contract requires a response body.
+ * In particular, never manufacture `Unit as T` for a 204/205 response: the caller may
+ * subsequently cast that value to its DTO and crash outside the transport error boundary.
+ */
+suspend fun <T> apiCallWithBody(block: suspend () -> Response<T>): ApiResult<T> {
+    val response = try {
+        block()
+    } catch (e: kotlinx.coroutines.CancellationException) {
+        throw e
+    } catch (_: IOException) {
+        return ApiResult.Failure(ApiError(ErrorKind.Network))
+    } catch (e: RuntimeException) {
+        com.trazo.android.diagnostics.Diagnostics.report(e)
+        return ApiResult.Failure(ApiError(ErrorKind.Unknown))
+    }
+    if (!response.isSuccessful) {
+        return ApiResult.Failure(parseError(response.code(), response.errorBody()?.use { runCatching { it.string() }.getOrNull() }))
+    }
+    val body = response.body()
+    return if (body != null) ApiResult.Success(body)
+    else ApiResult.Failure(ApiError(ErrorKind.Unknown, code = "empty_response", httpStatus = response.code()))
+}
+
 fun parseError(status: Int, body: String?): ApiError {
     val json: JsonObject? = runCatching { JsonParser.parseString(body.orEmpty()).asJsonObject }.getOrNull()
     fun text(name: String) = json?.get(name)?.takeIf { it.isJsonPrimitive }?.asString
