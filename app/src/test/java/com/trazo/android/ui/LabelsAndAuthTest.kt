@@ -61,6 +61,7 @@ class LabelsAndAuthTest {
 
     @Test fun `all backend equipment codes have translated labels`() {
         assertEquals(54, Labels.allEquipment.size)
+        assertEquals(Labels.allEquipment.toSet(), Labels.allEquipmentEnglish.toSet())
         Locale.setDefault(Locale("es", "ES"))
         assertEquals("Barra hexagonal", Labels.equipment("trap-bar"))
         assertEquals("Máquina de curl femoral", Labels.equipment("leg-curl-machine"))
