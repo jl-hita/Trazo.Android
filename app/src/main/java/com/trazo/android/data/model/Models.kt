@@ -232,7 +232,16 @@ data class ExercisePage(val items: List<ExerciseListItem>, val page: Int, val pa
 data class ExerciseDetail(
     val id: String, val nameEs: String, val nameEn: String?, val descriptionEs: String?, val instructionsEs: List<String>,
     val tipsEs: List<String>, val difficulty: String, val equipment: String?, val requiredEquipment: List<String>,
-    val bodyPart: String?, val movementPattern: String, val primaryMuscles: List<String>, val secondaryMuscles: List<String>, val minimumExperience: String?
+    val bodyPart: String?, val movementPattern: String, val primaryMuscles: List<String>, val secondaryMuscles: List<String>, val minimumExperience: String?,
+    val localizedName: String? = null, val localizedNameLanguage: String? = null, val localizedDescription: String? = null,
+    val localizedInstructions: List<String>? = null, val localizedTips: List<String>? = null
+)
+
+/** Text resolved by GET /api/v1/exercises/{id}/localized for the request language. */
+data class LocalizedExerciseText(
+    val requestedLanguage: String, val name: String, val description: String, val instructions: List<String>, val tips: List<String>,
+    val nameLanguage: String, val descriptionLanguage: String, val instructionsLanguage: String, val tipsLanguage: String,
+    val isCompleteForRequestedLanguage: Boolean, val missingFields: List<String>
 )
 
 data class ExerciseImageSlots(val slots: List<Int>, val attribution: String?)
