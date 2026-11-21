@@ -84,6 +84,18 @@ class NetworkModuleTest {
         assertTrue(seen.isEmpty())
     }
 
+    @Test fun `referral response log preserves JSON shape and redacts identifiers`() {
+        val logged = sanitizedReferralResponseBody(
+            """{"items":[{"id":"private-id","registeredAt":"2026-11-21T12:00:00Z","status":"registered","rewardDays":null}]}"""
+        )
+
+        assertTrue(logged.contains("\\"id\\":\\"<redacted>\\""))
+        assertTrue(logged.contains("\\"registeredAt\\":\\"2026-11-21T12:00:00Z\\""))
+        assertTrue(logged.contains("\\"status\\":\\"registered\\""))
+        assertTrue(logged.contains("\\"rewardDays\\":null"))
+        assertFalse(logged.contains("private-id"))
+    }
+
     @Test fun `authentication endpoints never get the bearer token added`() = runBlocking {
         val auth = NetworkModule(server.url("/").toString(), tokens, events, Gson()).create(AuthApi::class.java)
         server.enqueue(MockResponse().setBody("""{"accessToken":"a","refreshToken":"b"}"""))
