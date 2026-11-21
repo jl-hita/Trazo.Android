@@ -67,24 +67,36 @@ suspend fun <T> apiCall(block: suspend () -> Response<T>): ApiResult<T> {
  * subsequently cast that value to its DTO and crash outside the transport error boundary.
  */
 suspend fun <T> apiCallWithBody(operation: String, block: suspend () -> Response<T>): ApiResult<T> {
-    val response = try {
-        block()
+    try {
+        val response = block()
+        if (!response.isSuccessful) {
+            return ApiResult.Failure(
+                parseError(response.code(), response.errorBody()?.use { runCatching { it.string() }.getOrNull() })
+            )
+        }
+        val body = response.body()
+        if (body != null) return ApiResult.Success(body)
+
+        val error = IllegalStateException(
+            "$operation expected a response body but received HTTP ${response.code()}."
+        )
+        com.trazo.android.diagnostics.Diagnostics.report(error)
+        return ApiResult.Failure(
+            ApiError(ErrorKind.Unknown, code = "empty_response", httpStatus = response.code())
+        )
     } catch (e: kotlinx.coroutines.CancellationException) {
         throw e
     } catch (_: IOException) {
         return ApiResult.Failure(ApiError(ErrorKind.Network))
-    } catch (e: RuntimeException) {
-        com.trazo.android.diagnostics.Diagnostics.report(e)
-        return ApiResult.Failure(ApiError(ErrorKind.Unknown))
+    } catch (e: Exception) {
+        // Includes failures while reading errorBody()/body(), not just while Retrofit executes the request.
+        com.trazo.android.diagnostics.Diagnostics.report(
+            IllegalStateException("$operation failed during response handling.", e)
+        )
+        return ApiResult.Failure(
+            ApiError(ErrorKind.Unknown, code = operation.lowercase().replace(' ', '_'))
+        )
     }
-    if (!response.isSuccessful) {
-        return ApiResult.Failure(parseError(response.code(), response.errorBody()?.use { runCatching { it.string() }.getOrNull() }))
-    }
-    val body = response.body()
-    if (body != null) return ApiResult.Success(body)
-    val error = IllegalStateException("$operation expected a response body but received HTTP ${response.code()}.")
-    com.trazo.android.diagnostics.Diagnostics.report(error)
-    return ApiResult.Failure(ApiError(ErrorKind.Unknown, code = "empty_response", httpStatus = response.code()))
 }
 
 private val TRACE_ID = Regex("^[0-9A-Za-z:-]{8,64}$")
