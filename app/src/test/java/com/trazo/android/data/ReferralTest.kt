@@ -239,8 +239,9 @@ class ReferralScreenModelTest {
         val result = ReferralRepository(api).invitations()
 
         assertTrue(result is ApiResult.Failure)
-        assertEquals(ErrorKind.Unknown, (result as ApiResult.Failure).error.kind)
-        assertEquals("referral_invitations_retrofit_or_deserialization", result.error.code)
+        val failure = result as ApiResult.Failure
+        assertEquals(ErrorKind.Unknown, failure.error.kind)
+        assertEquals("referral_invitations_retrofit_or_deserialization", failure.error.code)
     }
 
     @Test fun `an invitation list containing an element of the wrong runtime type is isolated`() = runTest(dispatcher) {
@@ -253,8 +254,9 @@ class ReferralScreenModelTest {
         val result = ReferralRepository(api).invitations()
 
         assertTrue(result is ApiResult.Failure)
-        assertEquals(ErrorKind.Unknown, (result as ApiResult.Failure).error.kind)
-        assertEquals("referral_invitations_item_validation", result.error.code)
+        val failure = result as ApiResult.Failure
+        assertEquals(ErrorKind.Unknown, failure.error.kind)
+        assertEquals("referral_invitations_item_validation", failure.error.code)
     }
 
     @Test fun `no invitations yet is an empty list, not an error`() = runTest(dispatcher) {
