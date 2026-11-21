@@ -142,9 +142,17 @@ fun logRequest() = LogSessionRequest("Completed", sets = listOf(LogSetRequest("d
 
 class FakeExercisesApi : ExercisesApi {
     private val item = ExerciseListItem("db-bench-press", "Press banca con mancuernas", "Dumbbell bench press", "", "Beginner", "dumbbell", listOf("dumbbell"), "HorizontalPush", listOf("Chest"), emptyList(), "Beginner", false, false, 90)
+    var detailResponse: Response<ExerciseDetail> = Response.success(ExerciseDetail(
+        "db-bench-press", "Press de banca", "Bench press", "Descripción en español.", listOf("Coloca las manos."), listOf("Controla la bajada."),
+        "Beginner", "barbell", listOf("barbell"), "Chest", "HorizontalPush", listOf("Chest"), emptyList(), "Beginner"
+    ))
+    var localizedResponse: Response<LocalizedExerciseText> = Response.success(LocalizedExerciseText(
+        "en", "Bench press", "A chest exercise.", listOf("Set your hands."), listOf("Control the descent."),
+        "en", "en", "en", "en", true, emptyList()
+    ))
     override suspend fun search(q: String?, movementPattern: String?, difficulty: String?, experience: String?, equipment: String?, muscle: String?, page: Int, pageSize: Int): Response<ExercisePage> =
         Response.success(ExercisePage(listOf(item), page, pageSize, 1, 1))
-    override suspend fun detail(id: String): Response<ExerciseDetail> = TODO()
-    override suspend fun localizedDetail(id: String): Response<LocalizedExerciseText> = TODO()
+    override suspend fun detail(id: String): Response<ExerciseDetail> = detailResponse
+    override suspend fun localizedDetail(id: String): Response<LocalizedExerciseText> = localizedResponse
     override suspend fun images(id: String): Response<ExerciseImageSlots> = TODO()
 }
