@@ -53,7 +53,7 @@ class ReferralViewModel(private val repository: ReferralRepository) : ViewModel(
                 when (val result = me.await()) {
                     is ApiResult.Failure -> mainError = result.error
                     is ApiResult.Success -> {
-                        val value: Any? = result.value
+                        val value: Any? = (result as ApiResult.Success<*>).value
                         if (value is ReferralMe) {
                             _state.update { it.copy(me = value) }
                         } else {
