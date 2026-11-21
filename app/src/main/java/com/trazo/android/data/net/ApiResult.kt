@@ -60,7 +60,7 @@ suspend fun <T> apiCall(block: suspend () -> Response<T>): ApiResult<T> {
  * In particular, never manufacture `Unit as T` for a 204/205 response: the caller may
  * subsequently cast that value to its DTO and crash outside the transport error boundary.
  */
-suspend fun <T> apiCallWithBody(block: suspend () -> Response<T>): ApiResult<T> {
+suspend fun <T> apiCallWithBody(operation: String, block: suspend () -> Response<T>): ApiResult<T> {
     val response = try {
         block()
     } catch (e: kotlinx.coroutines.CancellationException) {
@@ -75,8 +75,10 @@ suspend fun <T> apiCallWithBody(block: suspend () -> Response<T>): ApiResult<T> 
         return ApiResult.Failure(parseError(response.code(), response.errorBody()?.use { runCatching { it.string() }.getOrNull() }))
     }
     val body = response.body()
-    return if (body != null) ApiResult.Success(body)
-    else ApiResult.Failure(ApiError(ErrorKind.Unknown, code = "empty_response", httpStatus = response.code()))
+    if (body != null) return ApiResult.Success(body)
+    val error = IllegalStateException("$operation expected a response body but received HTTP ${response.code()}.")
+    com.trazo.android.diagnostics.Diagnostics.report(error)
+    return ApiResult.Failure(ApiError(ErrorKind.Unknown, code = "empty_response", httpStatus = response.code()))
 }
 
 fun parseError(status: Int, body: String?): ApiError {
