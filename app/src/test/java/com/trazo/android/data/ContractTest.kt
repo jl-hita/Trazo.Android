@@ -117,4 +117,29 @@ class ContractTest {
         assertTrue(parseError(503, null).retryable)
         assertFalse(parseError(400, "{}").retryable)
     }
+
+    @Test fun `server problems carry the incident reference the app can show`() {
+        val trace = "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+        // The body the API writes for an unexpected error (RFC 9457 + stable code + traceId); `title` stays the stable code.
+        val boom = parseError(500, """{"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"server_error","status":500,"detail":"Error inesperado.","code":"server_error","traceId":"$trace"}""")
+        assertEquals(ErrorKind.Server, boom.kind)
+        assertEquals("server_error", boom.code)
+        assertEquals(trace, boom.traceId)
+        assertEquals("4bf92f3577b3", boom.reference)
+        assertTrue(boom.retryable)
+        // A temporarily unavailable service (503) is also retryable and also quotes its reference.
+        val unavailable = parseError(503, """{"title":"email_unavailable","status":503,"code":"email_unavailable","traceId":"$trace"}""")
+        assertEquals(ErrorKind.Server, unavailable.kind)
+        assertEquals("email_unavailable", unavailable.code)
+        assertEquals("4bf92f3577b3", unavailable.reference)
+        // The legacy { error, message } bodies of the server get the id too from the API (5xx only).
+        assertEquals("4bf92f3577b3", parseError(502, """{"error":"billing_unavailable","message":"m","traceId":"$trace"}""").reference)
+        // Nothing to quote: a proxy page, no id, or text that is not an id.
+        assertNull(parseError(503, "<html>").reference)
+        assertNull(parseError(500, """{"title":"server_error"}""").reference)
+        assertNull(parseError(500, """{"traceId":"<script>alert(1)</script>"}""").reference)
+        // Client errors keep working as before.
+        val conflict = parseError(409, """{"title":"conflict","status":409,"code":"conflict","traceId":"$trace"}""")
+        assertEquals(ErrorKind.Conflict, conflict.kind)
+    }
 }

@@ -18,6 +18,7 @@
     <!-- Errors -->
     <string name="err_network">Can\'t reach TRAZO. Check your connection and try again.</string>
     <string name="err_server">TRAZO is unavailable right now. Please try again in a few minutes.</string>
+    <string name="err_server_reference">%1$s (ref. %2$s)</string>
     <string name="err_unauthorized">Your session has expired. Please sign in again.</string>
     <string name="err_subscription">You need an active subscription to continue.</string>
     <string name="err_not_found">We couldn\'t find what you were looking for.</string>
