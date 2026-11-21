@@ -8,7 +8,7 @@ import com.trazo.android.testing.httpError
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
-import org.junit.AssertTrue
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ExerciseLocalizationTest {
