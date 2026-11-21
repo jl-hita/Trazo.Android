@@ -331,7 +331,7 @@
     <string name="plan_choice_manual_title">Manual plan</string>
     <string name="plan_choice_manual_desc">Build the days and exercises yourself. Free, always.</string>
     <string name="plan_choice_manual_b1">Full control of every routine</string>
-    <string name="plan_choice_manual_b2">No automatic adjustments</string>
+    <string name="plan_choice_manual_b2">With Premium, TRAZO adapts loads and volume to your progress</string>
     <string name="plan_choice_hint">Not sure? The automatic plan is the shortest way to start training.</string>
     <string name="manual_start">Create manual plan</string>
     <string name="onb_title_auto">Create automatic plan</string>
