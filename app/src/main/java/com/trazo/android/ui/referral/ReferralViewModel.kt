@@ -66,7 +66,7 @@ class ReferralViewModel(private val repository: ReferralRepository) : ViewModel(
                 when (val result = invitations.await()) {
                     is ApiResult.Failure -> listError = result.error
                     is ApiResult.Success -> {
-                        val value: Any? = result.value
+                        val value: Any? = (result as ApiResult.Success<*>).value
                         val items = value as? List<*>
                         if (items != null && items.all { it is ReferralInvitation }) {
                             @Suppress("UNCHECKED_CAST")
