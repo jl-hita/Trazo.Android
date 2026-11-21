@@ -2,10 +2,15 @@ package com.trazo.android.data.referral
 
 import android.content.Context
 import android.net.Uri
+import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
+import com.trazo.android.data.net.ErrorKind
 import com.trazo.android.data.net.apiCall
 import com.trazo.android.data.net.apiCallWithBody
+import com.trazo.android.diagnostics.Diagnostics
+import kotlinx.coroutines.CancellationException
 import retrofit2.Response
+import java.io.IOException
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -165,8 +170,76 @@ fun referralFor(typed: String?, pending: PendingReferral?): PendingReferral? {
 
 class ReferralRepository(private val api: ReferralApi) {
     suspend fun me(): ApiResult<ReferralMe> = apiCallWithBody("GET /api/v1/referrals/me") { api.me() }
-    suspend fun invitations(): ApiResult<List<ReferralInvitation>> = apiCallWithBody("GET /api/v1/referrals/invitations") { api.invitations() }.let {
-        when (it) { is ApiResult.Success -> ApiResult.Success(it.value.items); is ApiResult.Failure -> it }
+    /**
+     * Kept deliberately split into diagnostic stages while investigating referral crashes.
+     * Retrofit performs both the HTTP exchange and Gson conversion before returning its typed Response,
+     * so those two operations share the first boundary; DTO/list access and element casts are isolated below.
+     */
+    suspend fun invitations(): ApiResult<List<ReferralInvitation>> {
+        val response = try {
+            api.invitations()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: IOException) {
+            return ApiResult.Failure(ApiError(ErrorKind.Network))
+        } catch (e: Exception) {
+            return referralFailure("REFERRAL_INVITATIONS_RETROFIT_OR_DESERIALIZATION", e)
+        }
+
+        if (!response.isSuccessful) {
+            return ApiResult.Failure(
+                com.trazo.android.data.net.parseError(
+                    response.code(),
+                    response.errorBody()?.use { runCatching { it.string() }.getOrNull() }
+                )
+            )
+        }
+
+        val dto = try {
+            response.body() ?: run {
+                val error = IllegalStateException(
+                    "REFERRAL_INVITATIONS_RESPONSE_BODY: HTTP ${response.code()} returned no body."
+                )
+                Diagnostics.report(error)
+                return ApiResult.Failure(
+                    ApiError(ErrorKind.Unknown, code = "empty_response", httpStatus = response.code())
+                )
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return referralFailure("REFERRAL_INVITATIONS_RESPONSE_BODY_ACCESS", e)
+        }
+
+        val items = try {
+            dto.items
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return referralFailure("REFERRAL_INVITATIONS_ITEMS_ACCESS", e)
+        }
+
+        return try {
+            // Force every generic element cast here rather than letting a malformed item crash a later UI collector.
+            items.forEachIndexed { index, invitation ->
+                requireNotNull(invitation) {
+                    "REFERRAL_INVITATIONS_ITEM_VALIDATION: item[$index] was null."
+                }
+                invitation.id.length
+                invitation.registeredAt.length
+                invitation.status.length
+            }
+            ApiResult.Success(items)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            referralFailure("REFERRAL_INVITATIONS_ITEM_VALIDATION", e)
+        }
+    }
+
+    private fun referralFailure(stage: String, cause: Exception): ApiResult.Failure {
+        Diagnostics.report(IllegalStateException(stage, cause))
+        return ApiResult.Failure(ApiError(ErrorKind.Unknown, code = stage.lowercase()))
     }
     suspend fun rewards(): ApiResult<List<PremiumGrant>> = apiCallWithBody("GET /api/v1/referrals/rewards") { api.rewards() }.let {
         when (it) { is ApiResult.Success -> ApiResult.Success(it.value.items); is ApiResult.Failure -> it }
