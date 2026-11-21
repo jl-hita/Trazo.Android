@@ -71,14 +71,61 @@ object Labels {
     )
     private val equipment = Dict(
         mapOf(
-            "barbell" to "Barra", "dumbbell" to "Mancuernas", "bench" to "Banco", "cable" to "Polea", "kettlebell" to "Pesa rusa",
-            "bodyweight" to "Peso corporal", "band" to "Banda elástica", "resistance-band" to "Banda elástica", "pull-up-bar" to "Barra de dominadas", "low-row-bar" to "Barra baja para remo", "rack" to "Rack", "squat-rack" to "Jaula de sentadillas", "smith-machine" to "Máquina Smith", "leg-press-machine" to "Prensa de piernas", "dip-station" to "Estación de fondos", "ab-wheel" to "Rueda abdominal", "step" to "Escalón o plataforma", "ez-bar" to "Barra Z"
+            "barbell" to "Barra", "dumbbell" to "Mancuernas", "kettlebell" to "Pesa rusa", "cable" to "Polea / estación de cables",
+            "bench" to "Banco de musculación", "squat-rack" to "Jaula o rack de sentadillas", "pull-up-bar" to "Barra de dominadas",
+            "low-row-bar" to "Barra baja para remo", "bodyweight" to "Peso corporal", "body-only" to "Peso corporal",
+            "band" to "Banda elástica", "bands" to "Bandas elásticas", "resistance-band" to "Banda elástica",
+            "ez-bar" to "Barra Z", "trap-bar" to "Barra hexagonal", "smith-machine" to "Máquina Smith",
+            "leg-press-machine" to "Prensa de piernas", "hack-squat-machine" to "Máquina de sentadilla hack",
+            "leg-curl-machine" to "Máquina de curl femoral", "leg-extension-machine" to "Máquina de extensión de piernas",
+            "dip-station" to "Estación de fondos / paralelas", "captains-chair" to "Silla romana",
+            "ab-wheel" to "Rueda abdominal", "step" to "Cajón o plataforma", "stability-ball" to "Fitball / balón de estabilidad",
+            "medicine-ball" to "Balón medicinal", "exercise-ball" to "Fitball", "rings" to "Anillas",
+            "dip-bar" to "Barras paralelas", "trx" to "TRX", "suspension-trainer" to "Entrenador de suspensión",
+            "rower" to "Máquina de remo", "glute-ham-developer" to "Banco GHD (glute-ham developer)",
+            "landmine" to "Anclaje landmine para barra", "t-bar-row-handle" to "Asa para remo en T",
+            "preacher-curl-bench" to "Banco Scott", "other" to "Otro",
+            "assisted-pull-up-machine" to "Máquina de dominadas asistidas", "chest-press-machine" to "Máquina de press de pecho",
+            "seated-row-machine" to "Máquina de remo sentado", "hip-abduction-machine" to "Máquina de abductores",
+            "hip-adduction-machine" to "Máquina de aductores", "back-extension-machine" to "Máquina de extensión lumbar",
+            "bicep-curl-machine" to "Máquina de curl de bíceps", "standing-calf-raise-machine" to "Máquina de gemelos de pie",
+            "seated-calf-raise-machine" to "Máquina de gemelos sentado", "chest-fly-machine" to "Máquina de aperturas de pecho",
+            "reverse-fly-machine" to "Máquina de aperturas inversas", "ab-crunch-machine" to "Máquina de abdominales",
+            "shoulder-press-machine" to "Máquina de press de hombros", "pec-deck" to "Pec deck",
+            "hip-thrust-machine" to "Máquina de hip thrust",
+            "plate-loaded-lateral-raise-machine" to "Máquina de elevaciones laterales",
+            "lat-pulldown-machine" to "Máquina de jalón al pecho"
         ),
         mapOf(
-            "barbell" to "Barbell", "dumbbell" to "Dumbbells", "bench" to "Bench", "cable" to "Cable", "kettlebell" to "Kettlebell",
-            "bodyweight" to "Bodyweight", "band" to "Resistance band", "resistance-band" to "Resistance band", "pull-up-bar" to "Pull-up bar", "low-row-bar" to "Low row bar", "rack" to "Rack", "squat-rack" to "Squat rack", "smith-machine" to "Smith machine", "leg-press-machine" to "Leg press machine", "dip-station" to "Dip station", "ab-wheel" to "Ab wheel", "step" to "Step / stable platform", "ez-bar" to "EZ bar"
+            "barbell" to "Barbell", "dumbbell" to "Dumbbells", "kettlebell" to "Kettlebell", "cable" to "Cable station",
+            "bench" to "Weight bench", "squat-rack" to "Squat rack", "pull-up-bar" to "Pull-up bar",
+            "low-row-bar" to "Low horizontal row bar", "bodyweight" to "Bodyweight", "body-only" to "Bodyweight",
+            "band" to "Resistance band", "bands" to "Resistance bands", "resistance-band" to "Resistance band",
+            "ez-bar" to "EZ bar", "trap-bar" to "Trap bar / hex bar", "smith-machine" to "Smith machine",
+            "leg-press-machine" to "Leg press machine", "hack-squat-machine" to "Hack squat machine",
+            "leg-curl-machine" to "Leg curl machine", "leg-extension-machine" to "Leg extension machine",
+            "dip-station" to "Dip station / parallel bars", "captains-chair" to "Captain's chair",
+            "ab-wheel" to "Ab wheel", "step" to "Plyometric box / step", "stability-ball" to "Stability ball",
+            "medicine-ball" to "Medicine ball", "exercise-ball" to "Exercise ball", "rings" to "Gymnastics rings",
+            "dip-bar" to "Dip bars", "trx" to "TRX", "suspension-trainer" to "Suspension trainer",
+            "rower" to "Rowing machine", "glute-ham-developer" to "Glute-ham developer (GHD)",
+            "landmine" to "Barbell landmine attachment", "t-bar-row-handle" to "T-bar row handle",
+            "preacher-curl-bench" to "Preacher curl bench", "other" to "Other",
+            "assisted-pull-up-machine" to "Assisted pull-up machine", "chest-press-machine" to "Chest press machine",
+            "seated-row-machine" to "Seated row machine", "hip-abduction-machine" to "Hip abduction machine",
+            "hip-adduction-machine" to "Hip adduction machine", "back-extension-machine" to "Back extension machine",
+            "bicep-curl-machine" to "Biceps curl machine", "standing-calf-raise-machine" to "Standing calf raise machine",
+            "seated-calf-raise-machine" to "Seated calf raise machine", "chest-fly-machine" to "Chest fly machine",
+            "reverse-fly-machine" to "Reverse fly machine", "ab-crunch-machine" to "Ab crunch machine",
+            "shoulder-press-machine" to "Shoulder press machine", "pec-deck" to "Pec deck",
+            "hip-thrust-machine" to "Hip thrust machine",
+            "plate-loaded-lateral-raise-machine" to "Plate-loaded lateral raise machine",
+            "lat-pulldown-machine" to "Lat pulldown machine"
         )
     )
+    /** All equipment codes supported by the backend catalog, used to keep vocabulary coverage testable. */
+    val allEquipment = equipment.es.keys.toList()
+    val allEquipmentEnglish = equipment.en.keys.toList()
     private val difficulty = Dict(
         mapOf("Beginner" to "Principiante", "Intermediate" to "Intermedio", "Advanced" to "Avanzado", "Easy" to "Fácil", "Hard" to "Difícil"),
         mapOf("Beginner" to "Beginner", "Intermediate" to "Intermediate", "Advanced" to "Advanced", "Easy" to "Easy", "Hard" to "Hard")

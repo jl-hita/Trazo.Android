@@ -88,16 +88,22 @@ private fun ExerciseRow(item: ExerciseListItem, onClick: () -> Unit) {
 fun ExerciseDetailScreen(viewModel: ExerciseDetailViewModel, onBack: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
-        TrazoTopBar(state.detail?.let { Labels.localName(it.nameEs, it.nameEn) } ?: stringResource(R.string.catalog_title), onBack)
+        TrazoTopBar(state.detail?.let { it.localizedName ?: Labels.localName(it.nameEs, it.nameEn) } ?: stringResource(R.string.catalog_title), onBack)
         val d = state.detail
         when {
             state.loading -> LoadingBox()
             d == null -> ErrorBox(state.error ?: com.trazo.android.data.net.ApiError(com.trazo.android.data.net.ErrorKind.Unknown), viewModel::load)
             else -> Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(Labels.localName(d.nameEs, d.nameEn), style = MaterialTheme.typography.headlineSmall)
-                d.nameEn?.takeIf { it.isNotBlank() }?.let { Text(Labels.otherName(d.nameEs, it) ?: it, color = TrazoPalette.Muted) }
-                ExerciseGallery(state.imageUrls, d.nameEs, state.attribution)
-                d.descriptionEs?.takeIf { it.isNotBlank() }?.let { Text(it) }
+                val displayName = d.localizedName ?: Labels.localName(d.nameEs, d.nameEn)
+                Text(displayName, style = MaterialTheme.typography.headlineSmall)
+                val alternateName = when (d.localizedNameLanguage) {
+                    "en" -> d.nameEs
+                    "es" -> d.nameEn
+                    else -> Labels.otherName(d.nameEs, d.nameEn)
+                }
+                alternateName?.takeIf { it.isNotBlank() && it != displayName }?.let { Text(it, color = TrazoPalette.Muted) }
+                ExerciseGallery(state.imageUrls, displayName, state.attribution)
+                (d.localizedDescription ?: d.descriptionEs)?.takeIf { it.isNotBlank() }?.let { Text(it) }
                 SectionTitle(stringResource(R.string.exercise_primary))
                 Text(Labels.muscles(d.primaryMuscles))
                 if (d.secondaryMuscles.isNotEmpty()) {
@@ -108,13 +114,15 @@ fun ExerciseDetailScreen(viewModel: ExerciseDetailViewModel, onBack: () -> Unit)
                 Text(d.requiredEquipment.takeIf { it.isNotEmpty() }?.joinToString(", ") { Labels.equipment(it) } ?: stringResource(R.string.exercise_no_equipment))
                 SectionTitle(stringResource(R.string.exercise_level))
                 Text(Labels.difficulty(d.difficulty) + " · " + Labels.pattern(d.movementPattern))
-                if (d.instructionsEs.isNotEmpty()) {
+                val instructions = d.localizedInstructions ?: d.instructionsEs
+                if (instructions.isNotEmpty()) {
                     SectionTitle(stringResource(R.string.exercise_instructions))
-                    d.instructionsEs.forEachIndexed { i, step -> Text("${i + 1}. $step") }
+                    instructions.forEachIndexed { i, step -> Text("${i + 1}. $step") }
                 }
-                if (d.tipsEs.isNotEmpty()) {
+                val tips = d.localizedTips ?: d.tipsEs
+                if (tips.isNotEmpty()) {
                     SectionTitle(stringResource(R.string.exercise_tips))
-                    d.tipsEs.forEach { Text("• $it") }
+                    tips.forEach { Text("• $it") }
                 }
             }
         }

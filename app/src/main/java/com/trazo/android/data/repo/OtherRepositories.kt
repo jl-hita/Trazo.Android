@@ -34,7 +34,21 @@ class ExerciseRepository(private val api: ExercisesApi, private val baseUrl: Str
         )
     }
 
-    suspend fun detail(id: String): ApiResult<ExerciseDetail> = apiCall { api.detail(id) }
+    suspend fun detail(id: String): ApiResult<ExerciseDetail> {
+        val base = apiCall { api.detail(id) }
+        if (base !is ApiResult.Success) return base
+        // Keep the catalogue usable against an older backend, but use server-resolved text whenever available.
+        return when (val localized = apiCall { api.localizedDetail(id) }) {
+            is ApiResult.Success -> ApiResult.Success(base.value.copy(
+                localizedName = localized.value.name,
+                localizedNameLanguage = localized.value.nameLanguage,
+                localizedDescription = localized.value.description,
+                localizedInstructions = localized.value.instructions,
+                localizedTips = localized.value.tips
+            ))
+            is ApiResult.Failure -> base
+        }
+    }
 }
 
 /** Counts how often, and from where, the Premium offer is opened. Best effort: a failure is never shown or retried. */
