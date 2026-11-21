@@ -125,6 +125,7 @@ object Labels {
     )
     /** All equipment codes supported by the backend catalog, used to keep vocabulary coverage testable. */
     val allEquipment = equipment.es.keys.toList()
+    val allEquipmentEnglish = equipment.en.keys.toList()
     private val difficulty = Dict(
         mapOf("Beginner" to "Principiante", "Intermediate" to "Intermedio", "Advanced" to "Avanzado", "Easy" to "Fácil", "Hard" to "Difícil"),
         mapOf("Beginner" to "Beginner", "Intermediate" to "Intermediate", "Advanced" to "Advanced", "Easy" to "Easy", "Hard" to "Hard")
