@@ -24,8 +24,9 @@ TRAZO helps lifters follow a structured programme, record each session and track
 - **Exercise catalogue.** Browse and filter exercises, inspect details and replace an exercise with a suitable alternative.
 - **Flexible scheduling.** Plans can use a calendar or rotate sessions in sequence, without fixed weekdays.
 - **Account and communication.** Email/password and Google sign-in, email verification, password recovery, optional TOTP two-factor authentication, review requests and conversations.
-- **Notifications.** Firebase Cloud Messaging delivers account and review updates. Firebase configuration is supplied by the API at runtime.
-- **Language support.** Spanish and English, including language negotiation with the API and a user-selectable preference.
+- **Referrals and subscriptions.** Referral invitations and reward status, with Google Play Billing integration and subscription access controlled by the backend. Paid access enforcement is configurable and is off by default.
+- **Notifications.** Firebase Cloud Messaging delivers review updates and announcements. Firebase configuration is supplied by the API at runtime.
+- **Language support.** Spanish and English UI, with language negotiation and localised exercise and equipment details from the API.
 
 ## Technical overview
 
@@ -41,6 +42,7 @@ TRAZO helps lifters follow a structured programme, record each session and track
 | Local protection | Android Keystore-backed token storage |
 | Push | Firebase Cloud Messaging |
 | Distribution | Google Play App Bundle, R8 |
+| Minimum Android version | Android 8.0 (API 26) |
 
 The application uses a versioned REST API. The backend owns the training rules and validates subscription access; the Android client is responsible for interaction, local workout state and presenting the server's responses.
 
