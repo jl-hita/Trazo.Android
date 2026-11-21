@@ -216,6 +216,21 @@ class ReferralScreenModelTest {
         assertTrue(vm.state.value.invitations.isEmpty())
     }
 
+    @Test fun `an empty rewards response does not crash or hide the referral screen`() = runTest(dispatcher) {
+        val api = FakeReferralApi().apply { rewards = { Response.success(204, null) } }
+        val vm = ReferralViewModel(ReferralRepository(api))
+        advanceUntilIdle()
+
+        val state = vm.state.value
+        assertFalse(state.loading)
+        assertEquals("ABCD2345", state.me?.code)
+        assertEquals(2, state.invitations.size)
+        assertTrue(state.grants.isEmpty())
+        assertEquals(ErrorKind.Unknown, state.listError?.kind)
+        assertEquals("empty_response", state.listError?.code)
+        assertEquals(204, state.listError?.httpStatus)
+    }
+
     @Test fun `no invitations yet is an empty list, not an error`() = runTest(dispatcher) {
         val api = FakeReferralApi().apply {
             me = { Response.success(ReferralMe(true, 30, "ABCD2345", "l", ReferralStats())) }
