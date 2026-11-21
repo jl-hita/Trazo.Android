@@ -90,6 +90,61 @@ class TokenAuthenticator(
     }
 }
 
+
+/**
+ * Temporary, endpoint-scoped diagnostics for the referral invitations crash.
+ *
+ * Logs the actual response JSON shape before Retrofit/Gson consumes it. Opaque identifiers and
+ * account-like values are redacted; field names, JSON types, statuses and timestamps remain visible.
+ * The log is local to the device (Logcat), bounded, and never uploaded.
+ */
+internal fun sanitizedReferralResponseBody(body: String): String {
+    val sensitiveKeys = setOf("id", "userid", "code", "link", "email", "name", "token", "accesstoken", "refreshtoken")
+    fun sanitize(element: com.google.gson.JsonElement): com.google.gson.JsonElement = when {
+        element.isJsonObject -> com.google.gson.JsonObject().also { target ->
+            element.asJsonObject.entrySet().forEach { (key, value) ->
+                val normalized = key.lowercase().filter { it.isLetterOrDigit() }
+                target.add(key, if (normalized in sensitiveKeys) com.google.gson.JsonPrimitive("<redacted>") else sanitize(value))
+            }
+        }
+        element.isJsonArray -> com.google.gson.JsonArray().also { target ->
+            element.asJsonArray.forEach { target.add(sanitize(it)) }
+        }
+        else -> element.deepCopy()
+    }
+    return try {
+        Gson().toJson(sanitize(com.google.gson.JsonParser.parseString(body)))
+    } catch (_: Exception) {
+        "<non-JSON response; chars=${body.length}>"
+    }
+}
+
+class ReferralResponseLogInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        if (request.method != "GET" || !request.url.encodedPath.endsWith("/api/v1/referrals/invitations")) {
+            return chain.proceed(request)
+        }
+
+        val response = chain.proceed(request)
+        val body = runCatching { response.peekBody(MAX_LOG_BYTES).string() }.getOrNull()
+        val contentLength = response.body?.contentLength() ?: -1L
+        val preview = body?.let(::sanitizedReferralResponseBody) ?: "<body unavailable>"
+        android.util.Log.i(
+            TAG,
+            "GET /api/v1/referrals/invitations HTTP ${response.code}; contentType=${response.header("Content-Type")}; " +
+                "contentLength=$contentLength; bodyPreview=${preview.take(MAX_LOG_CHARS)}"
+        )
+        return response
+    }
+
+    private companion object {
+        const val TAG = "TRAZO_REFERRAL"
+        const val MAX_LOG_BYTES = 16L * 1024L
+        const val MAX_LOG_CHARS = 8 * 1024
+    }
+}
+
 class NetworkModule(
     baseUrl: String,
     tokens: TokenStore,
