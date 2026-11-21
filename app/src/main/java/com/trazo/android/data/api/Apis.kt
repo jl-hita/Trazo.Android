@@ -62,6 +62,7 @@ interface ExercisesApi {
     ): Response<ExercisePage>
 
     @GET("api/v1/exercises/{id}") suspend fun detail(@Path("id") id: String): Response<ExerciseDetail>
+    @GET("api/v1/exercises/{id}/localized") suspend fun localizedDetail(@Path("id") id: String): Response<LocalizedExerciseText>
     @GET("api/v1/exercises/{id}/images") suspend fun images(@Path("id") id: String): Response<ExerciseImageSlots>
 }
 
