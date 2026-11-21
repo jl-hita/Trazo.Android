@@ -164,7 +164,8 @@ class NetworkModule(
     private val plainAuthApi: AuthApi = retrofit(baseClient().build()).create(AuthApi::class.java)
 
     val client: OkHttpClient = baseClient()
-        .addInterceptor(ReferralResponseLogInterceptor())\n        .addInterceptor(AuthInterceptor(tokens))
+        .addInterceptor(ReferralResponseLogInterceptor())
+        .addInterceptor(AuthInterceptor(tokens))
         .authenticator(TokenAuthenticator(tokens, plainAuthApi, events))
         .build()
 
