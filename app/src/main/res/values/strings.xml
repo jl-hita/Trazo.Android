@@ -335,7 +335,7 @@
     <string name="plan_choice_manual_title">Plan manual</string>
     <string name="plan_choice_manual_desc">Monta tú los días y los ejercicios. Gratis siempre.</string>
     <string name="plan_choice_manual_b1">Control total de cada rutina</string>
-    <string name="plan_choice_manual_b2">Sin ajustes automáticos</string>
+    <string name="plan_choice_manual_b2">Con Premium, TRAZO adapta las cargas y el volumen a tu progreso</string>
     <string name="plan_choice_hint">¿Dudas? El plan automático es el camino más corto para empezar a entrenar.</string>
     <string name="manual_start">Crear plan manual</string>
     <string name="onb_title_auto">Crear plan automático</string>
