@@ -281,7 +281,7 @@ class ReferralRepository(private val api: ReferralApi) {
         return when (result) {
             is ApiResult.Failure -> result
             is ApiResult.Success -> try {
-                val payload: Any? = result.value
+                val payload: Any? = (result as ApiResult.Success<*>).value
                 if (payload !is PremiumGrants) {
                     referralFailure(
                         "REFERRAL_REWARDS_RESPONSE_TYPE",
