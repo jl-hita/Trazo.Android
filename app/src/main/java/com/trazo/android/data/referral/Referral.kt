@@ -169,7 +169,42 @@ fun referralFor(typed: String?, pending: PendingReferral?): PendingReferral? {
 }
 
 class ReferralRepository(private val api: ReferralApi) {
-    suspend fun me(): ApiResult<ReferralMe> = apiCallWithBody("GET /api/v1/referrals/me") { api.me() }
+    suspend fun me(): ApiResult<ReferralMe> {
+        val result = apiCallWithBody("GET /api/v1/referrals/me") { api.me() }
+        return when (result) {
+            is ApiResult.Failure -> result
+            is ApiResult.Success -> try {
+                // Read through the wildcard type first: malformed generic Retrofit payloads must not trigger
+                // an implicit ClassCastException at the ViewModel call site.
+                val payload: Any? = (result as ApiResult.Success<*>).value
+                if (payload !is ReferralMe) {
+                    referralFailure(
+                        "REFERRAL_ME_RESPONSE_TYPE",
+                        ClassCastException("Expected ReferralMe but received ${payload?.javaClass?.name ?: "null"}.")
+                    )
+                } else {
+                    payload.enabled
+                    payload.rewardDays
+                    payload.code?.length
+                    payload.link?.length
+                    payload.stats?.let { stats ->
+                        stats.invited
+                        stats.pending
+                        stats.converted
+                        stats.rewards
+                        stats.daysEarned
+                        stats.daysPending
+                        stats.daysDeferred
+                    }
+                    ApiResult.Success(payload)
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                referralFailure("REFERRAL_ME_RESPONSE_VALIDATION", e)
+            }
+        }
+    }
     /**
      * Kept deliberately split into diagnostic stages while investigating referral crashes.
      * Retrofit performs both the HTTP exchange and Gson conversion before returning its typed Response,
@@ -241,8 +276,36 @@ class ReferralRepository(private val api: ReferralApi) {
         Diagnostics.report(IllegalStateException(stage, cause))
         return ApiResult.Failure(ApiError(ErrorKind.Unknown, code = stage.lowercase()))
     }
-    suspend fun rewards(): ApiResult<List<PremiumGrant>> = apiCallWithBody("GET /api/v1/referrals/rewards") { api.rewards() }.let {
-        when (it) { is ApiResult.Success -> ApiResult.Success(it.value.items); is ApiResult.Failure -> it }
+    suspend fun rewards(): ApiResult<List<PremiumGrant>> {
+        val result = apiCallWithBody("GET /api/v1/referrals/rewards") { api.rewards() }
+        return when (result) {
+            is ApiResult.Failure -> result
+            is ApiResult.Success -> try {
+                val payload: Any? = (result as ApiResult.Success<*>).value
+                if (payload !is PremiumGrants) {
+                    referralFailure(
+                        "REFERRAL_REWARDS_RESPONSE_TYPE",
+                        ClassCastException("Expected PremiumGrants but received ${payload?.javaClass?.name ?: "null"}.")
+                    )
+                } else {
+                    val items: Any? = payload.items
+                    val grants = items as? List<*>
+                    if (grants == null || grants.any { it !is PremiumGrant }) {
+                        referralFailure(
+                            "REFERRAL_REWARDS_ITEM_VALIDATION",
+                            ClassCastException("Expected a list of PremiumGrant items.")
+                        )
+                    } else {
+                        @Suppress("UNCHECKED_CAST")
+                        ApiResult.Success(grants as List<PremiumGrant>)
+                    }
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                referralFailure("REFERRAL_REWARDS_RESPONSE_VALIDATION", e)
+            }
+        }
     }
 
     /** Best effort counter: the share sheet was opened. The app cannot know whether anyone received the invitation. */

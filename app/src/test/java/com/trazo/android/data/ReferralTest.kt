@@ -231,6 +231,36 @@ class ReferralScreenModelTest {
         assertEquals(204, state.listError?.httpStatus)
     }
 
+    @Test fun `a malformed me payload is isolated and does not prevent the other referral calls`() = runTest(dispatcher) {
+        val api = FakeReferralApi().apply {
+            @Suppress("UNCHECKED_CAST")
+            me = { Response.success("not a ReferralMe") as Response<ReferralMe> }
+        }
+
+        val vm = ReferralViewModel(ReferralRepository(api))
+        advanceUntilIdle()
+
+        val state = vm.state.value
+        assertFalse(state.loading)
+        assertFalse(state.refreshing)
+        assertNotNull(state.error)
+        assertEquals(2, state.invitations.size)
+        assertEquals(1, state.grants.size)
+    }
+
+    @Test fun `a malformed rewards item becomes a controlled list failure`() = runTest(dispatcher) {
+        @Suppress("UNCHECKED_CAST")
+        val malformed = listOf("not a PremiumGrant") as List<PremiumGrant>
+        val api = FakeReferralApi().apply {
+            rewards = { Response.success(PremiumGrants(malformed)) }
+        }
+
+        val result = ReferralRepository(api).rewards()
+
+        assertTrue(result is ApiResult.Failure)
+        assertEquals("referral_rewards_item_validation", (result as ApiResult.Failure).error.code)
+    }
+
     @Test fun `a ClassCastException during the Retrofit invitation call becomes a diagnostic failure`() = runTest(dispatcher) {
         val api = FakeReferralApi().apply {
             invitations = { throw ClassCastException("unexpected Retrofit response type") }
