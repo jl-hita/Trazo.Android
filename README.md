@@ -1,80 +1,58 @@
-# TRAZO Android
+# TRAZO for Android
 
-Native Kotlin + Jetpack Compose client for the TRAZO strength-training platform. The ASP.NET Core API and Angular administration application live in [jl-hita/Trazo](https://github.com/jl-hita/Trazo).
+**A native strength-training app, backed by a training engine that adapts as you train.**
 
-## Current capabilities
+TRAZO helps lifters follow a structured programme, record each session and track progress over time. The Android app is the mobile client for the TRAZO platform; plan generation, progression rules and account entitlements are handled by the backend.
 
-- Email/password registration and login.
-- Email verification and password-recovery deep links.
-- Google Sign-In using Credential Manager and a Google Web OAuth client ID.
-- TOTP two-factor enrollment, challenge verification, recovery codes and disable flow.
-- Access and refresh tokens protected with Android Keystore.
-- Refresh-token rotation, authenticated current-user lookup and server-side logout.
-- Training plans, weekly schedule and workout sessions.
-- Set logging, rest timer, exercise substitution and exercise catalog.
-- Flexible registration: a workout is dated when it happened (today, yesterday or any earlier day), not when it is sent; the date and a request id are fixed once, so retries and the offline queue never change them. Sessions of past days can be logged at any time.
-- Next session: the backend decides which session comes next (program order, whatever its date) and, with Premium, whether the muscles are recovered, with alternatives. The app only shows it.
-- Language and time zone: every API call sends `Accept-Language` (Spanish unless the device is English) and `X-Time-Zone`, so the backend answers in the user's language and "today" is the user's day.
-- Reschedule: when a calendar plan falls at least a week behind, the next-session card offers to move what is pending to this week (weekdays kept); after a long absence the backend lightens the first session and the card shows its message.
-- Language: the user chooses Automatic (the device's), Spanish or English in Account. It is kept on the device, told to the server (`PUT account/language`, so e-mails and notifications follow it) and adopted from the server when signing in on another device.
-- Manual plans in sequence mode: routines that rotate in order (add, reorder, remove; no weekdays), created and edited from the app when the server offers the mode.
-- Asynchronous split: plans with no fixed days that advance by the order of their sessions (`schedulingMode: "Sequence"`); sessions have no dates, only a place in the program.
-- Workout history, local drafts and pending workout records.
-- Account and subscription screens.
-- Manual plan-review requests and conversations.
-- Push notifications (Firebase Cloud Messaging) for review replies and announcements. Firebase is started at run time with options the API serves (set by the superadmin in Settings), so the app has no google-services.json. See the backend's docs/push-notifications.md.
+[Backend and administration repository](https://github.com/jl-hita/Trazo)
 
-## Requirements
+## In the app
 
-- JDK 17
-- Android SDK 36
-- Gradle 8.13 (use the Gradle wrapper where available)
-- A reachable TRAZO API for authenticated and server-backed flows
+<p align="center">
+  <img src="landing-screenshots/en/02-plan.png" width="190" alt="Training plan" />
+  <img src="landing-screenshots/en/03-session.png" width="190" alt="Workout session" />
+  <img src="landing-screenshots/en/18-adaptation.png" width="190" alt="Training adaptation" />
+  <img src="landing-screenshots/en/19-progress.png" width="190" alt="Training progress" />
+</p>
 
-## API endpoint configuration
+## What it does
 
-The API endpoint is configurable without source changes. The debug default is `http://10.0.2.2:5001/` (Android emulator to the development computer).
+- **Personalised plans.** A guided setup captures training goal, experience, weekly availability, session length, equipment and limitations. The server generates the programme and decides what comes next.
+- **Structured training.** Macrocycle phases, training blocks, weekly schedules and exercise prescriptions are presented in the app.
+- **Workout tracking.** Record sets, repetitions, loads, RIR and session feedback. Workouts can be logged for the day they actually took place, including previous days.
+- **Progression and adaptation.** The backend uses training history and feedback to adjust upcoming loads, volume and intensity. The app displays those decisions and their context.
+- **Exercise catalogue.** Browse and filter exercises, inspect details and replace an exercise with a suitable alternative.
+- **Flexible scheduling.** Plans can use a calendar or rotate sessions in sequence, without fixed weekdays.
+- **Account and communication.** Email/password and Google sign-in, email verification, password recovery, optional TOTP two-factor authentication, review requests and conversations.
+- **Notifications.** Firebase Cloud Messaging delivers account and review updates. Firebase configuration is supplied by the API at runtime.
+- **Language support.** Spanish and English, including language negotiation with the API and a user-selectable preference.
 
-Configure scheme, host and port separately:
+## Technical overview
 
-```bash
-./gradlew --no-daemon :app:assembleDebug \
-  -PapiScheme=https \
-  -PapiHost=jlhitap.duckdns.org \
-  -PapiPort=443
-```
+| Area | Implementation |
+| --- | --- |
+| Language | Kotlin |
+| UI | Jetpack Compose, Material 3 |
+| Networking | Retrofit, OkHttp |
+| Async work | Kotlin Coroutines |
+| Navigation | Navigation Compose |
+| State and lifecycle | AndroidX Lifecycle |
+| Authentication | Credential Manager, Google Identity, JWT |
+| Local protection | Android Keystore-backed token storage |
+| Push | Firebase Cloud Messaging |
+| Distribution | Google Play App Bundle, R8 |
 
-For a non-standard port, set e.g. `-PapiPort=8443`. For local/private LAN testing over HTTP, use `-PapiScheme=http -PapiHost=192.168.1.20 -PapiPort=5001`. Cleartext HTTP is allowed only in debug builds. Release builds require HTTPS.
+The application uses a versioned REST API. The backend owns the training rules and validates subscription access; the Android client is responsible for interaction, local workout state and presenting the server's responses.
 
-You can also configure a path prefix using `-PapiBasePath=/trazo-api/`, if the reverse proxy routes the API below a path. The path must be supported by the server's proxy/path-base configuration.
+## Local development
 
-Alternatively pass the complete URL with `-PapiBaseUrl=https://jlhitap.duckdns.org:443/`; this takes precedence over scheme/host/port. Include the trailing slash.
+### Requirements
 
-**Release builds must be configured with the real HTTPS API endpoint.** Do not publish a build using the placeholder/default endpoint.
-
-## Google Sign-In configuration
-
-Create a Web application OAuth client and configure its ID as `Authentication__Google__ClientId` on the API and as `googleWebClientId` in the Android build:
-
-```bash
-./gradlew --no-daemon :app:assembleDebug \
-  -PapiScheme=https \
-  -PapiHost=jlhitap.duckdns.org \
-  -PapiPort=443 \
-  -PgoogleWebClientId=YOUR_WEB_CLIENT_ID.apps.googleusercontent.com
-```
-
-Also create an Android OAuth client for package `com.trazo.android` with the SHA-1 fingerprint of the certificate used to sign the installed APK. Never embed a Google client secret in Android.
-
-## Authentication and local data
-
-Access and refresh tokens are encrypted using Android Keystore-backed storage. The app also keeps local workout data, drafts and pending records so an interrupted or offline workout is not immediately lost.
-
-**Important:** local workout/cache files are currently stored in the app's private storage as JSON and are not encrypted at rest by the same mechanism as the tokens. Do not interpret token encryption as encryption of all locally stored user data. Review this limitation before using the app with sensitive personal data.
-
-Pending workout records are retried when the relevant app flows request synchronization. This is not yet a guaranteed WorkManager-based background synchronization service; users should allow the app to reconnect and synchronize while it is active.
-
-## Build and tests
+- Android Studio with a compatible Android Gradle Plugin (the project currently uses AGP 9.2.1).
+- JDK 17.
+- Android SDK 36.
+- The Gradle wrapper included in this repository.
+- A reachable TRAZO API for authenticated and server-backed features.
 
 Build the debug APK:
 
@@ -82,16 +60,71 @@ Build the debug APK:
 ./gradlew --no-daemon :app:assembleDebug
 ```
 
-Run local unit tests:
+Run unit tests:
 
 ```bash
 ./gradlew --no-daemon :app:testDebugUnitTest
 ```
 
-GitHub Actions runs the unit-test task and assembles the debug application. These checks do not constitute a full instrumented end-to-end test on a physical device.
+### API endpoint
 
-## Release and secrets
+The debug build defaults to the Android emulator's host bridge:
 
-See [docs/release.md](docs/release.md) and [docs/configuration.md](docs/configuration.md) for signing, release configuration, API settings, emulator/physical-device setup and deep links.
+```text
+http://10.0.2.2:5001/
+```
 
-No API credentials, Google client secrets, SMTP credentials or signing secrets should be committed. Keep signing material and private credentials in local secure storage or the CI secret store.
+You can override the endpoint without changing source code:
+
+```bash
+./gradlew --no-daemon :app:assembleDebug \
+  -PapiScheme=https \
+  -PapiHost=your-api-host.example \
+  -PapiPort=443
+```
+
+Or provide a complete base URL:
+
+```bash
+./gradlew --no-daemon :app:assembleDebug \
+  -PapiBaseUrl=https://your-api-host.example/
+```
+
+Cleartext HTTP is restricted to debug builds. Release builds require HTTPS and must be compiled with the intended API endpoint.
+
+### Google Sign-In
+
+Configure a Web OAuth client ID as `googleWebClientId`:
+
+```bash
+./gradlew --no-daemon :app:assembleDebug \
+  -PgoogleWebClientId=YOUR_WEB_CLIENT_ID.apps.googleusercontent.com
+```
+
+The backend must be configured with the matching client ID. Register the Android OAuth client for package `com.trazo.android` and the signing certificate fingerprints used by your builds. No Google client secret belongs in the APK.
+
+See [configuration](docs/configuration.md) for the full setup.
+
+## Reliability and data
+
+Authentication tokens are stored using Android Keystore-backed protection. The app also keeps local workout drafts and pending records so an interrupted session is not immediately lost.
+
+Local workout records are currently stored in the app's private storage as JSON; they do not have the same at-rest encryption as authentication tokens. Pending records are retried by the relevant app flows, but background synchronisation is not yet a guaranteed WorkManager-backed service. These are important distinctions when evaluating the current offline behaviour.
+
+Unexpected crashes and unreadable API failures can be reported to the backend's error-ticket system. Release builds upload their R8 mapping file when the CI secret is configured, allowing supported crash traces to be de-obfuscated for investigation.
+
+## Tests and delivery
+
+GitHub Actions runs the Android unit-test task and assembles the debug application. The project also has a separate release workflow for release artefacts and diagnostic mapping upload.
+
+These checks are useful regression safeguards, but they are not a substitute for testing the complete experience on a physical device.
+
+## Related documentation
+
+- [Build and configuration](docs/configuration.md)
+- [Release process](docs/release.md)
+- [Backend architecture and training engine](https://github.com/jl-hita/Trazo/tree/main/docs)
+
+---
+
+The Android client is under active development alongside the [TRAZO backend](https://github.com/jl-hita/Trazo).
