@@ -1,6 +1,7 @@
 package com.trazo.android.data.net
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.trazo.android.auth.AuthApi
 import com.trazo.android.auth.RefreshRequest
 import com.trazo.android.auth.TokenStore
@@ -113,7 +114,7 @@ internal fun sanitizedReferralResponseBody(body: String): String {
         else -> element.deepCopy()
     }
     return try {
-        Gson().toJson(sanitize(com.google.gson.JsonParser.parseString(body)))
+        GsonBuilder().disableHtmlEscaping().create().toJson(sanitize(com.google.gson.JsonParser.parseString(body)))
     } catch (_: Exception) {
         "<non-JSON response; chars=${body.length}>"
     }
