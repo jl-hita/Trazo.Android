@@ -114,7 +114,7 @@ internal fun sanitizedReferralResponseBody(body: String): String {
         else -> element.deepCopy()
     }
     return try {
-        GsonBuilder().disableHtmlEscaping().create().toJson(sanitize(com.google.gson.JsonParser.parseString(body)))
+        GsonBuilder().serializeNulls().disableHtmlEscaping().create().toJson(sanitize(com.google.gson.JsonParser.parseString(body)))
     } catch (_: Exception) {
         "<non-JSON response; chars=${body.length}>"
     }
