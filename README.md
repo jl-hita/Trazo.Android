@@ -111,7 +111,7 @@ See [configuration](docs/configuration.md) for the full setup.
 
 Authentication tokens are stored using Android Keystore-backed protection. The app also keeps local workout drafts and pending records so an interrupted session is not immediately lost.
 
-Local workout records are currently stored in the app's private storage as JSON; they do not have the same at-rest encryption as authentication tokens. Pending records are retried by the relevant app flows, but background synchronisation is not yet a guaranteed WorkManager-backed service. These are important distinctions when evaluating the current offline behaviour.
+Local workout drafts, caches, history and the pending-record queue are encrypted at rest (`LocalCipher`, Keystore-backed). Pending records are delivered by a WorkManager job (`WorkManagerSyncScheduler`) as well as by the app flows that refresh the plan; delivery is serialised, so the two cannot submit the same entry twice, and each record keeps its `ClientRequestId` across retries. Both are covered by unit tests; behaviour across process death and network changes has not yet been validated on real devices, and there are no instrumented tests (`androidTest`) yet.
 
 Unexpected crashes and unreadable API failures can be reported to the backend's error-ticket system. Release builds upload their R8 mapping file when the CI secret is configured, allowing supported crash traces to be de-obfuscated for investigation.
 
