@@ -86,6 +86,16 @@ class ReferralCodesTest {
         assertNull(referralFor("garbage", null))
     }
 
+    @Test fun `Gson deserializes the referral invitations envelope and typed items`() {
+        val json = """{"items":[{"id":"invite-1","registeredAt":"2026-11-21T12:00:00Z","status":"registered","convertedAt":null,"plan":null,"rewardDays":null,"rewardState":null}]}"""
+
+        val response = Gson().fromJson(json, ReferralInvitations::class.java)
+
+        assertEquals(1, response.items.size)
+        assertEquals("invite-1", response.items.single().id)
+        assertEquals("registered", response.items.single().status)
+    }
+
     @Test fun `the invitation message carries the link`() {
         assertEquals("Hola https://x/invite/ABCD2345 fin", invitationMessage("Hola {link} fin", "https://x/invite/ABCD2345"))
     }

@@ -1,6 +1,7 @@
 package com.trazo.android.data.net
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.trazo.android.auth.AuthApi
 import com.trazo.android.auth.RefreshRequest
 import com.trazo.android.auth.TokenStore
@@ -10,6 +11,8 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Route
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -90,6 +93,81 @@ class TokenAuthenticator(
     }
 }
 
+
+/**
+ * Captures the invitations response before Retrofit/Gson conversion and reports a bounded,
+ * redacted preview to the authenticated backend log pipeline. The reporting client is isolated
+ * from the main interceptor chain, so it cannot recurse or affect the original response.
+ */
+internal fun sanitizedReferralResponseBody(body: String): String {
+    val sensitiveKeys = setOf("id", "userid", "code", "link", "email", "name", "token", "accesstoken", "refreshtoken")
+    fun sanitize(element: com.google.gson.JsonElement): com.google.gson.JsonElement = when {
+        element.isJsonObject -> com.google.gson.JsonObject().also { target ->
+            element.asJsonObject.entrySet().forEach { (key, value) ->
+                val normalized = key.lowercase().filter { it.isLetterOrDigit() }
+                target.add(key, if (normalized in sensitiveKeys) com.google.gson.JsonPrimitive("<redacted>") else sanitize(value))
+            }
+        }
+        element.isJsonArray -> com.google.gson.JsonArray().also { target ->
+            element.asJsonArray.forEach { target.add(sanitize(it)) }
+        }
+        else -> element.deepCopy()
+    }
+    return try {
+        GsonBuilder().serializeNulls().disableHtmlEscaping().create().toJson(sanitize(com.google.gson.JsonParser.parseString(body)))
+    } catch (_: Exception) {
+        "<non-JSON response; chars=${body.length}>"
+    }
+}
+
+class ReferralResponseDiagnosticsInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        if (request.method != "GET" || !request.url.encodedPath.endsWith("/api/v1/referrals/invitations")) {
+            return chain.proceed(request)
+        }
+
+        val response = chain.proceed(request)
+        runCatching {
+            val raw = response.peekBody(MAX_PREVIEW_BYTES).string()
+            val preview = sanitizedReferralResponseBody(raw).take(MAX_PREVIEW_CHARS)
+            val payload = Gson().toJson(mapOf(
+                "httpStatus" to response.code,
+                "contentType" to response.header("Content-Type")?.take(120),
+                "contentLength" to (response.body?.contentLength() ?: -1L),
+                "preview" to preview,
+                "appVersion" to response.request.header("X-App-Version")?.take(40)
+            ))
+            val diagnosticUrl = response.request.url.newBuilder()
+                .encodedPath("/api/v1/referrals/invitations/diagnostics")
+                .query(null)
+                .build()
+            val diagnosticRequest = okhttp3.Request.Builder()
+                .url(diagnosticUrl)
+                .post(payload.toRequestBody(JSON_MEDIA_TYPE))
+                .apply {
+                    response.request.header("Authorization")?.let { header("Authorization", it) }
+                    response.request.header("X-App-Version")?.let { header("X-App-Version", it) }
+                }
+                .build()
+            REPORTING_CLIENT.newCall(diagnosticRequest).execute().use { /* best effort; never alter the original response */ }
+        }
+        return response
+    }
+
+    private companion object {
+        const val MAX_PREVIEW_BYTES = 16L * 1024L
+        const val MAX_PREVIEW_CHARS = 8 * 1024
+        val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
+        val REPORTING_CLIENT = OkHttpClient.Builder()
+            .connectTimeout(2, TimeUnit.SECONDS)
+            .readTimeout(2, TimeUnit.SECONDS)
+            .writeTimeout(2, TimeUnit.SECONDS)
+            .callTimeout(3, TimeUnit.SECONDS)
+            .build()
+    }
+}
+
 class NetworkModule(
     baseUrl: String,
     tokens: TokenStore,
@@ -109,6 +187,7 @@ class NetworkModule(
     private val plainAuthApi: AuthApi = retrofit(baseClient().build()).create(AuthApi::class.java)
 
     val client: OkHttpClient = baseClient()
+        .addInterceptor(ReferralResponseDiagnosticsInterceptor())
         .addInterceptor(AuthInterceptor(tokens))
         .authenticator(TokenAuthenticator(tokens, plainAuthApi, events))
         .build()
