@@ -90,6 +90,7 @@
     <string name="onb_days">Träningsdagar</string>
     <string name="onb_days_hint">Välj mellan %1$d och %2$d dagar.</string>
     <string name="onb_minutes">Längsta passlängd: %1$d min</string>
+    <string name="onb_start_date">Startdatum</string>
     <string name="onb_weeks">Planens längd: %1$d veckor</string>
     <string name="onb_equipment">Tillgänglig utrustning</string>
     <string name="onb_equipment_hint">Om du inte väljer något antar vi att du har allt.</string>

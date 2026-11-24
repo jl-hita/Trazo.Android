@@ -90,6 +90,7 @@
     <string name="onb_days">Antrenman günleri</string>
     <string name="onb_days_hint">%1$d ile %2$d gün arasında seç.</string>
     <string name="onb_minutes">En uzun seans süresi: %1$d dk</string>
+    <string name="onb_start_date">Başlangıç tarihi</string>
     <string name="onb_weeks">Plan süresi: %1$d hafta</string>
     <string name="onb_equipment">Mevcut ekipman</string>
     <string name="onb_equipment_hint">Hiçbir şey seçmezsen her şeye sahip olduğunu varsayarız.</string>

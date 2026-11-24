@@ -90,6 +90,11 @@
     <string name="onb_days">أيام التدريب</string>
     <string name="onb_days_hint">اختر بين %1$d و%2$d أيام.</string>
     <string name="onb_minutes">أقصى مدة للتمرين: %1$d دقيقة</string>
+    <string name="rest_channel_name">الراحة بين المجموعات</string>
+    <string name="rest_channel_description">ينبّه عند انتهاء الراحة بين المجموعات والتطبيق في الخلفية.</string>
+    <string name="rest_over_title">انتهت الراحة</string>
+    <string name="rest_over_text">حان وقت مجموعتك التالية.</string>
+    <string name="onb_start_date">تاريخ البدء</string>
     <string name="onb_weeks">مدة الخطة: %1$d أسابيع</string>
     <string name="onb_equipment">المعدات المتاحة</string>
     <string name="onb_equipment_hint">إن لم تختر شيئًا فسنفترض أن لديك كل شيء.</string>

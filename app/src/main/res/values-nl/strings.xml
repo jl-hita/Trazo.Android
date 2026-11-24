@@ -90,6 +90,11 @@
     <string name="onb_days">Trainingsdagen</string>
     <string name="onb_days_hint">Kies tussen %1$d en %2$d dagen.</string>
     <string name="onb_minutes">Maximale duur van een training: %1$d min</string>
+    <string name="rest_channel_name">Rust tussen sets</string>
+    <string name="rest_channel_description">Meldt wanneer je rust tussen sets voorbij is terwijl de app op de achtergrond draait.</string>
+    <string name="rest_over_title">Rust is voorbij</string>
+    <string name="rest_over_text">Tijd voor je volgende set.</string>
+    <string name="onb_start_date">Startdatum</string>
     <string name="onb_weeks">Lengte van het plan: %1$d weken</string>
     <string name="onb_equipment">Beschikbaar materiaal</string>
     <string name="onb_equipment_hint">Als je niets kiest, gaan we ervan uit dat je alles hebt.</string>

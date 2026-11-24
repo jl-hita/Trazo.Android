@@ -90,6 +90,11 @@
     <string name="onb_days">Entrenamendu-egunak</string>
     <string name="onb_days_hint">Aukeratu %1$d eta %2$d egun artean.</string>
     <string name="onb_minutes">Saioaren gehieneko iraupena: %1$d min</string>
+    <string name="rest_channel_name">Serieen arteko atsedena</string>
+    <string name="rest_channel_description">Aplikazioa atzeko planoan dagoenean, serieen arteko atsedena amaitzean abisatzen du.</string>
+    <string name="rest_over_title">Atsedena amaitu da</string>
+    <string name="rest_over_text">Hurrengo seriearen ordua da.</string>
+    <string name="onb_start_date">Hasiera-data</string>
     <string name="onb_weeks">Planaren iraupena: %1$d aste</string>
     <string name="onb_equipment">Eskuragarri dagoen materiala</string>
     <string name="onb_equipment_hint">Ezer aukeratzen ez baduzu, dena duzula suposatuko dugu.</string>

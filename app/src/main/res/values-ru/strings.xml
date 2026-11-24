@@ -90,6 +90,11 @@
     <string name="onb_days">Дни тренировок</string>
     <string name="onb_days_hint">Выберите от %1$d до %2$d дней.</string>
     <string name="onb_minutes">Максимальная длительность тренировки: %1$d мин</string>
+    <string name="rest_channel_name">Отдых между подходами</string>
+    <string name="rest_channel_description">Уведомляет об окончании отдыха между подходами, когда приложение работает в фоне.</string>
+    <string name="rest_over_title">Отдых окончен</string>
+    <string name="rest_over_text">Пора делать следующий подход.</string>
+    <string name="onb_start_date">Дата начала</string>
     <string name="onb_weeks">Длительность плана: %1$d нед.</string>
     <string name="onb_equipment">Доступное оборудование</string>
     <string name="onb_equipment_hint">Если ничего не выбрать, мы считаем, что у вас есть всё.</string>

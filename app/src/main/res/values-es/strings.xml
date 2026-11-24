@@ -94,6 +94,7 @@
     <string name="onb_days">Días de entrenamiento</string>
     <string name="onb_days_hint">Elige entre %1$d y %2$d días.</string>
     <string name="onb_minutes">Duración máxima de la sesión: %1$d min</string>
+    <string name="onb_start_date">Fecha de inicio</string>
     <string name="onb_weeks">Duración del plan: %1$d semanas</string>
     <string name="onb_equipment">Material disponible</string>
     <string name="onb_equipment_hint">Si no marcas nada, se supone que tienes de todo.</string>

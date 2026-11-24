@@ -96,6 +96,7 @@
     <string name="onb_days">Training days</string>
     <string name="onb_days_hint">Choose between %1$d and %2$d days.</string>
     <string name="onb_minutes">Maximum session length: %1$d min</string>
+    <string name="onb_start_date">Start date</string>
     <string name="onb_weeks">Plan length: %1$d weeks</string>
     <string name="onb_equipment">Available equipment</string>
     <string name="onb_equipment_hint">If you pick nothing, we assume you have everything.</string>

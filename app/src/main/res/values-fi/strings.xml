@@ -90,6 +90,11 @@
     <string name="onb_days">Treenipäivät</string>
     <string name="onb_days_hint">Valitse %1$d–%2$d päivää.</string>
     <string name="onb_minutes">Treenin enimmäiskesto: %1$d min</string>
+    <string name="rest_channel_name">Lepo sarjojen välillä</string>
+    <string name="rest_channel_description">Ilmoittaa, kun sarjojen välinen lepo päättyy sovelluksen ollessa taustalla.</string>
+    <string name="rest_over_title">Lepo on ohi</string>
+    <string name="rest_over_text">Aika seuraavalle sarjalle.</string>
+    <string name="onb_start_date">Aloituspäivä</string>
     <string name="onb_weeks">Ohjelman pituus: %1$d viikkoa</string>
     <string name="onb_equipment">Käytettävissä olevat välineet</string>
     <string name="onb_equipment_hint">Jos et valitse mitään, oletamme sinulla olevan kaiken.</string>
