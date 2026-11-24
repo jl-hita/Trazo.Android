@@ -16,12 +16,14 @@ class LabelsAndAuthTest {
     private val original = Locale.getDefault()
     @After fun restore() { Locale.setDefault(original) }
 
-    @Test fun `vocabulary is Spanish by default and English on English devices`() {
+    @Test fun `vocabulary follows the language and is English when the language is not supported`() {
         Locale.setDefault(Locale("es", "ES"))
         assertEquals("Hipertrofia", Labels.goal("Hypertrophy"))
         assertEquals("Pecho", Labels.muscle("Chest"))
-        Locale.setDefault(Locale("fr", "FR")) // any other language falls back to Spanish
-        assertEquals("Hipertrofia", Labels.goal("Hypertrophy"))
+        Locale.setDefault(Locale("fr", "FR"))
+        assertEquals("Hypertrophie", Labels.goal("Hypertrophy"))
+        Locale.setDefault(Locale("ru", "RU")) // a language the app is not translated into is shown in English
+        assertEquals("Muscle growth", Labels.goal("Hypertrophy"))
         Locale.setDefault(Locale.ENGLISH)
         assertEquals("Muscle growth", Labels.goal("Hypertrophy"))
         assertEquals("Lower back", Labels.muscle("ErectorSpinae"))

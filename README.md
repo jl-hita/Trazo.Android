@@ -26,7 +26,7 @@ TRAZO helps lifters follow a structured programme, record each session and track
 - **Account and communication.** Email/password and Google sign-in, email verification, password recovery, optional TOTP two-factor authentication, review requests and conversations.
 - **Referrals and subscriptions.** Referral invitations and reward status, with Google Play Billing integration and subscription access controlled by the backend. Paid access enforcement is configurable and is off by default.
 - **Notifications.** Firebase Cloud Messaging delivers review updates and announcements. Firebase configuration is supplied by the API at runtime.
-- **Language support.** Spanish and English UI, with language negotiation and localised exercise and equipment details from the API.
+- **Language support.** The UI is translated into English, Spanish, Catalan, German, Brazilian Portuguese, French, Italian, Polish, Turkish, Swedish and Simplified Chinese (English is the fallback for any other device language), with language negotiation and localised exercise and equipment details from the API. Weights and decimals follow the decimal separator of the app language.
 
 ## Technical overview
 
