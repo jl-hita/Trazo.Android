@@ -95,6 +95,9 @@ class WorkoutViewModel(
     val state: StateFlow<WorkoutState> = _state.asStateFlow()
     private var timer: Job? = null
 
+    /** Where the exercise explanations come from (null in tests that do not need them). */
+    val catalog: ExerciseRepository? get() = exercises
+
     init {
         val session = plans.session(sessionId)
         if (session != null) _state.value = WorkoutState(session, buildEntries(session, drafts.load(sessionId)?.sets.orEmpty()))

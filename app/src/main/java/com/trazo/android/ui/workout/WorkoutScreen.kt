@@ -1,6 +1,7 @@
 package com.trazo.android.ui.workout
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,6 +24,7 @@ import com.trazo.android.R
 import com.trazo.android.data.model.ExerciseFeedbackRequest
 import com.trazo.android.data.model.LastPerformanceView
 import com.trazo.android.ui.plan.formatDate
+import com.trazo.android.ui.catalog.ExerciseInfoDialog
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoField
@@ -31,10 +33,11 @@ import com.trazo.android.ui.theme.TrazoPalette
 
 @Composable
 fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (String) -> Unit) {
-    SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     var confirmLeave by remember { mutableStateOf(false) }
     var showFinish by remember { mutableStateOf(false) }
+    // The exercise whose explanation is open (steps and photos), reachable from the photo and from the swap picker.
+    var info by remember { mutableStateOf<String?>(null) }
     val done = state.finish as? FinishState.Done
 
     BackHandler(enabled = done == null) { confirmLeave = true }
@@ -52,7 +55,11 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
             items(state.entries, key = { it.exercise.exerciseId }) { entry ->
                 TrazoCard {
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                        ExerciseThumb(exerciseImageUrl(entry.exercise.exerciseId), entry.exercise.name, 56.dp)
+                        val explain = stringResource(R.string.exercise_explain)
+                        ExerciseThumb(
+                            exerciseImageUrl(entry.exercise.exerciseId), entry.exercise.name, 56.dp,
+                            Modifier.clickable(onClickLabel = explain) { info = entry.exercise.exerciseId }
+                        )
                         Column {
                             Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
                             if (entry.exercise.isExtra) Text(stringResource(R.string.workout_extra_tag), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
@@ -93,7 +100,8 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
         confirmButton = { TextButton(onClick = { confirmLeave = false; onExit() }) { Text(stringResource(R.string.workout_leave)) } },
         dismissButton = { TextButton(onClick = { confirmLeave = false }) { Text(stringResource(R.string.cancel)) } }
     )
-    state.alternatives?.let { AlternativesDialog(it, state.swapError, viewModel) }
+    state.alternatives?.let { AlternativesDialog(it, state.swapError, viewModel::swap, viewModel::dismissAlternatives, onInfo = { info = it }) }
+    info?.let { id -> viewModel.catalog?.let { ExerciseInfoDialog(id, it, onDismiss = { info = null }) } }
     state.adding?.let { AddExerciseDialog(it, viewModel) }
     if (showFinish) FinishDialog(state, onDismiss = { showFinish = false; viewModel.dismissFinishError() }, onSend = viewModel::finish)
 }
@@ -191,11 +199,15 @@ private fun AddExerciseDialog(state: AddExerciseState, vm: WorkoutViewModel) {
     )
 }
 
+/** The replacements the engine proposes for an exercise. Each one can be opened to read how it is done before choosing. */
 @Composable
-private fun AlternativesDialog(state: AlternativesState, swapError: com.trazo.android.data.net.ApiError?, vm: WorkoutViewModel) {
+fun AlternativesDialog(
+    state: AlternativesState, swapError: com.trazo.android.data.net.ApiError?,
+    onSwap: (exerciseId: String, replacementId: String, remainingBlock: Boolean) -> Unit, onDismiss: () -> Unit, onInfo: (String) -> Unit
+) {
     var remaining by remember { mutableStateOf(false) }
     AlertDialog(
-        onDismissRequest = vm::dismissAlternatives,
+        onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.workout_alternatives_title)) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -210,9 +222,10 @@ private fun AlternativesDialog(state: AlternativesState, swapError: com.trazo.an
                             Text(stringResource(R.string.workout_swap_block), style = MaterialTheme.typography.bodySmall)
                         }
                         state.items.forEach { alt ->
-                            TrazoCard(onClick = { vm.swap(state.exerciseId, alt.exerciseId, remaining) }) {
+                            TrazoCard(onClick = { onSwap(state.exerciseId, alt.exerciseId, remaining) }) {
                                 Text(alt.name, style = MaterialTheme.typography.titleSmall)
                                 Text(Labels.muscles(alt.primaryMuscles) + " · " + Labels.pattern(alt.movementPattern), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                                TrazoLink(onClick = { onInfo(alt.exerciseId) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.exercise_see_detail)) }
                             }
                         }
                     }
@@ -220,7 +233,7 @@ private fun AlternativesDialog(state: AlternativesState, swapError: com.trazo.an
                 swapError?.let { InlineError(it) }
             }
         },
-        confirmButton = { TextButton(onClick = vm::dismissAlternatives) { Text(stringResource(R.string.close)) } }
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.close)) } }
     )
 }
 

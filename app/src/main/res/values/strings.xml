@@ -585,4 +585,10 @@
         <item quantity="one">Después, %1$d semana de plan completo (cuenta dentro de la duración total).</item>
         <item quantity="other">Después, %1$d semanas de plan completo (cuentan dentro de la duración total).</item>
     </plurals>
+    <string name="exercise_explain">Ver explicación del ejercicio</string>
+    <string name="exercise_see_detail">Ver detalle</string>
+    <string name="session_past_unavailable">No se encuentra el detalle de esta sesión.</string>
+    <string name="session_done_sets">Series realizadas</string>
+    <string name="session_done_set">Serie %1$d: %2$s × %3$s</string>
+    <string name="session_set_skipped">sin hacer</string>
 </resources>

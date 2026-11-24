@@ -58,7 +58,6 @@ fun PlanScreen(
     onSendPending: () -> Unit,
     autoNeedsPremium: Boolean = false
 ) {
-    SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pending by viewModel.pendingLogs.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize().statusBarsPadding()) {
@@ -232,7 +231,6 @@ private fun SessionCard(session: SessionView, onClick: () -> Unit) {
 
 @Composable
 fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, onBack: () -> Unit) {
-    SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val load by loadViewModel.state.collectAsStateWithLifecycle()
     var editPriorities by remember { mutableStateOf(false) }
@@ -332,7 +330,6 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
 /** Every adjustment the engine made (or decided not to make) with its numbers and the session that caused it. */
 @Composable
 fun AdaptationsScreen(viewModel: AdaptationsViewModel, onBack: () -> Unit) {
-    SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.adjustments_title), onBack)
@@ -371,8 +368,7 @@ fun AdaptationsScreen(viewModel: AdaptationsViewModel, onBack: () -> Unit) {
 }
 
 @Composable
-fun HistoryScreen(viewModel: HistoryViewModel, onBack: () -> Unit) {
-    SecureScreen()
+fun HistoryScreen(viewModel: HistoryViewModel, onBack: () -> Unit, onOpen: (String) -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.history_title), onBack)
@@ -382,7 +378,7 @@ fun HistoryScreen(viewModel: HistoryViewModel, onBack: () -> Unit) {
             state.items.isEmpty() -> EmptyBox(stringResource(R.string.history_empty))
             else -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 items(state.items, key = { it.sessionId }) {
-                    TrazoCard {
+                    TrazoCard(onClick = { onOpen(it.sessionId) }) {
                         Text(it.title, style = MaterialTheme.typography.titleMedium)
                         // The day shown is the one the workout happened, not the one it was planned or registered.
                         val day = it.performedAt?.let { at -> formatDateTime(at) } ?: it.date?.let { d -> formatDate(d) } ?: ""
