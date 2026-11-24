@@ -115,6 +115,7 @@
     <string name="injury_report">I got hurt outside training</string>
     <string name="injury_title">Injury outside training</string>
     <string name="injury_note">Select the areas that hurt now. Pending sessions drop the exercises that load them and later blocks avoid them. Unselect an area once you have recovered. This is not medical advice: see a professional if the pain persists.</string>
+    <string name="injury_recovered">I have recovered</string>
     <string name="onb_limitations">Aches or injuries</string>
     <string name="onb_limitations_hint">We\'ll avoid the most common exercises for that area. This is not medical advice: ask a professional if in doubt.</string>
     <string name="onb_create">Generate my plan</string>

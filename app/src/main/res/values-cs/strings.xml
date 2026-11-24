@@ -113,6 +113,7 @@
     <string name="injury_report">Zranil jsem se mimo trénink</string>
     <string name="injury_title">Zranění mimo trénink</string>
     <string name="injury_note">Vyber oblasti, které teď bolí. Čekající tréninky nahradí cviky, které je zatěžují, a další bloky se jim vyhnou. Oblast odznač, až se zotavíš. Nejde o lékařskou radu: pokud bolest přetrvává, vyhledej odborníka.</string>
+    <string name="injury_recovered">Už jsem se zotavil</string>
     <string name="onb_limitations">Bolesti nebo zranění</string>
     <string name="onb_limitations_hint">Vyhneme se nejběžnějším cvikům pro danou oblast. Nejde o lékařskou radu: když si nejsi jistý(á), zeptej se odborníka.</string>
     <string name="onb_create">Vytvořit můj plán</string>

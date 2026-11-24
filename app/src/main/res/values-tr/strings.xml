@@ -109,6 +109,7 @@
     <string name="injury_report">Antrenman dışında yaralandım</string>
     <string name="injury_title">Antrenman dışı sakatlık</string>
     <string name="injury_note">Şu an ağrıyan bölgeleri seç. Bekleyen seanslar bu bölgeleri yoran egzersizleri değiştirir, sonraki bloklar bunlardan kaçınır. İyileşince bölgenin seçimini kaldır. Bu tıbbi tavsiye değildir: ağrı sürerse bir uzmana danış.</string>
+    <string name="injury_recovered">İyileştim</string>
     <string name="onb_limitations">Ağrılar veya sakatlıklar</string>
     <string name="onb_limitations_hint">O bölge için en yaygın egzersizlerden kaçınırız. Bu tıbbi tavsiye değildir: şüphen varsa bir uzmana danış.</string>
     <string name="onb_create">Planımı oluştur</string>

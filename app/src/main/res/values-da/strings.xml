@@ -113,6 +113,7 @@
     <string name="injury_report">Jeg har slået mig uden for træning</string>
     <string name="injury_title">Skade uden for træning</string>
     <string name="injury_note">Vælg de områder, der gør ondt nu. Ventende sessioner erstatter øvelserne, der belaster dem, og senere blokke undgår dem. Fravælg et område, når du er restitueret. Dette er ikke lægeråd: kontakt en fagperson, hvis smerten fortsætter.</string>
+    <string name="injury_recovered">Jeg er kommet mig</string>
     <string name="onb_limitations">Smerter eller skader</string>
     <string name="onb_limitations_hint">Vi undgår de mest almindelige øvelser for det område. Det er ikke lægelig rådgivning: spørg en fagperson, hvis du er i tvivl.</string>
     <string name="onb_create">Opret min plan</string>

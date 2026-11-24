@@ -113,6 +113,7 @@
     <string name="injury_report">Me he hecho daño fuera del entrenamiento</string>
     <string name="injury_title">Lesión fuera del entrenamiento</string>
     <string name="injury_note">Marca las zonas que te duelen ahora. Las sesiones pendientes sustituyen los ejercicios que las cargan y los bloques siguientes los evitan. Desmarca una zona cuando te hayas recuperado. No es consejo médico: consulta a un profesional si el dolor persiste.</string>
+    <string name="injury_recovered">Ya me he recuperado</string>
     <string name="onb_limitations">Molestias o lesiones</string>
     <string name="onb_limitations_hint">Evitaremos los ejercicios más habituales para esa zona. No es consejo médico: consulta a un profesional si tienes dudas.</string>
     <string name="onb_create">Generar mi plan</string>

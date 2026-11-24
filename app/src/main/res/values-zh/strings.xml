@@ -109,6 +109,7 @@
     <string name="injury_report">我在训练之外受伤了</string>
     <string name="injury_title">训练之外的损伤</string>
     <string name="injury_note">选择现在疼痛的部位。待进行的训练会替换给这些部位带来负担的动作，之后的训练周期也会避开它们。康复后取消选择该部位。这不是医疗建议：疼痛持续请咨询专业人士。</string>
+    <string name="injury_recovered">我已康复</string>
     <string name="onb_limitations">疼痛或受伤</string>
     <string name="onb_limitations_hint">我们会避开该部位最常见的动作。这不是医疗建议：如有疑问，请咨询专业人士。</string>
     <string name="onb_create">生成我的计划</string>

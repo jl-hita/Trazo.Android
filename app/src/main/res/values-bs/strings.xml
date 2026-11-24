@@ -113,6 +113,7 @@
     <string name="injury_report">Povrijedio sam se izvan treninga</string>
     <string name="injury_title">Povreda izvan treninga</string>
     <string name="injury_note">Odaberi područja koja sada bole. Preostali treninzi zamjenjuju vježbe koje ih opterećuju, a sljedeći blokovi ih izbjegavaju. Poništi odabir područja kad se oporaviš. Ovo nije ljekarski savjet: ako bol ne prolazi, obrati se stručnjaku.</string>
+    <string name="injury_recovered">Oporavio sam se</string>
     <string name="onb_limitations">Bolovi ili ozljede</string>
     <string name="onb_limitations_hint">Izbjegavat ćemo najčešće vježbe za to područje. Ovo nije ljekarski savjet: ako sumnjaš, pitaj stručnjaka.</string>
     <string name="onb_create">Izradi moj plan</string>
