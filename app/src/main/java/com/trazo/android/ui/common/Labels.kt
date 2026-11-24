@@ -15,7 +15,10 @@ import java.util.Locale
 object Labels {
     private val vocabularies: Map<String, Vocabulary> = mapOf(
         "en" to VocabularyEn, "es" to VocabularyEs, "ca" to VocabularyCa, "de" to VocabularyDe, "pt" to VocabularyPt,
-        "fr" to VocabularyFr, "it" to VocabularyIt, "pl" to VocabularyPl, "tr" to VocabularyTr, "sv" to VocabularySv, "zh" to VocabularyZh
+        "fr" to VocabularyFr, "it" to VocabularyIt, "pl" to VocabularyPl, "tr" to VocabularyTr, "sv" to VocabularySv, "zh" to VocabularyZh,
+        "gl" to VocabularyGl, "eu" to VocabularyEu, "nl" to VocabularyNl, "da" to VocabularyDa, "nb" to VocabularyNb, "fi" to VocabularyFi,
+        "cs" to VocabularyCs, "sk" to VocabularySk, "sl" to VocabularySl, "hr" to VocabularyHr, "sr" to VocabularySr, "bs" to VocabularyBs,
+        "mk" to VocabularyMk, "ru" to VocabularyRu, "el" to VocabularyEl, "ar" to VocabularyAr, "ja" to VocabularyJa, "ko" to VocabularyKo
     )
 
     /** The language the app is shown in: the default locale (the app sets it from the language choice), English when unsupported. */

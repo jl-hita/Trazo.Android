@@ -39,7 +39,19 @@ class TranslationCoverageTest {
 
     private val placeholder = Regex("%\\d\\$[sdf]|%\\d\\$\\.\\d[f]|\\{link}")
     private fun placeholders(text: String) = placeholder.findAll(text).map { it.value }.sorted().toList()
-    private fun dirOf(language: String) = if (language == "en") "values" else "values-$language"
+    private fun dirOf(language: String) = when (language) {
+        "en" -> "values"
+        "sr" -> "values-b+sr+Latn" // Serbian in the Latin alphabet
+        else -> "values-$language"
+    }
+
+    /** The plural categories each language uses (CLDR), which the resource files must provide. */
+    private val pluralForms = mapOf(
+        "ru" to setOf("one", "few", "many", "other"), "pl" to setOf("one", "few", "many", "other"), "cs" to setOf("one", "few", "many", "other"),
+        "sk" to setOf("one", "few", "many", "other"), "sl" to setOf("one", "two", "few", "other"),
+        "hr" to setOf("one", "few", "other"), "sr" to setOf("one", "few", "other"), "bs" to setOf("one", "few", "other"),
+        "ar" to setOf("zero", "one", "two", "few", "many", "other"), "zh" to setOf("other"), "ja" to setOf("other"), "ko" to setOf("other")
+    )
 
     @Test fun `every language has every text with the same placeholders`() {
         val english = load("values").associateBy { it.name }
@@ -63,6 +75,35 @@ class TranslationCoverageTest {
                 }
             }
         }
+    }
+
+    @Test fun `plural forms follow the rules of each language`() {
+        for (language in LanguageChoice.LANGUAGES - "en") {
+            val expected = pluralForms[language] ?: setOf("one", "other")
+            load(dirOf(language)).filter { it.values.keys != setOf("") }.forEach { plural ->
+                assertEquals("$language ${plural.name}", expected, plural.values.keys)
+            }
+        }
+    }
+
+    @Test fun `Flemish is a choice of its own that uses the Dutch texts`() {
+        assertTrue(LanguageChoice.FLEMISH in LanguageChoice.ALL)
+        assertFalse(LanguageChoice.FLEMISH in LanguageChoice.LANGUAGES)
+        assertEquals("nl-be", LanguageChoice.normalize("nl-BE"))
+        assertTrue(File(resources, "values/strings.xml").readText().contains("name=\"language_nl_be\""))
+        assertTrue(File(resources, "xml/locales_config.xml").readText().contains("nl-BE"))
+        val locale = AppLocale.localeFor(LanguageChoice.FLEMISH)
+        assertEquals("nl", locale.language)
+        assertEquals("BE", locale.country)
+        Locale.setDefault(locale)
+        assertEquals("nl", Labels.language()) // the Dutch vocabulary and resources
+        assertEquals("Spieropbouw", Labels.goal("Hypertrophy"))
+    }
+
+    @Test fun `every choice of the picker can be told to the server and read back`() {
+        for (choice in LanguageChoice.ALL) assertEquals(choice, LanguageChoice.normalize(choice.uppercase()))
+        Locale.setDefault(Locale("no"))
+        assertEquals("nb", AppLocale.appLanguage()) // Norwegian devices may say "no"
     }
 
     @Test fun `quotes are escaped so the resource file compiles`() {
@@ -111,7 +152,7 @@ class TranslationCoverageTest {
         Locale.setDefault(AppLocale.localeFor("es")); assertEquals("es", acceptLanguage())
         Locale.setDefault(AppLocale.localeFor("en")); assertEquals("en", acceptLanguage())
         Locale.setDefault(AppLocale.localeFor("de")); assertEquals("de, en;q=0.8", acceptLanguage())
-        Locale.setDefault(Locale("ru")); assertEquals("en", acceptLanguage()) // not translated: English
+        Locale.setDefault(Locale("vi")); assertEquals("en", acceptLanguage()) // not translated: English
     }
 
     @Test fun `choices map to the locales of the resources`() {

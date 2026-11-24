@@ -10,9 +10,17 @@ object LanguageChoice {
     const val AUTO = "auto"
     const val ES = "es"
     const val EN = "en"
-    /** Languages of the app, in the order the picker shows them. */
-    val LANGUAGES = listOf(EN, ES, "ca", "de", "pt", "fr", "it", "pl", "tr", "sv", "zh")
-    val ALL = listOf(AUTO) + LANGUAGES
+    /** Flemish: the Dutch translation with the formats of Belgium. It is a choice of its own but not a language of its own. */
+    const val FLEMISH = "nl-be"
+
+    /** Languages the app is translated into (one set of texts each), in the order the picker shows them. */
+    val LANGUAGES = listOf(
+        EN, ES, "ca", "gl", "eu", "pt", "fr", "it", "de", "nl", "da", "nb", "sv", "fi", "pl", "cs", "sk", "sl", "hr", "sr", "bs", "mk",
+        "ru", "el", "tr", "ar", "zh", "ja", "ko"
+    )
+
+    /** What the picker offers: automatic, every language and Flemish after Dutch. */
+    val ALL = listOf(AUTO) + LANGUAGES.flatMap { if (it == "nl") listOf(it, FLEMISH) else listOf(it) }
 
     /** Anything unknown (an older or damaged value) is automatic. */
     fun normalize(value: String?): String = value?.lowercase()?.takeIf { it in ALL } ?: AUTO
@@ -43,11 +51,14 @@ object AppLocale {
         LanguageChoice.AUTO -> systemProvider()
         "pt" -> Locale("pt", "BR") // Brazilian Portuguese
         "zh" -> Locale("zh", "CN") // Simplified Chinese
+        "sr" -> Locale.forLanguageTag("sr-Latn") // Serbian in the Latin alphabet
+        LanguageChoice.FLEMISH -> Locale("nl", "BE")
         else -> Locale(LanguageChoice.normalize(choice))
     }
 
     /** The language the app is shown in: the default locale's when the app is translated into it, English otherwise. */
-    fun appLanguage(): String = Locale.getDefault().language.takeIf { it in LanguageChoice.LANGUAGES } ?: "en"
+    fun appLanguage(): String =
+        Locale.getDefault().language.let { if (it == "no") "nb" else it }.takeIf { it in LanguageChoice.LANGUAGES } ?: "en"
 
     fun apply(choice: String) = Locale.setDefault(localeFor(choice))
 

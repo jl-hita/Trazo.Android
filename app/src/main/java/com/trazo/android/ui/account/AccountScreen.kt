@@ -319,16 +319,17 @@ private fun LanguageSection(language: com.trazo.android.data.repo.LanguageReposi
 
 /** The name of a language in that language, so anyone finds theirs whatever the app is showing. */
 private fun languageName(choice: String): Int = when (choice) {
-    "en" -> R.string.language_en
-    "es" -> R.string.language_es
-    "ca" -> R.string.language_ca
-    "de" -> R.string.language_de
-    "pt" -> R.string.language_pt
-    "fr" -> R.string.language_fr
-    "it" -> R.string.language_it
-    "pl" -> R.string.language_pl
-    "tr" -> R.string.language_tr
-    "sv" -> R.string.language_sv
-    "zh" -> R.string.language_zh
-    else -> R.string.language_auto
+    "auto" -> R.string.language_auto
+    else -> languageNames.getValue(choice)
 }
+
+private val languageNames = mapOf(
+    "en" to R.string.language_en, "es" to R.string.language_es, "ca" to R.string.language_ca, "gl" to R.string.language_gl,
+    "eu" to R.string.language_eu, "pt" to R.string.language_pt, "fr" to R.string.language_fr, "it" to R.string.language_it,
+    "de" to R.string.language_de, "nl" to R.string.language_nl, "nl-be" to R.string.language_nl_be, "da" to R.string.language_da,
+    "nb" to R.string.language_nb, "sv" to R.string.language_sv, "fi" to R.string.language_fi, "pl" to R.string.language_pl,
+    "cs" to R.string.language_cs, "sk" to R.string.language_sk, "sl" to R.string.language_sl, "hr" to R.string.language_hr,
+    "sr" to R.string.language_sr, "bs" to R.string.language_bs, "mk" to R.string.language_mk, "ru" to R.string.language_ru,
+    "el" to R.string.language_el, "tr" to R.string.language_tr, "ar" to R.string.language_ar, "zh" to R.string.language_zh,
+    "ja" to R.string.language_ja, "ko" to R.string.language_ko
+)
