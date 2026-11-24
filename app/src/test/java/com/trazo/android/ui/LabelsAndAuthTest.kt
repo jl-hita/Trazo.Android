@@ -22,7 +22,7 @@ class LabelsAndAuthTest {
         assertEquals("Pecho", Labels.muscle("Chest"))
         Locale.setDefault(Locale("fr", "FR"))
         assertEquals("Hypertrophie", Labels.goal("Hypertrophy"))
-        Locale.setDefault(Locale("ru", "RU")) // a language the app is not translated into is shown in English
+        Locale.setDefault(Locale("vi", "VN")) // a language the app is not translated into is shown in English
         assertEquals("Muscle growth", Labels.goal("Hypertrophy"))
         Locale.setDefault(Locale.ENGLISH)
         assertEquals("Muscle growth", Labels.goal("Hypertrophy"))
