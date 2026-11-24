@@ -255,7 +255,15 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                     enabled = !state.savingLimitations, modifier = Modifier.heightIn(min = MinTouch)
                 ) { Text(stringResource(R.string.overview_priorities_save)) }
             },
-            dismissButton = { TextButton(onClick = { editInjuries = false }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.cancel)) } }
+            dismissButton = {
+                Row {
+                    if (plan.limitations.isNotEmpty()) TextButton(
+                        onClick = { viewModel.updateLimitations(emptyList()); editInjuries = false },
+                        enabled = !state.savingLimitations, modifier = Modifier.heightIn(min = MinTouch)
+                    ) { Text(stringResource(R.string.injury_recovered)) }
+                    TextButton(onClick = { editInjuries = false }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.cancel)) }
+                }
+            }
         )
     }
     state.plan?.takeIf { editPriorities }?.let { plan ->

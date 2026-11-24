@@ -109,6 +109,7 @@
     <string name="injury_report">Je me suis blessé en dehors de l\'entraînement</string>
     <string name="injury_title">Blessure hors entraînement</string>
     <string name="injury_note">Sélectionnez les zones qui font mal maintenant. Les séances à venir remplacent les exercices qui les sollicitent et les blocs suivants les évitent. Désélectionnez une zone une fois guéri. Ce n\'est pas un avis médical : consultez un professionnel si la douleur persiste.</string>
+    <string name="injury_recovered">Je suis guéri</string>
     <string name="onb_limitations">Douleurs ou blessures</string>
     <string name="onb_limitations_hint">Nous éviterons les exercices les plus courants pour cette zone. Ce ne sont pas des conseils médicaux : en cas de doute, demande l\'avis d\'un professionnel.</string>
     <string name="onb_create">Générer mon plan</string>

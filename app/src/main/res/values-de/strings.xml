@@ -109,6 +109,7 @@
     <string name="injury_report">Ich habe mich außerhalb des Trainings verletzt</string>
     <string name="injury_title">Verletzung außerhalb des Trainings</string>
     <string name="injury_note">Wähle die Bereiche, die jetzt schmerzen. Ausstehende Einheiten ersetzen die Übungen, die sie belasten, und spätere Blöcke vermeiden sie. Wähle einen Bereich ab, sobald du dich erholt hast. Das ist keine medizinische Beratung: Suche bei anhaltenden Schmerzen eine Fachperson auf.</string>
+    <string name="injury_recovered">Ich bin wieder fit</string>
     <string name="onb_limitations">Beschwerden oder Verletzungen</string>
     <string name="onb_limitations_hint">Wir vermeiden die gängigsten Übungen für diesen Bereich. Das ist keine medizinische Beratung: Frag im Zweifel einen Fachmann.</string>
     <string name="onb_create">Meinen Plan erstellen</string>

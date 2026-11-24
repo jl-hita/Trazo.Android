@@ -113,6 +113,7 @@
     <string name="injury_report">Fixen dano fóra do adestramento</string>
     <string name="injury_title">Lesión fóra do adestramento</string>
     <string name="injury_note">Marca as zonas que che doen agora. As sesións pendentes substitúen os exercicios que as cargan e os bloques seguintes evítanos. Desmarca unha zona cando te recuperes. Non é consello médico: consulta cun profesional se a dor persiste.</string>
+    <string name="injury_recovered">Xa me recuperei</string>
     <string name="onb_limitations">Molestias ou lesións</string>
     <string name="onb_limitations_hint">Evitaremos os exercicios máis habituais para esa zona. Non é un consello médico: consulta cun profesional se tes dúbidas.</string>
     <string name="onb_create">Xerar o meu plan</string>

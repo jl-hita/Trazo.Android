@@ -113,6 +113,7 @@
     <string name="injury_report">Entrenamendutik kanpo min hartu dut</string>
     <string name="injury_title">Entrenamendutik kanpoko lesioa</string>
     <string name="injury_note">Markatu orain mina egiten dizuten eremuak. Egiteke dauden saioek kargatzen dituzten ariketak ordezkatzen dituzte eta hurrengo blokeek saihestu egiten dituzte. Desmarkatu eremu bat sendatzen zarenean. Ez da aholku medikoa: jo profesional batengana mina etengabea bada.</string>
+    <string name="injury_recovered">Sendatu egin naiz</string>
     <string name="onb_limitations">Mina edo lesioak</string>
     <string name="onb_limitations_hint">Eremu horretarako ariketa ohikoenak saihestuko ditugu. Hau ez da aholku medikoa: zalantzarik baduzu, galdetu profesional bati.</string>
     <string name="onb_create">Sortu nire plana</string>
