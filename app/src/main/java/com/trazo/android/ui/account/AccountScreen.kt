@@ -293,7 +293,7 @@ private fun SecuritySection(auth: AuthRepository, initialUser: UserSummary, onLo
     )
 }
 
-/** The language of the app and of what TRAZO sends (e-mails, notifications): follow the device, Spanish or English. */
+/** The language of the app and of what TRAZO sends (e-mails, notifications): follow the device or pick one of the languages of the app. */
 @Composable
 private fun LanguageSection(language: com.trazo.android.data.repo.LanguageRepository, onChanged: () -> Unit) {
     val context = LocalContext.current
@@ -303,7 +303,7 @@ private fun LanguageSection(language: com.trazo.android.data.repo.LanguageReposi
     Text(stringResource(R.string.account_language_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
     ChipGroup(
         com.trazo.android.data.local.LanguageChoice.ALL, setOf(choice),
-        { context.getString(when (it) { "es" -> R.string.language_es; "en" -> R.string.language_en; else -> R.string.language_auto }) },
+        { context.getString(languageName(it)) },
         { picked ->
             if (picked != choice) {
                 choice = picked
@@ -315,4 +315,20 @@ private fun LanguageSection(language: com.trazo.android.data.repo.LanguageReposi
             }
         }
     )
+}
+
+/** The name of a language in that language, so anyone finds theirs whatever the app is showing. */
+private fun languageName(choice: String): Int = when (choice) {
+    "en" -> R.string.language_en
+    "es" -> R.string.language_es
+    "ca" -> R.string.language_ca
+    "de" -> R.string.language_de
+    "pt" -> R.string.language_pt
+    "fr" -> R.string.language_fr
+    "it" -> R.string.language_it
+    "pl" -> R.string.language_pl
+    "tr" -> R.string.language_tr
+    "sv" -> R.string.language_sv
+    "zh" -> R.string.language_zh
+    else -> R.string.language_auto
 }

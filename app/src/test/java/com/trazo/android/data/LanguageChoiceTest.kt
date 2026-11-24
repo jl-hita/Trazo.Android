@@ -39,7 +39,8 @@ class LanguageChoiceTest {
 
     @Test fun `unknown values are automatic`() {
         assertEquals("auto", LanguageChoice.normalize(null))
-        assertEquals("auto", LanguageChoice.normalize("fr"))
+        assertEquals("auto", LanguageChoice.normalize("ru"))
+        assertEquals("fr", LanguageChoice.normalize("FR"))
         assertEquals("en", LanguageChoice.normalize("EN"))
         assertEquals("es", LanguageChoice.normalize("es"))
     }

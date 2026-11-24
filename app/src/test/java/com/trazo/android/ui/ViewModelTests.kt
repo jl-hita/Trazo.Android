@@ -37,8 +37,11 @@ abstract class ViewModelTestBase {
     @get:Rule val tmp = TemporaryFolder()
     protected val dispatcher = StandardTestDispatcher()
 
-    @Before fun setMain() { Dispatchers.setMain(dispatcher) }
-    @After fun resetMain() { Dispatchers.resetMain() }
+    private val originalLocale = java.util.Locale.getDefault()
+
+    // The language of the machine must not change what the screens write (weights use the decimal separator of the language).
+    @Before fun setMain() { Dispatchers.setMain(dispatcher); java.util.Locale.setDefault(java.util.Locale.ENGLISH) }
+    @After fun resetMain() { Dispatchers.resetMain(); java.util.Locale.setDefault(originalLocale) }
 
     protected fun plansRepo(api: FakePlansApi): PlanRepository = PlanRepository(
         api,

@@ -30,11 +30,20 @@ class AuthInterceptor(private val tokens: TokenStore) : Interceptor {
 }
 
 /**
+ * The Accept-Language of the app: its language, then English as the fallback for the server texts it has not translated yet
+ * ("de, en;q=0.8"). A language of the app the server does not know is answered in English, never in Spanish.
+ */
+internal fun acceptLanguage(): String {
+    val language = com.trazo.android.data.local.AppLocale.appLanguage()
+    return if (language == "en" || language == "es") language else "$language, en;q=0.8"
+}
+
+/**
  * Tells the API who is asking: the language of the app (Spanish unless the device is English) and the time zone of the device, so
  * texts come back in the user's language and "today" is the user's day. Sent on every call, authenticated or not.
  */
 class ContextInterceptor(
-    private val language: () -> String = { if (java.util.Locale.getDefault().language == "en") "en" else "es" },
+    private val language: () -> String = ::acceptLanguage,
     private val zone: () -> String = { java.time.ZoneId.systemDefault().id },
     private val appVersion: () -> String = { com.trazo.android.BuildConfig.VERSION_NAME }
 ) : Interceptor {

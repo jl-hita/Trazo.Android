@@ -5,12 +5,14 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import java.util.Locale
 
-/** What the user chose for the language of the app and of the texts TRAZO sends: follow the device, or Spanish, or English. */
+/** What the user chose for the language of the app and of the texts TRAZO sends: follow the device, or one of the languages of the app. */
 object LanguageChoice {
     const val AUTO = "auto"
     const val ES = "es"
     const val EN = "en"
-    val ALL = listOf(AUTO, ES, EN)
+    /** Languages of the app, in the order the picker shows them. */
+    val LANGUAGES = listOf(EN, ES, "ca", "de", "pt", "fr", "it", "pl", "tr", "sv", "zh")
+    val ALL = listOf(AUTO) + LANGUAGES
 
     /** Anything unknown (an older or damaged value) is automatic. */
     fun normalize(value: String?): String = value?.lowercase()?.takeIf { it in ALL } ?: AUTO
@@ -38,10 +40,14 @@ object AppLocale {
 
     /** The locale a choice means. */
     fun localeFor(choice: String): Locale = when (LanguageChoice.normalize(choice)) {
-        LanguageChoice.ES -> Locale("es")
-        LanguageChoice.EN -> Locale("en")
-        else -> systemProvider()
+        LanguageChoice.AUTO -> systemProvider()
+        "pt" -> Locale("pt", "BR") // Brazilian Portuguese
+        "zh" -> Locale("zh", "CN") // Simplified Chinese
+        else -> Locale(LanguageChoice.normalize(choice))
     }
+
+    /** The language the app is shown in: the default locale's when the app is translated into it, English otherwise. */
+    fun appLanguage(): String = Locale.getDefault().language.takeIf { it in LanguageChoice.LANGUAGES } ?: "en"
 
     fun apply(choice: String) = Locale.setDefault(localeFor(choice))
 

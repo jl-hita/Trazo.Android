@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
-internal fun appLocale(): Locale = if (Labels.english()) Locale.getDefault() else Locale("es", "ES")
+internal fun appLocale(): Locale = Locale.getDefault()
 
 fun formatDate(iso: String): String = runCatching {
     LocalDate.parse(iso).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(appLocale()))
