@@ -283,7 +283,8 @@ class WorkoutViewModel(
             })
         }
 
-        fun formatKg(value: Double): String = if (value % 1.0 == 0.0) value.toInt().toString() else value.toString()
+        /** A weight (or any decimal) as the user's language writes it: "62,5" in Spanish, "62.5" in English. */
+        fun formatKg(value: Double): String = com.trazo.android.ui.common.Labels.decimal(value)
 
         /** Accepts a comma or a dot as decimal separator; returns null for empty or out-of-range input. */
         fun parseWeight(text: String): Double? = text.trim().replace(',', '.').toDoubleOrNull()?.takeIf { it in 0.0..1000.0 }
