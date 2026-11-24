@@ -33,7 +33,7 @@ estado del emulador (los ~110 px superiores) o usar un mockup CSS.
 ## Regenerarlas
 
 1. `python tools/mock-api/server.py --lang es` (o `en`; `--noplan` para el asistente de creación; `--mode sequence` para el plan sin fechas).
-2. `./gradlew assembleDebug -PapiBaseUrl=http://10.0.2.2:8099/ -PsecureScreens=false`, instalar en el emulador y entrar con cualquier correo/contraseña.
+2. `./gradlew assembleDebug -PapiBaseUrl=http://10.0.2.2:8099/`, instalar en el emulador y entrar con cualquier correo/contraseña.
 3. Cambiar el idioma de la app: `adb shell cmd locale set-app-locales com.trazo.android --locales en`.
 
 En las compilaciones normales (y en release) las pantallas con la rutina bloquean las capturas (`FLAG_SECURE`).

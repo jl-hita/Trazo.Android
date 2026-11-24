@@ -1,5 +1,6 @@
 package com.trazo.android.ui.plan
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,18 +12,22 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
 import com.trazo.android.data.model.ExerciseView
+import com.trazo.android.data.model.LoggedSetView
 import com.trazo.android.data.model.SessionView
 import com.trazo.android.data.model.WeekView
+import com.trazo.android.ui.catalog.ExerciseInfoDialog
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
+import com.trazo.android.ui.workout.AlternativesDialog
 import com.trazo.android.ui.workout.WorkoutViewModel
 import kotlinx.coroutines.flow.StateFlow
 
 /** The prescription of one session: sets, repetitions, RIR, rest and load target for each exercise. */
 @Composable
 fun SessionScreen(
+    viewModel: SessionViewModel,
     week: StateFlow<WeekView?>,
     sessionId: String,
     /** Finds a session the current week does not hold (a late one from an earlier week). */
@@ -32,12 +37,17 @@ fun SessionScreen(
     onStart: () -> Unit,
     onExercise: (String) -> Unit
 ) {
-    SecureScreen()
     val current by week.collectAsStateWithLifecycle()
-    val session = current?.sessions?.firstOrNull { it.id == sessionId } ?: lookup(sessionId)
+    val ui by viewModel.state.collectAsStateWithLifecycle()
+    var info by remember { mutableStateOf<String?>(null) }
+    val session = ui.swapped ?: current?.sessions?.firstOrNull { it.id == sessionId } ?: lookup(sessionId) ?: ui.found
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(session?.title ?: stringResource(R.string.workout_title), onBack)
-        if (session == null) { EmptyBox(stringResource(R.string.err_not_found)); return@Column }
+        if (session == null) {
+            if (ui.searching) LoadingBox() else EmptyBox(stringResource(R.string.session_past_unavailable))
+            return@Column
+        }
+        val logged = session.log != null
         LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             item {
                 Text(
@@ -45,7 +55,15 @@ fun SessionScreen(
                     color = TrazoPalette.TextSecondary
                 )
             }
-            items(session.exercises, key = { it.exerciseId }) { ExercisePrescription(it, onExercise) }
+            items(session.exercises, key = { it.exerciseId }) { ex ->
+                ExercisePrescription(
+                    ex, onExercise,
+                    // A session already done keeps its exercises: what was done is shown instead of a swap.
+                    onSwap = if (logged || current?.locked == true) null else ({ viewModel.showAlternatives(ex.exerciseId) }),
+                    onInfo = { info = ex.exerciseId },
+                    done = session.log?.sets?.filter { it.exerciseId == ex.exerciseId }
+                )
+            }
         }
         if (current?.locked == true) {
             Column(Modifier.padding(16.dp)) {
@@ -58,13 +76,23 @@ fun SessionScreen(
             Text(stringResource(R.string.session_done), color = TrazoPalette.Ok, modifier = Modifier.padding(16.dp))
         }
     }
+    ui.alternatives?.let { AlternativesDialog(it, ui.swapError, viewModel::swap, viewModel::dismissAlternatives, onInfo = { id -> info = id }) }
+    info?.let { id -> ExerciseInfoDialog(id, viewModel.catalog, onDismiss = { info = null }) }
 }
 
 @Composable
-fun ExercisePrescription(ex: ExerciseView, onExercise: (String) -> Unit) {
+fun ExercisePrescription(
+    ex: ExerciseView, onExercise: (String) -> Unit, onSwap: (() -> Unit)? = null, onInfo: (() -> Unit)? = null,
+    /** The sets logged for this exercise when the session is done (weight, repetitions, reserve). */
+    done: List<LoggedSetView>? = null
+) {
     TrazoCard {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            ExerciseThumb(exerciseImageUrl(ex.exerciseId), ex.name, 56.dp)
+            val explain = stringResource(R.string.exercise_explain)
+            ExerciseThumb(
+                exerciseImageUrl(ex.exerciseId), ex.name, 56.dp,
+                if (onInfo != null) Modifier.clickable(onClickLabel = explain, onClick = onInfo) else Modifier
+            )
             Column {
                 Text(ex.name, style = MaterialTheme.typography.titleMedium)
                 Text(Labels.muscles(ex.primaryMuscles), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
@@ -84,6 +112,21 @@ fun ExercisePrescription(ex: ExerciseView, onExercise: (String) -> Unit) {
             )
         }
         if (ex.swappedFromExerciseId != null) Text(stringResource(R.string.session_swapped), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
-        TrazoLink(onClick = { onExercise(ex.exerciseId) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.session_view_exercise)) }
+        if (!done.isNullOrEmpty()) {
+            SectionTitle(stringResource(R.string.session_done_sets))
+            done.sortedBy { it.setNumber }.forEach { set ->
+                val weight = set.weightKg?.let { WorkoutViewModel.formatKg(it) + " kg" } ?: "–"
+                Text(
+                    stringResource(R.string.session_done_set, set.setNumber, weight, set.repetitions?.toString() ?: "–") +
+                        (set.rir?.let { " · " + stringResource(R.string.session_rir, WorkoutViewModel.formatKg(it)) } ?: "") +
+                        (if (!set.completed) " · " + stringResource(R.string.session_set_skipped) else ""),
+                    color = if (set.completed) TrazoPalette.Text else TrazoPalette.TextSecondary
+                )
+            }
+        }
+        Row {
+            if (onSwap != null) TrazoLink(onClick = onSwap, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_swap)) }
+            TrazoLink(onClick = { onExercise(ex.exerciseId) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.session_view_exercise)) }
+        }
     }
 }

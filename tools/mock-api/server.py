@@ -11,7 +11,7 @@ the new screens: --mode sequence (a plan with no dates: cycles and sessions, no 
 wait and offers another session), --behind 2 (offer to move a calendar plan that fell two weeks behind; POST reschedule clears it) and
 --reentry 30 (30 days without training: the re-entry message).
 
-Build the app against it:   ./gradlew assembleDebug -PapiBaseUrl=http://10.0.2.2:8099/ -PsecureScreens=false
+Build the app against it:   ./gradlew assembleDebug -PapiBaseUrl=http://10.0.2.2:8099/
 Sign in with any e-mail and password. Nothing is stored; every request answers from the fixtures below.
 """
 import argparse

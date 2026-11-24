@@ -1,7 +1,5 @@
 package com.trazo.android.ui.common
 
-import android.app.Activity
-import android.view.WindowManager
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,16 +7,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.trazo.android.BuildConfig
 import com.trazo.android.R
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ErrorKind
@@ -28,20 +23,6 @@ import com.trazo.android.ui.theme.TrazoPalette
 
 /** Minimum touch target recommended by Android accessibility guidelines. */
 val MinTouch = 48.dp
-
-/**
- * Blocks screenshots, screen recording and the recents thumbnail while the routine is on screen (anti-copy). Debug builds
- * can switch it off with `-PsecureScreens=false`.
- */
-@Composable
-fun SecureScreen() {
-    if (!BuildConfig.SECURE_SCREENS) return
-    val activity = LocalContext.current as? Activity ?: return
-    DisposableEffect(Unit) {
-        activity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-        onDispose { activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) }
-    }
-}
 
 @Composable
 fun apiErrorText(error: ApiError): String = when {

@@ -41,8 +41,6 @@ require(buildNumber in 0..99) { "buildNumber debe estar entre 0 y 99." }
 val appVersionCode = appVersionName.split(".").map { it.toInt() }.let { (ma, mi, pa) -> ma * 1_000_000 + mi * 10_000 + pa * 100 } + buildNumber
 // Subscription product used by the (inactive) Play Billing flow. Change it here or with -PbillingProductId=...
 val billingProductId = providers.gradleProperty("billingProductId").orElse("trazo_premium").get()
-// FLAG_SECURE on the routine screens; can only be switched off in debug builds with -PsecureScreens=false.
-val secureScreensInDebug = providers.gradleProperty("secureScreens").orElse("true").get().toBoolean()
 val releaseApiUrl = explicitApiBaseUrl ?: if (hasExplicitReleaseEndpoint) composedApiUrl else "https://api.example.invalid/"
 android {
  namespace = "com.trazo.android"
@@ -59,7 +57,6 @@ android {
   buildConfigField("String", "API_BASE_URL", "\"$releaseApiUrl\"")
   buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleClientId\"")
   buildConfigField("String", "BILLING_PRODUCT_ID", "\"$billingProductId\"")
-  buildConfigField("boolean", "SECURE_SCREENS", "true")
   // Host of the verified App Links (email verification and password reset): the site that serves the API.
   val appLinkHost = runCatching { URI(releaseApiUrl).host }.getOrNull() ?: "api.example.invalid"
   manifestPlaceholders["appLinkHost"] = appLinkHost
@@ -76,7 +73,6 @@ android {
  buildTypes {
   debug {
    buildConfigField("String", "API_BASE_URL", "\"$debugApiUrl\"")
-   buildConfigField("boolean", "SECURE_SCREENS", "$secureScreensInDebug")
   }
   release {
    isMinifyEnabled = true

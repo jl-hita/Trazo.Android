@@ -213,6 +213,5 @@ El hostname `trazo.duckdns.org` es el destino propuesto, pendiente de reserva DN
 | `trazoSigningKeystorePath`, `trazoSigningKeystorePassword`, `trazoSigningKeyAlias`, `trazoSigningKeyPassword` | Firma de release. Se leen de `local.properties`, propiedades Gradle o variables `TRAZO_SIGNING_*`. Nunca en el repositorio. Sin ellas, `bundleRelease` produce un AAB sin firmar. |
 | `buildNumber` (0–99) | Se suma al `versionCode` calculado a partir de `versionName`. |
 | `billingProductId` | ID del producto de suscripción de Google Play (por defecto `trazo_premium`; inactivo mientras el backend no exija pago). |
-| `secureScreens` | Solo debug: `-PsecureScreens=false` permite capturas en las pantallas con la rutina (`FLAG_SECURE`). |
 
 Los pasos para publicar están en [release.md](release.md).

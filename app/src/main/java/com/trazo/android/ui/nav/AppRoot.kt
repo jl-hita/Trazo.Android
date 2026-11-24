@@ -265,11 +265,12 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 }
                 composable(Routes.HISTORY) {
                     val vm: HistoryViewModel = containerViewModel { HistoryViewModel(it.plans) }
-                    HistoryScreen(vm, onBack = { nav.popBackStack() })
+                    HistoryScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.session(it)) })
                 }
                 composable(Routes.SESSION, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
-                    SessionScreen(c.plans.week, id, lookup = c.plans::session, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
+                    val vm: SessionViewModel = containerViewModel(key = "session-$id") { SessionViewModel(it.plans, it.exercises, id) }
+                    SessionScreen(vm, c.plans.week, id, lookup = c.plans::session, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()

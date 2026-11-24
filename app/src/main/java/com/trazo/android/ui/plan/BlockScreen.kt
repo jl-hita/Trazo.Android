@@ -51,7 +51,6 @@ class BlockViewModel(private val plans: PlanRepository) : ViewModel() {
 
 @Composable
 fun BlockScreen(viewModel: BlockViewModel, onBack: () -> Unit) {
-    SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(stringResource(R.string.block_title), onBack)

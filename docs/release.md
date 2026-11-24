@@ -71,7 +71,7 @@ Cuestionario IARC: sin violencia, sin contenido sexual, sin juegos de azar, sin 
 La app viene en español (idioma por defecto) e inglés (`values-en`); cualquier otro idioma del dispositivo ve el español. En Play Console añade ambos idiomas a la ficha (Presencia en la tienda → Fichas de tienda personalizadas) y traduce descripción, capturas y política de privacidad. Android 13+ permite elegir el idioma de la app en Ajustes (`locales_config.xml`). El contenido que envía el servidor (planes, avisos, instrucciones de ejercicios) hoy solo está en español; los nombres de ejercicio se muestran en inglés cuando existe `nameEn`.
 
 ### Ficha de la tienda
-Gráficos disponibles en `store/google-play/` (icono 512 y gráfico de funciones 1024×500). Las **capturas de pantalla** (es/en) están en `landing-screenshots/` (sirven también para la ficha de Play; mínimo 2 por idioma). Para regenerarlas usa un build debug con `-PsecureScreens=false`, porque en release las pantallas con la rutina bloquean las capturas (`FLAG_SECURE`).
+Gráficos disponibles en `store/google-play/` (icono 512 y gráfico de funciones 1024×500). Las **capturas de pantalla** (es/en) están en `landing-screenshots/` (sirven también para la ficha de Play; mínimo 2 por idioma).
 
 ## 5. Prueba cerrada
 

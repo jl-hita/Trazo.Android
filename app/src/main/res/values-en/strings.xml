@@ -581,4 +581,10 @@
         <item quantity="one">Then %1$d week of the full plan (it counts inside the total length).</item>
         <item quantity="other">Then %1$d weeks of the full plan (they count inside the total length).</item>
     </plurals>
+    <string name="exercise_explain">See how the exercise is done</string>
+    <string name="exercise_see_detail">View detail</string>
+    <string name="session_past_unavailable">The detail of this session is not available.</string>
+    <string name="session_done_sets">Sets done</string>
+    <string name="session_done_set">Set %1$d: %2$s × %3$s</string>
+    <string name="session_set_skipped">not done</string>
 </resources>
