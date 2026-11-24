@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">Приоритет по мускул</string>
     <string name="overview_priorities_note">Промената важи за блоковите создадени од сега натаму; блокот во тек не се препишува.</string>
     <string name="overview_priorities_save">Зачувај</string>
+    <string name="injury_report">Се повредив надвор од тренинг</string>
+    <string name="injury_title">Повреда надвор од тренинг</string>
+    <string name="injury_note">Избери ги областите што сега болат. Преостанатите тренинзи ги заменуваат вежбите што ги оптоваруваат, а следните блокови ги избегнуваат. Отстрани ја областа кога ќе се опоравиш. Ова не е медицински совет: ако болката не поминува, обрати се кај стручно лице.</string>
     <string name="onb_limitations">Болки или повреди</string>
     <string name="onb_limitations_hint">Ќе ги избегнуваме најчестите вежби за тоа подрачје. Ова не е медицински совет: ако се сомневаш, прашај стручно лице.</string>
     <string name="onb_create">Создади го мојот план</string>

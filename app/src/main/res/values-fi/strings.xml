@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">Lihaskohtainen prioriteetti</string>
     <string name="overview_priorities_note">Muutos koskee tästä eteenpäin luotavia jaksoja; käynnissä olevaa jaksoa ei kirjoiteta uudelleen.</string>
     <string name="overview_priorities_save">Tallenna</string>
+    <string name="injury_report">Loukkaannuin treenin ulkopuolella</string>
+    <string name="injury_title">Vamma treenin ulkopuolella</string>
+    <string name="injury_note">Valitse alueet, jotka ovat nyt kipeät. Odottavat harjoitukset korvaavat niitä kuormittavat liikkeet, ja seuraavat jaksot välttävät niitä. Poista alue valinnasta, kun olet toipunut. Tämä ei ole lääketieteellistä neuvontaa: käänny ammattilaisen puoleen, jos kipu jatkuu.</string>
     <string name="onb_limitations">Kivut tai vammat</string>
     <string name="onb_limitations_hint">Vältämme alueen yleisimpiä liikkeitä. Tämä ei ole lääketieteellinen neuvo: kysy epäselvissä tapauksissa ammattilaiselta.</string>
     <string name="onb_create">Luo ohjelmani</string>

@@ -106,6 +106,9 @@
     <string name="overview_priorities_title">Priorytet dla mięśnia</string>
     <string name="overview_priorities_note">Zmiana dotyczy bloków tworzonych od teraz; trwający blok nie jest przepisywany.</string>
     <string name="overview_priorities_save">Zapisz</string>
+    <string name="injury_report">Zrobiłem sobie krzywdę poza treningiem</string>
+    <string name="injury_title">Kontuzja poza treningiem</string>
+    <string name="injury_note">Zaznacz obszary, które teraz bolą. Zaplanowane sesje zastępują ćwiczenia, które je obciążają, a kolejne bloki ich unikają. Odznacz obszar, gdy wrócisz do zdrowia. To nie jest porada medyczna: jeśli ból się utrzymuje, skonsultuj się ze specjalistą.</string>
     <string name="onb_limitations">Dolegliwości lub kontuzje</string>
     <string name="onb_limitations_hint">Pominiemy najczęstsze ćwiczenia dla tej okolicy. To nie jest porada medyczna: w razie wątpliwości zapytaj specjalistę.</string>
     <string name="onb_create">Utwórz mój plan</string>

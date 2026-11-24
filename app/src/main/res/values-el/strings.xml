@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">Προτεραιότητα ανά μυ</string>
     <string name="overview_priorities_note">Η αλλαγή ισχύει για τα μπλοκ που δημιουργούνται από τώρα και στο εξής· το τρέχον μπλοκ δεν ξαναγράφεται.</string>
     <string name="overview_priorities_save">Αποθήκευση</string>
+    <string name="injury_report">Τραυματίστηκα εκτός προπόνησης</string>
+    <string name="injury_title">Τραυματισμός εκτός προπόνησης</string>
+    <string name="injury_note">Επίλεξε τις περιοχές που πονούν τώρα. Οι εκκρεμείς προπονήσεις αντικαθιστούν τις ασκήσεις που τις επιβαρύνουν και τα επόμενα μπλοκ τις αποφεύγουν. Αποεπίλεξε μια περιοχή όταν αναρρώσεις. Δεν είναι ιατρική συμβουλή: αν ο πόνος επιμένει, συμβουλέψου έναν ειδικό.</string>
     <string name="onb_limitations">Πόνοι ή τραυματισμοί</string>
     <string name="onb_limitations_hint">Θα αποφύγουμε τις πιο συνηθισμένες ασκήσεις για εκείνη την περιοχή. Αυτό δεν είναι ιατρική συμβουλή: αν έχεις αμφιβολίες, ρώτα έναν ειδικό.</string>
     <string name="onb_create">Δημιουργία του προγράμματός μου</string>

@@ -229,11 +229,35 @@ private fun SessionCard(session: SessionView, onClick: () -> Unit) {
     }
 }
 
+/** The areas the plan can rule exercises out for; the same closed list as the onboarding. */
+private val INJURY_AREAS = listOf("Knee", "Shoulder", "LowerBack", "Wrist", "Elbow")
+
 @Composable
 fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, onBack: () -> Unit) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val load by loadViewModel.state.collectAsStateWithLifecycle()
     var editPriorities by remember { mutableStateOf(false) }
+    var editInjuries by remember { mutableStateOf(false) }
+    state.plan?.takeIf { editInjuries }?.let { plan ->
+        var draft by remember(plan.limitations) { mutableStateOf(plan.limitations.toSet()) }
+        AlertDialog(
+            onDismissRequest = { editInjuries = false },
+            title = { Text(stringResource(R.string.injury_title)) },
+            text = {
+                Column(Modifier.heightIn(max = 460.dp).verticalScroll(rememberScrollState())) {
+                    Text(stringResource(R.string.injury_note), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    ChipGroup(INJURY_AREAS, draft, Labels::limitation, { area -> draft = if (area in draft) draft - area else draft + area })
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.updateLimitations(INJURY_AREAS.filter { it in draft }); editInjuries = false },
+                    enabled = !state.savingLimitations, modifier = Modifier.heightIn(min = MinTouch)
+                ) { Text(stringResource(R.string.overview_priorities_save)) }
+            },
+            dismissButton = { TextButton(onClick = { editInjuries = false }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.cancel)) } }
+        )
+    }
     state.plan?.takeIf { editPriorities }?.let { plan ->
         var draft by remember(plan.musclePriorities) { mutableStateOf(plan.priorities) }
         AlertDialog(
@@ -307,6 +331,10 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                                 plan.limitations.takeIf { it.isNotEmpty() }?.joinToString(", ") { Labels.limitation(it) } ?: stringResource(R.string.overview_none)
                             )
                         )
+                        if (plan.origin == "Generated") {
+                            TrazoLink(onClick = { editInjuries = true }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.injury_report)) }
+                            state.error?.let { ErrorBox(it, null) }
+                        }
                         if (plan.origin == "Generated" && plan.goal == "Hypertrophy") {
                             val chosen = plan.priorities
                             Text(

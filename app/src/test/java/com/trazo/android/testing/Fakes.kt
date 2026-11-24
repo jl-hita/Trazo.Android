@@ -22,7 +22,9 @@ fun problem(code: Int, title: String): String = """{"title":"$title","status":$c
 
 class FakePlansApi : PlansApi {
     var weekResponse: () -> Response<WeekView> = { Response.success(sampleWeek()) }
-    var planResponse: () -> Response<PlanView> = { Response.success(samplePlan()) }
+    /** What the server keeps after a limitations update, so the plan read afterwards shows it. */
+    var storedLimitations: List<String> = emptyList()
+    var planResponse: () -> Response<PlanView> = { Response.success(samplePlan().copy(limitations = storedLimitations)) }
     var logResponse: (String, LogSessionRequest) -> Response<LogResult> = { _, _ -> Response.success(LogResult(sampleSession(), sampleReport())) }
     var optionsResponse: () -> Response<PlanOptions> = { Response.success(sampleOptions()) }
     var createResponse: (PlanProfileRequest) -> Response<PlanView> = { Response.success(samplePlan()) }
@@ -48,6 +50,11 @@ class FakePlansApi : PlansApi {
     val prioritiesSent = mutableListOf<Map<String, String>>()
     override suspend fun updateMusclePriorities(request: UpdateMusclePrioritiesRequest): Response<PlanView> {
         prioritiesSent += request.musclePriorities; return prioritiesResponse(request.musclePriorities)
+    }
+    var limitationsResponse: (List<String>) -> Response<PlanView> = { Response.success(samplePlan().copy(limitations = it)) }
+    val limitationsSent = mutableListOf<List<String>>()
+    override suspend fun updateLimitations(request: UpdateLimitationsRequest): Response<PlanView> {
+        limitationsSent += request.limitations; storedLimitations = request.limitations; return limitationsResponse(request.limitations)
     }
     var rescheduleResponse: () -> Response<RescheduleResult> = { Response.success(RescheduleResult(1, 8, "2026-11-16", "2027-02-07")) }
     var rescheduleCalls = 0

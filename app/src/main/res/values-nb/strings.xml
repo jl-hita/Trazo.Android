@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">Prioritet per muskel</string>
     <string name="overview_priorities_note">Endringen gjelder blokker som lages fra nå av; blokken som pågår skrives ikke om.</string>
     <string name="overview_priorities_save">Lagre</string>
+    <string name="injury_report">Jeg har skadet meg utenfor trening</string>
+    <string name="injury_title">Skade utenfor trening</string>
+    <string name="injury_note">Velg områdene som gjør vondt nå. Ventende økter bytter ut øvelsene som belaster dem, og senere blokker unngår dem. Fjern et område når du er restituert. Dette er ikke medisinsk råd: kontakt en fagperson hvis smerten vedvarer.</string>
     <string name="onb_limitations">Smerter eller skader</string>
     <string name="onb_limitations_hint">Vi unngår de vanligste øvelsene for det området. Dette er ikke medisinsk veiledning: spør en fagperson hvis du er i tvil.</string>
     <string name="onb_create">Lag planen min</string>

@@ -30,6 +30,8 @@ data class PlanUiState(
     val skipping: Boolean = false,
     /** Saving the muscle priorities is in progress. */
     val savingPriorities: Boolean = false,
+    /** Saving the injured areas is in progress. */
+    val savingLimitations: Boolean = false,
     val error: ApiError? = null
 )
 
@@ -69,6 +71,18 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
             when (val result = plans.updateMusclePriorities(priorities)) {
                 is ApiResult.Success -> _state.update { it.copy(savingPriorities = false, plan = result.value) }
                 is ApiResult.Failure -> _state.update { it.copy(savingPriorities = false, error = result.error) }
+            }
+        }
+    }
+
+    /** Reports (or clears) an injury outside a session: the plan adapts its pending sessions, so the week is reloaded. */
+    fun updateLimitations(areas: List<String>) {
+        if (_state.value.savingLimitations) return
+        _state.update { it.copy(savingLimitations = true, error = null) }
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.update { it.copy(savingLimitations = false, error = ApiError(ErrorKind.Unknown)) } }) {
+            when (val result = plans.updateLimitations(areas)) {
+                is ApiResult.Success -> { _state.update { it.copy(savingLimitations = false, plan = result.value) }; load() }
+                is ApiResult.Failure -> _state.update { it.copy(savingLimitations = false, error = result.error) }
             }
         }
     }

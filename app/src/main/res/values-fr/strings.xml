@@ -106,6 +106,9 @@
     <string name="overview_priorities_title">Priorité par muscle</string>
     <string name="overview_priorities_note">Le changement s\'applique aux blocs générés à partir de maintenant ; le bloc en cours n\'est pas réécrit.</string>
     <string name="overview_priorities_save">Enregistrer</string>
+    <string name="injury_report">Je me suis blessé en dehors de l\'entraînement</string>
+    <string name="injury_title">Blessure hors entraînement</string>
+    <string name="injury_note">Sélectionnez les zones qui font mal maintenant. Les séances à venir remplacent les exercices qui les sollicitent et les blocs suivants les évitent. Désélectionnez une zone une fois guéri. Ce n\'est pas un avis médical : consultez un professionnel si la douleur persiste.</string>
     <string name="onb_limitations">Douleurs ou blessures</string>
     <string name="onb_limitations_hint">Nous éviterons les exercices les plus courants pour cette zone. Ce ne sont pas des conseils médicaux : en cas de doute, demande l\'avis d\'un professionnel.</string>
     <string name="onb_create">Générer mon plan</string>

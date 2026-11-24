@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">筋肉ごとの優先度</string>
     <string name="overview_priorities_note">変更はこれから作成されるブロックに適用されます。進行中のブロックは書き換えられません。</string>
     <string name="overview_priorities_save">保存</string>
+    <string name="injury_report">トレーニング外でけがをした</string>
+    <string name="injury_title">トレーニング外のけが</string>
+    <string name="injury_note">今痛む部位を選んでください。予定のセッションではその部位に負担をかける種目が置き換えられ、以降のブロックでも避けられます。回復したら選択を外してください。医療上のアドバイスではありません。痛みが続く場合は専門家に相談してください。</string>
     <string name="onb_limitations">痛みやケガ</string>
     <string name="onb_limitations_hint">その部位に多い種目を避けます。これは医学的助言ではありません。不安がある場合は専門家に相談してください。</string>
     <string name="onb_create">プランを作成する</string>
