@@ -34,7 +34,6 @@ import com.trazo.android.ui.theme.TrazoPalette
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import java.util.Locale
 
 data class ProgressUiState(val loading: Boolean = true, val progress: ProgressView? = null, val error: ApiError? = null)
 
@@ -56,7 +55,7 @@ class ProgressViewModel(private val plans: PlanRepository) : ViewModel() {
 }
 
 internal fun formatKgText(value: Double?): String =
-    if (value == null) "–" else if (value % 1.0 == 0.0) value.toInt().toString() else String.format(Locale.getDefault(), "%.1f", value)
+    if (value == null) "–" else com.trazo.android.ui.common.Labels.decimal(value, maxDecimals = 1)
 
 @Composable
 fun ProgressScreen(viewModel: ProgressViewModel) {

@@ -2,6 +2,7 @@ package com.trazo.android.ui.common
 
 import java.time.DayOfWeek
 import java.time.format.TextStyle
+import java.text.NumberFormat
 import java.time.temporal.WeekFields
 import java.util.Locale
 
@@ -191,6 +192,17 @@ object Labels {
         val spaced = value.replace(Regex("([a-z])([A-Z])"), "$1 $2").replace('-', ' ').replace('_', ' ').trim().lowercase()
         return spaced.replaceFirstChar { it.uppercase() }
     }
+
+    /**
+     * A number the way the language of the app writes it: "62,5" in Spanish, "62.5" in English. A whole number drops the decimals
+     * ("65"), thousands are not grouped (it is also written back into text fields), and no more than [maxDecimals] are kept.
+     */
+    fun decimal(value: Double, maxDecimals: Int = 2): String =
+        NumberFormat.getNumberInstance(Locale.getDefault()).apply {
+            minimumFractionDigits = 0
+            maximumFractionDigits = maxDecimals
+            isGroupingUsed = false
+        }.format(value)
 
     /** 125 → "2:05". */
     fun clock(seconds: Int): String = "%d:%02d".format(seconds / 60, seconds % 60)
