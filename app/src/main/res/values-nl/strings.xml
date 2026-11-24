@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">Prioriteit per spier</string>
     <string name="overview_priorities_note">De wijziging geldt voor blokken die vanaf nu worden gemaakt; het lopende blok wordt niet herschreven.</string>
     <string name="overview_priorities_save">Opslaan</string>
+    <string name="injury_report">Ik heb me buiten de training bezeerd</string>
+    <string name="injury_title">Blessure buiten de training</string>
+    <string name="injury_note">Selecteer de gebieden die nu pijn doen. Openstaande sessies vervangen de oefeningen die ze belasten en latere blokken vermijden ze. Deselecteer een gebied zodra je hersteld bent. Dit is geen medisch advies: raadpleeg een professional als de pijn blijft.</string>
     <string name="onb_limitations">Pijntjes of blessures</string>
     <string name="onb_limitations_hint">We vermijden de meest voorkomende oefeningen voor dat gebied. Dit is geen medisch advies: vraag een professional als je twijfelt.</string>
     <string name="onb_create">Mijn plan maken</string>

@@ -106,6 +106,9 @@
     <string name="overview_priorities_title">Prioritet per muskel</string>
     <string name="overview_priorities_note">Ändringen gäller block som skapas från och med nu; blocket som pågår skrivs inte om.</string>
     <string name="overview_priorities_save">Spara</string>
+    <string name="injury_report">Jag har skadat mig utanför träningen</string>
+    <string name="injury_title">Skada utanför träningen</string>
+    <string name="injury_note">Välj de områden som gör ont nu. Väntande pass byter ut övningarna som belastar dem och senare block undviker dem. Avmarkera ett område när du har återhämtat dig. Detta är inget medicinskt råd: kontakta en yrkesperson om smärtan fortsätter.</string>
     <string name="onb_limitations">Värk eller skador</string>
     <string name="onb_limitations_hint">Vi undviker de vanligaste övningarna för det området. Det här är inte medicinska råd: fråga en expert om du är osäker.</string>
     <string name="onb_create">Skapa min plan</string>

@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">Prioriteta po mišici</string>
     <string name="overview_priorities_note">Sprememba velja za bloke, ustvarjene od zdaj naprej; blok v teku se ne prepiše.</string>
     <string name="overview_priorities_save">Shrani</string>
+    <string name="injury_report">Poškodoval sem se zunaj treninga</string>
+    <string name="injury_title">Poškodba zunaj treninga</string>
+    <string name="injury_note">Izberi področja, ki zdaj bolijo. Čakajoče vadbe zamenjajo vaje, ki jih obremenjujejo, naslednji bloki pa se jim izognejo. Področje odznači, ko si okreval. To ni zdravniški nasvet: če bolečina ne mine, obišči strokovnjaka.</string>
     <string name="onb_limitations">Bolečine ali poškodbe</string>
     <string name="onb_limitations_hint">Izogibali se bomo najpogostejšim vajam za to območje. To ni zdravniški nasvet: če dvomiš, vprašaj strokovnjaka.</string>
     <string name="onb_create">Ustvari moj načrt</string>

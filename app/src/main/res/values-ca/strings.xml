@@ -106,6 +106,9 @@
     <string name="overview_priorities_title">Prioritat per múscul</string>
     <string name="overview_priorities_note">El canvi s\'aplica als blocs que es generin a partir d\'ara; el bloc en curs no es reescriu.</string>
     <string name="overview_priorities_save">Desa</string>
+    <string name="injury_report">M\'he fet mal fora de l\'entrenament</string>
+    <string name="injury_title">Lesió fora de l\'entrenament</string>
+    <string name="injury_note">Marca les zones que et fan mal ara. Les sessions pendents substitueixen els exercicis que les carreguen i els blocs següents els eviten. Desmarca una zona quan t\'hagis recuperat. No és consell mèdic: consulta un professional si el dolor persisteix.</string>
     <string name="onb_limitations">Molèsties o lesions</string>
     <string name="onb_limitations_hint">Evitarem els exercicis més habituals per a aquesta zona. No és un consell mèdic: consulta un professional si tens dubtes.</string>
     <string name="onb_create">Genera el meu pla</string>

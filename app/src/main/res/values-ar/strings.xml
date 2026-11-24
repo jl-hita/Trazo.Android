@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">الأولوية لكل عضلة</string>
     <string name="overview_priorities_note">يسري التغيير على الكتل التي تُنشأ من الآن فصاعدًا؛ ولا تُعاد كتابة الكتلة الجارية.</string>
     <string name="overview_priorities_save">حفظ</string>
+    <string name="injury_report">أصبت خارج التمرين</string>
+    <string name="injury_title">إصابة خارج التمرين</string>
+    <string name="injury_note">اختر المناطق التي تؤلمك الآن. تستبدل الجلسات المعلّقة التمارين التي تحمّلها وتتجنبها الكتل اللاحقة. ألغِ تحديد المنطقة عندما تتعافى. هذه ليست نصيحة طبية: استشر مختصًا إذا استمر الألم.</string>
     <string name="onb_limitations">آلام أو إصابات</string>
     <string name="onb_limitations_hint">سنتجنب التمارين الأكثر شيوعًا لتلك المنطقة. هذه ليست نصيحة طبية: استشر مختصًا عند الشك.</string>
     <string name="onb_create">أنشئ خطتي</string>

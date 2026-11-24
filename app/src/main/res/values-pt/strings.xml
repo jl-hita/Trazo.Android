@@ -106,6 +106,9 @@
     <string name="overview_priorities_title">Prioridade por músculo</string>
     <string name="overview_priorities_note">A mudança vale para os blocos gerados daqui em diante; o bloco em andamento não é reescrito.</string>
     <string name="overview_priorities_save">Salvar</string>
+    <string name="injury_report">Machuquei-me fora do treino</string>
+    <string name="injury_title">Lesão fora do treino</string>
+    <string name="injury_note">Marque as zonas que doem agora. As sessões pendentes substituem os exercícios que as sobrecarregam e os blocos seguintes evitam-nos. Desmarque uma zona quando estiver recuperado. Não é aconselhamento médico: consulte um profissional se a dor persistir.</string>
     <string name="onb_limitations">Dores ou lesões</string>
     <string name="onb_limitations_hint">Evitaremos os exercícios mais comuns para essa região. Isto não é orientação médica: em caso de dúvida, consulte um profissional.</string>
     <string name="onb_create">Gerar meu plano</string>

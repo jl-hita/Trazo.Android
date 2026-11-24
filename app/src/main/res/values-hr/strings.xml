@@ -110,6 +110,9 @@
     <string name="overview_priorities_title">Prioritet po mišiću</string>
     <string name="overview_priorities_note">Promjena vrijedi za blokove izrađene od sada; blok u tijeku ne prepisuje se.</string>
     <string name="overview_priorities_save">Spremi</string>
+    <string name="injury_report">Ozlijedio sam se izvan treninga</string>
+    <string name="injury_title">Ozljeda izvan treninga</string>
+    <string name="injury_note">Odaberi područja koja sada bole. Preostali treninzi zamjenjuju vježbe koje ih opterećuju, a sljedeći blokovi ih izbjegavaju. Poništi odabir područja kad se oporaviš. Ovo nije liječnički savjet: ako bol ne prolazi, obrati se stručnjaku.</string>
     <string name="onb_limitations">Bolovi ili ozljede</string>
     <string name="onb_limitations_hint">Izbjegavat ćemo najčešće vježbe za to područje. Ovo nije liječnički savjet: ako sumnjaš, pitaj stručnjaka.</string>
     <string name="onb_create">Izradi moj plan</string>

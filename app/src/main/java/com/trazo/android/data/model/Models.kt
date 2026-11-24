@@ -171,6 +171,8 @@ data class PlanProfileRequest(
 )
 
 /** Replaces every priority of the current plan: an empty map clears them. */
+/** The body areas the user cannot load now (an injury outside a session); an empty list means recovered. */
+data class UpdateLimitationsRequest(val limitations: List<String>)
 data class UpdateMusclePrioritiesRequest(val musclePriorities: Map<String, String>)
 
 data class LogSetRequest(

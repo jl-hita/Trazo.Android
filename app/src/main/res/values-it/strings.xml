@@ -106,6 +106,9 @@
     <string name="overview_priorities_title">Priorità per muscolo</string>
     <string name="overview_priorities_note">La modifica si applica ai blocchi generati da ora in poi; il blocco in corso non viene riscritto.</string>
     <string name="overview_priorities_save">Salva</string>
+    <string name="injury_report">Mi sono fatto male fuori dall\'allenamento</string>
+    <string name="injury_title">Infortunio fuori dall\'allenamento</string>
+    <string name="injury_note">Seleziona le zone che fanno male ora. Le sessioni in sospeso sostituiscono gli esercizi che le caricano e i blocchi successivi li evitano. Deseleziona una zona quando sei guarito. Non è un consiglio medico: consulta un professionista se il dolore persiste.</string>
     <string name="onb_limitations">Dolori o infortuni</string>
     <string name="onb_limitations_hint">Eviteremo gli esercizi più comuni per quella zona. Non è un consiglio medico: nel dubbio, rivolgiti a un professionista.</string>
     <string name="onb_create">Genera il mio piano</string>

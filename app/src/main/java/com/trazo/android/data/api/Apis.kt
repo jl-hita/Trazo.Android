@@ -25,6 +25,7 @@ interface PlansApi {
     @GET("api/v1/plans/current/review-request") suspend fun reviewRequest(@Query("messages") messages: Boolean = false): Response<ReviewRequestView>
     @POST("api/v1/plans/current/review-request") suspend fun requestReview(@Body request: ReviewRequestBody): Response<ReviewRequestView>
     @POST("api/v1/plans/current/review-request/messages") suspend fun sendReviewMessage(@Body request: ReviewMessageBody): Response<ReviewRequestView>
+    @PUT("api/v1/plans/current/limitations") suspend fun updateLimitations(@Body request: UpdateLimitationsRequest): Response<PlanView>
     @PUT("api/v1/plans/current/muscle-priorities") suspend fun updateMusclePriorities(@Body request: UpdateMusclePrioritiesRequest): Response<PlanView>
     @POST("api/v1/plans/current/reschedule") suspend fun reschedule(): Response<RescheduleResult>
     @POST("api/v1/plans/current/sessions/{sessionId}/skip")

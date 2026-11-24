@@ -161,6 +161,13 @@ class PlanRepository(
         return result
     }
 
+    /** Replaces the injured areas; the backend swaps what they rule out in the pending sessions, so the cached week is dropped and the plan refreshed. */
+    suspend fun updateLimitations(areas: List<String>): ApiResult<PlanView> {
+        val result = apiCall { api.updateLimitations(UpdateLimitationsRequest(areas)) }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
+        return result
+    }
+
     /** Moves the pending program of a calendar plan to the current week; the cached week is dropped so the next read is fresh. */
     suspend fun reschedule(): ApiResult<RescheduleResult> {
         val result = apiCall { api.reschedule() }
