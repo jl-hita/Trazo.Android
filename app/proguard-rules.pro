@@ -7,6 +7,9 @@
 -keep class com.trazo.android.auth.** { *; }
 -keep class com.trazo.android.data.local.Pending** { *; }
 -keep class com.trazo.android.data.local.Cached** { *; }
+# Workout drafts are stored as JSON too: without this the list of sets comes back as maps and entering a session crashes.
+-keep class com.trazo.android.data.local.DraftSet { *; }
+-keep class com.trazo.android.data.local.WorkoutDraft { *; }
 # Retrofit service interfaces are used through proxies.
 -keep,allowobfuscation interface com.trazo.android.data.api.*Api
 -keep,allowobfuscation interface com.trazo.android.auth.AuthApi

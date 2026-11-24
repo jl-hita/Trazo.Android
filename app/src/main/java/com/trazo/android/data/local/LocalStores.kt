@@ -130,7 +130,15 @@ class WorkoutDraft(val sessionId: String, val sets: List<DraftSet>, val savedAtM
 /** The sets typed so far in a workout, so an interrupted session (app killed, call received) is not lost. */
 class WorkoutDraftStore(private val store: JsonFileStore, private val now: () -> Long = System::currentTimeMillis) {
     fun save(sessionId: String, sets: List<DraftSet>) = store.write(name(sessionId), WorkoutDraft(sessionId, sets, now()))
-    fun load(sessionId: String): WorkoutDraft? = store.read(name(sessionId), WorkoutDraft::class.java)
+    /** A draft written by a build whose fields were renamed (or that is damaged) is dropped instead of crashing the session. */
+    fun load(sessionId: String): WorkoutDraft? {
+        val draft = store.read<WorkoutDraft>(name(sessionId), WorkoutDraft::class.java) ?: return null
+        val valid = runCatching {
+            draft.sets.all { (it as Any?) is DraftSet && (it.exerciseId as String?) != null && (it.weight as String?) != null && (it.reps as String?) != null && (it.rir as String?) != null }
+        }.getOrDefault(false)
+        if (!valid) { delete(sessionId); return null }
+        return draft
+    }
     fun delete(sessionId: String) = store.delete(name(sessionId))
     fun clear() = store.clear()
     private fun name(sessionId: String) = "draft_${sessionId.filter { it.isLetterOrDigit() || it == '-' }}.json"
