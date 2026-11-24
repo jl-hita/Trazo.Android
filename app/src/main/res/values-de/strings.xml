@@ -362,6 +362,10 @@
     <string name="account_test_crash">Absturz auslösen</string>
     <string name="account_test_sent">Fehler gesendet: Such ihn in der Ticket-Konsole.</string>
     <!-- Push notifications -->
+    <string name="rest_channel_name">Pause zwischen den Sätzen</string>
+    <string name="rest_channel_description">Meldet, wenn deine Satzpause zu Ende ist, während die App im Hintergrund läuft.</string>
+    <string name="rest_over_title">Pause vorbei</string>
+    <string name="rest_over_text">Zeit für deinen nächsten Satz.</string>
     <string name="push_channel_name">Hinweise</string>
     <string name="push_channel_description">Antworten des Teams auf deine Prüfungen und Neuigkeiten von TRAZO.</string>
     <string name="push_review_reply">Du hast eine Nachricht vom Team.</string>

@@ -362,6 +362,10 @@
     <string name="account_test_crash">Utlös krasch</string>
     <string name="account_test_sent">Felet skickades: leta efter det i ärendekonsolen.</string>
     <!-- Push notifications -->
+    <string name="rest_channel_name">Vila mellan seten</string>
+    <string name="rest_channel_description">Meddelar när din vila mellan seten är slut medan appen är i bakgrunden.</string>
+    <string name="rest_over_title">Vilan är slut</string>
+    <string name="rest_over_text">Dags för nästa set.</string>
     <string name="push_channel_name">Aviseringar</string>
     <string name="push_channel_description">Teamets svar på dina granskningar och nyheter från TRAZO.</string>
     <string name="push_review_reply">Du har ett meddelande från teamet.</string>

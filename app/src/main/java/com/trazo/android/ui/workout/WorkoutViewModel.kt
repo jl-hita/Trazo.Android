@@ -86,7 +86,10 @@ class WorkoutViewModel(
     private val drafts: WorkoutDraftStore,
     private val sessionId: String,
     io: CoroutineDispatcher = Dispatchers.IO,
-    private val exercises: ExerciseRepository? = null
+    private val exercises: ExerciseRepository? = null,
+    /** Alerts the user when the rest ends while the app is not in view. */
+    private val alarms: com.trazo.android.rest.RestAlarmScheduler = com.trazo.android.rest.RestAlarmScheduler.None,
+    private val clock: () -> Long = System::currentTimeMillis
 ) : ViewModel() {
     // One writer thread keeps the drafts in order; typing never waits for the disk.
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -124,8 +127,9 @@ class WorkoutViewModel(
 
     fun startRest(seconds: Int) {
         timer?.cancel()
-        if (seconds <= 0) { _state.update { it.copy(rest = null) }; return }
+        if (seconds <= 0) { alarms.cancel(); _state.update { it.copy(rest = null) }; return }
         _state.update { it.copy(rest = RestTimer(seconds, seconds)) }
+        alarms.schedule(clock() + seconds * 1000L)
         timer = viewModelScope.launchGuarded(R.string.feature_workout) {
             var left = seconds
             while (left > 0) {
@@ -141,7 +145,7 @@ class WorkoutViewModel(
         startRest((rest.remainingSeconds + deltaSeconds).coerceAtLeast(0).coerceAtMost(900))
     }
 
-    fun skipRest() { timer?.cancel(); _state.update { it.copy(rest = null) } }
+    fun skipRest() { timer?.cancel(); alarms.cancel(); _state.update { it.copy(rest = null) } }
 
     fun showAlternatives(exerciseId: String) {
         _state.update { it.copy(alternatives = AlternativesState(exerciseId), swapError = null) }
@@ -236,7 +240,7 @@ class WorkoutViewModel(
                 LogOutcome.Queued -> FinishState.Done(null, queued = true)
                 is LogOutcome.Rejected -> FinishState.Failed(outcome.error)
             }
-            if (next is FinishState.Done) { withContext(draftWriter) { drafts.delete(session.id) }; timer?.cancel() }
+            if (next is FinishState.Done) { withContext(draftWriter) { drafts.delete(session.id) }; timer?.cancel(); alarms.cancel() }
             _state.update { it.copy(finish = next, rest = if (next is FinishState.Done) null else it.rest) }
         }
     }
@@ -251,7 +255,7 @@ class WorkoutViewModel(
         CoroutineScope(draftWriter).launchGuarded(R.string.feature_workout) { drafts.save(sessionId, sets) }
     }
 
-    override fun onCleared() { timer?.cancel() }
+    override fun onCleared() { timer?.cancel(); alarms.cancel() }
 
     companion object {
         /** False for an exercise that is followed by another one of the same superset. */

@@ -362,6 +362,10 @@
     <string name="account_test_crash">Provoquer un plantage</string>
     <string name="account_test_sent">Erreur envoyée : cherche-la dans la console des tickets.</string>
     <!-- Push notifications -->
+    <string name="rest_channel_name">Repos entre les séries</string>
+    <string name="rest_channel_description">Prévient quand ton repos entre les séries est terminé, l\'app étant en arrière-plan.</string>
+    <string name="rest_over_title">Repos terminé</string>
+    <string name="rest_over_text">C\'est l\'heure de ta prochaine série.</string>
     <string name="push_channel_name">Alertes</string>
     <string name="push_channel_description">Réponses de l\'équipe à tes révisions et nouveautés de TRAZO.</string>
     <string name="push_review_reply">Tu as un message de l\'équipe.</string>

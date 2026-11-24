@@ -151,6 +151,13 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
         }
     }
     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    // The rest alert needs the same permission: asked (once) the first time a rest starts, when its use is obvious.
+    val askRestNotifications: () -> Unit = {
+        if (Build.VERSION.SDK_INT >= 33 && !c.pushConfig.permissionAsked && !PushNotifier.canPost(context)) {
+            c.pushConfig.permissionAsked = true
+            askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
     // Push is an extra: register this phone once the user is in, and ask for the notification permission (once) only if the server has push on.
     LaunchedEffect(Unit) {
         guarded(R.string.feature_push) {
@@ -274,8 +281,8 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
-                    val vm: WorkoutViewModel = containerViewModel(key = "workout-$id") { WorkoutViewModel(it.plans, it.drafts, id, exercises = it.exercises) }
-                    WorkoutScreen(vm, onExit = { planVm.load(); nav.popBackStack(Routes.PLAN, inclusive = false) }, onExercise = { nav.navigate(Routes.exercise(it)) })
+                    val vm: WorkoutViewModel = containerViewModel(key = "workout-$id") { WorkoutViewModel(it.plans, it.drafts, id, exercises = it.exercises, alarms = it.restAlarms) }
+                    WorkoutScreen(vm, onRestStarted = askRestNotifications, onExit = { planVm.load(); nav.popBackStack(Routes.PLAN, inclusive = false) }, onExercise = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.EXERCISE, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()

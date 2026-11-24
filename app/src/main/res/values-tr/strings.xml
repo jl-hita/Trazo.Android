@@ -362,6 +362,10 @@
     <string name="account_test_crash">Çökme oluştur</string>
     <string name="account_test_sent">Hata gönderildi: kayıt konsolunda ara.</string>
     <!-- Push notifications -->
+    <string name="rest_channel_name">Setler arası dinlenme</string>
+    <string name="rest_channel_description">Uygulama arka plandayken setler arası dinlenmen bittiğinde seni uyarır.</string>
+    <string name="rest_over_title">Dinlenme bitti</string>
+    <string name="rest_over_text">Sıradaki sete geçme zamanı.</string>
     <string name="push_channel_name">Uyarılar</string>
     <string name="push_channel_description">Ekibin incelemelerine yanıtları ve TRAZO haberleri.</string>
     <string name="push_review_reply">Ekipten bir mesajın var.</string>
