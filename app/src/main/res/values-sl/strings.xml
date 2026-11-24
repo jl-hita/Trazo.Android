@@ -90,6 +90,11 @@
     <string name="onb_days">Dnevi treninga</string>
     <string name="onb_days_hint">Izberi od %1$d do %2$d dni.</string>
     <string name="onb_minutes">Najdaljše trajanje treninga: %1$d min</string>
+    <string name="rest_channel_name">Počitek med serijami</string>
+    <string name="rest_channel_description">Obvesti, ko se počitek med serijami konča, medtem ko je aplikacija v ozadju.</string>
+    <string name="rest_over_title">Počitek je končan</string>
+    <string name="rest_over_text">Čas je za naslednjo serijo.</string>
+    <string name="onb_start_date">Datum začetka</string>
     <string name="onb_weeks">Dolžina načrta: %1$d tednov</string>
     <string name="onb_equipment">Razpoložljiva oprema</string>
     <string name="onb_equipment_hint">Če ne izbereš ničesar, predpostavimo, da imaš vse.</string>

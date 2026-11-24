@@ -90,6 +90,11 @@
     <string name="onb_days">トレーニング日</string>
     <string name="onb_days_hint">%1$d～%2$d日を選んでください。</string>
     <string name="onb_minutes">1回の最大時間：%1$d分</string>
+    <string name="rest_channel_name">セット間の休憩</string>
+    <string name="rest_channel_description">アプリがバックグラウンドにあるとき、セット間の休憩が終わると通知します。</string>
+    <string name="rest_over_title">休憩終了</string>
+    <string name="rest_over_text">次のセットの時間です。</string>
+    <string name="onb_start_date">開始日</string>
     <string name="onb_weeks">プランの長さ：%1$d週間</string>
     <string name="onb_equipment">使える器具</string>
     <string name="onb_equipment_hint">何も選ばない場合は、すべて揃っているものとして扱います。</string>

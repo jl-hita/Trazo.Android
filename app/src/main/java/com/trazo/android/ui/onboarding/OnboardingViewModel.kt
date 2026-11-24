@@ -29,6 +29,8 @@ data class OnboardingState(
     val sessionsPerPeriod: Int = 3,
     val sessionMinutes: Int = 60,
     val totalWeeks: Int = 12,
+    /** First day of the plan; null means today (the server's default). */
+    val startDate: java.time.LocalDate? = null,
     val equipment: Set<String> = emptySet(),
     val limitations: Set<String> = emptySet(),
     val split: String = "Automatic",
@@ -86,6 +88,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     fun setSplit(value: String) = _state.update { it.copy(split = value) }
     fun setIncludeDeload(value: Boolean) = _state.update { it.copy(includeDeload = value) }
     fun setDeloadEvery(value: Int?) = _state.update { it.copy(deloadEvery = value) }
+    fun setStartDate(value: java.time.LocalDate?) = _state.update { it.copy(startDate = value) }
     fun setSessionMinutes(value: Int) = _state.update { it.copy(sessionMinutes = value) }
     fun setTotalWeeks(value: Int) = _state.update { s ->
         val o = s.options
@@ -134,6 +137,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
             goal = s.goal,
             experience = s.experience,
             totalWeeks = s.totalWeeks,
+            startDate = s.startDate?.toString(),
             // Keep the order of the week as the server lists it. A sequence plan has no days: it sends the sessions of one pass instead.
             trainingDays = if (s.isSequence) null else options.days.filter { it in s.days },
             schedulingMode = if (s.isSequence) "Sequence" else null,

@@ -90,6 +90,11 @@
     <string name="onb_days">운동 요일</string>
     <string name="onb_days_hint">%1$d일에서 %2$d일 사이로 선택하세요.</string>
     <string name="onb_minutes">1회 최대 시간: %1$d분</string>
+    <string name="rest_channel_name">세트 간 휴식</string>
+    <string name="rest_channel_description">앱이 백그라운드에 있을 때 세트 간 휴식이 끝나면 알려 줍니다.</string>
+    <string name="rest_over_title">휴식 끝</string>
+    <string name="rest_over_text">다음 세트를 할 시간입니다.</string>
+    <string name="onb_start_date">시작일</string>
     <string name="onb_weeks">플랜 기간: %1$d주</string>
     <string name="onb_equipment">사용 가능한 장비</string>
     <string name="onb_equipment_hint">아무것도 선택하지 않으면 모든 장비가 있다고 가정합니다.</string>

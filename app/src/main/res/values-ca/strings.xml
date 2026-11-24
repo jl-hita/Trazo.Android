@@ -90,6 +90,7 @@
     <string name="onb_days">Dies d\'entrenament</string>
     <string name="onb_days_hint">Tria entre %1$d i %2$d dies.</string>
     <string name="onb_minutes">Durada màxima de la sessió: %1$d min</string>
+    <string name="onb_start_date">Data d\'inici</string>
     <string name="onb_weeks">Durada del pla: %1$d setmanes</string>
     <string name="onb_equipment">Material disponible</string>
     <string name="onb_equipment_hint">Si no tries res, suposem que ho tens tot.</string>

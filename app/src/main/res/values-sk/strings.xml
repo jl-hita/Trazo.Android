@@ -90,6 +90,11 @@
     <string name="onb_days">Tréningové dni</string>
     <string name="onb_days_hint">Vyber %1$d až %2$d dní.</string>
     <string name="onb_minutes">Maximálna dĺžka tréningu: %1$d min</string>
+    <string name="rest_channel_name">Odpočinok medzi sériami</string>
+    <string name="rest_channel_description">Upozorní, keď skončí odpočinok medzi sériami, kým je aplikácia na pozadí.</string>
+    <string name="rest_over_title">Odpočinok skončil</string>
+    <string name="rest_over_text">Čas na ďalšiu sériu.</string>
+    <string name="onb_start_date">Dátum začiatku</string>
     <string name="onb_weeks">Dĺžka plánu: %1$d týždňov</string>
     <string name="onb_equipment">Dostupné vybavenie</string>
     <string name="onb_equipment_hint">Ak nevyberieš nič, predpokladáme, že máš všetko.</string>

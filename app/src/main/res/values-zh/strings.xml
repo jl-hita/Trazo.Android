@@ -90,6 +90,7 @@
     <string name="onb_days">训练日</string>
     <string name="onb_days_hint">请选择 %1$d 到 %2$d 天。</string>
     <string name="onb_minutes">单次训练最长时间：%1$d 分钟</string>
+    <string name="onb_start_date">开始日期</string>
     <string name="onb_weeks">计划时长：%1$d 周</string>
     <string name="onb_equipment">可用器材</string>
     <string name="onb_equipment_hint">如果什么都不选，我们会假定你拥有全部器材。</string>

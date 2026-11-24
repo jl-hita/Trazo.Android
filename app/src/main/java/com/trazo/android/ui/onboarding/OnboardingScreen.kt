@@ -182,6 +182,9 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                     modifier = Modifier.heightIn(min = MinTouch)
                 )
 
+                SectionTitle(stringResource(R.string.onb_start_date))
+                StartDatePicker(state.startDate, viewModel::setStartDate)
+
                 SectionTitle(stringResource(R.string.onb_equipment))
                 Text(stringResource(R.string.onb_equipment_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 OutlinedButton(
@@ -222,5 +225,43 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)
             ) { Text(stringResource(if (state.submitting) R.string.onb_creating else R.string.onb_create)) }
         }
+    }
+}
+
+/** Today (the default) or a later day picked from a calendar. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun StartDatePicker(selected: java.time.LocalDate?, onChange: (java.time.LocalDate?) -> Unit) {
+    val today = java.time.LocalDate.now()
+    var picking by remember { mutableStateOf(false) }
+    val other = stringResource(R.string.finish_when_other)
+    val todayLabel = stringResource(R.string.finish_when_today)
+    val otherLabel = selected?.let { java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM).format(it) } ?: other
+    ChipGroup(
+        listOf("today", "other"), setOf(if (selected == null) "today" else "other"),
+        { if (it == "today") todayLabel else otherLabel },
+        { if (it == "today") onChange(null) else picking = true }
+    )
+    if (picking) {
+        val state = rememberDatePickerState(
+            initialSelectedDateMillis = (selected ?: today).atStartOfDay(java.time.ZoneOffset.UTC).toInstant().toEpochMilli(),
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long) =
+                    !java.time.Instant.ofEpochMilli(utcTimeMillis).atZone(java.time.ZoneOffset.UTC).toLocalDate().isBefore(today)
+            }
+        )
+        DatePickerDialog(
+            onDismissRequest = { picking = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    state.selectedDateMillis?.let {
+                        val date = java.time.Instant.ofEpochMilli(it).atZone(java.time.ZoneOffset.UTC).toLocalDate()
+                        onChange(date.takeIf { d -> d.isAfter(today) })
+                    }
+                    picking = false
+                }) { Text(stringResource(R.string.finish_when_ok)) }
+            },
+            dismissButton = { TextButton(onClick = { picking = false }) { Text(stringResource(R.string.cancel)) } }
+        ) { DatePicker(state) }
     }
 }

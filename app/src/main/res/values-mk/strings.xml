@@ -90,6 +90,11 @@
     <string name="onb_days">Денови за тренинг</string>
     <string name="onb_days_hint">Избери од %1$d до %2$d дена.</string>
     <string name="onb_minutes">Најдолго траење на тренинг: %1$d мин</string>
+    <string name="rest_channel_name">Одмор помеѓу сериите</string>
+    <string name="rest_channel_description">Известува кога ќе заврши одморот помеѓу сериите додека апликацијата е во заднина.</string>
+    <string name="rest_over_title">Одморот заврши</string>
+    <string name="rest_over_text">Време е за следната серија.</string>
+    <string name="onb_start_date">Датум на почеток</string>
     <string name="onb_weeks">Должина на планот: %1$d недели</string>
     <string name="onb_equipment">Достапна опрема</string>
     <string name="onb_equipment_hint">Ако не избереш ништо, претпоставуваме дека имаш сѐ.</string>

@@ -90,6 +90,11 @@
     <string name="onb_days">Días de adestramento</string>
     <string name="onb_days_hint">Escolle entre %1$d e %2$d días.</string>
     <string name="onb_minutes">Duración máxima da sesión: %1$d min</string>
+    <string name="rest_channel_name">Descanso entre series</string>
+    <string name="rest_channel_description">Avisa cando remata o teu descanso entre series coa app en segundo plano.</string>
+    <string name="rest_over_title">Descanso rematado</string>
+    <string name="rest_over_text">É hora da túa seguinte serie.</string>
+    <string name="onb_start_date">Data de inicio</string>
     <string name="onb_weeks">Duración do plan: %1$d semanas</string>
     <string name="onb_equipment">Material dispoñible</string>
     <string name="onb_equipment_hint">Se non escolles nada, supoñemos que tes de todo.</string>

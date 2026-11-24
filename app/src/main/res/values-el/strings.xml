@@ -90,6 +90,11 @@
     <string name="onb_days">Ημέρες προπόνησης</string>
     <string name="onb_days_hint">Διάλεξε από %1$d έως %2$d ημέρες.</string>
     <string name="onb_minutes">Μέγιστη διάρκεια προπόνησης: %1$d λεπτά</string>
+    <string name="rest_channel_name">Ανάπαυση μεταξύ σειρών</string>
+    <string name="rest_channel_description">Ειδοποιεί όταν τελειώσει η ανάπαυση μεταξύ σειρών ενώ η εφαρμογή είναι στο παρασκήνιο.</string>
+    <string name="rest_over_title">Η ανάπαυση τελείωσε</string>
+    <string name="rest_over_text">Ώρα για την επόμενη σειρά.</string>
+    <string name="onb_start_date">Ημερομηνία έναρξης</string>
     <string name="onb_weeks">Διάρκεια προγράμματος: %1$d εβδομάδες</string>
     <string name="onb_equipment">Διαθέσιμος εξοπλισμός</string>
     <string name="onb_equipment_hint">Αν δεν επιλέξεις τίποτα, υποθέτουμε ότι έχεις τα πάντα.</string>

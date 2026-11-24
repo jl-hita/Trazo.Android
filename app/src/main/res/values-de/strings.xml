@@ -90,6 +90,7 @@
     <string name="onb_days">Trainingstage</string>
     <string name="onb_days_hint">Wähle zwischen %1$d und %2$d Tagen.</string>
     <string name="onb_minutes">Maximale Einheitsdauer: %1$d Min.</string>
+    <string name="onb_start_date">Startdatum</string>
     <string name="onb_weeks">Planlänge: %1$d Wochen</string>
     <string name="onb_equipment">Verfügbare Ausrüstung</string>
     <string name="onb_equipment_hint">Wenn du nichts auswählst, gehen wir davon aus, dass du alles hast.</string>

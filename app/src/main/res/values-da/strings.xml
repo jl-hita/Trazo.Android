@@ -90,6 +90,11 @@
     <string name="onb_days">Træningsdage</string>
     <string name="onb_days_hint">Vælg mellem %1$d og %2$d dage.</string>
     <string name="onb_minutes">Maksimal længde på et pas: %1$d min</string>
+    <string name="rest_channel_name">Hvile mellem sæt</string>
+    <string name="rest_channel_description">Giver besked, når hvilen mellem sæt er slut, mens appen er i baggrunden.</string>
+    <string name="rest_over_title">Hvilen er slut</string>
+    <string name="rest_over_text">Tid til dit næste sæt.</string>
+    <string name="onb_start_date">Startdato</string>
     <string name="onb_weeks">Planens længde: %1$d uger</string>
     <string name="onb_equipment">Tilgængeligt udstyr</string>
     <string name="onb_equipment_hint">Hvis du ikke vælger noget, antager vi, at du har det hele.</string>
