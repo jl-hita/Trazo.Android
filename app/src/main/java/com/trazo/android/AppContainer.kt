@@ -64,6 +64,7 @@ class AppContainer(context: Context) {
     private val queueStore = JsonFileStore(File(appContext.filesDir, "pending"), network.gson, localCipher)
     private val draftStore = JsonFileStore(File(appContext.filesDir, "drafts"), network.gson, localCipher)
     val drafts = WorkoutDraftStore(draftStore)
+    val restAlarms: com.trazo.android.rest.RestAlarmScheduler = com.trazo.android.rest.AndroidRestAlarmScheduler(appContext)
 
     /** Sends crashes and unexpected errors to the backend as anonymous tickets (see [ErrorReporter]). */
     val errorReporter = ErrorReporter(
@@ -139,6 +140,7 @@ class TrazoApp : Application() {
         // First of all, before the container is built: a crash while building it (Keystore, network...) must be stored too.
         // Crashes are stored on the spot and sent on the next start; handled-but-unexpected errors come in through Diagnostics.
         ErrorReporter.installCrashHandler(PendingErrorStore(File(filesDir, "error-reports")), CrashUploader(BuildConfig.API_BASE_URL, "${BuildConfig.VERSION_NAME}+${BuildConfig.VERSION_CODE}"))
+        com.trazo.android.rest.AppForeground.install(this)
         container = AppContainer(this)
         Diagnostics.install(container.errorReporter)
         // Each start-up task on its own: one failing must not stop the others (nor the app).

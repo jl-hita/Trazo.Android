@@ -362,6 +362,10 @@
     <string name="account_test_crash">Provoca un crash</string>
     <string name="account_test_sent">Errore inviato: cercalo nella console dei ticket.</string>
     <!-- Push notifications -->
+    <string name="rest_channel_name">Recupero tra le serie</string>
+    <string name="rest_channel_description">Avvisa quando il recupero tra le serie è finito mentre l\'app è in background.</string>
+    <string name="rest_over_title">Recupero finito</string>
+    <string name="rest_over_text">È ora della prossima serie.</string>
     <string name="push_channel_name">Avvisi</string>
     <string name="push_channel_description">Risposte del team alle tue revisioni e novità di TRAZO.</string>
     <string name="push_review_reply">Hai un messaggio dal team.</string>

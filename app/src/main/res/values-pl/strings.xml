@@ -362,6 +362,10 @@
     <string name="account_test_crash">Wywołaj awarię</string>
     <string name="account_test_sent">Błąd wysłany: poszukaj go w konsoli zgłoszeń.</string>
     <!-- Push notifications -->
+    <string name="rest_channel_name">Odpoczynek między seriami</string>
+    <string name="rest_channel_description">Powiadamia o końcu przerwy między seriami, gdy aplikacja działa w tle.</string>
+    <string name="rest_over_title">Koniec przerwy</string>
+    <string name="rest_over_text">Czas na kolejną serię.</string>
     <string name="push_channel_name">Powiadomienia</string>
     <string name="push_channel_description">Odpowiedzi zespołu na Twoje przeglądy i nowości TRAZO.</string>
     <string name="push_review_reply">Masz wiadomość od zespołu.</string>

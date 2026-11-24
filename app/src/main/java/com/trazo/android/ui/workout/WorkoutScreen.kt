@@ -32,8 +32,10 @@ import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
 @Composable
-fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (String) -> Unit) {
+fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (String) -> Unit, onRestStarted: () -> Unit = {}) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val resting = state.rest != null
+    LaunchedEffect(resting) { if (resting) onRestStarted() }
     var confirmLeave by remember { mutableStateOf(false) }
     var showFinish by remember { mutableStateOf(false) }
     // The exercise whose explanation is open (steps and photos), reachable from the photo and from the swap picker.

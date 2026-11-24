@@ -362,6 +362,10 @@
     <string name="account_test_crash">Provocar falha</string>
     <string name="account_test_sent">Erro enviado: procure-o no console de tíquetes.</string>
     <!-- Push notifications -->
+    <string name="rest_channel_name">Descanso entre séries</string>
+    <string name="rest_channel_description">Avisa quando o teu descanso entre séries termina com a app em segundo plano.</string>
+    <string name="rest_over_title">Descanso terminado</string>
+    <string name="rest_over_text">É hora da tua próxima série.</string>
     <string name="push_channel_name">Avisos</string>
     <string name="push_channel_description">Respostas da equipe às suas revisões e novidades do TRAZO.</string>
     <string name="push_review_reply">Você tem uma mensagem da equipe.</string>
