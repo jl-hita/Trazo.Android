@@ -162,6 +162,10 @@
     <string name="finish_send">Отправить</string>
     <string name="finish_sending">Отправка…</string>
     <string name="finish_queued">Нет сети: мы сохранили тренировку и отправим её, как только появится соединение. Вы её не потеряете.</string>
+    <string name="log_rejected">Не удалось отправить тренировку за %1$s</string>
+    <string name="log_rejected_hint">Она по-прежнему сохранена на этом телефоне. Откройте занятие, чтобы исправить её, повторите попытку или удалите.</string>
+    <string name="log_discard">Удалить</string>
+    <string name="log_discard_confirm">Удалить эту неотправленную тренировку? Восстановить её будет нельзя.</string>
     <string name="finish_sent">Тренировка сохранена</string>
     <string name="finish_adaptation">Как подстраивается ваш план</string>
     <string name="finish_notes_title">Уведомления</string>

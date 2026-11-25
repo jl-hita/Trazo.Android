@@ -162,6 +162,10 @@
     <string name="finish_send">送信</string>
     <string name="finish_sending">送信中…</string>
     <string name="finish_queued">オフライン：トレーニングを保存しました。接続できしだい送信します。失われることはありません。</string>
+    <string name="log_rejected">%1$sのトレーニングを送信できませんでした</string>
+    <string name="log_rejected_hint">この端末に保存されたままです。セッションを開いて修正するか、再試行するか、削除してください。</string>
+    <string name="log_discard">削除</string>
+    <string name="log_discard_confirm">未送信のこのトレーニングを削除しますか？元に戻せません。</string>
     <string name="finish_sent">トレーニングを保存しました</string>
     <string name="finish_adaptation">プランの適応のしかた</string>
     <string name="finish_notes_title">お知らせ</string>

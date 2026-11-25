@@ -162,12 +162,12 @@ class PlanRepositoryTest {
         assertEquals(1, queue.all().size) // s2 was not queued
     }
 
-    @Test fun `a session logged twice is treated as delivered`() = runTest {
+    @Test fun `a session already logged is delivered online, but a queued one is kept for the user`() = runTest {
         api.logResponse = { _, _ -> httpError(409, problem(409, "session_already_logged")) }
         assertEquals(LogOutcome.AlreadyLogged, repo.submitLog("s1", logRequest()))
         queue.add(PendingLog("s1", logRequest(), now))
         assertEquals(1, repo.flushPending())
-        assertEquals(0, queue.all().size)
+        assertEquals("session_already_logged", queue.all().single().failureCode)
     }
 
     @Test fun `a rejected queued log does not block the rest`() = runTest {
@@ -175,7 +175,79 @@ class PlanRepositoryTest {
         queue.add(PendingLog("good", logRequest(), 2))
         api.logResponse = { id, _ -> if (id == "bad") httpError(404, problem(404, "session_not_found")) else ok() }
         assertEquals(2, repo.flushPending())
+        assertEquals(listOf("bad"), queue.all().map { it.sessionId })
+        assertEquals(0, repo.pendingCount.value)
+        assertEquals(listOf("bad"), repo.rejected.value.map { it.sessionId })
+    }
+
+    // ---- outbox: saved before it is sent
+
+    @Test fun `the log is already saved while it is being sent`() = runTest {
+        var savedDuringSend = 0
+        api.logResponse = { _, _ -> savedDuringSend = queue.all().size; ok() }
+        repo.submitLog("s1", logRequest(), now)
+        assertEquals(1, savedDuringSend)
         assertEquals(0, queue.all().size)
+    }
+
+    @Test fun `a send that is cancelled keeps the log and schedules it`() = runTest {
+        val scheduler = CountingScheduler()
+        val synced = PlanRepository(api, cache, queue, sync = scheduler)
+        api.logResponse = { _, _ -> throw kotlinx.coroutines.CancellationException("screen closed") }
+        try { synced.submitLog("s1", logRequest(), now); fail() } catch (_: kotlinx.coroutines.CancellationException) { }
+        assertEquals("s1", queue.all().single().sessionId)
+        assertEquals(1, synced.pendingCount.value)
+        assertEquals(1, scheduler.scheduled)
+    }
+
+    // ---- rejected logs
+
+    @Test fun `a rejected log keeps its reason, restores the draft once and is not sent again on its own`() = runTest {
+        val restored = mutableListOf<String>()
+        val r = PlanRepository(api, cache, queue, restoreDraft = { restored += it.sessionId })
+        queue.add(PendingLog("s1", logRequest(), now))
+        api.logResponse = { _, _ -> httpError(400, problem(400, "invalid_log")) }
+        r.flushPending()
+        r.flushPending()
+        assertEquals(1, api.logCalls.size)
+        assertEquals(listOf("s1"), restored)
+        assertEquals(ErrorKind.Validation, queue.all().single().failure!!.kind)
+        val restarted = PlanRepository(api, cache, PendingLogQueue(JsonFileStore(File(tmp.root, "queue"))))
+        restarted.resumePendingSync()
+        assertEquals(0, restarted.pendingCount.value)
+        assertEquals(1, restarted.rejected.value.size)
+    }
+
+    @Test fun `a rejected log can be sent again, unchanged`() = runTest {
+        queue.add(PendingLog("s1", logRequest(), now))
+        api.logResponse = { _, _ -> httpError(404, problem(404, "session_not_found")) }
+        repo.flushPending()
+        api.logResponse = { _, _ -> ok() }
+        assertEquals(1, repo.retryRejected(repo.rejected.value.single()))
+        assertEquals(0, queue.all().size)
+        assertTrue(repo.rejected.value.isEmpty())
+        assertEquals(api.logCalls.first().second, api.logCalls.last().second)
+    }
+
+    @Test fun `a rejected log is only deleted when the user says so`() = runTest {
+        val deleted = mutableListOf<String>()
+        val r = PlanRepository(api, cache, queue, deleteDraft = { deleted += it })
+        queue.add(PendingLog("s1", logRequest(), now))
+        api.logResponse = { _, _ -> httpError(400, problem(400, "invalid_log")) }
+        r.flushPending()
+        r.discardRejected(r.rejected.value.single())
+        assertEquals(0, queue.all().size)
+        assertEquals(listOf("s1"), deleted)
+        assertTrue(r.rejected.value.isEmpty())
+    }
+
+    @Test fun `removing an older log leaves the newer one of the same session`() {
+        val old = PendingLog("s1", logRequest(), 1)
+        queue.add(old)
+        queue.add(PendingLog("s1", logRequest(), 2))
+        queue.remove(old)
+        queue.replace(old.waiting())
+        assertEquals(2L, queue.all().single().createdAtMillis)
     }
 
     @Test fun `clearLocal removes cache, queue and drafts`() = runTest {
@@ -241,8 +313,8 @@ class PlanRepositoryTest {
         assertTrue(repo.submitLog("s1", logRequest(), now) is LogOutcome.Rejected) // not queued online
         assertEquals(0, queue.all().size)
         queue.add(PendingLog("s2", logRequest(), now))
-        assertEquals(1, repo.flushPending()) // dropped from the queue, as before
-        assertEquals(0, queue.all().size)
+        assertEquals(1, repo.flushPending()) // no longer waiting, but kept
+        assertTrue(queue.all().single().isRejected)
     }
 
     @Test fun `a conflict entry survives a restart and is delivered afterwards`() = runTest {
@@ -265,7 +337,7 @@ class PlanRepositoryTest {
         // The first attempt had in fact been stored (the answer was lost); the repeat finds the session resolved.
         api.logResponse = { _, _ -> httpError(409, problem(409, "session_already_logged")) }
         assertEquals(1, repo.flushPending())
-        assertEquals(0, queue.all().size)
+        assertTrue(queue.all().single().isRejected)
         // Queuing the same workout twice before delivery keeps one entry, and both sends carry one request id.
         api.logResponse = concurrent
         repo.submitLog("s1", logRequest(), now)

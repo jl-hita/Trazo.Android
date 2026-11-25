@@ -60,6 +60,7 @@ fun PlanScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pending by viewModel.pendingLogs.collectAsStateWithLifecycle()
+    val rejected by viewModel.rejectedLogs.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize().statusBarsPadding()) {
         val week = state.week
         when {
@@ -76,6 +77,7 @@ fun PlanScreen(
                     Notice(stringResource(R.string.plan_pending_logs, pending))
                     TrazoLink(onClick = onSendPending, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_send_now)) }
                 }
+                if (rejected.isNotEmpty()) item { RejectedLogs(rejected, viewModel::retryRejected, viewModel::discardRejected) }
                 if (week.timeline == "Finished") item {
                     Notice(stringResource(R.string.plan_finished))
                     TrazoButton(onClick = viewModel::startNextPlan, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_next_plan)) }

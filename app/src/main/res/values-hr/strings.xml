@@ -162,6 +162,10 @@
     <string name="finish_send">Pošalji</string>
     <string name="finish_sending">Slanje…</string>
     <string name="finish_queued">Izvan mreže: spremili smo trening i poslat ćemo ga čim bude veze. Nećeš ga izgubiti.</string>
+    <string name="log_rejected">Trening od %1$s nije bilo moguće poslati</string>
+    <string name="log_rejected_hint">I dalje je spremljen na ovom telefonu. Otvori sesiju da ga ispraviš, pokušaj ponovno ili ga izbriši.</string>
+    <string name="log_discard">Izbriši</string>
+    <string name="log_discard_confirm">Izbrisati ovaj neposlani trening? Ne može se vratiti.</string>
     <string name="finish_sent">Trening spremljen</string>
     <string name="finish_adaptation">Kako se tvoj plan prilagođava</string>
     <string name="finish_notes_title">Obavijesti</string>

@@ -163,6 +163,10 @@
     <string name="finish_send">Enviar</string>
     <string name="finish_sending">Enviando…</string>
     <string name="finish_queued">Sin conexión: guardamos el entrenamiento y lo enviaremos en cuanto haya conexión. No lo pierdes.</string>
+    <string name="log_rejected">No se pudo enviar el entrenamiento del %1$s</string>
+    <string name="log_rejected_hint">Sigue guardado en este teléfono. Abre la sesión para corregirlo, reinténtalo o elimínalo.</string>
+    <string name="log_discard">Eliminar</string>
+    <string name="log_discard_confirm">¿Eliminar este entrenamiento sin enviar? No se podrá recuperar.</string>
     <string name="finish_sent">Sesión guardada</string>
     <string name="finish_adaptation">Así se adapta tu plan</string>
     <string name="finish_notes_title">Avisos</string>

@@ -162,6 +162,10 @@
     <string name="finish_send">Испрати</string>
     <string name="finish_sending">Се испраќа…</string>
     <string name="finish_queued">Без врска: го зачувавме тренингот и ќе го испратиме штом има врска. Нема да го изгубиш.</string>
+    <string name="log_rejected">Тренингот од %1$s не можеше да се испрати</string>
+    <string name="log_rejected_hint">Сè уште е зачуван на овој телефон. Отвори ја сесијата за да го поправиш, обиди се повторно или избриши го.</string>
+    <string name="log_discard">Избриши</string>
+    <string name="log_discard_confirm">Да се избрише овој неиспратен тренинг? Не може да се врати.</string>
     <string name="finish_sent">Тренингот е зачуван</string>
     <string name="finish_adaptation">Како се прилагодува твојот план</string>
     <string name="finish_notes_title">Известувања</string>

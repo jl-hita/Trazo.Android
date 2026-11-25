@@ -165,6 +165,10 @@
     <string name="finish_send">Send</string>
     <string name="finish_sending">Sending…</string>
     <string name="finish_queued">Offline: we saved the workout and will send it as soon as there\'s a connection. You won\'t lose it.</string>
+    <string name="log_rejected">The workout of %1$s could not be sent</string>
+    <string name="log_rejected_hint">It is still on this phone. Open the session to correct it, retry, or delete it.</string>
+    <string name="log_discard">Delete</string>
+    <string name="log_discard_confirm">Delete this unsent workout? It cannot be recovered.</string>
     <string name="finish_sent">Session saved</string>
     <string name="finish_adaptation">How your plan adapts</string>
     <string name="finish_notes_title">Notices</string>

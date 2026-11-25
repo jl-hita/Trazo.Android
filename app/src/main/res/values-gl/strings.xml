@@ -162,6 +162,10 @@
     <string name="finish_send">Enviar</string>
     <string name="finish_sending">Enviando…</string>
     <string name="finish_queued">Sen conexión: gardamos o adestramento e enviarémolo en canto haxa conexión. Non o perderás.</string>
+    <string name="log_rejected">Non se puido enviar o adestramento do %1$s</string>
+    <string name="log_rejected_hint">Segue gardado neste teléfono. Abre a sesión para corrixilo, téntao de novo ou elimínao.</string>
+    <string name="log_discard">Eliminar</string>
+    <string name="log_discard_confirm">Eliminar este adestramento sen enviar? Non se poderá recuperar.</string>
     <string name="finish_sent">Sesión gardada</string>
     <string name="finish_adaptation">Como se adapta o teu plan</string>
     <string name="finish_notes_title">Avisos</string>

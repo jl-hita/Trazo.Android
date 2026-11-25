@@ -10,8 +10,11 @@ import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.net.ErrorKind
 import com.trazo.android.data.net.apiCall
 import com.trazo.android.data.sync.SyncScheduler
+import com.trazo.android.diagnostics.Diagnostics
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,7 +44,10 @@ class PlanRepository(
     private val queue: PendingLogQueue,
     private val io: CoroutineDispatcher = Dispatchers.IO,
     private val clearDrafts: () -> Unit = {},
-    private val sync: SyncScheduler = SyncScheduler.None
+    private val sync: SyncScheduler = SyncScheduler.None,
+    /** Puts the sets of a rejected log back in the workout screen, so it can be corrected. */
+    private val restoreDraft: (PendingLog) -> Unit = {},
+    private val deleteDraft: (String) -> Unit = {}
 ) {
     /** Cache and queue are JSON files: reading or writing them must never happen on the main thread. */
     private suspend fun <T> disk(block: () -> T): T = withContext(io) { block() }
@@ -54,16 +60,31 @@ class PlanRepository(
     private val _pending = MutableStateFlow(0)
     val pendingCount: StateFlow<Int> = _pending.asStateFlow()
 
+    private val _rejected = MutableStateFlow<List<PendingLog>>(emptyList())
+
+    /** Logs the server refused. They stay on the phone until the user sends them again, corrects them or deletes them. */
+    val rejected: StateFlow<List<PendingLog>> = _rejected.asStateFlow()
+
+    /** One delivery at a time: the queue, and a log being sent from the workout screen. */
     private val flushLock = Mutex()
+
+    private suspend fun publishQueue() {
+        val entries = disk { queue.all() }
+        publish(entries)
+    }
+
+    private fun publish(entries: List<PendingLog>) {
+        _pending.value = entries.count { !it.isRejected }
+        _rejected.value = entries.filter { it.isRejected }
+    }
 
     /**
      * Counts the logs an earlier run left in the queue (app killed, no connection) and hands them to the background sync.
      * Called at start-up off the main thread: the queue is encrypted, so reading it touches the Keystore.
      */
     suspend fun resumePendingSync() {
-        val count = disk { queue.all().size }
-        _pending.value = count
-        if (count > 0) sync.schedule()
+        publishQueue()
+        if (_pending.value > 0) sync.schedule()
     }
 
     suspend fun options(): ApiResult<PlanOptions> = apiCall { api.options() }
@@ -204,22 +225,40 @@ class PlanRepository(
     }
 
     /**
-     * Sends the finished workout. On a connection failure or a server error the log is kept in a local queue (without
-     * loss) and delivered later by [flushPending]; other rejections are returned to the user.
+     * Sends the finished workout. The log is saved in the local queue BEFORE it is sent and leaves it only when the server
+     * answers for good, so a process killed (or a screen closed) in the middle of the request loses nothing. On a connection
+     * failure or a server error it stays queued for [flushPending]; other rejections are returned to the user.
      */
     suspend fun submitLog(sessionId: String, request: LogSessionRequest, now: Long = System.currentTimeMillis()): LogOutcome {
         // The moment of the workout and the identity of the request are fixed HERE, once: the first attempt, every retry and a
         // later send from the queue carry the same values, so a log delivered late is still dated when the workout happened.
-        val stamped = stamp(sessionId, request, now)
-        val result = apiCall { api.log(sessionId, stamped) }
-        return when (result) {
-            is ApiResult.Success -> { replaceSession(result.value.session); LogOutcome.Sent(result.value) }
-            is ApiResult.Failure -> when {
-                result.error.code == SESSION_ALREADY_LOGGED -> LogOutcome.AlreadyLogged
-                // The server rejected it only because another change reached the plan at the same moment and stored nothing: the same log
-                // (same ClientRequestId) will be accepted later. Any other 409 stays a final answer.
-                result.error.retryable || result.error.code == PLAN_MODIFIED_CONCURRENTLY -> { _pending.value = disk { queue.add(PendingLog(sessionId, stamped, now)); queue.all().size }; sync.schedule(); LogOutcome.Queued }
-                else -> LogOutcome.Rejected(result.error)
+        val entry = PendingLog(sessionId, stamp(sessionId, request, now), now)
+        // A phone that cannot save it can still send it: the failure is reported and the request goes on.
+        try { disk { queue.add(entry) } } catch (e: CancellationException) { throw e } catch (e: Exception) { Diagnostics.report(e) }
+        var answered = false
+        try {
+            return flushLock.withLock {
+                when (val result = apiCall { api.log(sessionId, entry.request) }) {
+                    is ApiResult.Success -> {
+                        answered = true
+                        disk { queue.remove(entry) }
+                        replaceSession(result.value.session)
+                        LogOutcome.Sent(result.value)
+                    }
+                    is ApiResult.Failure -> when {
+                        result.error.code == SESSION_ALREADY_LOGGED -> { answered = true; disk { queue.remove(entry) }; LogOutcome.AlreadyLogged }
+                        // The server rejected it only because another change reached the plan at the same moment and stored nothing: the same log
+                        // (same ClientRequestId) will be accepted later. Any other 409 stays a final answer.
+                        result.error.retryable || result.error.code == PLAN_MODIFIED_CONCURRENTLY -> { disk { queue.add(entry) }; LogOutcome.Queued }
+                        // The user is looking at the error and keeps the draft: nothing to keep in the queue.
+                        else -> { answered = true; disk { queue.remove(entry) }; LogOutcome.Rejected(result.error) }
+                    }
+                }
+            }
+        } finally {
+            withContext(NonCancellable) {
+                publishQueue()
+                if (!answered && _pending.value > 0) sync.schedule()
             }
         }
     }
@@ -227,30 +266,51 @@ class PlanRepository(
     /**
      * Serializes delivery so a foreground refresh and WorkManager cannot submit the same queue entries concurrently.
      * Logs are processed oldest-first: a transient network failure stops the pass (preserving order), while a permanent
-     * validation/not-found/conflict response is removed so one poison entry cannot block every later workout forever.
-     * Returns how many entries were removed, including requests the server had already accepted.
+     * validation/not-found/conflict response marks the entry as rejected, so it neither blocks the later workouts nor
+     * disappears. Returns how many entries stopped waiting (delivered or rejected).
      */
     suspend fun flushPending(): Int = flushLock.withLock {
-        var removed = 0
-        for (item in disk { queue.all() }.sortedBy { it.createdAtMillis }) {
+        var settled = 0
+        for (item in disk { queue.all() }.filterNot { it.isRejected }.sortedBy { it.createdAtMillis }) {
             // Logs queued by an older version have no date: the moment they were queued is when the workout ended.
             val result = apiCall { api.log(item.sessionId, stamp(item.sessionId, item.request, item.createdAtMillis)) }
-            val done = when (result) {
-                is ApiResult.Success -> true.also { replaceSession(result.value.session) }
-                is ApiResult.Failure -> when {
-                    result.error.code == SESSION_ALREADY_LOGGED -> true
-                    // Not final: the entry stays, untouched, and is sent again by a later pass (see below).
-                    result.error.code == PLAN_MODIFIED_CONCURRENTLY -> false
-                    // Retrying cannot fix these: drop the entry instead of blocking the queue forever.
-                    result.error.kind == ErrorKind.Validation || result.error.kind == ErrorKind.NotFound || result.error.kind == ErrorKind.Conflict -> true
-                    else -> false
-                }
+            if (result is ApiResult.Success) {
+                replaceSession(result.value.session)
+                disk { queue.remove(item) }
+                settled++
+                continue
             }
-            if (done) { disk { queue.remove(item.sessionId) }; removed++ }
-            else if (result is ApiResult.Failure && (result.error.kind == ErrorKind.Network || result.error.code == PLAN_MODIFIED_CONCURRENTLY)) break
+            val error = (result as ApiResult.Failure).error
+            // Not final: the entry stays, untouched, and is sent again by a later pass.
+            if (error.kind == ErrorKind.Network || error.code == PLAN_MODIFIED_CONCURRENTLY) break
+            // Sending the same data again cannot fix these (the server answers a repeated log with success, so
+            // "already logged" means the session holds something else): keep it and let the user decide.
+            if (error.kind == ErrorKind.Validation || error.kind == ErrorKind.NotFound || error.kind == ErrorKind.Conflict) {
+                disk {
+                    queue.replace(item.rejected(error))
+                    try { restoreDraft(item) } catch (e: Exception) { Diagnostics.report(e) }
+                }
+                settled++
+            }
         }
-        _pending.value = disk { queue.all().size }
-        removed
+        publishQueue()
+        settled
+    }
+
+    /** Sends a rejected log again, for instance after the cause was solved. */
+    suspend fun retryRejected(entry: PendingLog): Int {
+        flushLock.withLock {
+            disk { queue.replace(entry.waiting()) }
+            publishQueue()
+        }
+        sync.schedule()
+        return flushPending()
+    }
+
+    /** The user gives the log up: it is deleted with the draft made from it. */
+    suspend fun discardRejected(entry: PendingLog) = flushLock.withLock {
+        disk { queue.remove(entry); deleteDraft(entry.sessionId) }
+        publishQueue()
     }
 
     fun session(id: String): SessionView? = _week.value?.sessions?.firstOrNull { it.id == id } ?: carried?.takeIf { it.id == id }
@@ -262,7 +322,7 @@ class PlanRepository(
         queue.clear()
         sync.cancel()
         clearDrafts()
-        _pending.value = 0
+        publish(emptyList())
     }
 
     private suspend fun replaceSession(updated: SessionView) {

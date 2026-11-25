@@ -162,6 +162,10 @@
     <string name="finish_send">Pošlji</string>
     <string name="finish_sending">Pošiljanje …</string>
     <string name="finish_queued">Brez povezave: trening smo shranili in ga bomo poslali takoj, ko bo povezava. Ne boš ga izgubil.</string>
+    <string name="log_rejected">Treninga z dne %1$s ni bilo mogoče poslati</string>
+    <string name="log_rejected_hint">Še vedno je shranjen v tem telefonu. Odpri vadbo in ga popravi, poskusi znova ali ga izbriši.</string>
+    <string name="log_discard">Izbriši</string>
+    <string name="log_discard_confirm">Želiš izbrisati ta neposlani trening? Ne bo ga mogoče obnoviti.</string>
     <string name="finish_sent">Trening shranjen</string>
     <string name="finish_adaptation">Kako se tvoj načrt prilagaja</string>
     <string name="finish_notes_title">Obvestila</string>

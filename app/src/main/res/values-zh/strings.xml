@@ -158,6 +158,10 @@
     <string name="finish_send">发送</string>
     <string name="finish_sending">正在发送…</string>
     <string name="finish_queued">离线：我们已保存训练，一有网络就会发送。不会丢失。</string>
+    <string name="log_rejected">无法发送 %1$s 的训练</string>
+    <string name="log_rejected_hint">它仍保存在本机。打开该训练进行修改、重试或删除。</string>
+    <string name="log_discard">删除</string>
+    <string name="log_discard_confirm">删除这条未发送的训练？删除后无法恢复。</string>
     <string name="finish_sent">训练已保存</string>
     <string name="finish_adaptation">你的计划如何调整</string>
     <string name="finish_notes_title">提示</string>

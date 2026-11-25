@@ -162,6 +162,10 @@
     <string name="finish_send">Αποστολή</string>
     <string name="finish_sending">Αποστολή…</string>
     <string name="finish_queued">Εκτός σύνδεσης: αποθηκεύσαμε την προπόνηση και θα τη στείλουμε μόλις υπάρξει σύνδεση. Δεν θα τη χάσεις.</string>
+    <string name="log_rejected">Δεν ήταν δυνατή η αποστολή της προπόνησης της %1$s</string>
+    <string name="log_rejected_hint">Παραμένει αποθηκευμένη σε αυτό το τηλέφωνο. Άνοιξε τη συνεδρία για να τη διορθώσεις, δοκίμασε ξανά ή διάγραψέ τη.</string>
+    <string name="log_discard">Διαγραφή</string>
+    <string name="log_discard_confirm">Να διαγραφεί αυτή η προπόνηση που δεν στάλθηκε; Δεν μπορεί να ανακτηθεί.</string>
     <string name="finish_sent">Η προπόνηση αποθηκεύτηκε</string>
     <string name="finish_adaptation">Πώς προσαρμόζεται το πρόγραμμά σου</string>
     <string name="finish_notes_title">Ειδοποιήσεις</string>

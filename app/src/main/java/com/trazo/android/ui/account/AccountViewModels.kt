@@ -29,6 +29,7 @@ data class AccountState(
     val archived: Boolean = false,
     val archiveError: ApiError? = null,
     val pendingLogs: Int = 0,
+    val rejectedLogs: List<com.trazo.android.data.local.PendingLog> = emptyList(),
     val review: ReviewRequestView? = null,
     val requestingReview: Boolean = false,
     val reviewError: ApiError? = null,
@@ -48,6 +49,7 @@ class AccountViewModel(
     init {
         load()
         viewModelScope.launchGuarded(R.string.feature_account) { plans.pendingCount.collect { n -> _state.update { it.copy(pendingLogs = n) } } }
+        viewModelScope.launchGuarded(R.string.feature_account) { plans.rejected.collect { logs -> _state.update { it.copy(rejectedLogs = logs) } } }
     }
 
     fun load() {
@@ -125,6 +127,10 @@ class AccountViewModel(
     }
 
     fun sendPending() { viewModelScope.launchGuarded(R.string.feature_account) { plans.flushPending() } }
+
+    fun retryRejected(log: com.trazo.android.data.local.PendingLog) { viewModelScope.launchGuarded(R.string.feature_account) { plans.retryRejected(log) } }
+
+    fun discardRejected(log: com.trazo.android.data.local.PendingLog) { viewModelScope.launchGuarded(R.string.feature_account) { plans.discardRejected(log) } }
 
     fun consumeArchived() = _state.update { it.copy(archived = false) }
 }

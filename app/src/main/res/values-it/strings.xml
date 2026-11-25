@@ -158,6 +158,10 @@
     <string name="finish_send">Invia</string>
     <string name="finish_sending">Invio…</string>
     <string name="finish_queued">Offline: abbiamo salvato l\'allenamento e lo invieremo appena ci sarà connessione. Non lo perderai.</string>
+    <string name="log_rejected">Impossibile inviare l’allenamento del %1$s</string>
+    <string name="log_rejected_hint">È ancora salvato su questo telefono. Apri la sessione per correggerlo, riprova oppure eliminalo.</string>
+    <string name="log_discard">Elimina</string>
+    <string name="log_discard_confirm">Eliminare questo allenamento non inviato? Non si potrà recuperare.</string>
     <string name="finish_sent">Sessione salvata</string>
     <string name="finish_adaptation">Come si adatta il tuo piano</string>
     <string name="finish_notes_title">Avvisi</string>

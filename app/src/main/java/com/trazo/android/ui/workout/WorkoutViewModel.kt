@@ -279,6 +279,11 @@ class WorkoutViewModel(
                 last.suggestedLoadKg ?: last.sets.mapNotNull { it.weightKg }.maxOrNull()
             }
 
+        /** The sets of a log as the workout screen keeps them while they are edited. */
+        fun draftOf(request: LogSessionRequest): List<DraftSet> = request.sets.map {
+            DraftSet(it.exerciseId, it.setNumber, it.weightKg?.let(::formatKg).orEmpty(), it.repetitions?.toString().orEmpty(), it.rir?.let(::formatKg).orEmpty(), it.completed)
+        }
+
         fun buildEntries(session: SessionView, draft: List<DraftSet>): List<ExerciseEntry> = session.exercises.map { ex ->
             val saved = draft.filter { it.exerciseId == ex.exerciseId }.associateBy { it.setNumber }
             val base = freshEntry(ex)

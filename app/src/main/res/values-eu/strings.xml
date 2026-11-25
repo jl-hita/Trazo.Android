@@ -162,6 +162,10 @@
     <string name="finish_send">Bidali</string>
     <string name="finish_sending">Bidaltzen…</string>
     <string name="finish_queued">Konexiorik gabe: entrenamendua gorde dugu eta konexioa dagoen bezain laster bidaliko dugu. Ez duzu galduko.</string>
+    <string name="log_rejected">Ezin izan da bidali %1$s eguneko entrenamendua</string>
+    <string name="log_rejected_hint">Telefono honetan gordeta dago oraindik. Ireki saioa zuzentzeko, saiatu berriro edo ezabatu.</string>
+    <string name="log_discard">Ezabatu</string>
+    <string name="log_discard_confirm">Bidali gabeko entrenamendu hau ezabatu? Ezingo da berreskuratu.</string>
     <string name="finish_sent">Saioa gordeta</string>
     <string name="finish_adaptation">Zure plana nola egokitzen den</string>
     <string name="finish_notes_title">Oharrak</string>

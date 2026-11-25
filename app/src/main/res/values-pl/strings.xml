@@ -158,6 +158,10 @@
     <string name="finish_send">Wyślij</string>
     <string name="finish_sending">Wysyłanie…</string>
     <string name="finish_queued">Tryb offline: zapisaliśmy trening i wyślemy go, gdy tylko pojawi się połączenie. Nie stracisz go.</string>
+    <string name="log_rejected">Nie udało się wysłać treningu z dnia %1$s</string>
+    <string name="log_rejected_hint">Nadal jest zapisany na tym telefonie. Otwórz sesję, aby go poprawić, spróbuj ponownie lub go usuń.</string>
+    <string name="log_discard">Usuń</string>
+    <string name="log_discard_confirm">Usunąć ten niewysłany trening? Nie będzie można go odzyskać.</string>
     <string name="finish_sent">Sesja zapisana</string>
     <string name="finish_adaptation">Jak plan się dostosowuje</string>
     <string name="finish_notes_title">Uwagi</string>

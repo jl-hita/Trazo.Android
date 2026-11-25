@@ -162,6 +162,10 @@
     <string name="finish_send">Odoslať</string>
     <string name="finish_sending">Odosiela sa…</string>
     <string name="finish_queued">Offline: tréning sme uložili a odošleme ho, hneď ako bude pripojenie. O tréning neprídeš.</string>
+    <string name="log_rejected">Tréning z %1$s sa nepodarilo odoslať</string>
+    <string name="log_rejected_hint">Stále je uložený v tomto telefóne. Otvor tréning a oprav ho, skús to znova alebo ho vymaž.</string>
+    <string name="log_discard">Vymazať</string>
+    <string name="log_discard_confirm">Vymazať tento neodoslaný tréning? Nebude možné ho obnoviť.</string>
     <string name="finish_sent">Tréning uložený</string>
     <string name="finish_adaptation">Ako sa tvoj plán prispôsobuje</string>
     <string name="finish_notes_title">Upozornenia</string>

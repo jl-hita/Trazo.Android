@@ -162,6 +162,10 @@
     <string name="finish_send">إرسال</string>
     <string name="finish_sending">جارٍ الإرسال…</string>
     <string name="finish_queued">لا يوجد اتصال: حفظنا التمرين وسنرسله فور توفر الاتصال. لن تفقده.</string>
+    <string name="log_rejected">تعذّر إرسال تمرين %1$s</string>
+    <string name="log_rejected_hint">لا يزال محفوظًا في هذا الهاتف. افتح الحصة لتصحيحه، أو أعد المحاولة، أو احذفه.</string>
+    <string name="log_discard">حذف</string>
+    <string name="log_discard_confirm">هل تريد حذف هذا التمرين غير المرسل؟ لا يمكن استعادته.</string>
     <string name="finish_sent">تم حفظ التمرين</string>
     <string name="finish_adaptation">كيف تتكيّف خطتك</string>
     <string name="finish_notes_title">تنبيهات</string>

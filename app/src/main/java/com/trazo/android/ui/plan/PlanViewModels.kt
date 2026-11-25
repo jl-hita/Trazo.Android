@@ -40,6 +40,7 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
     private val _state = MutableStateFlow(PlanUiState())
     val state: StateFlow<PlanUiState> = _state.asStateFlow()
     val pendingLogs: StateFlow<Int> = plans.pendingCount
+    val rejectedLogs: StateFlow<List<com.trazo.android.data.local.PendingLog>> = plans.rejected
 
     init { load() }
 
@@ -100,6 +101,10 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
     }
 
     fun sendPending() { viewModelScope.launchGuarded(R.string.feature_plan) { if (plans.flushPending() > 0) load() } }
+
+    fun retryRejected(log: com.trazo.android.data.local.PendingLog) { viewModelScope.launchGuarded(R.string.feature_plan) { if (plans.retryRejected(log) > 0) load() } }
+
+    fun discardRejected(log: com.trazo.android.data.local.PendingLog) { viewModelScope.launchGuarded(R.string.feature_plan) { plans.discardRejected(log) } }
 
     fun load() {
         _state.update { it.copy(loading = true, error = null) }

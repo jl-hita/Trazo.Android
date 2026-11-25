@@ -1,10 +1,14 @@
 package com.trazo.android.data.local
 
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.trazo.android.data.model.LogSessionRequest
 import com.trazo.android.data.model.PlanView
 import com.trazo.android.data.model.WeekView
+import com.trazo.android.data.net.ApiError
+import com.trazo.android.data.net.ErrorKind
+import com.trazo.android.diagnostics.Diagnostics
 import java.io.File
 import java.time.LocalDate
 
@@ -13,23 +17,43 @@ import java.time.LocalDate
  *
  * With a [cipher] every file is stored encrypted, behind a short marker so the format can be told apart. A plain JSON
  * file written by an earlier version is still read and is encrypted the next time it is written. A file that cannot be
- * decrypted (key lost, data damaged) is deleted and read as missing, so it can never block the app.
+ * decrypted (key lost, data damaged) is deleted and read as missing, so it can never block the app. With [keepUnreadable]
+ * (data that exists nowhere else) it is never deleted: it is read as missing, and a later write moves it aside first.
  */
-class JsonFileStore(private val dir: File, private val gson: Gson = Gson(), private val cipher: LocalCipher? = null) {
+class JsonFileStore(
+    private val dir: File, private val gson: Gson = Gson(), private val cipher: LocalCipher? = null,
+    private val keepUnreadable: Boolean = false
+) {
     @Synchronized
     fun <T> read(name: String, type: java.lang.reflect.Type): T? {
         val file = File(dir, name)
         if (!file.exists()) return null
-        val json = runCatching { decode(file.readBytes()) }.getOrNull()
-        if (json == null) { file.delete(); return null }
+        val decoded = runCatching { decode(file.readBytes()) }
+        val json = decoded.getOrNull()
+        if (json == null) {
+            if (!keepUnreadable) file.delete() else decoded.exceptionOrNull()?.let { Diagnostics.report(it) }
+            return null
+        }
         return runCatching { gson.fromJson<T>(json, type) }.getOrNull()
     }
+
+    /** The earlier versions of [name] that were moved aside because they could not be read. */
+    @Synchronized
+    fun setAside(name: String): List<String> =
+        dir.list()?.filter { it.startsWith("$name$ASIDE") }?.sorted().orEmpty()
+
+    private fun isReadable(file: File): Boolean =
+        runCatching { JsonParser.parseString(decode(file.readBytes())!!) }.isSuccess
 
     @Synchronized
     fun write(name: String, value: Any) {
         dir.mkdirs()
         val tmp = File(dir, "$name.tmp")
         tmp.writeBytes(encode(gson.toJson(value)))
+        val current = File(dir, name)
+        if (keepUnreadable && current.exists() && !isReadable(current)) {
+            check(current.renameTo(File(dir, "$name$ASIDE${System.nanoTime()}"))) { "Cannot keep the unreadable $name" }
+        }
         if (!tmp.renameTo(File(dir, name))) { File(dir, name).delete(); tmp.renameTo(File(dir, name)) }
     }
 
@@ -48,6 +72,8 @@ class JsonFileStore(private val dir: File, private val gson: Gson = Gson(), priv
     }
 
     private companion object {
+        const val ASIDE = ".unreadable-"
+
         /** Not valid at the start of a JSON document, so it never clashes with a legacy plain file. */
         val MAGIC = byteArrayOf(0x54, 0x5A, 0x45, 0x01)
     }
@@ -100,14 +126,45 @@ class PlanCache(
     }
 }
 
-/** A session log that could not be delivered yet. It is sent again when the connection is back. */
-class PendingLog(val sessionId: String, val request: LogSessionRequest, val createdAtMillis: Long)
+/**
+ * A session log the server has not accepted yet. Without a failure it waits to be sent; with one the server refused it and
+ * it stays until the user decides what to do. The failure is kept as plain fields (this class is stored as JSON).
+ */
+class PendingLog(
+    val sessionId: String, val request: LogSessionRequest, val createdAtMillis: Long,
+    val failureKind: String? = null, val failureCode: String? = null, val failureMessage: String? = null
+) {
+    val isRejected: Boolean get() = failureKind != null
+
+    val failure: ApiError? get() = failureKind?.let { kind ->
+        ApiError(ErrorKind.entries.firstOrNull { it.name == kind } ?: ErrorKind.Unknown, failureCode, failureMessage)
+    }
+
+    fun rejected(error: ApiError) = PendingLog(sessionId, request, createdAtMillis, error.kind.name, error.code, error.serverMessage)
+
+    fun waiting() = PendingLog(sessionId, request, createdAtMillis)
+
+    /** True for the same finished workout, whatever happened to it since. */
+    fun sameAs(other: PendingLog) = sessionId == other.sessionId && createdAtMillis == other.createdAtMillis
+}
 
 class PendingLogQueue(private val store: JsonFileStore) {
     private val type = object : TypeToken<List<PendingLog>>() {}.type
 
     @Synchronized
-    fun all(): List<PendingLog> = store.read<List<PendingLog>>(FILE, type).orEmpty()
+    fun all(): List<PendingLog> {
+        val current = read(FILE)
+        // A file that could not be read before (a passing Keystore failure) is merged back as soon as it can be.
+        val recovered = store.setAside(FILE).mapNotNull { name -> read(name)?.let { name to it } }
+        if (recovered.isEmpty()) return current.orEmpty()
+        // One log per session: what is in the current file is newer than what was set aside.
+        val merged = (recovered.flatMap { it.second } + current.orEmpty()).associateBy { it.sessionId }.values.toList()
+        store.write(FILE, merged)
+        recovered.forEach { store.delete(it.first) }
+        return merged
+    }
+
+    private fun read(name: String): List<PendingLog>? = store.read<List<PendingLog>>(name, type)
 
     @Synchronized
     fun add(item: PendingLog) {
@@ -115,11 +172,25 @@ class PendingLogQueue(private val store: JsonFileStore) {
         store.write(FILE, all().filterNot { it.sessionId == item.sessionId } + item)
     }
 
+    /** Removes that workout only: a newer log of the same session stays. */
     @Synchronized
-    fun remove(sessionId: String) { store.write(FILE, all().filterNot { it.sessionId == sessionId }) }
+    fun remove(item: PendingLog) {
+        val entries = all()
+        if (entries.any { it.sameAs(item) }) store.write(FILE, entries.filterNot { it.sameAs(item) })
+    }
+
+    /** Stores the new state of a queued workout; nothing happens when it is no longer there. */
+    @Synchronized
+    fun replace(item: PendingLog) {
+        val entries = all()
+        if (entries.any { it.sameAs(item) }) store.write(FILE, entries.map { if (it.sameAs(item)) item else it })
+    }
 
     @Synchronized
-    fun clear() = store.delete(FILE)
+    fun clear() {
+        store.setAside(FILE).forEach { store.delete(it) }
+        store.delete(FILE)
+    }
 
     private companion object { const val FILE = "pending_logs.json" }
 }
