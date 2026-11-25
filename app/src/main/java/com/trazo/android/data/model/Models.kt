@@ -226,7 +226,9 @@ data class ExerciseListItem(
     val id: String, val nameEs: String, val nameEn: String, val descriptionEs: String, val difficulty: String,
     val equipment: String?, val requiredEquipment: List<String>, val movementPattern: String,
     val primaryMuscles: List<String>, val secondaryMuscles: List<String>, val minimumExperience: String,
-    val isUnilateral: Boolean, val isBodyweight: Boolean, val selectionPriority: Int
+    val isUnilateral: Boolean, val isBodyweight: Boolean, val selectionPriority: Int,
+    /** The name in the request language, sent for every language other than Spanish and English. */
+    val localizedName: String? = null
 )
 data class ExercisePage(val items: List<ExerciseListItem>, val page: Int, val pageSize: Int, val totalCount: Int, val totalPages: Int)
 

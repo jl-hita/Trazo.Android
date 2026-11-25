@@ -189,7 +189,7 @@ private fun AddExerciseDialog(state: AddExerciseState, vm: WorkoutViewModel) {
                     else -> LazyColumn(Modifier.heightIn(max = 320.dp).padding(top = 8.dp)) {
                         items(state.results, key = { it.id }) { item ->
                             TextButton(onClick = { vm.addExercise(item) }, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
-                                Text(Labels.localName(item.nameEs.ifBlank { item.nameEn }, item.nameEn), Modifier.fillMaxWidth())
+                                Text(Labels.itemName(item), Modifier.fillMaxWidth())
                             }
                         }
                     }

@@ -43,6 +43,9 @@ class LabelsAndAuthTest {
         Locale.setDefault(Locale.ENGLISH)
         assertEquals("Squat", Labels.localName("Sentadilla", "Squat"))
         assertEquals("Sentadilla", Labels.localName("Sentadilla", "")) // no English name: keep Spanish
+        val item = com.trazo.android.data.model.ExerciseListItem("squat", "Sentadilla", "Squat", "", "", null, emptyList(), "Squat", emptyList(), emptyList(), "Beginner", false, false, 0)
+        assertEquals("Squat", Labels.itemName(item))
+        assertEquals("Kniebeuge", Labels.itemName(item.copy(localizedName = "Kniebeuge")))
         assertEquals("New thing", Labels.humanize("NewThing"))
         assertEquals("Pull-up bar", Labels.equipment("pull-up-bar"))
         assertEquals("Mystery item", Labels.equipment("mystery-item"))

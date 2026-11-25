@@ -30,6 +30,17 @@ Sugerencias para Angular: servir los PNG desde `assets/screenshots/{lang}/` y us
 con `srcset` generado al construir (los originales pesan ~100–200 KB). Para un marco de dispositivo, recortar la barra de
 estado del emulador (los ~110 px superiores) o usar un mockup CSS.
 
+## Otros idiomas
+
+Para los demás idiomas la landing usa nueve de estas pantallas (10, 11, 12, 14, 15, 16, 17, 18 y 19) y las toma un
+script, con el emulador arrancado y la compilación de depuración instalada (pasos 2 de abajo):
+
+    python tools/mock-api/capture.py de --webp ../Trazo/admin/Trazo.Admin.Web/public/landing/screenshots
+
+Los datos de demostración de cada idioma están en `tools/mock-api/lang/{código}.json`. Los originales quedan en
+`store/google-play/screenshots/{código}/` (sin versionar) y las copias WebP, en la landing. No dejes otro `server.py`
+abierto en el mismo puerto: en Windows ambos escuchan y contesta el antiguo.
+
 ## Regenerarlas
 
 1. `python tools/mock-api/server.py --lang es` (o `en`; `--noplan` para el asistente de creación; `--mode sequence` para el plan sin fechas).

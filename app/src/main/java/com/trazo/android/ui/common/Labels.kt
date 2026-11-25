@@ -1,5 +1,6 @@
 package com.trazo.android.ui.common
 
+import com.trazo.android.data.model.ExerciseListItem
 import com.trazo.android.ui.common.vocabulary.*
 import java.time.DayOfWeek
 import java.time.format.TextStyle
@@ -92,6 +93,10 @@ object Labels {
     /** Name of a catalog exercise in the user's language: the catalog has Spanish and English names, and English serves every other language. */
     fun localName(es: String, en: String?): String =
         if (language() == "es" || en.isNullOrBlank()) es else en
+
+    /** Name of an item of the catalog list: the server's translation when it sends one, Spanish or English otherwise. */
+    fun itemName(item: ExerciseListItem): String =
+        item.localizedName?.takeIf { it.isNotBlank() } ?: localName(item.nameEs.ifBlank { item.nameEn }, item.nameEn)
 
     /** The name in the other of the two catalog languages, shown as a subtitle. */
     fun otherName(es: String, en: String?): String? =

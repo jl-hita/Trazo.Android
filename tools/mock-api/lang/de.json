@@ -1,0 +1,33 @@
+{
+  "user": "Lena Wagner",
+  "macro": "12 Wochen Muskelaufbau",
+  "notes": "Doppelte Progression mit geplanten Entlastungen.",
+  "phases": [
+    ["Volumenbasis", "accumulation", "Arbeitsvolumen mit sauberer Technik aufbauen."],
+    ["Intensivierung", "intensification", "Die Last bei gleichem Volumen steigern."],
+    ["Entlastung", "deload", "Vor dem nächsten Block erholen."]
+  ],
+  "sessions": ["Oberkörper A", "Unterkörper A", "Oberkörper B"],
+  "disclaimer": "Automatisch erstellte Orientierung; sie ersetzt keinen medizinischen Rat.",
+  "adapt": "Du bist auf Kurs: Behalte die Last und schaffe eine Wiederholung mehr pro Satz.",
+  "advice": [
+    ["squat", "Du hast in allen Sätzen das obere Ende des Bereichs (10 Wdh.) bei RIR 2 erreicht: Geh nächstes Mal auf 65 kg.", 65.0],
+    ["romanian-deadlift", "Du hast den Bereich noch nicht in allen Sätzen erfüllt: Bleib bei 50 kg und schaffe eine Wiederholung mehr.", 50.0]
+  ],
+  "applied": [
+    "Kniebeuge: +5 kg in den nächsten beiden Unterkörper-Einheiten.",
+    "Quadrizeps: vollständig erholt, das Wochenvolumen bleibt wie geplant."
+  ],
+  "warnings": ["Bei Schmerzen erhöht TRAZO nie die Last: Sag es uns im Fragebogen."],
+  "names": {
+    "db-bench-press": "Bankdrücken mit Kurzhanteln",
+    "seated-cable-row": "Rudern am Kabelzug sitzend",
+    "dumbbell-shoulder-press": "Schulterdrücken mit Kurzhanteln",
+    "lat-pulldown": "Latzug zur Brust",
+    "hammer-curl": "Hammercurl mit Kurzhanteln",
+    "squat": "Kniebeuge mit Langhantel",
+    "romanian-deadlift": "Rumänisches Kreuzheben",
+    "hack-squat": "Hackenschmidt-Kniebeuge",
+    "hip-thrust": "Hip Thrust mit Langhantel"
+  }
+}
