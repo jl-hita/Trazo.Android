@@ -36,6 +36,7 @@ val hasReleaseSigning = !signingKeystorePath.isNullOrBlank() && rootProject.file
 
 // versionCode = major*1_000_000 + minor*10_000 + patch*100 + buildNumber, so it only ever grows with versionName.
 val appVersionName = "0.2.2"
+val configuredVersionName = providers.gradleProperty("versionName").orNull ?: appVersionName
 val buildNumber = (providers.gradleProperty("buildNumber").orNull ?: System.getenv("TRAZO_BUILD_NUMBER") ?: "0").toInt()
 require(buildNumber in 0..99) { "buildNumber debe estar entre 0 y 99." }
 val appVersionCode = appVersionName.split(".").map { it.toInt() }.let { (ma, mi, pa) -> ma * 1_000_000 + mi * 10_000 + pa * 100 } + buildNumber
@@ -52,7 +53,7 @@ android {
   // Play Store versionCode can be overridden by CI; keep the existing Play baseline for local builds.
   val configuredVersionCode = providers.gradleProperty("versionCode").orNull?.toIntOrNull()
   versionCode = configuredVersionCode ?: 30002
-  versionName = appVersionName
+  versionName = configuredVersionName
   val googleClientId = providers.gradleProperty("googleWebClientId").orNull ?: ""
   buildConfigField("String", "API_BASE_URL", "\"$releaseApiUrl\"")
   buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleClientId\"")
