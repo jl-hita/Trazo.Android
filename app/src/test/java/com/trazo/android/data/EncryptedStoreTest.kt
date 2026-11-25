@@ -48,6 +48,33 @@ class EncryptedStoreTest {
         assertFalse(File(tmp.root, "a.json").exists())
     }
 
+    @Test fun `the queue survives a passing decryption failure, with the logs added meanwhile`() {
+        var broken = false
+        val real = cipher()
+        val flaky = object : LocalCipher {
+            override fun encrypt(plain: ByteArray) = real.encrypt(plain)
+            override fun decrypt(sealed: ByteArray) = if (broken) throw IllegalStateException("keystore busy") else real.decrypt(sealed)
+        }
+        val queue = PendingLogQueue(JsonFileStore(tmp.root, cipher = flaky, keepUnreadable = true))
+        queue.add(PendingLog("s1", com.trazo.android.testing.logRequest(), 1))
+        broken = true
+        assertTrue(queue.all().isEmpty())
+        assertTrue(File(tmp.root, "pending_logs.json").exists())
+        queue.add(PendingLog("s2", com.trazo.android.testing.logRequest(), 2))
+        broken = false
+        assertEquals(setOf("s1", "s2"), queue.all().map { it.sessionId }.toSet())
+        assertEquals(listOf("pending_logs.json"), tmp.root.list()!!.toList())
+    }
+
+    @Test fun `clearing the queue also removes what was set aside`() {
+        PendingLogQueue(JsonFileStore(tmp.root, cipher = cipher(), keepUnreadable = true)).add(PendingLog("s1", com.trazo.android.testing.logRequest(), 1))
+        val other = PendingLogQueue(JsonFileStore(tmp.root, cipher = cipher(newKey()), keepUnreadable = true))
+        other.add(PendingLog("s2", com.trazo.android.testing.logRequest(), 2))
+        assertEquals(2, tmp.root.list()!!.size)
+        other.clear()
+        assertEquals(0, tmp.root.list()!!.size)
+    }
+
     @Test fun `tampered data is rejected`() {
         val store = JsonFileStore(tmp.root, cipher = cipher())
         store.write("a.json", Note("secreto"))

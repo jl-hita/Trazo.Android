@@ -162,6 +162,10 @@
     <string name="finish_send">Lähetä</string>
     <string name="finish_sending">Lähetetään…</string>
     <string name="finish_queued">Ei yhteyttä: tallensimme treenin ja lähetämme sen heti, kun yhteys on. Et menetä sitä.</string>
+    <string name="log_rejected">Päivän %1$s treeniä ei voitu lähettää</string>
+    <string name="log_rejected_hint">Se on yhä tallessa tässä puhelimessa. Avaa treeni korjataksesi sen, yritä uudelleen tai poista se.</string>
+    <string name="log_discard">Poista</string>
+    <string name="log_discard_confirm">Poistetaanko tämä lähettämätön treeni? Sitä ei voi palauttaa.</string>
     <string name="finish_sent">Treeni tallennettu</string>
     <string name="finish_adaptation">Näin ohjelmasi mukautuu</string>
     <string name="finish_notes_title">Huomautukset</string>

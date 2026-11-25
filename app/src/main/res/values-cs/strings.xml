@@ -162,6 +162,10 @@
     <string name="finish_send">Odeslat</string>
     <string name="finish_sending">Odesílání…</string>
     <string name="finish_queued">Offline: trénink jsme uložili a odešleme ho, jakmile bude připojení. Nepřijdeš o něj.</string>
+    <string name="log_rejected">Trénink ze dne %1$s se nepodařilo odeslat</string>
+    <string name="log_rejected_hint">Stále je uložený v tomto telefonu. Otevři trénink a oprav ho, zkus to znovu, nebo ho smaž.</string>
+    <string name="log_discard">Smazat</string>
+    <string name="log_discard_confirm">Smazat tento neodeslaný trénink? Nepůjde obnovit.</string>
     <string name="finish_sent">Trénink uložen</string>
     <string name="finish_adaptation">Jak se tvůj plán přizpůsobuje</string>
     <string name="finish_notes_title">Upozornění</string>

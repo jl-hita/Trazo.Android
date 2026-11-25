@@ -162,6 +162,10 @@
     <string name="finish_send">Send</string>
     <string name="finish_sending">Sender…</string>
     <string name="finish_queued">Frakoblet: vi har lagret treningsøkten og sender den så snart det er tilkobling. Du mister den ikke.</string>
+    <string name="log_rejected">Treningsøkten fra %1$s kunne ikke sendes</string>
+    <string name="log_rejected_hint">Den er fortsatt lagret på denne telefonen. Åpne økten for å rette den, prøv igjen, eller slett den.</string>
+    <string name="log_discard">Slett</string>
+    <string name="log_discard_confirm">Slette denne usendte treningsøkten? Den kan ikke gjenopprettes.</string>
     <string name="finish_sent">Økt lagret</string>
     <string name="finish_adaptation">Slik tilpasser planen din seg</string>
     <string name="finish_notes_title">Merknader</string>

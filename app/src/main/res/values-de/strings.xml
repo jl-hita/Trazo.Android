@@ -158,6 +158,10 @@
     <string name="finish_send">Senden</string>
     <string name="finish_sending">Wird gesendet…</string>
     <string name="finish_queued">Offline: Wir haben das Training gespeichert und senden es, sobald eine Verbindung besteht. Es geht nicht verloren.</string>
+    <string name="log_rejected">Das Training vom %1$s konnte nicht gesendet werden</string>
+    <string name="log_rejected_hint">Es ist noch auf diesem Telefon gespeichert. Öffne die Einheit, um es zu korrigieren, versuche es erneut oder lösche es.</string>
+    <string name="log_discard">Löschen</string>
+    <string name="log_discard_confirm">Dieses nicht gesendete Training löschen? Es kann nicht wiederhergestellt werden.</string>
     <string name="finish_sent">Einheit gespeichert</string>
     <string name="finish_adaptation">So passt sich dein Plan an</string>
     <string name="finish_notes_title">Hinweise</string>

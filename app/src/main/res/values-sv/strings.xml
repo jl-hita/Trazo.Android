@@ -158,6 +158,10 @@
     <string name="finish_send">Skicka</string>
     <string name="finish_sending">Skickar…</string>
     <string name="finish_queued">Offline: vi har sparat träningspasset och skickar det så fort det finns uppkoppling. Du förlorar det inte.</string>
+    <string name="log_rejected">Träningspasset från %1$s kunde inte skickas</string>
+    <string name="log_rejected_hint">Det finns kvar på den här telefonen. Öppna passet för att rätta det, försök igen eller radera det.</string>
+    <string name="log_discard">Radera</string>
+    <string name="log_discard_confirm">Radera det här oskickade träningspasset? Det går inte att återställa.</string>
     <string name="finish_sent">Pass sparat</string>
     <string name="finish_adaptation">Så anpassas din plan</string>
     <string name="finish_notes_title">Meddelanden</string>

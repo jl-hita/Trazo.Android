@@ -158,6 +158,10 @@
     <string name="finish_send">Envoyer</string>
     <string name="finish_sending">Envoi…</string>
     <string name="finish_queued">Hors connexion : nous avons enregistré l\'entraînement et l\'enverrons dès qu\'il y aura une connexion. Tu ne le perdras pas.</string>
+    <string name="log_rejected">Impossible d’envoyer l’entraînement du %1$s</string>
+    <string name="log_rejected_hint">Il est toujours enregistré sur ce téléphone. Ouvre la séance pour le corriger, réessaie ou supprime-le.</string>
+    <string name="log_discard">Supprimer</string>
+    <string name="log_discard_confirm">Supprimer cet entraînement non envoyé ? Il ne pourra pas être récupéré.</string>
     <string name="finish_sent">Séance enregistrée</string>
     <string name="finish_adaptation">Comment ton plan s\'adapte</string>
     <string name="finish_notes_title">Avis</string>

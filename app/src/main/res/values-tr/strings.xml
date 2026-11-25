@@ -158,6 +158,10 @@
     <string name="finish_send">Gönder</string>
     <string name="finish_sending">Gönderiliyor…</string>
     <string name="finish_queued">Çevrimdışı: antrenmanı kaydettik ve bağlantı olur olmaz göndereceğiz. Kaybolmaz.</string>
+    <string name="log_rejected">%1$s tarihli antrenman gönderilemedi</string>
+    <string name="log_rejected_hint">Hâlâ bu telefonda kayıtlı. Düzeltmek için seansı aç, yeniden dene veya sil.</string>
+    <string name="log_discard">Sil</string>
+    <string name="log_discard_confirm">Gönderilmemiş bu antrenman silinsin mi? Geri getirilemez.</string>
     <string name="finish_sent">Seans kaydedildi</string>
     <string name="finish_adaptation">Planın nasıl uyarlanıyor</string>
     <string name="finish_notes_title">Uyarılar</string>

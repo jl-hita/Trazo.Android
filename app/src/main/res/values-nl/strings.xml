@@ -162,6 +162,10 @@
     <string name="finish_send">Verzenden</string>
     <string name="finish_sending">Verzenden…</string>
     <string name="finish_queued">Offline: we hebben de training bewaard en sturen haar zodra er verbinding is. Je verliest haar niet.</string>
+    <string name="log_rejected">De training van %1$s kon niet worden verzonden</string>
+    <string name="log_rejected_hint">Ze staat nog op deze telefoon. Open de sessie om haar te corrigeren, probeer opnieuw of verwijder haar.</string>
+    <string name="log_discard">Verwijderen</string>
+    <string name="log_discard_confirm">Deze niet-verzonden training verwijderen? Ze kan niet worden hersteld.</string>
     <string name="finish_sent">Training opgeslagen</string>
     <string name="finish_adaptation">Zo past je plan zich aan</string>
     <string name="finish_notes_title">Meldingen</string>

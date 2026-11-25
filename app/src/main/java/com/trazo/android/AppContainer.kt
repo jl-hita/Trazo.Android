@@ -61,7 +61,7 @@ class AppContainer(context: Context) {
     // All three are encrypted with a Keystore key: they hold the user's training data.
     private val localCipher = KeystoreKey.cipher()
     private val cacheStore = JsonFileStore(File(appContext.cacheDir, "plan"), network.gson, localCipher)
-    private val queueStore = JsonFileStore(File(appContext.filesDir, "pending"), network.gson, localCipher)
+    private val queueStore = JsonFileStore(File(appContext.filesDir, "pending"), network.gson, localCipher, keepUnreadable = true)
     private val draftStore = JsonFileStore(File(appContext.filesDir, "drafts"), network.gson, localCipher)
     val drafts = WorkoutDraftStore(draftStore)
     val restAlarms: com.trazo.android.rest.RestAlarmScheduler = com.trazo.android.rest.AndroidRestAlarmScheduler(appContext)
@@ -80,7 +80,10 @@ class AppContainer(context: Context) {
     val referrals = com.trazo.android.data.referral.ReferralRepository(network.create(com.trazo.android.data.referral.ReferralApi::class.java))
     private val referralAnonymous = network.createAnonymous(com.trazo.android.data.referral.ReferralAnonymousApi::class.java)
     val language = com.trazo.android.data.repo.LanguageRepository(network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.local.SharedPreferencesLanguageStore(appContext))
-    val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext))
+    val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext),
+        // Never over what the user typed since: the draft is only rebuilt when there is none.
+        restoreDraft = { log -> if (drafts.load(log.sessionId) == null) drafts.save(log.sessionId, com.trazo.android.ui.workout.WorkoutViewModel.draftOf(log.request)) },
+        deleteDraft = drafts::delete)
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
     val subscription = SubscriptionRepository(network.create(SubscriptionApi::class.java))
     val analytics = AnalyticsRepository(network.create(com.trazo.android.data.api.AnalyticsApi::class.java))

@@ -158,6 +158,10 @@
     <string name="finish_send">Envia</string>
     <string name="finish_sending">Enviant…</string>
     <string name="finish_queued">Sense connexió: hem desat l\'entrenament i l\'enviarem tan bon punt hi hagi connexió. No el perdràs.</string>
+    <string name="log_rejected">No s’ha pogut enviar l’entrenament del %1$s</string>
+    <string name="log_rejected_hint">Continua desat en aquest telèfon. Obre la sessió per corregir-lo, torna-ho a provar o elimina’l.</string>
+    <string name="log_discard">Elimina</string>
+    <string name="log_discard_confirm">Vols eliminar aquest entrenament sense enviar? No es podrà recuperar.</string>
     <string name="finish_sent">Sessió desada</string>
     <string name="finish_adaptation">Com s\'adapta el teu pla</string>
     <string name="finish_notes_title">Avisos</string>

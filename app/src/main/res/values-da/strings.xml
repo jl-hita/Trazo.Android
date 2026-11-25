@@ -162,6 +162,10 @@
     <string name="finish_send">Send</string>
     <string name="finish_sending">Sender…</string>
     <string name="finish_queued">Offline: vi har gemt træningspasset og sender det, så snart der er forbindelse. Du mister det ikke.</string>
+    <string name="log_rejected">Træningspasset fra %1$s kunne ikke sendes</string>
+    <string name="log_rejected_hint">Det ligger stadig på denne telefon. Åbn passet for at rette det, prøv igen, eller slet det.</string>
+    <string name="log_discard">Slet</string>
+    <string name="log_discard_confirm">Vil du slette dette ikke-sendte træningspas? Det kan ikke gendannes.</string>
     <string name="finish_sent">Pas gemt</string>
     <string name="finish_adaptation">Sådan tilpasser din plan sig</string>
     <string name="finish_notes_title">Beskeder</string>

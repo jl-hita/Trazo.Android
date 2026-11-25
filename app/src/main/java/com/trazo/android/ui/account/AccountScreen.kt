@@ -89,6 +89,8 @@ fun AccountScreen(
                 TrazoLink(onClick = viewModel::sendPending, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_send_now)) }
             }
 
+            if (state.rejectedLogs.isNotEmpty()) com.trazo.android.ui.plan.RejectedLogs(state.rejectedLogs, viewModel::retryRejected, viewModel::discardRejected)
+
             if (hasPlan) {
             SectionTitle(stringResource(R.string.account_plan))
             state.archiveError?.let { InlineError(it) }
@@ -175,7 +177,7 @@ fun AccountScreen(
         text = {
             Text(
                 stringResource(R.string.account_logout_text) +
-                    if (state.pendingLogs > 0) "\n\n" + stringResource(R.string.account_logout_pending, state.pendingLogs) else ""
+                    (state.pendingLogs + state.rejectedLogs.size).let { unsent -> if (unsent > 0) "\n\n" + stringResource(R.string.account_logout_pending, unsent) else "" }
             )
         },
         confirmButton = { TextButton(onClick = { confirmLogout = false; onLogout() }) { Text(stringResource(R.string.account_logout)) } },

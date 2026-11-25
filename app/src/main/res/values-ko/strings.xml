@@ -162,6 +162,10 @@
     <string name="finish_send">전송</string>
     <string name="finish_sending">전송 중…</string>
     <string name="finish_queued">오프라인: 운동을 저장했으며 연결되는 대로 전송합니다. 잃어버리지 않습니다.</string>
+    <string name="log_rejected">%1$s 운동을 전송하지 못했습니다</string>
+    <string name="log_rejected_hint">이 휴대전화에 계속 저장되어 있습니다. 세션을 열어 수정하거나, 다시 시도하거나, 삭제하세요.</string>
+    <string name="log_discard">삭제</string>
+    <string name="log_discard_confirm">전송되지 않은 이 운동을 삭제할까요? 복구할 수 없습니다.</string>
     <string name="finish_sent">운동이 저장되었습니다</string>
     <string name="finish_adaptation">플랜이 적응하는 방법</string>
     <string name="finish_notes_title">알림</string>
