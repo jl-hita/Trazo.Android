@@ -97,13 +97,25 @@ jobs:
         run: |
           # 30002 is the last known Play versionCode. Each run of this workflow gets a unique higher code.
           VERSION_CODE=$((30002 + GITHUB_RUN_NUMBER))
-          VERSION_NAME="$(sed -n 's/^[[:space:]]*val appVersionName = "\([^"]*\)".*/\1/p' app/build.gradle.kts)"
-          [[ -n "$VERSION_NAME" ]] || { echo "Could not determine appVersionName"; exit 1; }
+          BASE_VERSION="$(sed -n 's/^[[:space:]]*val appVersionName = "\([^"]*\)".*/\1/p' app/build.gradle.kts)"
+          [[ -n "$BASE_VERSION" ]] || { echo "Could not determine appVersionName"; exit 1; }
+          IFS=. read -r VERSION_MAJOR VERSION_MINOR BASE_VERSION_PATCH <<< "$BASE_VERSION"
+          [[ "$VERSION_MAJOR" =~ ^[0-9]+$ && "$VERSION_MINOR" =~ ^[0-9]+$ && "$BASE_VERSION_PATCH" =~ ^[0-9]+$ ]] || {
+            echo "appVersionName must use MAJOR.MINOR.PATCH (got: $BASE_VERSION)"
+            exit 1
+          }
+          # Run #72 published 0.2.2. Each subsequent release workflow run advances PATCH by one.
+          BASELINE_RELEASE_RUN=72
+          PATCH_INCREMENT=$((GITHUB_RUN_NUMBER - BASELINE_RELEASE_RUN))
+          (( PATCH_INCREMENT >= 0 )) || { echo "Unexpected release run number: $GITHUB_RUN_NUMBER"; exit 1; }
+          VERSION_PATCH=$((BASE_VERSION_PATCH + PATCH_INCREMENT))
+          VERSION_NAME="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
           APP_VERSION="${VERSION_NAME}+${VERSION_CODE}"
           echo "Building Trazo version $APP_VERSION"
           echo "app_version=$APP_VERSION" >> "$GITHUB_OUTPUT"
           gradle --no-daemon :app:testDebugUnitTest :app:bundleRelease \
             -PversionCode="$VERSION_CODE" \
+            -PversionName="$VERSION_NAME" \
             -PapiBaseUrl="$TRAZO_API_BASE_URL" \
             -PgoogleWebClientId="$TRAZO_GOOGLE_WEB_CLIENT_ID"
 
