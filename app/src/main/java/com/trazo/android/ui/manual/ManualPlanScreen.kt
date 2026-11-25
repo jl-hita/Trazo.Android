@@ -21,7 +21,7 @@ import com.trazo.android.ui.theme.TrazoPalette
 
 private val WEEK = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
-private fun name(item: ExerciseListItem) = Labels.localName(item.nameEs.ifBlank { item.nameEn }, item.nameEn)
+private fun name(item: ExerciseListItem) = Labels.itemName(item)
 
 @Composable
 fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreated: () -> Unit) {

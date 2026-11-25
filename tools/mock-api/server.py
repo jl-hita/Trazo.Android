@@ -4,7 +4,7 @@ Local stand-in for the TRAZO API, only to take screenshots of the app (landing p
 a real account. It serves a fixed demo user and plan for /auth, /subscription and /plans, and forwards the public
 exercise catalog (/api/v1/exercises*) to the real server so names and images are the real ones.
 
-    python tools/mock-api/server.py --lang es --port 8099      # or --lang en
+    python tools/mock-api/server.py --lang es --port 8099      # or en, or any language with a file in lang/
 
 The language follows the Accept-Language header of each request (the app sends it), and --lang is only the default. Other switches show
 the new screens: --mode sequence (a plan with no dates: cycles and sessions, no days), --recovery wait (recovery advice that says to
@@ -18,6 +18,7 @@ import argparse
 import json
 import threading
 import urllib.request
+from pathlib import Path
 from datetime import date, datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse
@@ -37,7 +38,7 @@ T = {
                    ("romanian-deadlift", "Aún no has completado el rango en todas las series: mantén 50 kg y busca una repetición más.", 50.0)],
         "applied": ["Sentadilla: +5 kg en las dos próximas sesiones de tren inferior.",
                     "Cuádriceps: recuperación al 100 %, el volumen de la semana se mantiene."],
-        "notes": ["Si notas dolor, TRAZO nunca sube la carga: avísanos en el cuestionario."],
+        "warnings": ["Si notas dolor, TRAZO nunca sube la carga: avísanos en el cuestionario."],
         "names": {"db-bench-press": "Press de Banca con Mancuernas", "seated-cable-row": "Remo Sentado en Polea",
                   "dumbbell-shoulder-press": "Press de Hombros con Mancuernas", "lat-pulldown": "Jalón al Pecho",
                   "hammer-curl": "Curl de Martillo con Mancuernas", "squat": "Sentadilla Trasera con Barra",
@@ -55,13 +56,17 @@ T = {
                    ("romanian-deadlift", "You have not completed the range on every set yet: hold 50 kg and aim for one more rep.", 50.0)],
         "applied": ["Squat: +5 kg in the next two lower-body sessions.",
                     "Quadriceps: fully recovered, this week's volume stays as planned."],
-        "notes": ["If you feel pain, TRAZO never raises the load: tell us in the questionnaire."],
+        "warnings": ["If you feel pain, TRAZO never raises the load: tell us in the questionnaire."],
         "names": {"db-bench-press": "Dumbbell Bench Press", "seated-cable-row": "Seated Cable Row",
                   "dumbbell-shoulder-press": "Dumbbell Shoulder Press", "lat-pulldown": "Lat Pulldown",
                   "hammer-curl": "Dumbbell Hammer Curl", "squat": "Barbell Back Squat",
                   "romanian-deadlift": "Romanian Deadlift", "hack-squat": "Hack Squat", "hip-thrust": "Barbell Hip Thrust"},
     },
 }
+
+# Every other language: one file per language in lang/, with the same keys.
+for _file in sorted((Path(__file__).parent / "lang").glob("*.json")):
+    T[_file.stem] = json.loads(_file.read_text(encoding="utf-8"))
 
 LANG = "es"          # default language (--lang); each request may ask for another with Accept-Language
 MODE = "calendar"    # --mode
@@ -210,7 +215,7 @@ def load():
 def next_session():
     """What GET plans/current/next answers: the next session in program order, where it sits, recovery advice and the offers."""
     names = {"es": {"wait": "Pecho: trabajado hace 9 h (10 series efectivas); necesita unas 31 h más.", "alt": T["es"]["sessions"][1]},
-             "en": {"wait": "Chest: worked 9 h ago (10 effective sets); needs about 31 h more.", "alt": T["en"]["sessions"][1]}}[lang()]
+             "en": {"wait": "Chest: worked 9 h ago (10 effective sets); needs about 31 h more.", "alt": T["en"]["sessions"][1]}}.get(lang(), {"wait": "", "alt": T[lang()]["sessions"][1]})
     waiting = RECOVERY == "wait"
     nxt = session(3, 4, UPPER, 55, index=9) if waiting else session(2, 2, LOWER, 60, index=8)
     availability = ({"state": "Wait", "availableAt": (datetime.now(timezone.utc) + timedelta(hours=31)).isoformat(), "reasons": [names["wait"]],
@@ -219,7 +224,7 @@ def next_session():
     reentry = None
     if REENTRY:
         msg = ({"es": f"Llevas {REENTRY} días sin entrenar. Hemos aligerado esta sesión (una serie menos y una repetición más en reserva) para que vuelvas con buen pie; tu plan sigue donde lo dejaste.",
-                "en": f"You have gone {REENTRY} days without training. We have lightened this session (one set less and one more rep in reserve) so you come back gently; your plan stays where you left it."})[lang()]
+                "en": f"You have gone {REENTRY} days without training. We have lightened this session (one set less and one more rep in reserve) so you come back gently; your plan stays where you left it."}).get(lang(), "")
         reentry = {"daysSinceLastWorkout": REENTRY, "message": msg, "applied": True}
     return {"planId": "p1", "schedulingMode": "Sequence" if sequence() else "Calendar", "timeline": "InProgress", "session": nxt,
             "position": {"period": 3, "sessionInPeriod": 3 if waiting else 2, "sessionsInPeriod": 3,
@@ -257,7 +262,8 @@ class Handler(BaseHTTPRequestHandler):
     def _route(self):
         # The language of the app (it sends Accept-Language); --lang only when the request says nothing usable.
         asked = (self.headers.get("Accept-Language") or "").lower().replace(" ", "")
-        _ctx.lang = "en" if asked.startswith("en") else "es" if asked.startswith("es") else LANG
+        primary = asked.split(",")[0].split(";")[0].split("-")[0]
+        _ctx.lang = primary if primary in T else LANG
         path = urlparse(self.path).path
         if path.startswith("/api/v1/exercises"):
             return self._proxy()
@@ -334,7 +340,7 @@ class Handler(BaseHTTPRequestHandler):
                                     "adaptation": {"exercises": [{"exerciseId": e, "action": "Hold", "explanation": x, "nextLoadKg": kg, "suggestedRepetitions": None} for e, x, kg in T[lang()]["advice"]],
                                    "sessionAction": "Hold", "sessionExplanation": T[lang()]["adapt"],
                                    "applied": [{"kind": "load", "exerciseIds": [], "sessionsChanged": 2, "explanation": x} for x in T[lang()]["applied"]],
-                                   "notes": T[lang()]["notes"]},
+                                   "notes": T[lang()]["warnings"]},
                                     "replayed": False})
         self._send(404, {"title": "not_found"})
 
@@ -346,7 +352,7 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lang", choices=["es", "en"], default="es")
+    ap.add_argument("--lang", choices=sorted(T), default="es")
     ap.add_argument("--port", type=int, default=8099)
     ap.add_argument("--mode", choices=["calendar", "sequence"], default="calendar")
     ap.add_argument("--recovery", choices=["ready", "wait"], default="ready")

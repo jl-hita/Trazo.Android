@@ -75,9 +75,9 @@ private fun FiltersPanel(filters: com.trazo.android.data.repo.ExerciseFilters, v
 private fun ExerciseRow(item: ExerciseListItem, onClick: () -> Unit) {
     TrazoCard(onClick = onClick) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            ExerciseThumb(exerciseImageUrl(item.id), Labels.localName(item.nameEs, item.nameEn), 64.dp)
+            ExerciseThumb(exerciseImageUrl(item.id), Labels.itemName(item), 64.dp)
             Column(Modifier.weight(1f)) {
-                Text(Labels.localName(item.nameEs, item.nameEn), style = MaterialTheme.typography.titleMedium)
+                Text(Labels.itemName(item), style = MaterialTheme.typography.titleMedium)
                 Text(Labels.pattern(item.movementPattern) + " · " + Labels.muscles(item.primaryMuscles), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 Text(
                     item.requiredEquipment.takeIf { it.isNotEmpty() }?.joinToString(", ") { Labels.equipment(it) } ?: stringResource(R.string.exercise_no_equipment),
