@@ -299,22 +299,44 @@ private fun LanguageSection(language: com.trazo.android.data.repo.LanguageReposi
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var choice by remember { mutableStateOf(language.choice()) }
+    var expanded by remember { mutableStateOf(false) }
     SectionTitle(stringResource(R.string.account_language))
     Text(stringResource(R.string.account_language_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-    ChipGroup(
-        com.trazo.android.data.local.LanguageChoice.ALL, setOf(choice),
-        { context.getString(languageName(it)) },
-        { picked ->
-            if (picked != choice) {
-                choice = picked
-                scope.launch {
-                    language.choose(picked) // the choice stands on this device even if the server cannot be told now
-                    onChanged()
-                    (context as? android.app.Activity)?.recreate()
-                }
+    Box(Modifier.fillMaxWidth()) {
+        OutlinedButton(
+            onClick = { expanded = true },
+            modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)
+        ) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                Text(context.getString(languageName(choice)))
+                Spacer(Modifier.weight(1f))
+                Text("▾")
             }
         }
-    )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.fillMaxWidth(0.94f)
+        ) {
+            com.trazo.android.data.local.LanguageChoice.ALL.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(context.getString(languageName(option))) },
+                    onClick = {
+                        expanded = false
+                        if (option != choice) {
+                            choice = option
+                            scope.launch {
+                                language.choose(option) // the choice stands on this device even if the server cannot be told now
+                                onChanged()
+                                (context as? android.app.Activity)?.recreate()
+                            }
+                        }
+                    },
+                    trailingIcon = if (option == choice) ({ Text("✓") }) else null
+                )
+            }
+        }
+    }
 }
 
 /** The name of a language in that language, so anyone finds theirs whatever the app is showing. */
