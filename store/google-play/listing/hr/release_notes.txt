@@ -1,0 +1,6 @@
+• TRAZO sada govori 29 jezika; odaberi svoj u izborniku Račun.
+• Obavijest o kraju odmora, i kad aplikacija radi u pozadini.
+• Odaberi kada počinje tvoj automatski plan.
+• Prijavi ozljedu izvan treninga i označi kad se oporaviš.
+• Zamijeni vježbe prije početka i tijekom treninga pogledaj kako se izvode.
+• Provjeri težine iz prošlih treninga.

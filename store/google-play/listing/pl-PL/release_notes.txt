@@ -1,0 +1,6 @@
+• TRAZO mówi już w 29 językach; wybierz swój w sekcji Konto.
+• Powiadomienie o końcu przerwy, także gdy aplikacja działa w tle.
+• Wybierz, kiedy zaczyna się plan automatyczny.
+• Zgłoś kontuzję poza treningiem i zaznacz powrót do zdrowia.
+• Zamieniaj ćwiczenia przed startem i sprawdzaj w trakcie treningu, jak je wykonać.
+• Przeglądaj ciężary z poprzednich sesji.

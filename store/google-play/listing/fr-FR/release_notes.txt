@@ -1,0 +1,6 @@
+• TRAZO parle désormais 29 langues ; choisissez la vôtre dans Compte.
+• Alerte à la fin du repos, même quand l'appli est en arrière-plan.
+• Choisissez la date de début de votre plan automatique.
+• Signalez une blessure hors séance et indiquez quand vous êtes rétabli.
+• Remplacez des exercices avant de commencer et voyez comment les réaliser pendant la séance.
+• Consultez les charges de vos séances passées.

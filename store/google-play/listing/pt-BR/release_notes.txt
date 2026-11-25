@@ -1,0 +1,6 @@
+• O TRAZO agora fala 29 idiomas; escolha o seu em Conta.
+• Aviso quando o descanso termina, mesmo com o app em segundo plano.
+• Escolha quando começa seu plano automático.
+• Informe uma lesão fora do treino e marque quando se recuperar.
+• Troque exercícios antes de começar e veja como fazê-los durante o treino.
+• Confira as cargas dos treinos anteriores.
