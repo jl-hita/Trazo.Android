@@ -46,6 +46,9 @@ val releaseApiUrl = explicitApiBaseUrl ?: if (hasExplicitReleaseEndpoint) compos
 android {
  namespace = "com.trazo.android"
  compileSdk = 36
+ // Users can choose any translated language in-app, even when it is not a language of the device.
+ // Keep every locale in the base APK instead of relying on Play to deliver device-language splits.
+ bundle { language { enableSplit = false } }
  defaultConfig {
   applicationId = "com.trazo.android"
   minSdk = 26
