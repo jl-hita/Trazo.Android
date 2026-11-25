@@ -1,0 +1,224 @@
+<es-ES>
+• TRAZO ya habla 29 idiomas; elige el tuyo en Cuenta.
+• Aviso al terminar el descanso, también con la app en segundo plano.
+• Elige cuándo empieza tu plan automático.
+• Indica una lesión fuera del entrenamiento y marca cuándo te has recuperado.
+• Cambia ejercicios antes de empezar y consulta cómo se hacen mientras entrenas.
+• Revisa los pesos de tus sesiones anteriores.
+</es-ES>
+<en-US>
+• TRAZO now speaks 29 languages; choose yours in Account.
+• Get notified when your rest ends, even with the app in the background.
+• Choose when your automatic plan starts.
+• Report an injury outside a session and mark when you have recovered.
+• Swap exercises before starting and see how each one is done while training.
+• Check the weights of your past sessions.
+</en-US>
+<ar>
+• أصبح TRAZO متاحًا بـ29 لغة؛ اختر لغتك من «الحساب».
+• تنبيه عند انتهاء الراحة، حتى والتطبيق في الخلفية.
+• اختر موعد بدء خطتك التلقائية.
+• أبلغ عن إصابة خارج التمرين وحدّد متى تعافيت.
+• بدّل التمارين قبل البدء واطّلع على طريقة أدائها أثناء التمرين.
+• راجع أوزان حصصك السابقة.
+</ar>
+<ca>
+• TRAZO ja parla 29 idiomes; tria el teu a Compte.
+• Avís quan s'acaba el descans, també amb l'app en segon pla.
+• Tria quan comença el teu pla automàtic.
+• Indica una lesió fora de l'entrenament i marca quan t'has recuperat.
+• Canvia exercicis abans de començar i consulta com es fan mentre entrenes.
+• Revisa els pesos de les sessions anteriors.
+</ca>
+<cs-CZ>
+• TRAZO nyní mluví 29 jazyky; vyber si svůj v sekci Účet.
+• Upozornění na konec pauzy, i když aplikace běží na pozadí.
+• Zvol, kdy začne tvůj automatický plán.
+• Nahlas zranění mimo trénink a označ, až se zotavíš.
+• Vyměň cviky před začátkem a během tréninku se podívej, jak je provádět.
+• Zkontroluj váhy z minulých tréninků.
+</cs-CZ>
+<da-DK>
+• TRAZO taler nu 29 sprog; vælg dit under Konto.
+• Få besked, når pausen er slut, også når appen kører i baggrunden.
+• Vælg, hvornår din automatiske plan starter.
+• Meld en skade uden for træningen, og markér, når du er rask igen.
+• Skift øvelser, før du går i gang, og se undervejs, hvordan de udføres.
+• Se vægtene fra tidligere træninger.
+</da-DK>
+<de-DE>
+• TRAZO spricht jetzt 29 Sprachen; wähle deine unter Konto.
+• Hinweis am Ende der Pause, auch wenn die App im Hintergrund ist.
+• Lege fest, wann dein automatischer Plan beginnt.
+• Melde eine Verletzung außerhalb des Trainings und markiere, wann du wieder fit bist.
+• Tausche Übungen vor dem Start und sieh beim Training, wie sie ausgeführt werden.
+• Sieh dir die Gewichte früherer Einheiten an.
+</de-DE>
+<el-GR>
+• Το TRAZO μιλά πλέον 29 γλώσσες· διάλεξε τη δική σου στον Λογαριασμό.
+• Ειδοποίηση όταν τελειώνει το διάλειμμα, ακόμη και στο παρασκήνιο.
+• Διάλεξε πότε ξεκινά το αυτόματο πρόγραμμά σου.
+• Δήλωσε τραυματισμό εκτός προπόνησης και σημείωσε πότε αναρρώνεις.
+• Άλλαξε ασκήσεις πριν ξεκινήσεις και δες την εκτέλεσή τους στην προπόνηση.
+• Έλεγξε τα βάρη προηγούμενων προπονήσεων.
+</el-GR>
+<eu-ES>
+• TRAZOk 29 hizkuntza ditu orain; aukeratu zurea Kontua atalean.
+• Atsedena amaitzean abisua, aplikazioa bigarren planoan dagoenean ere.
+• Aukeratu plan automatikoa noiz hasiko den.
+• Adierazi entrenamendutik kanpoko lesio bat eta markatu noiz sendatu zaren.
+• Aldatu ariketak hasi aurretik eta ikusi nola egiten diren entrenatzen ari zarela.
+• Berrikusi aurreko saioetako pisuak.
+</eu-ES>
+<fi-FI>
+• TRAZO puhuu nyt 29 kieltä; valitse omasi Tili-näkymässä.
+• Ilmoitus tauon päättyessä, myös kun sovellus on taustalla.
+• Valitse, milloin automaattinen ohjelmasi alkaa.
+• Ilmoita treenin ulkopuolinen vamma ja merkitse, kun olet toipunut.
+• Vaihda liikkeitä ennen aloitusta ja katso treenin aikana, miten ne tehdään.
+• Tarkista aiempien treenien painot.
+</fi-FI>
+<fr-FR>
+• TRAZO parle désormais 29 langues ; choisissez la vôtre dans Compte.
+• Alerte à la fin du repos, même quand l'appli est en arrière-plan.
+• Choisissez la date de début de votre plan automatique.
+• Signalez une blessure hors séance et indiquez quand vous êtes rétabli.
+• Remplacez des exercices avant de commencer et voyez comment les réaliser pendant la séance.
+• Consultez les charges de vos séances passées.
+</fr-FR>
+<gl-ES>
+• TRAZO xa fala 29 idiomas; escolle o teu en Conta.
+• Aviso ao rematar o descanso, tamén coa app en segundo plano.
+• Escolle cando comeza o teu plan automático.
+• Indica unha lesión fóra do adestramento e marca cando te recuperes.
+• Cambia exercicios antes de comezar e consulta como se fan mentres adestras.
+• Revisa os pesos das sesións anteriores.
+</gl-ES>
+<hr>
+• TRAZO sada govori 29 jezika; odaberi svoj u izborniku Račun.
+• Obavijest o kraju odmora, i kad aplikacija radi u pozadini.
+• Odaberi kada počinje tvoj automatski plan.
+• Prijavi ozljedu izvan treninga i označi kad se oporaviš.
+• Zamijeni vježbe prije početka i tijekom treninga pogledaj kako se izvode.
+• Provjeri težine iz prošlih treninga.
+</hr>
+<it-IT>
+• TRAZO ora parla 29 lingue: scegli la tua in Account.
+• Avviso a fine recupero, anche con l'app in background.
+• Scegli quando inizia il tuo piano automatico.
+• Segnala un infortunio fuori dall'allenamento e indica quando hai recuperato.
+• Sostituisci gli esercizi prima di iniziare e guarda come eseguirli mentre ti alleni.
+• Controlla i pesi delle sessioni passate.
+</it-IT>
+<ja-JP>
+• TRAZOが29言語に対応。「アカウント」で選べます。
+• アプリがバックグラウンドでも、休憩の終了を通知します。
+• 自動プランの開始日を選べます。
+• トレーニング外のケガを登録し、回復したら記録できます。
+• 開始前に種目を入れ替え、トレーニング中にやり方を確認できます。
+• 過去のセッションの重量を確認できます。
+</ja-JP>
+<ko-KR>
+• TRAZO가 29개 언어를 지원합니다. 계정에서 선택하세요.
+• 앱이 백그라운드에 있어도 휴식이 끝나면 알려 줍니다.
+• 자동 플랜의 시작 날짜를 선택하세요.
+• 운동 외 부상을 알리고 회복하면 표시하세요.
+• 시작 전에 운동을 교체하고, 운동 중에 방법을 확인하세요.
+• 지난 세션의 중량을 확인하세요.
+</ko-KR>
+<mk-MK>
+• TRAZO сега зборува 29 јазици; изберете го вашиот во Сметка.
+• Известување за крај на паузата, и кога апликацијата е во заднина.
+• Изберете кога почнува вашиот автоматски план.
+• Пријавете повреда надвор од тренинг и означете кога ќе закрепнете.
+• Заменете вежби пред почеток и видете како се изведуваат додека тренирате.
+• Проверете ги тежините од минатите тренинзи.
+</mk-MK>
+<nl-NL>
+• TRAZO spreekt nu 29 talen; kies de jouwe bij Account.
+• Melding als je rust voorbij is, ook met de app op de achtergrond.
+• Kies wanneer je automatische plan begint.
+• Meld een blessure buiten de training en geef aan wanneer je hersteld bent.
+• Wissel oefeningen voor de start en bekijk tijdens het trainen hoe je ze uitvoert.
+• Bekijk de gewichten van eerdere sessies.
+</nl-NL>
+<no-NO>
+• TRAZO snakker nå 29 språk; velg ditt under Konto.
+• Få varsel når pausen er over, også når appen er i bakgrunnen.
+• Velg når den automatiske planen din starter.
+• Meld en skade utenfor treningen, og marker når du er frisk igjen.
+• Bytt øvelser før du starter, og se underveis hvordan de utføres.
+• Se vektene fra tidligere økter.
+</no-NO>
+<pl-PL>
+• TRAZO mówi już w 29 językach; wybierz swój w sekcji Konto.
+• Powiadomienie o końcu przerwy, także gdy aplikacja działa w tle.
+• Wybierz, kiedy zaczyna się plan automatyczny.
+• Zgłoś kontuzję poza treningiem i zaznacz powrót do zdrowia.
+• Zamieniaj ćwiczenia przed startem i sprawdzaj w trakcie treningu, jak je wykonać.
+• Przeglądaj ciężary z poprzednich sesji.
+</pl-PL>
+<pt-BR>
+• O TRAZO agora fala 29 idiomas; escolha o seu em Conta.
+• Aviso quando o descanso termina, mesmo com o app em segundo plano.
+• Escolha quando começa seu plano automático.
+• Informe uma lesão fora do treino e marque quando se recuperar.
+• Troque exercícios antes de começar e veja como fazê-los durante o treino.
+• Confira as cargas dos treinos anteriores.
+</pt-BR>
+<ru-RU>
+• TRAZO теперь говорит на 29 языках — выберите свой в разделе «Аккаунт».
+• Уведомление об окончании отдыха, даже когда приложение в фоне.
+• Выбирайте дату начала автоматического плана.
+• Сообщите о травме вне тренировки и отметьте, когда восстановитесь.
+• Меняйте упражнения до начала и смотрите технику во время тренировки.
+• Проверяйте веса прошлых тренировок.
+</ru-RU>
+<sk>
+• TRAZO teraz hovorí 29 jazykmi; vyber si svoj v sekcii Účet.
+• Upozornenie na koniec prestávky, aj keď aplikácia beží na pozadí.
+• Zvoľ, kedy sa začne tvoj automatický plán.
+• Nahlás zranenie mimo tréningu a označ, keď sa zotavíš.
+• Vymeň cviky pred začiatkom a počas tréningu si pozri, ako ich vykonávať.
+• Skontroluj váhy z minulých tréningov.
+</sk>
+<sl>
+• TRAZO zdaj govori 29 jezikov; svojega izberi v razdelku Račun.
+• Obvestilo ob koncu odmora, tudi ko aplikacija deluje v ozadju.
+• Izberi, kdaj se začne tvoj samodejni načrt.
+• Prijavi poškodbo zunaj treninga in označi, ko okrevaš.
+• Zamenjaj vaje pred začetkom in med treningom poglej, kako se izvajajo.
+• Preveri uteži iz preteklih treningov.
+</sl>
+<sr>
+• TRAZO sada govori 29 jezika; izaberi svoj u odeljku Nalog.
+• Obaveštenje o kraju odmora, i kad aplikacija radi u pozadini.
+• Izaberi kada počinje tvoj automatski plan.
+• Prijavi povredu van treninga i označi kad se oporaviš.
+• Zameni vežbe pre početka i tokom treninga pogledaj kako se izvode.
+• Proveri težine sa prošlih treninga.
+</sr>
+<sv-SE>
+• TRAZO talar nu 29 språk; välj ditt under Konto.
+• Få en avisering när vilan är slut, även med appen i bakgrunden.
+• Välj när din automatiska plan börjar.
+• Rapportera en skada utanför träningen och markera när du är återställd.
+• Byt övningar innan du börjar och se under passet hur de utförs.
+• Se vikterna från tidigare pass.
+</sv-SE>
+<tr-TR>
+• TRAZO artık 29 dil konuşuyor; dilinizi Hesap bölümünden seçin.
+• Uygulama arka plandayken bile dinlenme bitince bildirim alın.
+• Otomatik planınızın ne zaman başlayacağını seçin.
+• Antrenman dışı bir sakatlığı bildirin ve iyileştiğinizde işaretleyin.
+• Başlamadan egzersizleri değiştirin, antrenman sırasında nasıl yapıldığına bakın.
+• Geçmiş seanslarınızın ağırlıklarını inceleyin.
+</tr-TR>
+<zh-CN>
+• TRAZO 现已支持 29 种语言，可在“账户”中选择。
+• 组间休息结束时提醒你，应用在后台也一样。
+• 自行选择自动计划的开始日期。
+• 可在训练之外上报伤病，并在恢复后标记。
+• 开始前即可替换动作，训练中可查看动作做法。
+• 查看以往训练使用的重量。
+</zh-CN>

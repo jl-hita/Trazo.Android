@@ -1,0 +1,6 @@
+• TRAZO teraz hovorí 29 jazykmi; vyber si svoj v sekcii Účet.
+• Upozornenie na koniec prestávky, aj keď aplikácia beží na pozadí.
+• Zvoľ, kedy sa začne tvoj automatický plán.
+• Nahlás zranenie mimo tréningu a označ, keď sa zotavíš.
+• Vymeň cviky pred začiatkom a počas tréningu si pozri, ako ich vykonávať.
+• Skontroluj váhy z minulých tréningov.

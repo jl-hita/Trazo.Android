@@ -1,0 +1,6 @@
+• TRAZO zdaj govori 29 jezikov; svojega izberi v razdelku Račun.
+• Obvestilo ob koncu odmora, tudi ko aplikacija deluje v ozadju.
+• Izberi, kdaj se začne tvoj samodejni načrt.
+• Prijavi poškodbo zunaj treninga in označi, ko okrevaš.
+• Zamenjaj vaje pred začetkom in med treningom poglej, kako se izvajajo.
+• Preveri uteži iz preteklih treningov.

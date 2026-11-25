@@ -9,6 +9,9 @@ Cada carpeta lleva el código de idioma que usa Play Console y tres ficheros de 
 | `title.txt` | 30 caracteres |
 | `short_description.txt` | 80 caracteres |
 | `full_description.txt` | 4000 caracteres |
+| `release_notes.txt` | 500 caracteres |
+
+Para copiar y pegar a mano hay además dos ficheros conjuntos: `fichas-todos-los-idiomas.md` (todos los campos de cada idioma) y `release_notes_play.txt` (las novedades en el formato con etiquetas de idioma de Play Console, sin bosnio, que Play no ofrece). Son copias de los textos por carpeta: si cambia uno, hay que actualizarlos también.
 
 Todos cumplen los límites (el inglés tiene un título de exactamente 30). Para volver a comprobarlo basta contar caracteres de cada fichero.
 
