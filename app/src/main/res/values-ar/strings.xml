@@ -647,4 +647,7 @@
     <string name="workout_finish_set">إنهاء هذه المجموعة</string>
     <string name="workout_superset_rounds">الجولات: %1$d</string>
     <string name="session_done_segment">جزء %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">سوبر سيت %1$s</string>
+    <string name="manual_rest_between">الراحة بين التمارين: %1$d ث</string>
+    <string name="manual_rest_after">الراحة بعد كل جولة: %1$d ث</string>
 </resources>

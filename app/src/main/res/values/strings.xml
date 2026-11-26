@@ -671,4 +671,7 @@
     <string name="workout_finish_set">Finish this set</string>
     <string name="workout_superset_rounds">Rounds: %1$d</string>
     <string name="session_done_segment">Part %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Superset %1$s</string>
+    <string name="manual_rest_between">Rest between exercises: %1$d s</string>
+    <string name="manual_rest_after">Rest after each round: %1$d s</string>
 </resources>

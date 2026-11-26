@@ -627,4 +627,7 @@
     <string name="workout_finish_set">Τέλος αυτού του σετ</string>
     <string name="workout_superset_rounds">Γύροι: %1$d</string>
     <string name="session_done_segment">Μέρος %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Σούπερσετ %1$s</string>
+    <string name="manual_rest_between">Ξεκούραση μεταξύ ασκήσεων: %1$d δ</string>
+    <string name="manual_rest_after">Ξεκούραση μετά από κάθε γύρο: %1$d δ</string>
 </resources>

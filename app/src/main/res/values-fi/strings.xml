@@ -627,4 +627,7 @@
     <string name="workout_finish_set">Lopeta tämä sarja</string>
     <string name="workout_superset_rounds">Kierrokset: %1$d</string>
     <string name="session_done_segment">Osa %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Supersetti %1$s</string>
+    <string name="manual_rest_between">Lepo liikkeiden välissä: %1$d s</string>
+    <string name="manual_rest_after">Lepo jokaisen kierroksen jälkeen: %1$d s</string>
 </resources>

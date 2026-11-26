@@ -126,7 +126,7 @@ class WorkoutViewModel(
         if (!set.done && parseReps(set.reps) == null) return
         updateSet(exerciseId, index) { it.copy(done = !it.done) }
         if (set.done) return
-        if (carried(entry, index) != null) continueTechnique(exerciseId, index) else restAfter(exerciseId)
+        if (carried(entry, index) != null) continueTechnique(exerciseId, index) else restAfter(exerciseId, index)
     }
 
     fun updateSegment(exerciseId: String, index: Int, segment: Int, transform: (SetEntry) -> SetEntry) =
@@ -153,7 +153,7 @@ class WorkoutViewModel(
     /** The user stops here: the segment not done is dropped and the normal rest starts. */
     fun finishSet(exerciseId: String, index: Int) {
         updateSet(exerciseId, index) { it.copy(segments = it.segments.filter { s -> s.done }) }
-        restAfter(exerciseId)
+        restAfter(exerciseId, index)
     }
 
     private fun entryOf(exerciseId: String) = _state.value.entries.firstOrNull { it.exercise.exerciseId == exerciseId }
@@ -166,7 +166,7 @@ class WorkoutViewModel(
         val another = pending || Techniques.wantsAnother(
             technique, parseReps(entry.sets.first().reps), parseReps(set.reps), set.segments.mapNotNull { parseReps(it.reps) }
         )
-        if (!another) return restAfter(exerciseId)
+        if (!another) return restAfter(exerciseId, index)
         if (!pending) updateSet(exerciseId, index) { it.copy(segments = it.segments + pendingSegment(technique, it)) }
         startRest(technique.restSeconds)
     }
@@ -175,10 +175,10 @@ class WorkoutViewModel(
      * The rest after a finished set. Inside a superset the next exercise follows at once (or after the short rest the plan sets
      * between them) and the long rest comes after the last one of the round.
      */
-    private fun restAfter(exerciseId: String) {
+    private fun restAfter(exerciseId: String, index: Int) {
         val exercise = entryOf(exerciseId)?.exercise ?: return
         val superset = exercise.supersetGroup?.let { group -> _state.value.session?.supersets?.firstOrNull { it.group == group } }
-        if (isLastOfGroup(_state.value.entries, exerciseId)) startRest(superset?.restAfterRoundSeconds ?: exercise.restSeconds)
+        if (isLastOfRound(_state.value.entries, exerciseId, index)) startRest(superset?.restAfterRoundSeconds ?: exercise.restSeconds)
         else if (superset != null) startRest(superset.restBetweenSeconds)
     }
 
@@ -317,12 +317,15 @@ class WorkoutViewModel(
     override fun onCleared() { timer?.cancel(); alarms.cancel() }
 
     companion object {
-        /** False for an exercise that is followed by another one of the same superset. */
-        fun isLastOfGroup(entries: List<ExerciseEntry>, exerciseId: String): Boolean {
+        /**
+         * True when the set at [index] closes its round: no later exercise of the same superset still has a set in it (one with
+         * fewer sets drops out of the last rounds). Always true outside a superset.
+         */
+        fun isLastOfRound(entries: List<ExerciseEntry>, exerciseId: String, index: Int): Boolean {
             val i = entries.indexOfFirst { it.exercise.exerciseId == exerciseId }
             if (i < 0) return true
             val group = entries[i].exercise.supersetGroup ?: return true
-            return entries.getOrNull(i + 1)?.exercise?.supersetGroup != group
+            return entries.drop(i + 1).takeWhile { it.exercise.supersetGroup == group }.none { it.sets.size > index }
         }
 
         /** The technique of the set at [index], or null when it is a straight set. */

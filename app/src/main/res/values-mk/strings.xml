@@ -627,4 +627,7 @@
     <string name="workout_finish_set">Заврши ја серијата</string>
     <string name="workout_superset_rounds">Кругови: %1$d</string>
     <string name="session_done_segment">Дел %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Суперсерија %1$s</string>
+    <string name="manual_rest_between">Одмор меѓу вежбите: %1$d с</string>
+    <string name="manual_rest_after">Одмор по секој круг: %1$d с</string>
 </resources>

@@ -150,7 +150,7 @@ class ManualPlanViewModel(
 
     fun removeExercise(day: String, id: String) = updateDay(day) { d -> d.copy(exercises = normalizeLinks(d.exercises.filterNot { it.id == id })) }
 
-    /** Joins an exercise with the next one in a superset (or splits them). A superset has two or three exercises. */
+    /** Joins an exercise with the next one in a superset (or splits them). A superset has two to four exercises. */
     fun toggleLink(day: String, id: String) = updateDay(day) { d ->
         val index = d.exercises.indexOfFirst { it.id == id }
         if (index < 0 || index == d.exercises.lastIndex) return@updateDay d
@@ -219,6 +219,27 @@ class ManualPlanViewModel(
         }
     }
 
+    /** One more or one fewer round: every exercise of the superset that starts at [firstId] does that many sets. */
+    fun changeRounds(day: String, firstId: String, delta: Int) = updateRun(day, firstId) { run ->
+        val rounds = (run.maxOf { it.sets } + delta).coerceIn(1, MAX_SETS)
+        run.map { it.copy(sets = rounds) }
+    }
+
+    /** The short rest between the exercises of a round, or (with [afterRound]) the rest once the round is done. */
+    fun changeSupersetRest(day: String, firstId: String, afterRound: Boolean, delta: Int) = updateRun(day, firstId) { run ->
+        val current = supersetOf(run)
+        val next = if (afterRound) current.copy(restAfterRoundSeconds = (current.restAfterRoundSeconds + delta).coerceIn(0, MAX_REST))
+        else current.copy(restBetweenSeconds = (current.restBetweenSeconds + delta).coerceIn(0, MAX_REST))
+        run.map { it.copy(superset = next) }
+    }
+
+    private fun updateRun(day: String, firstId: String, transform: (List<ManualExercise>) -> List<ManualExercise>) = updateDay(day) { d ->
+        val start = d.exercises.indexOfFirst { it.id == firstId }
+        if (start < 0) return@updateDay d
+        val end = start + runLength(d.exercises, start)
+        d.copy(exercises = d.exercises.take(start) + transform(d.exercises.subList(start, end)) + d.exercises.drop(end))
+    }
+
     /** Opens the technique dialog, asking the catalog which ones the exercise admits. */
     fun openTechnique(day: String, id: String) {
         _state.update { it.copy(technique = TechniquePick(day, id)) }
@@ -265,7 +286,9 @@ class ManualPlanViewModel(
         updateDay(day) { d -> d.copy(exercises = d.exercises.map { if (it.id == id) transform(it) else it }) }
 
     companion object {
-        const val MAX_SUPERSET = 3
+        const val MAX_SUPERSET = 4
+        const val REST_STEP = 15
+        const val MAX_REST = 600
 
         /** The routines of the sessions of a week, one per weekday, with the supersets as links between consecutive exercises. */
         fun routinesOf(sessions: List<com.trazo.android.data.model.SessionView>, sequence: Boolean = false): Map<String, ManualDay> =
@@ -289,6 +312,7 @@ class ManualPlanViewModel(
         const val MAX_WEEKS = 52
         const val MAX_SETS = 10
         const val MAX_ROUTINES = 7
+        const val DEFAULT_REST = 90
 
         /** Length of the superset run that contains [index]. */
         fun runLength(list: List<ManualExercise>, index: Int): Int {
@@ -317,10 +341,21 @@ class ManualPlanViewModel(
             return groups.toList()
         }
 
-        /** The rounds the supersets came with, under the letters they are sent with now; null when none had any. */
+        /**
+         * The rounds and rests of a superset: the ones it was given, or else how supersets are done without them (no rest between
+         * exercises and the rest of the last one after the round). The rounds are the most sets of its exercises.
+         */
+        fun supersetOf(run: List<ManualExercise>): SupersetView {
+            val rounds = run.maxOf { it.sets }
+            return run.firstNotNullOfOrNull { it.superset }?.copy(rounds = rounds)
+                ?: SupersetView("A", rounds, 0, run.last().restSeconds ?: DEFAULT_REST)
+        }
+
+        /** The supersets that have their own rests, under the letters they are sent with now; null when none has. */
         fun supersetRounds(list: List<ManualExercise>, groups: List<String?>): List<SupersetView>? =
             groups.filterNotNull().distinct().mapNotNull { letter ->
-                list.filterIndexed { i, _ -> groups[i] == letter }.firstNotNullOfOrNull { it.superset }?.copy(group = letter)
+                val run = list.filterIndexed { i, _ -> groups[i] == letter }
+                if (run.none { it.superset != null }) null else supersetOf(run).copy(group = letter)
             }.ifEmpty { null }
 
         /** [weekOrder] is the order the routines are sent in (the week as the user sees it). */

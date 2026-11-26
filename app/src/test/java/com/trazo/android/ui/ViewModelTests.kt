@@ -146,7 +146,7 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         assertEquals("", WorkoutViewModel.freshEntry(sampleExercise(load = null)).sets[0].weight)
     }
 
-    @Test fun `linked exercises get one group letter per run and a superset has at most three`() {
+    @Test fun `linked exercises get one group letter per run and a superset has at most four`() {
         fun ex(id: String, link: Boolean) = com.trazo.android.ui.manual.ManualExercise(id, id, linkedToNext = link)
         val list = listOf(ex("a", true), ex("b", false), ex("c", false), ex("d", true), ex("e", true), ex("f", false))
         val groups = com.trazo.android.ui.manual.ManualPlanViewModel.supersetGroups(list)
@@ -160,9 +160,13 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         val b = sampleExercise("b").copy(supersetGroup = "A")
         val c = sampleExercise("c")
         val entries = listOf(a, b, c).map { WorkoutViewModel.freshEntry(it) }
-        assertFalse(WorkoutViewModel.isLastOfGroup(entries, "a"))
-        assertTrue(WorkoutViewModel.isLastOfGroup(entries, "b"))
-        assertTrue(WorkoutViewModel.isLastOfGroup(entries, "c"))
+        assertFalse(WorkoutViewModel.isLastOfRound(entries, "a", 0))
+        assertTrue(WorkoutViewModel.isLastOfRound(entries, "b", 0))
+        assertTrue(WorkoutViewModel.isLastOfRound(entries, "c", 0))
+        // An exercise with fewer sets drops out of the last rounds: the one before it closes them.
+        val uneven = listOf(a, b.copy(sets = 2)).map { WorkoutViewModel.freshEntry(it) }
+        assertFalse(WorkoutViewModel.isLastOfRound(uneven, "a", 1))
+        assertTrue(WorkoutViewModel.isLastOfRound(uneven, "a", 2))
     }
 
     @Test fun `the routines of a week become the editor days with supersets as links`() {

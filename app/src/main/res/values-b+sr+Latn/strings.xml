@@ -632,4 +632,7 @@
     <string name="workout_finish_set">Završi ovu seriju</string>
     <string name="workout_superset_rounds">Runde: %1$d</string>
     <string name="session_done_segment">Deo %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Superserija %1$s</string>
+    <string name="manual_rest_between">Odmor između vežbi: %1$d s</string>
+    <string name="manual_rest_after">Odmor posle svake runde: %1$d s</string>
 </resources>

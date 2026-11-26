@@ -637,4 +637,7 @@
     <string name="workout_finish_set">Ukončiť túto sériu</string>
     <string name="workout_superset_rounds">Kolá: %1$d</string>
     <string name="session_done_segment">Časť %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Superset %1$s</string>
+    <string name="manual_rest_between">Pauza medzi cvikmi: %1$d s</string>
+    <string name="manual_rest_after">Pauza po každom kole: %1$d s</string>
 </resources>

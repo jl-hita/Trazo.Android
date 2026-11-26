@@ -622,4 +622,7 @@
     <string name="workout_finish_set">结束本组</string>
     <string name="workout_superset_rounds">轮数：%1$d</string>
     <string name="session_done_segment">分段 %1$d：%2$s × %3$s</string>
+    <string name="manual_superset_title">超级组 %1$s</string>
+    <string name="manual_rest_between">动作间休息：%1$d 秒</string>
+    <string name="manual_rest_after">每轮后休息：%1$d 秒</string>
 </resources>
