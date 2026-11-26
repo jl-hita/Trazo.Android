@@ -27,7 +27,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-data class SetEntry(val weight: String = "", val reps: String = "", val rir: String = "", val done: Boolean = false)
+data class SetEntry(
+    val weight: String = "", val reps: String = "", val rir: String = "", val done: Boolean = false,
+    /** What followed this set in a technique, in order; the last one may be the segment still to do. */
+    val segments: List<SetEntry> = emptyList()
+)
 
 data class ExerciseEntry(val exercise: ExerciseView, val sets: List<SetEntry>)
 
@@ -121,8 +125,61 @@ class WorkoutViewModel(
         val set = entry.sets.getOrNull(index) ?: return
         if (!set.done && parseReps(set.reps) == null) return
         updateSet(exerciseId, index) { it.copy(done = !it.done) }
-        // Inside a superset the next exercise follows at once: the rest comes after the last one of the round.
-        if (!set.done && isLastOfGroup(_state.value.entries, exerciseId)) startRest(entry.exercise.restSeconds)
+        if (set.done) return
+        if (carried(entry, index) != null) continueTechnique(exerciseId, index) else restAfter(exerciseId)
+    }
+
+    fun updateSegment(exerciseId: String, index: Int, segment: Int, transform: (SetEntry) -> SetEntry) =
+        updateSet(exerciseId, index) { set -> set.copy(segments = set.segments.mapIndexed { i, s -> if (i == segment) transform(s) else s }) }
+
+    /** Marks a segment done and either offers the next one after its short rest or starts the normal rest. */
+    fun toggleSegment(exerciseId: String, index: Int, segment: Int) {
+        val set = entryOf(exerciseId)?.sets?.getOrNull(index) ?: return
+        val target = set.segments.getOrNull(segment) ?: return
+        if (!target.done && parseReps(target.reps) == null) return
+        updateSegment(exerciseId, index, segment) { it.copy(done = !it.done) }
+        if (!target.done) continueTechnique(exerciseId, index)
+    }
+
+    /** Offers one more segment even if the rule of the technique says it is over: the user decides. */
+    fun addSegment(exerciseId: String, index: Int) {
+        val entry = entryOf(exerciseId) ?: return
+        val technique = carried(entry, index) ?: return
+        val set = entry.sets.getOrNull(index) ?: return
+        if (set.segments.size >= technique.maxSegments || set.segments.any { !it.done }) return
+        updateSet(exerciseId, index) { it.copy(segments = it.segments + pendingSegment(technique, it)) }
+    }
+
+    /** The user stops here: the segment not done is dropped and the normal rest starts. */
+    fun finishSet(exerciseId: String, index: Int) {
+        updateSet(exerciseId, index) { it.copy(segments = it.segments.filter { s -> s.done }) }
+        restAfter(exerciseId)
+    }
+
+    private fun entryOf(exerciseId: String) = _state.value.entries.firstOrNull { it.exercise.exerciseId == exerciseId }
+
+    private fun continueTechnique(exerciseId: String, index: Int) {
+        val entry = entryOf(exerciseId) ?: return
+        val technique = carried(entry, index) ?: return
+        val set = entry.sets.getOrNull(index) ?: return
+        val pending = set.segments.any { !it.done }
+        val another = pending || Techniques.wantsAnother(
+            technique, parseReps(entry.sets.first().reps), parseReps(set.reps), set.segments.mapNotNull { parseReps(it.reps) }
+        )
+        if (!another) return restAfter(exerciseId)
+        if (!pending) updateSet(exerciseId, index) { it.copy(segments = it.segments + pendingSegment(technique, it)) }
+        startRest(technique.restSeconds)
+    }
+
+    /**
+     * The rest after a finished set. Inside a superset the next exercise follows at once (or after the short rest the plan sets
+     * between them) and the long rest comes after the last one of the round.
+     */
+    private fun restAfter(exerciseId: String) {
+        val exercise = entryOf(exerciseId)?.exercise ?: return
+        val superset = exercise.supersetGroup?.let { group -> _state.value.session?.supersets?.firstOrNull { it.group == group } }
+        if (isLastOfGroup(_state.value.entries, exerciseId)) startRest(superset?.restAfterRoundSeconds ?: exercise.restSeconds)
+        else if (superset != null) startRest(superset.restBetweenSeconds)
     }
 
     fun startRest(seconds: Int) {
@@ -248,7 +305,10 @@ class WorkoutViewModel(
 
     private fun saveDraft() {
         val sets = _state.value.entries.flatMap { e ->
-            e.sets.mapIndexed { i, set -> DraftSet(e.exercise.exerciseId, i + 1, set.weight, set.reps, set.rir, set.done) }
+            e.sets.flatMapIndexed { i, set ->
+                listOf(DraftSet(e.exercise.exerciseId, i + 1, set.weight, set.reps, set.rir, set.done)) +
+                    set.segments.mapIndexed { k, s -> DraftSet(e.exercise.exerciseId, i + 1, s.weight, s.reps, s.rir, s.done, k + 1) }
+            }
         }
         // Not tied to viewModelScope: leaving the screen right after typing must still persist the last edit.
         CoroutineScope(draftWriter).launchGuarded(R.string.feature_workout) { drafts.save(sessionId, sets) }
@@ -263,6 +323,16 @@ class WorkoutViewModel(
             if (i < 0) return true
             val group = entries[i].exercise.supersetGroup ?: return true
             return entries.getOrNull(i + 1)?.exercise?.supersetGroup != group
+        }
+
+        /** The technique of the set at [index], or null when it is a straight set. */
+        fun carried(entry: ExerciseEntry, index: Int): TechniqueView? =
+            entry.exercise.technique?.takeIf { Techniques.carries(it, index, entry.sets.size) }
+
+        /** The next segment, with the load it starts from. */
+        fun pendingSegment(technique: TechniqueView, set: SetEntry): SetEntry {
+            val previous = parseWeight(set.segments.lastOrNull()?.weight ?: set.weight)
+            return SetEntry(weight = Techniques.segmentLoad(technique, previous)?.let(::formatKg).orEmpty())
         }
 
         fun freshEntry(ex: ExerciseView) = ExerciseEntry(
@@ -280,14 +350,21 @@ class WorkoutViewModel(
 
         /** The sets of a log as the workout screen keeps them while they are edited. */
         fun draftOf(request: LogSessionRequest): List<DraftSet> = request.sets.map {
-            DraftSet(it.exerciseId, it.setNumber, it.weightKg?.let(::formatKg).orEmpty(), it.repetitions?.toString().orEmpty(), it.rir?.let(::formatKg).orEmpty(), it.completed)
+            DraftSet(
+                it.exerciseId, it.setNumber, it.weightKg?.let(::formatKg).orEmpty(), it.repetitions?.toString().orEmpty(),
+                it.rir?.let(::formatKg).orEmpty(), it.completed, it.segment ?: 0
+            )
         }
 
         fun buildEntries(session: SessionView, draft: List<DraftSet>): List<ExerciseEntry> = session.exercises.map { ex ->
-            val saved = draft.filter { it.exerciseId == ex.exerciseId }.associateBy { it.setNumber }
+            val mine = draft.filter { it.exerciseId == ex.exerciseId }
+            val saved = mine.filter { it.segment == 0 }.associateBy { it.setNumber }
             val base = freshEntry(ex)
             base.copy(sets = base.sets.mapIndexed { i, set ->
-                saved[i + 1]?.let { SetEntry(it.weight, it.reps, it.rir, it.done) } ?: set
+                saved[i + 1]?.let { main ->
+                    val segments = mine.filter { it.setNumber == i + 1 && it.segment > 0 }.sortedBy { it.segment }
+                    SetEntry(main.weight, main.reps, main.rir, main.done, segments.map { SetEntry(it.weight, it.reps, it.rir, it.done) })
+                } ?: set
             })
         }
 
@@ -324,15 +401,19 @@ class WorkoutViewModel(
             }
             val reason = if (outcome == "Completed") "None" else form.reason
             val sets = entries.flatMap { e ->
-                e.sets.mapIndexedNotNull { i, set ->
+                e.sets.flatMapIndexed { i, set ->
                     val reps = parseReps(set.reps)
                     val weight = parseWeight(set.weight)
                     val rir = parseRir(set.rir)
-                    when {
-                        set.done && reps != null -> LogSetRequest(e.exercise.exerciseId, i + 1, weight, reps, rir, true)
-                        // A set left undone is reported as skipped, which is what lets the engine see fatigue or lack of time.
-                        else -> LogSetRequest(e.exercise.exerciseId, i + 1, weight, reps, rir, false, skipReasonFor[reason])
+                    if (set.done && reps != null) {
+                        // Only the segments that were done are sent, numbered without gaps; one not done is not a skipped set.
+                        val segments = set.segments.filter { it.done && parseReps(it.reps) != null }.mapIndexed { k, s ->
+                            LogSetRequest(e.exercise.exerciseId, i + 1, parseWeight(s.weight), parseReps(s.reps), parseRir(s.rir), true, segment = k + 1)
+                        }
+                        listOf(LogSetRequest(e.exercise.exerciseId, i + 1, weight, reps, rir, true)) + segments
                     }
+                    // A set left undone is reported as skipped, which is what lets the engine see fatigue or lack of time.
+                    else listOf(LogSetRequest(e.exercise.exerciseId, i + 1, weight, reps, rir, false, skipReasonFor[reason]))
                 }
             }
             return LogSessionRequest(

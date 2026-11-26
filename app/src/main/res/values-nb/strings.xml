@@ -606,4 +606,25 @@
     <string name="health_withdraw">Trekk tilbake samtykket</string>
     <string name="health_withdraw_text">Skadene dine, markeringer av smerte og ubehag og sykdomsårsaker slettes. Treningshistorikken beholdes. Planen din unngår ikke lenger områdene du hadde markert.</string>
     <string name="health_withdraw_confirm">Trekk tilbake og slett</string>
+    <string name="technique_straight">Vanlige sett</string>
+    <string name="technique_label">Teknikk: %1$s</string>
+    <string name="technique_drop_set">Drop-sett</string>
+    <string name="technique_descending">Synkende sett</string>
+    <string name="technique_myo_reps">Myo-reps</string>
+    <string name="technique_myo_match">Myo-rep match</string>
+    <string name="technique_rest_pause">Rest-pause</string>
+    <string name="technique_scope_last">Siste sett</string>
+    <string name="technique_scope_all">Alle sett</string>
+    <string name="technique_drops">Vektreduksjoner: %1$d</string>
+    <string name="technique_none_allowed">Denne øvelsen gjøres bare med vanlige sett.</string>
+    <string name="technique_help_drop">Senk vekten med %1$d%% og fortsett innen %2$d s.</string>
+    <string name="technique_help_myo">Hvil %1$d s og ta minisett på %2$d–%3$d repetisjoner med samme vekt.</string>
+    <string name="technique_help_match">Hvil %1$d s og legg til minisett til du når repetisjonene fra første sett.</string>
+    <string name="technique_help_rest_pause">Hvil %1$d s og fortsett med samme vekt.</string>
+    <string name="workout_segment">Del %1$d</string>
+    <string name="workout_segment_done">%1$s fullført</string>
+    <string name="workout_add_segment">Legg til en del</string>
+    <string name="workout_finish_set">Avslutt dette settet</string>
+    <string name="workout_superset_rounds">Runder: %1$d</string>
+    <string name="session_done_segment">Del %1$d: %2$s × %3$s</string>
 </resources>

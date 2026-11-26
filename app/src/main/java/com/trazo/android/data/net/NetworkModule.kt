@@ -38,6 +38,9 @@ internal fun acceptLanguage(): String {
     return if (language == "en" || language == "es") language else "$language, en;q=0.8"
 }
 
+/** What this build can show; without it the server answers with plain sets. */
+const val CAPABILITIES = "techniques-1"
+
 /**
  * Tells the API who is asking: the language of the app (Spanish unless the device is English) and the time zone of the device, so
  * texts come back in the user's language and "today" is the user's day. Sent on every call, authenticated or not.
@@ -48,7 +51,8 @@ class ContextInterceptor(
     private val appVersion: () -> String = { com.trazo.android.BuildConfig.VERSION_NAME }
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response =
-        chain.proceed(chain.request().newBuilder().header("Accept-Language", language()).header("X-Time-Zone", zone()).header("X-App-Version", appVersion()).build())
+        chain.proceed(chain.request().newBuilder().header("Accept-Language", language()).header("X-Time-Zone", zone()).header("X-App-Version", appVersion())
+            .header("X-Client-Capabilities", CAPABILITIES).build())
 }
 
 /**

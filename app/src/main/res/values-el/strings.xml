@@ -606,4 +606,25 @@
     <string name="health_withdraw">Ανάκληση συγκατάθεσης</string>
     <string name="health_withdraw_text">Οι τραυματισμοί σου, οι σημειώσεις πόνου και ενόχλησης και οι λόγοι ασθένειας θα διαγραφούν. Το ιστορικό προπονήσεων διατηρείται. Το πρόγραμμά σου δεν θα αποφεύγει πια τις περιοχές που είχες σημειώσει.</string>
     <string name="health_withdraw_confirm">Ανάκληση και διαγραφή</string>
+    <string name="technique_straight">Κανονικά σετ</string>
+    <string name="technique_label">Τεχνική: %1$s</string>
+    <string name="technique_drop_set">Drop set</string>
+    <string name="technique_descending">Φθίνοντα σετ</string>
+    <string name="technique_myo_reps">Myo-reps</string>
+    <string name="technique_myo_match">Myo-rep match</string>
+    <string name="technique_rest_pause">Rest-pause</string>
+    <string name="technique_scope_last">Τελευταίο σετ</string>
+    <string name="technique_scope_all">Όλα τα σετ</string>
+    <string name="technique_drops">Μειώσεις φορτίου: %1$d</string>
+    <string name="technique_none_allowed">Αυτή η άσκηση γίνεται μόνο με κανονικά σετ.</string>
+    <string name="technique_help_drop">Μείωσε το φορτίο κατά %1$d%% και συνέχισε μέσα σε %2$d δ.</string>
+    <string name="technique_help_myo">Ξεκουράσου %1$d δ και κάνε μίνι σετ %2$d–%3$d επαναλήψεων με το ίδιο φορτίο.</string>
+    <string name="technique_help_match">Ξεκουράσου %1$d δ και πρόσθεσε μίνι σετ ώσπου να φτάσεις τις επαναλήψεις του πρώτου σετ.</string>
+    <string name="technique_help_rest_pause">Ξεκουράσου %1$d δ και συνέχισε με το ίδιο φορτίο.</string>
+    <string name="workout_segment">Μέρος %1$d</string>
+    <string name="workout_segment_done">Ολοκληρώθηκε: %1$s</string>
+    <string name="workout_add_segment">Προσθήκη μέρους</string>
+    <string name="workout_finish_set">Τέλος αυτού του σετ</string>
+    <string name="workout_superset_rounds">Γύροι: %1$d</string>
+    <string name="session_done_segment">Μέρος %1$d: %2$s × %3$s</string>
 </resources>

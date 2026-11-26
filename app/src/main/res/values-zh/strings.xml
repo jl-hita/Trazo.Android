@@ -601,4 +601,25 @@
     <string name="health_withdraw">撤回同意</string>
     <string name="health_withdraw_text">你的伤病、疼痛和不适标记以及生病原因将被删除。训练记录会保留。计划将不再避开你之前标记的部位。</string>
     <string name="health_withdraw_confirm">撤回并删除</string>
+    <string name="technique_straight">常规组</string>
+    <string name="technique_label">训练技巧：%1$s</string>
+    <string name="technique_drop_set">递减组</string>
+    <string name="technique_descending">多次递减组</string>
+    <string name="technique_myo_reps">肌激活组</string>
+    <string name="technique_myo_match">肌激活匹配组</string>
+    <string name="technique_rest_pause">休息暂停组</string>
+    <string name="technique_scope_last">最后一组</string>
+    <string name="technique_scope_all">所有组</string>
+    <string name="technique_drops">减重次数：%1$d</string>
+    <string name="technique_none_allowed">此动作只能用常规组完成。</string>
+    <string name="technique_help_drop">减重 %1$d%%，并在 %2$d 秒内继续。</string>
+    <string name="technique_help_myo">休息 %1$d 秒，用相同重量做 %2$d–%3$d 次的小组。</string>
+    <string name="technique_help_match">休息 %1$d 秒，追加小组直到达到第一组的次数。</string>
+    <string name="technique_help_rest_pause">休息 %1$d 秒，用相同重量继续。</string>
+    <string name="workout_segment">分段 %1$d</string>
+    <string name="workout_segment_done">%1$s 已完成</string>
+    <string name="workout_add_segment">添加分段</string>
+    <string name="workout_finish_set">结束本组</string>
+    <string name="workout_superset_rounds">轮数：%1$d</string>
+    <string name="session_done_segment">分段 %1$d：%2$s × %3$s</string>
 </resources>

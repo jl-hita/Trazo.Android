@@ -606,4 +606,25 @@
     <string name="health_withdraw">Einwilligung widerrufen</string>
     <string name="health_withdraw_text">Deine Verletzungen, Schmerz- und Beschwerdeangaben und Krankheitsgründe werden gelöscht. Dein Trainingsverlauf bleibt erhalten. Dein Plan meidet die markierten Bereiche dann nicht mehr.</string>
     <string name="health_withdraw_confirm">Widerrufen und löschen</string>
+    <string name="technique_straight">Normale Sätze</string>
+    <string name="technique_label">Technik: %1$s</string>
+    <string name="technique_drop_set">Drop-Satz</string>
+    <string name="technique_descending">Absteigende Sätze</string>
+    <string name="technique_myo_reps">Myo-Reps</string>
+    <string name="technique_myo_match">Myo-Rep Match</string>
+    <string name="technique_rest_pause">Rest-Pause</string>
+    <string name="technique_scope_last">Letzter Satz</string>
+    <string name="technique_scope_all">Alle Sätze</string>
+    <string name="technique_drops">Gewichtsreduktionen: %1$d</string>
+    <string name="technique_none_allowed">Diese Übung wird nur mit normalen Sätzen ausgeführt.</string>
+    <string name="technique_help_drop">Reduziere das Gewicht um %1$d%% und mach innerhalb von %2$d s weiter.</string>
+    <string name="technique_help_myo">Pausiere %1$d s und mach Minisätze mit %2$d–%3$d Wiederholungen bei gleichem Gewicht.</string>
+    <string name="technique_help_match">Pausiere %1$d s und häng Minisätze an, bis du die Wiederholungen deines ersten Satzes erreichst.</string>
+    <string name="technique_help_rest_pause">Pausiere %1$d s und mach mit gleichem Gewicht weiter.</string>
+    <string name="workout_segment">Teil %1$d</string>
+    <string name="workout_segment_done">%1$s erledigt</string>
+    <string name="workout_add_segment">Teil hinzufügen</string>
+    <string name="workout_finish_set">Diesen Satz beenden</string>
+    <string name="workout_superset_rounds">Runden: %1$d</string>
+    <string name="session_done_segment">Teil %1$d: %2$s × %3$s</string>
 </resources>

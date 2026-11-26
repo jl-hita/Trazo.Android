@@ -606,4 +606,25 @@
     <string name="health_withdraw">İzni geri çek</string>
     <string name="health_withdraw_text">Sakatlıkların, ağrı ve rahatsızlık işaretlerin ve hastalık nedenlerin silinecek. Antrenman geçmişin korunur. Planın artık işaretlediğin bölgelerden kaçınmayacak.</string>
     <string name="health_withdraw_confirm">Geri çek ve sil</string>
+    <string name="technique_straight">Normal setler</string>
+    <string name="technique_label">Teknik: %1$s</string>
+    <string name="technique_drop_set">Drop set</string>
+    <string name="technique_descending">Azalan setler</string>
+    <string name="technique_myo_reps">Myo-reps</string>
+    <string name="technique_myo_match">Myo-rep match</string>
+    <string name="technique_rest_pause">Rest-pause</string>
+    <string name="technique_scope_last">Son set</string>
+    <string name="technique_scope_all">Tüm setler</string>
+    <string name="technique_drops">Ağırlık düşürme sayısı: %1$d</string>
+    <string name="technique_none_allowed">Bu egzersiz yalnızca normal setlerle yapılır.</string>
+    <string name="technique_help_drop">Ağırlığı %%%1$d azalt ve %2$d sn içinde devam et.</string>
+    <string name="technique_help_myo">%1$d sn dinlen ve aynı ağırlıkla %2$d–%3$d tekrarlık mini setler yap.</string>
+    <string name="technique_help_match">%1$d sn dinlen ve ilk setindeki tekrar sayısına ulaşana kadar mini set ekle.</string>
+    <string name="technique_help_rest_pause">%1$d sn dinlen ve aynı ağırlıkla devam et.</string>
+    <string name="workout_segment">%1$d. bölüm</string>
+    <string name="workout_segment_done">%1$s tamam</string>
+    <string name="workout_add_segment">Bölüm ekle</string>
+    <string name="workout_finish_set">Bu seti bitir</string>
+    <string name="workout_superset_rounds">Tur sayısı: %1$d</string>
+    <string name="session_done_segment">%1$d. bölüm: %2$s × %3$s</string>
 </resources>
