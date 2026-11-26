@@ -30,4 +30,8 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Instrumented tests on an emulator
-        run: gradle --no-daemon :app:pixelApi34DebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect
+        run: |
+          # The signed-in screens are tested against the mock API; the emulator reaches the runner at 10.0.2.2.
+          python3 tools/mock-api/server.py --lang en --port 8099 > "$RUNNER_TEMP/mock-api.log" 2>&1 &
+          curl --silent --output /dev/null --retry 20 --retry-delay 1 --retry-connrefused http://127.0.0.1:8099/
+          gradle --no-daemon :app:pixelApi34DebugAndroidTest -PapiBaseUrl=http://10.0.2.2:8099/ -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect

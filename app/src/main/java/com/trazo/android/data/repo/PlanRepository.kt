@@ -29,9 +29,6 @@ sealed interface LogOutcome {
     /** The server stored the log; [result] holds the updated session and the adaptation report. */
     data class Sent(val result: LogResult) : LogOutcome
 
-    /** The server already had this log (a previous attempt arrived but its answer was lost). */
-    data object AlreadyLogged : LogOutcome
-
     /** No connection: the log is saved locally and will be sent when possible. */
     data object Queued : LogOutcome
 
@@ -256,7 +253,11 @@ class PlanRepository(
                         LogOutcome.Sent(result.value)
                     }
                     is ApiResult.Failure -> when {
-                        result.error.code == SESSION_ALREADY_LOGGED -> { answered = true; disk { queue.remove(entry) }; LogOutcome.AlreadyLogged }
+                        // The server answers a repeated log with success, so the session holds something else: as when it comes from the
+                        // queue, the log is kept with the reason until the user retries or deletes it.
+                        result.error.code == SESSION_ALREADY_LOGGED -> {
+                            answered = true; disk { queue.replace(entry.rejected(result.error)) }; LogOutcome.Rejected(result.error)
+                        }
                         // The server rejected it only because another change reached the plan at the same moment and stored nothing: the same log
                         // (same ClientRequestId) will be accepted later. Any other 409 stays a final answer.
                         // A session that expired is no verdict on the log: it waits for the user to sign in again.
