@@ -39,7 +39,7 @@ Todos cumplen los límites (el inglés tiene un título de exactamente 30). Para
 
 ## Avisos
 
-- **Sin revisión nativa.** Las traducciones las escribió Claude; conviene que las revise una persona nativa antes de publicarlas, sobre todo alemán, francés, polaco, turco, chino, japonés, coreano, árabe, ruso y los idiomas de la antigua Yugoslavia.
+- **Sin revisión nativa.** Las traducciones son automáticas; conviene que las revise una persona nativa antes de publicarlas, sobre todo alemán, francés, polaco, turco, chino, japonés, coreano, árabe, ruso y los idiomas de la antigua Yugoslavia.
 - **Serbio:** la carpeta `sr` está en alfabeto latino, igual que la app (`values-b+sr+Latn`). Play Console no distingue escritura: si se quiere ofrecer también el alfabeto cirílico habría que traducirlo aparte.
 - **Contenido veraz:** el texto habla solo de lo que la app hace hoy (plan manual gratis, plan automático y adaptación en Premium con prueba gratuita, registro sin conexión, progreso, superseries, cambio de ejercicios, calendario flexible). Si cambia el modelo (precios, prueba, funciones), hay que revisar los 29 textos.
 - **Aviso médico:** todos terminan con la nota de que las orientaciones no sustituyen a un médico ni a un entrenador.
