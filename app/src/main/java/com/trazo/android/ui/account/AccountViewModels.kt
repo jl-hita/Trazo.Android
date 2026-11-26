@@ -110,6 +110,9 @@ class AccountViewModel(
         }
     }
 
+    /** The message being sent and its identity: trying the same text again must not post it twice. */
+    private var outgoing: Pair<String, String>? = null
+
     fun setDraft(text: String) = _state.update { it.copy(draft = text.take(1000)) }
 
     fun sendMessage() {
@@ -117,8 +120,10 @@ class AccountViewModel(
         if (text.isEmpty() || _state.value.requestingReview) return
         _state.update { it.copy(requestingReview = true, reviewError = null) }
         viewModelScope.launchGuarded(R.string.feature_account, onFailure = { _state.update { it.copy(requestingReview = false, reviewError = ApiError(ErrorKind.Unknown)) } }) {
-            when (val r = plans.sendReviewMessage(text)) {
+            val message = outgoing?.takeIf { it.first == text } ?: (text to java.util.UUID.randomUUID().toString()).also { outgoing = it }
+            when (val r = plans.sendReviewMessage(text, message.second)) {
                 is ApiResult.Success -> _state.update {
+                    outgoing = null
                     it.copy(requestingReview = false, review = r.value, thread = r.value.messages ?: it.thread, draft = "")
                 }.also { if (r.value.messages == null) refreshThread() }
                 is ApiResult.Failure -> _state.update { it.copy(requestingReview = false, reviewError = r.error) }

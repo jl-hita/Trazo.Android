@@ -549,14 +549,17 @@
     <string name="account_promo_until">Premium gratuït fins al %1$s.</string>
     <plurals name="referral_days">
         <item quantity="one">%1$d dia</item>
+        <item quantity="many">%1$d dies</item>
         <item quantity="other">%1$d dies</item>
     </plurals>
     <plurals name="referral_days_pending">
         <item quantity="one">%1$d dia pendent d\'aplicar</item>
+        <item quantity="many">%1$d dies pendents d\'aplicar</item>
         <item quantity="other">%1$d dies pendents d\'aplicar</item>
     </plurals>
     <plurals name="referral_reward_days">
         <item quantity="one">+%1$d dia de Premium</item>
+        <item quantity="many">+%1$d dies de Premium</item>
         <item quantity="other">+%1$d dies de Premium</item>
     </plurals>
     <string name="plan_create_manual">Crea un pla manual</string>
@@ -573,10 +576,12 @@
     <string name="onb_break_long">%1$d mesos o més</string>
     <plurals name="onb_prep_weeks">
         <item quantity="one">Preparació: %1$d setmana</item>
+        <item quantity="many">Preparació: %1$d setmanes</item>
         <item quantity="other">Preparació: %1$d setmanes</item>
     </plurals>
     <plurals name="onb_prep_then">
         <item quantity="one">Després, %1$d setmana de pla complet (compta dins de la durada total).</item>
+        <item quantity="many">Després, %1$d setmanes de pla complet (compten dins de la durada total).</item>
         <item quantity="other">Després, %1$d setmanes de pla complet (compten dins de la durada total).</item>
     </plurals>
     <string name="exercise_explain">Veure com es fa l\'exercici</string>

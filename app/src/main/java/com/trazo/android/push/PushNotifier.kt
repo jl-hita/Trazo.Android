@@ -1,6 +1,7 @@
 package com.trazo.android.push
 
 import android.Manifest
+import android.annotation.SuppressLint
 import com.trazo.android.diagnostics.Diagnostics
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -44,6 +45,7 @@ object PushKinds {
 object PushNotifier {
     const val CHANNEL_ID = "general"
 
+    @SuppressLint("MissingPermission") // canPost() checks the permission before notify().
     fun show(context: Context, data: Map<String, String>) {
         val kind = data["kind"]?.takeIf { it.length <= 40 }
         // "check" and unknown silent kinds are never shown.
