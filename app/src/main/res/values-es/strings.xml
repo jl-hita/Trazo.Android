@@ -601,4 +601,15 @@
     <string name="session_done_sets">Series realizadas</string>
     <string name="session_done_set">Serie %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">sin hacer</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Legal</string>
+    <string name="legal_privacy">Política de privacidad</string>
+    <string name="legal_terms">Condiciones de uso</string>
+    <string name="account_delete">Eliminar cuenta</string>
+    <string name="account_delete_text">Se borrarán para siempre tu cuenta, tus planes y todo tu historial de entrenamientos. No se puede deshacer.</string>
+    <string name="account_delete_confirm">Eliminar definitivamente</string>
+    <string name="account_delete_google">Confirmar con Google y eliminar</string>
+    <string name="account_delete_play">Gestionar la suscripción en Google Play</string>
+    <string name="account_delete_rejected">La contraseña, la cuenta de Google o el código no son válidos.</string>
+    <string name="account_deleted">Tu cuenta se ha eliminado.</string>
 </resources>

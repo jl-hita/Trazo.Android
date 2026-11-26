@@ -585,4 +585,15 @@
     <string name="session_done_sets">Σετ που έγιναν</string>
     <string name="session_done_set">Σετ %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">δεν έγινε</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Νομικά</string>
+    <string name="legal_privacy">Πολιτική απορρήτου</string>
+    <string name="legal_terms">Όροι χρήσης</string>
+    <string name="account_delete">Διαγραφή λογαριασμού</string>
+    <string name="account_delete_text">Ο λογαριασμός σου, τα προγράμματά σου και όλο το ιστορικό προπονήσεων θα διαγραφούν οριστικά. Η ενέργεια δεν αναιρείται.</string>
+    <string name="account_delete_confirm">Οριστική διαγραφή</string>
+    <string name="account_delete_google">Επιβεβαίωση με Google και διαγραφή</string>
+    <string name="account_delete_play">Διαχείριση της συνδρομής στο Google Play</string>
+    <string name="account_delete_rejected">Ο κωδικός πρόσβασης, ο λογαριασμός Google ή ο κωδικός δεν είναι έγκυρος.</string>
+    <string name="account_deleted">Ο λογαριασμός σου διαγράφηκε.</string>
 </resources>

@@ -277,6 +277,15 @@ class Handler(BaseHTTPRequestHandler):
         if self.command == "PUT" and path == "/api/v1/account/language":
             self.rfile.read(int(self.headers.get("Content-Length") or 0))
             return self._send(204, b"")
+        if path == "/api/v1/account":
+            return self._send(200, {"canDelete": True, "cannotDeleteReason": None, "deletion": {
+                "requiresPassword": True, "requiresGoogleIdToken": False, "requiresTwoFactorCode": False, "warning": None, "manageSubscriptionUrl": None}})
+        if self.command == "POST" and path == "/api/v1/account/delete":
+            body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
+            # Any password works except "wrong", to see the refusal.
+            if body.get("password") == "wrong":
+                return self._send(403, {"title": "reauthentication_failed", "status": 403})
+            return self._send(200, {"deleted": True, "playSubscriptionNotCancelled": False, "manageSubscriptionUrl": None})
         if path == "/api/v1/referrals/me":
             return self._send(200, {"enabled": True, "rewardDays": 30, "code": "K7M2QX9P", "link": "https://api.example.invalid/invite/K7M2QX9P",
                                     "stats": {"invited": 3, "pending": 2, "converted": 1, "rewards": 1, "daysEarned": 30, "daysPending": 0, "daysDeferred": 30}})

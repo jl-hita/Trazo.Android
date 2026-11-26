@@ -580,4 +580,15 @@
     <string name="session_done_sets">已完成的组</string>
     <string name="session_done_set">第 %1$d 组：%2$s × %3$s</string>
     <string name="session_set_skipped">未完成</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">法律信息</string>
+    <string name="legal_privacy">隐私政策</string>
+    <string name="legal_terms">使用条款</string>
+    <string name="account_delete">删除账号</string>
+    <string name="account_delete_text">你的账号、计划和全部训练记录将被永久删除，且无法撤销。</string>
+    <string name="account_delete_confirm">永久删除</string>
+    <string name="account_delete_google">通过 Google 确认并删除</string>
+    <string name="account_delete_play">在 Google Play 管理订阅</string>
+    <string name="account_delete_rejected">密码、Google 账号或验证码无效。</string>
+    <string name="account_deleted">你的账号已删除。</string>
 </resources>

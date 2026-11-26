@@ -585,4 +585,15 @@
     <string name="session_done_sets">Yapılan setler</string>
     <string name="session_done_set">Set %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">yapılmadı</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Yasal bilgiler</string>
+    <string name="legal_privacy">Gizlilik politikası</string>
+    <string name="legal_terms">Kullanım koşulları</string>
+    <string name="account_delete">Hesabı sil</string>
+    <string name="account_delete_text">Hesabın, planların ve tüm antrenman geçmişin kalıcı olarak silinecek. Bu işlem geri alınamaz.</string>
+    <string name="account_delete_confirm">Kalıcı olarak sil</string>
+    <string name="account_delete_google">Google ile onayla ve sil</string>
+    <string name="account_delete_play">Aboneliği Google Play\'de yönet</string>
+    <string name="account_delete_rejected">Şifre, Google hesabı veya kod geçerli değil.</string>
+    <string name="account_deleted">Hesabın silindi.</string>
 </resources>

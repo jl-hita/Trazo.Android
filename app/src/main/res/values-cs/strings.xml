@@ -595,4 +595,15 @@
     <string name="session_done_sets">Dokončené série</string>
     <string name="session_done_set">Série %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">nesplněno</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Právní informace</string>
+    <string name="legal_privacy">Zásady ochrany soukromí</string>
+    <string name="legal_terms">Podmínky používání</string>
+    <string name="account_delete">Smazat účet</string>
+    <string name="account_delete_text">Tvůj účet, tvoje plány a celá historie tréninků se trvale smažou. Nejde to vrátit zpět.</string>
+    <string name="account_delete_confirm">Trvale smazat</string>
+    <string name="account_delete_google">Potvrdit přes Google a smazat</string>
+    <string name="account_delete_play">Spravovat předplatné v Google Play</string>
+    <string name="account_delete_rejected">Heslo, účet Google nebo kód nejsou platné.</string>
+    <string name="account_deleted">Tvůj účet byl smazán.</string>
 </resources>

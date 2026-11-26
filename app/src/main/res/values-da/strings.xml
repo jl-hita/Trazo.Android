@@ -585,4 +585,15 @@
     <string name="session_done_sets">Gennemførte sæt</string>
     <string name="session_done_set">Sæt %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">ikke gjort</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Juridisk</string>
+    <string name="legal_privacy">Privatlivspolitik</string>
+    <string name="legal_terms">Brugsvilkår</string>
+    <string name="account_delete">Slet konto</string>
+    <string name="account_delete_text">Din konto, dine planer og hele din træningshistorik bliver slettet permanent. Det kan ikke fortrydes.</string>
+    <string name="account_delete_confirm">Slet permanent</string>
+    <string name="account_delete_google">Bekræft med Google og slet</string>
+    <string name="account_delete_play">Administrer abonnementet i Google Play</string>
+    <string name="account_delete_rejected">Adgangskoden, Google-kontoen eller koden er ikke gyldig.</string>
+    <string name="account_deleted">Din konto er slettet.</string>
 </resources>

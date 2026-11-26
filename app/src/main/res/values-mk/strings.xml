@@ -585,4 +585,15 @@
     <string name="session_done_sets">Направени серии</string>
     <string name="session_done_set">Серија %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">не е направено</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Правни информации</string>
+    <string name="legal_privacy">Политика за приватност</string>
+    <string name="legal_terms">Услови за користење</string>
+    <string name="account_delete">Избриши ја сметката</string>
+    <string name="account_delete_text">Твојата сметка, твоите планови и целата историја на тренинзи трајно ќе се избришат. Ова не може да се врати.</string>
+    <string name="account_delete_confirm">Избриши трајно</string>
+    <string name="account_delete_google">Потврди со Google и избриши</string>
+    <string name="account_delete_play">Управувај со претплатата во Google Play</string>
+    <string name="account_delete_rejected">Лозинката, Google-сметката или кодот не се валидни.</string>
+    <string name="account_deleted">Твојата сметка е избришана.</string>
 </resources>

@@ -585,4 +585,15 @@
     <string name="session_done_sets">Gedane sets</string>
     <string name="session_done_set">Set %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">niet gedaan</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Juridisch</string>
+    <string name="legal_privacy">Privacybeleid</string>
+    <string name="legal_terms">Gebruiksvoorwaarden</string>
+    <string name="account_delete">Account verwijderen</string>
+    <string name="account_delete_text">Je account, je schema\'s en je hele trainingsgeschiedenis worden definitief verwijderd. Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="account_delete_confirm">Definitief verwijderen</string>
+    <string name="account_delete_google">Bevestigen met Google en verwijderen</string>
+    <string name="account_delete_play">Abonnement beheren in Google Play</string>
+    <string name="account_delete_rejected">Het wachtwoord, het Google-account of de code is niet geldig.</string>
+    <string name="account_deleted">Je account is verwijderd.</string>
 </resources>

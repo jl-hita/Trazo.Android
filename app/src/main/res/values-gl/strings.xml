@@ -585,4 +585,15 @@
     <string name="session_done_sets">Series feitas</string>
     <string name="session_done_set">Serie %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">non feita</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Legal</string>
+    <string name="legal_privacy">Política de privacidade</string>
+    <string name="legal_terms">Condicións de uso</string>
+    <string name="account_delete">Eliminar a conta</string>
+    <string name="account_delete_text">Borraranse para sempre a túa conta, os teus plans e todo o teu historial de adestramentos. Non se pode desfacer.</string>
+    <string name="account_delete_confirm">Eliminar definitivamente</string>
+    <string name="account_delete_google">Confirmar con Google e eliminar</string>
+    <string name="account_delete_play">Xestionar a subscrición en Google Play</string>
+    <string name="account_delete_rejected">O contrasinal, a conta de Google ou o código non son válidos.</string>
+    <string name="account_deleted">A túa conta eliminouse.</string>
 </resources>

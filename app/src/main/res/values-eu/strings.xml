@@ -585,4 +585,15 @@
     <string name="session_done_sets">Egindako serieak</string>
     <string name="session_done_set">%1$d. seria: %2$s × %3$s</string>
     <string name="session_set_skipped">egin gabe</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Lege-oharrak</string>
+    <string name="legal_privacy">Pribatutasun-politika</string>
+    <string name="legal_terms">Erabilera-baldintzak</string>
+    <string name="account_delete">Ezabatu kontua</string>
+    <string name="account_delete_text">Zure kontua, zure planak eta entrenamenduen historia osoa betiko ezabatuko dira. Ezin da desegin.</string>
+    <string name="account_delete_confirm">Ezabatu behin betiko</string>
+    <string name="account_delete_google">Berretsi Google bidez eta ezabatu</string>
+    <string name="account_delete_play">Kudeatu harpidetza Google Play-n</string>
+    <string name="account_delete_rejected">Pasahitza, Google kontua edo kodea ez dira baliozkoak.</string>
+    <string name="account_deleted">Zure kontua ezabatu da.</string>
 </resources>

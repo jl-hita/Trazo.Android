@@ -80,6 +80,7 @@ class AppContainer(context: Context) {
     val referrals = com.trazo.android.data.referral.ReferralRepository(network.create(com.trazo.android.data.referral.ReferralApi::class.java))
     private val referralAnonymous = network.createAnonymous(com.trazo.android.data.referral.ReferralAnonymousApi::class.java)
     val language = com.trazo.android.data.repo.LanguageRepository(network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.local.SharedPreferencesLanguageStore(appContext))
+    val account = com.trazo.android.data.repo.AccountRepository(network.create(com.trazo.android.data.api.AccountApi::class.java))
     val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext),
         // Never over what the user typed since: the draft is only rebuilt when there is none.
         restoreDraft = { log -> if (drafts.load(log.sessionId) == null) drafts.save(log.sessionId, com.trazo.android.ui.workout.WorkoutViewModel.draftOf(log.request)) },
@@ -119,6 +120,13 @@ class AppContainer(context: Context) {
             pendingReferral.save(code, com.trazo.android.data.referral.ReferralSource.INSTALL_REFERRER)
             referralAnonymous.installReferrer(com.trazo.android.data.referral.InstallReferrerRequest(code)) // counts an attributable install; ignored if it fails
         }
+    }
+
+    /** The account no longer exists: there is nothing to tell the server, only this phone to clean. */
+    fun forgetDeletedAccount() {
+        pushScope.launchGuarded(R.string.feature_push) { push.forget() }
+        tokens.clear()
+        plans.clearLocal()
     }
 
     /** Ends the session and removes everything stored for the account: token, cached week, queued logs and drafts. */
