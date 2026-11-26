@@ -591,4 +591,14 @@
     <string name="account_delete_play">在 Google Play 管理订阅</string>
     <string name="account_delete_rejected">密码、Google 账号或验证码无效。</string>
     <string name="account_deleted">你的账号已删除。</string>
+    <!-- Consent for health data -->
+    <string name="health_title">健康数据</string>
+    <string name="health_text">TRAZO 只会用你提供的伤病、疼痛、不适和生病信息来调整训练。这是可选的：不提供也不影响其他功能。你可以随时在账号中撤回同意，相关数据会随之删除。</string>
+    <string name="health_agree">我同意</string>
+    <string name="health_decline">不用了</string>
+    <string name="health_on">你已允许 TRAZO 使用你的健康数据。</string>
+    <string name="health_off">你尚未允许 TRAZO 使用健康数据。当你要记录伤病、疼痛或生病时，应用会询问你。</string>
+    <string name="health_withdraw">撤回同意</string>
+    <string name="health_withdraw_text">你的伤病、疼痛和不适标记以及生病原因将被删除。训练记录会保留。计划将不再避开你之前标记的部位。</string>
+    <string name="health_withdraw_confirm">撤回并删除</string>
 </resources>

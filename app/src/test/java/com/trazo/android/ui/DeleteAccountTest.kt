@@ -30,6 +30,7 @@ private class FakeDeletionApi(
     val sent = mutableListOf<DeleteAccountRequest>()
     override suspend fun language(request: LanguageRequest): Response<Unit> = Response.success(Unit)
     override suspend fun info() = infoResponse()
+    override suspend fun healthConsent(request: HealthConsentRequest): Response<Unit> = Response.success(Unit)
     override suspend fun delete(request: DeleteAccountRequest): Response<DeleteAccountResult> { sent += request; return deleteResponse() }
 }
 

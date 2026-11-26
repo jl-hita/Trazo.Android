@@ -73,6 +73,15 @@ class PlanRepository(
         publish(entries)
     }
 
+    /** After the consent for health data is withdrawn: what is still queued loses it, and the cached copies (injured areas) are dropped. */
+    suspend fun forgetHealthData() {
+        disk {
+            queue.all().forEach { queue.replace(it.withoutHealthData()) }
+            cache.clear()
+        }
+        publishQueue()
+    }
+
     private fun publish(entries: List<PendingLog>) {
         _pending.value = entries.count { !it.isRejected }
         _rejected.value = entries.filter { it.isRejected }

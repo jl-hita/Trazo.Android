@@ -616,4 +616,14 @@
     <string name="account_delete_play">إدارة الاشتراك في Google Play</string>
     <string name="account_delete_rejected">كلمة المرور أو حساب Google أو الرمز غير صالح.</string>
     <string name="account_deleted">تم حذف حسابك.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">البيانات الصحية</string>
+    <string name="health_text">سيستخدم TRAZO ما تخبره به عن الإصابات والألم والانزعاج والمرض لتكييف تمرينك فقط. هذا اختياري: بدونه يعمل كل شيء آخر كالمعتاد. يمكنك سحب موافقتك في أي وقت من الحساب، وعندها تُحذف تلك البيانات.</string>
+    <string name="health_agree">أوافق</string>
+    <string name="health_decline">لا، شكرًا</string>
+    <string name="health_on">تسمح لـ TRAZO باستخدام بياناتك الصحية.</string>
+    <string name="health_off">لم تسمح لـ TRAZO باستخدام البيانات الصحية. سيسألك عندما تريد تسجيل إصابة أو ألم أو مرض.</string>
+    <string name="health_withdraw">سحب الموافقة</string>
+    <string name="health_withdraw_text">ستُحذف إصاباتك وعلامات الألم والانزعاج وأسباب المرض. يبقى سجل تمارينك. لن تتجنب خطتك بعد الآن المناطق التي حددتها.</string>
+    <string name="health_withdraw_confirm">اسحب واحذف</string>
 </resources>

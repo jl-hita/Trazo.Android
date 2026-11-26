@@ -596,4 +596,14 @@
     <string name="account_delete_play">Hallinnoi tilausta Google Playssa</string>
     <string name="account_delete_rejected">Salasana, Google-tili tai koodi ei kelpaa.</string>
     <string name="account_deleted">Tilisi on poistettu.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Terveystiedot</string>
+    <string name="health_text">TRAZO käyttää kertomiasi tietoja vammoista, kivusta, vaivoista ja sairaudesta vain harjoittelusi mukauttamiseen. Se on vapaaehtoista: ilman sitä kaikki muu toimii samoin. Voit peruuttaa suostumuksen milloin tahansa Tili-sivulla, jolloin tiedot poistetaan.</string>
+    <string name="health_agree">Hyväksyn</string>
+    <string name="health_decline">Ei kiitos</string>
+    <string name="health_on">Annat TRAZOn käyttää terveystietojasi.</string>
+    <string name="health_off">Et ole antanut TRAZOlle lupaa käyttää terveystietoja. Sovellus kysyy sitä, kun haluat merkitä vamman, kivun tai sairauden.</string>
+    <string name="health_withdraw">Peruuta suostumus</string>
+    <string name="health_withdraw_text">Vammasi, kipu- ja vaivamerkinnät sekä sairaussyyt poistetaan. Harjoitushistoriasi säilyy. Ohjelmasi ei enää vältä merkitsemiäsi alueita.</string>
+    <string name="health_withdraw_confirm">Peruuta ja poista</string>
 </resources>

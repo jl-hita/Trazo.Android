@@ -205,7 +205,10 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
 
                 SectionTitle(stringResource(R.string.onb_limitations))
                 Text(stringResource(R.string.onb_limitations_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-                ChipGroup(options.limitations, state.limitations, Labels::limitation, viewModel::toggleLimitation)
+                val health = LocalHealthGate.current
+                ChipGroup(options.limitations, state.limitations, Labels::limitation, { area ->
+                    if (area in state.limitations) viewModel.toggleLimitation(area) else health { viewModel.toggleLimitation(area) }
+                })
 
                 if (state.goal == "Hypertrophy") {
                     SectionTitle(stringResource(R.string.onb_priorities))

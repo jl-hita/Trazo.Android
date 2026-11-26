@@ -248,7 +248,8 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
             text = {
                 Column(Modifier.heightIn(max = 460.dp).verticalScroll(rememberScrollState())) {
                     Text(stringResource(R.string.injury_note), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-                    ChipGroup(INJURY_AREAS, draft, Labels::limitation, { area -> draft = if (area in draft) draft - area else draft + area })
+                    val health = com.trazo.android.ui.common.LocalHealthGate.current
+                    ChipGroup(INJURY_AREAS, draft, Labels::limitation, { area -> if (area in draft) draft = draft - area else health { draft = draft + area } })
                 }
             },
             confirmButton = {

@@ -596,4 +596,14 @@
     <string name="account_delete_play">Abo in Google Play verwalten</string>
     <string name="account_delete_rejected">Passwort, Google-Konto oder Code sind ungültig.</string>
     <string name="account_deleted">Dein Konto wurde gelöscht.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Gesundheitsdaten</string>
+    <string name="health_text">TRAZO nutzt deine Angaben zu Verletzungen, Schmerzen, Beschwerden und Krankheit nur, um dein Training anzupassen. Das ist freiwillig: Ohne sie funktioniert alles andere genauso. Du kannst die Einwilligung jederzeit unter Konto widerrufen, dann werden diese Daten gelöscht.</string>
+    <string name="health_agree">Ich stimme zu</string>
+    <string name="health_decline">Nein, danke</string>
+    <string name="health_on">Du erlaubst TRAZO, deine Gesundheitsdaten zu nutzen.</string>
+    <string name="health_off">Du hast TRAZO die Nutzung von Gesundheitsdaten nicht erlaubt. Die App fragt dich, wenn du eine Verletzung, Schmerzen oder eine Krankheit eintragen willst.</string>
+    <string name="health_withdraw">Einwilligung widerrufen</string>
+    <string name="health_withdraw_text">Deine Verletzungen, Schmerz- und Beschwerdeangaben und Krankheitsgründe werden gelöscht. Dein Trainingsverlauf bleibt erhalten. Dein Plan meidet die markierten Bereiche dann nicht mehr.</string>
+    <string name="health_withdraw_confirm">Widerrufen und löschen</string>
 </resources>

@@ -606,4 +606,14 @@
     <string name="account_delete_play">Upravljaj naročnino v Google Play</string>
     <string name="account_delete_rejected">Geslo, račun Google ali koda niso veljavni.</string>
     <string name="account_deleted">Tvoj račun je izbrisan.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Zdravstveni podatki</string>
+    <string name="health_text">TRAZO bo to, kar mu poveš o poškodbah, bolečinah, nelagodju in bolezni, uporabil samo za prilagajanje treninga. Neobvezno je: brez tega vse drugo deluje enako. Privolitev lahko kadar koli prekličeš v razdelku Račun, takrat se ti podatki izbrišejo.</string>
+    <string name="health_agree">Strinjam se</string>
+    <string name="health_decline">Ne, hvala</string>
+    <string name="health_on">Dovoljuješ, da TRAZO uporablja tvoje zdravstvene podatke.</string>
+    <string name="health_off">Uporabe zdravstvenih podatkov nisi dovolil. Aplikacija te bo vprašala, ko boš hotel zabeležiti poškodbo, bolečino ali bolezen.</string>
+    <string name="health_withdraw">Prekliči privolitev</string>
+    <string name="health_withdraw_text">Tvoje poškodbe, oznake bolečin in nelagodja ter razlogi zaradi bolezni bodo izbrisani. Zgodovina treningov ostane. Tvoj načrt se ne bo več izogibal označenim predelom.</string>
+    <string name="health_withdraw_confirm">Prekliči in izbriši</string>
 </resources>

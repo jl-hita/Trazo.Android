@@ -596,4 +596,14 @@
     <string name="account_delete_play">Administrer abonnementet i Google Play</string>
     <string name="account_delete_rejected">Passordet, Google-kontoen eller koden er ikke gyldig.</string>
     <string name="account_deleted">Kontoen din er slettet.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Helseopplysninger</string>
+    <string name="health_text">TRAZO bruker det du forteller om skader, smerter, ubehag og sykdom bare til å tilpasse treningen din. Det er valgfritt: uten det fungerer alt annet likt. Du kan trekke det tilbake når som helst under Konto, og da slettes opplysningene.</string>
+    <string name="health_agree">Jeg godtar</string>
+    <string name="health_decline">Nei takk</string>
+    <string name="health_on">Du lar TRAZO bruke helseopplysningene dine.</string>
+    <string name="health_off">Du har ikke latt TRAZO bruke helseopplysninger. Appen spør deg når du vil notere en skade, smerte eller sykdom.</string>
+    <string name="health_withdraw">Trekk tilbake samtykket</string>
+    <string name="health_withdraw_text">Skadene dine, markeringer av smerte og ubehag og sykdomsårsaker slettes. Treningshistorikken beholdes. Planen din unngår ikke lenger områdene du hadde markert.</string>
+    <string name="health_withdraw_confirm">Trekk tilbake og slett</string>
 </resources>

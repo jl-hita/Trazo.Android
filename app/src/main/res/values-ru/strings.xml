@@ -606,4 +606,14 @@
     <string name="account_delete_play">Управлять подпиской в Google Play</string>
     <string name="account_delete_rejected">Неверный пароль, аккаунт Google или код.</string>
     <string name="account_deleted">Твой аккаунт удалён.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Данные о здоровье</string>
+    <string name="health_text">TRAZO будет использовать то, что ты сообщаешь о травмах, боли, дискомфорте и болезнях, только чтобы подстраивать тренировки. Это необязательно: без этого всё остальное работает так же. Согласие можно отозвать в любой момент в разделе «Аккаунт», и эти данные будут удалены.</string>
+    <string name="health_agree">Согласен</string>
+    <string name="health_decline">Нет, спасибо</string>
+    <string name="health_on">Ты разрешаешь TRAZO использовать данные о здоровье.</string>
+    <string name="health_off">Ты не разрешал TRAZO использовать данные о здоровье. Приложение спросит об этом, когда ты захочешь отметить травму, боль или болезнь.</string>
+    <string name="health_withdraw">Отозвать согласие</string>
+    <string name="health_withdraw_text">Твои травмы, отметки о боли и дискомфорте и причины из-за болезни будут удалены. История тренировок сохранится. План больше не будет обходить отмеченные зоны.</string>
+    <string name="health_withdraw_confirm">Отозвать и удалить</string>
 </resources>
