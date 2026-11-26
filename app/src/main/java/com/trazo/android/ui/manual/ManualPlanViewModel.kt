@@ -9,6 +9,9 @@ import com.trazo.android.data.model.ExerciseListItem
 import com.trazo.android.data.model.ManualDayRequest
 import com.trazo.android.data.model.ManualExerciseRequest
 import com.trazo.android.data.model.ManualPlanRequest
+import com.trazo.android.data.model.SupersetView
+import com.trazo.android.data.model.TechniqueView
+import com.trazo.android.data.model.Techniques
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.repo.ExerciseFilters
@@ -26,7 +29,15 @@ data class ManualExercise(
     /** Done as a superset with the exercise that follows it. */
     val linkedToNext: Boolean = false,
     /** Kept from the stored plan when editing, so saving does not reset them. */
-    val targetRir: Double? = null, val restSeconds: Int? = null
+    val targetRir: Double? = null, val restSeconds: Int? = null,
+    val technique: TechniqueView? = null,
+    /** The rounds and rests of the superset it came in, kept when saving. */
+    val superset: SupersetView? = null
+)
+
+/** The technique dialog of one exercise: what the catalog admits on it, once known. */
+data class TechniquePick(
+    val day: String, val exerciseId: String, val loading: Boolean = true, val allowed: List<String> = emptyList(), val error: ApiError? = null
 )
 
 data class ManualDay(val title: String = "", val exercises: List<ManualExercise> = emptyList())
@@ -58,7 +69,8 @@ data class ManualPlanState(
      * The order of the routines of a sequence plan. It is a list on purpose: [days] is a map, and maps with the same entries are
      * equal whatever their order, so a reordering kept only there would never reach the state flow.
      */
-    val order: List<String> = emptyList()
+    val order: List<String> = emptyList(),
+    val technique: TechniquePick? = null
 ) {
     val isSequence: Boolean get() = schedulingMode == "Sequence"
     val canSubmit: Boolean
@@ -143,11 +155,20 @@ class ManualPlanViewModel(
         val index = d.exercises.indexOfFirst { it.id == id }
         if (index < 0 || index == d.exercises.lastIndex) return@updateDay d
         val linked = !d.exercises[index].linkedToNext
-        val next = d.exercises.mapIndexed { i, e -> if (i == index) e.copy(linkedToNext = linked) else e }
+        // A superset is not combined with another technique: joining two exercises takes theirs away.
+        val next = d.exercises.mapIndexed { i, e ->
+            val joined = linked && (i == index || i == index + 1)
+            val changed = if (i == index) e.copy(linkedToNext = linked) else e
+            if (joined) changed.copy(technique = null) else changed
+        }
         if (linked && runLength(next, index) > MAX_SUPERSET) d else d.copy(exercises = next)
     }
 
-    fun changeSets(day: String, id: String, delta: Int) = updateExercise(day, id) { it.copy(sets = (it.sets + delta).coerceIn(1, MAX_SETS)) }
+    fun changeSets(day: String, id: String, delta: Int) = updateExercise(day, id) {
+        val sets = (it.sets + delta).coerceIn(1, MAX_SETS)
+        // A match needs a first set to match and at least one more.
+        it.copy(sets = sets, technique = it.technique?.takeUnless { t -> t.type == Techniques.MATCH && sets < 2 })
+    }
 
     fun changeReps(day: String, id: String, delta: Int) = updateExercise(day, id) {
         val min = (it.minReps + delta).coerceIn(1, 50)
@@ -198,6 +219,45 @@ class ManualPlanViewModel(
         }
     }
 
+    /** Opens the technique dialog, asking the catalog which ones the exercise admits. */
+    fun openTechnique(day: String, id: String) {
+        _state.update { it.copy(technique = TechniquePick(day, id)) }
+        viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(technique = it.technique?.copy(loading = false, error = ApiError(ErrorKind.Unknown))) } }) {
+            val result = exercises.detail(id)
+            _state.update { s ->
+                val open = s.technique
+                if (open == null || open.exerciseId != id || open.day != day) s
+                else s.copy(technique = when (result) {
+                    is ApiResult.Success -> open.copy(loading = false, allowed = result.value.allowedTechniques.orEmpty())
+                    is ApiResult.Failure -> open.copy(loading = false, error = result.error)
+                })
+            }
+        }
+    }
+
+    fun closeTechnique() = _state.update { it.copy(technique = null) }
+
+    /** Chooses a technique (with its default figures) or, with null, goes back to straight sets. */
+    fun setTechnique(type: String?) = updatePicked { e ->
+        when {
+            type == null -> e.copy(technique = null)
+            e.technique?.type == type || (type == Techniques.MATCH && e.sets < 2) -> e
+            else -> e.copy(technique = Techniques.defaults(type))
+        }
+    }
+
+    fun changeDrops(delta: Int) = updatePicked { e ->
+        val t = e.technique
+        if (t?.type != Techniques.DROP_SET) e else e.copy(technique = t.copy(maxSegments = (t.maxSegments + delta).coerceIn(1, Techniques.MAX_DROPS)))
+    }
+
+    fun setTechniqueScope(appliesTo: String) = updatePicked { e -> e.copy(technique = e.technique?.copy(appliesTo = appliesTo)) }
+
+    private fun updatePicked(transform: (ManualExercise) -> ManualExercise) {
+        val open = _state.value.technique ?: return
+        updateExercise(open.day, open.exerciseId, transform)
+    }
+
     private fun updateDay(day: String, transform: (ManualDay) -> ManualDay) =
         _state.update { s -> s.days[day]?.let { s.copy(days = s.days + (day to transform(it))) } ?: s }
 
@@ -219,7 +279,8 @@ class ManualPlanViewModel(
                         ManualExercise(
                             e.exerciseId, e.name, e.sets, e.minRepetitions, e.maxRepetitions,
                             linkedToNext = e.supersetGroup != null && list.getOrNull(i + 1)?.supersetGroup == e.supersetGroup,
-                            targetRir = e.targetRir, restSeconds = e.restSeconds
+                            targetRir = e.targetRir, restSeconds = e.restSeconds, technique = e.technique,
+                            superset = session.supersets?.firstOrNull { it.group == e.supersetGroup }
                         )
                     }
                 )
@@ -256,6 +317,12 @@ class ManualPlanViewModel(
             return groups.toList()
         }
 
+        /** The rounds the supersets came with, under the letters they are sent with now; null when none had any. */
+        fun supersetRounds(list: List<ManualExercise>, groups: List<String?>): List<SupersetView>? =
+            groups.filterNotNull().distinct().mapNotNull { letter ->
+                list.filterIndexed { i, _ -> groups[i] == letter }.firstNotNullOfOrNull { it.superset }?.copy(group = letter)
+            }.ifEmpty { null }
+
         /** [weekOrder] is the order the routines are sent in (the week as the user sees it). */
         fun buildRequest(s: ManualPlanState, weekOrder: List<String>) = ManualPlanRequest(
             name = s.name.trim(),
@@ -267,8 +334,8 @@ class ManualPlanViewModel(
                 val groups = supersetGroups(d.exercises)
                 // A sequence routine has no weekday to send, nor to name it by: it falls back to its place in the rotation.
                 ManualDayRequest(if (s.isSequence) null else day, d.title.trim().ifEmpty { if (s.isSequence) "R${index + 1}" else day }, d.exercises.mapIndexed { i, it ->
-                    ManualExerciseRequest(it.id, it.sets, it.minReps, it.maxReps, it.targetRir, it.restSeconds, groups[i])
-                })
+                    ManualExerciseRequest(it.id, it.sets, it.minReps, it.maxReps, it.targetRir, it.restSeconds, groups[i], it.technique.takeIf { groups[i] == null })
+                }, supersetRounds(d.exercises, groups))
             }
         )
     }

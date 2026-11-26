@@ -65,7 +65,12 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                         Column {
                             Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
                             if (entry.exercise.isExtra) Text(stringResource(R.string.workout_extra_tag), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
-                            entry.exercise.supersetGroup?.let { Text(stringResource(R.string.workout_superset, it), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium) }
+                            entry.exercise.supersetGroup?.let { group ->
+                                Text(stringResource(R.string.workout_superset, group), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
+                                state.session?.supersets?.firstOrNull { it.group == group }?.let {
+                                    Text(stringResource(R.string.workout_superset_rounds, it.rounds), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
+                                }
+                            }
                         }
                     }
                     val ex = entry.exercise
@@ -76,12 +81,35 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                         color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
                     )
                     ex.lastPerformance?.let { LastTimeInfo(it, ex.targetLoadKg == null) }
+                    ex.technique?.let {
+                        Text(techniqueSummary(it), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
+                        Text(techniqueHelp(it), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    }
                     entry.sets.forEachIndexed { index, set ->
                         SetRow(
-                            index + 1, set,
+                            stringResource(R.string.workout_set, index + 1), stringResource(R.string.workout_mark_set, index + 1),
+                            stringResource(R.string.workout_set_done, index + 1), set,
                             onChange = { t -> viewModel.updateSet(ex.exerciseId, index, t) },
                             onToggle = { viewModel.toggleDone(ex.exerciseId, index) }
                         )
+                        val technique = WorkoutViewModel.carried(entry, index)
+                        // Segments appear once their set is done, and stay out of the way if it is unmarked.
+                        if (technique != null && set.done) {
+                            set.segments.forEachIndexed { k, segment ->
+                                val label = stringResource(R.string.workout_segment, k + 1)
+                                SetRow(
+                                    label, label, stringResource(R.string.workout_segment_done, label), segment,
+                                    onChange = { t -> viewModel.updateSegment(ex.exerciseId, index, k, t) },
+                                    onToggle = { viewModel.toggleSegment(ex.exerciseId, index, k) }
+                                )
+                            }
+                            if (set.segments.any { !it.done }) TrazoLink(onClick = { viewModel.finishSet(ex.exerciseId, index) }, modifier = Modifier.heightIn(min = MinTouch)) {
+                                Text(stringResource(R.string.workout_finish_set))
+                            }
+                            else if (set.segments.size < technique.maxSegments) TrazoLink(onClick = { viewModel.addSegment(ex.exerciseId, index) }, modifier = Modifier.heightIn(min = MinTouch)) {
+                                Text(stringResource(R.string.workout_add_segment))
+                            }
+                        }
                     }
                     Row {
                         TrazoLink(onClick = { viewModel.showAlternatives(ex.exerciseId) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_swap)) }
@@ -130,13 +158,13 @@ private fun LastTimeInfo(last: LastPerformanceView, showProposal: Boolean) {
 }
 
 @Composable
-private fun SetRow(number: Int, set: SetEntry, onChange: ((SetEntry) -> SetEntry) -> Unit, onToggle: () -> Unit) {
+private fun SetRow(title: String, markLabel: String, doneLabel: String, set: SetEntry, onChange: ((SetEntry) -> SetEntry) -> Unit, onToggle: () -> Unit) {
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text(stringResource(R.string.workout_set, number), Modifier.width(52.dp), style = MaterialTheme.typography.bodySmall)
+        Text(title, Modifier.width(52.dp), style = MaterialTheme.typography.bodySmall)
         TrazoField(set.weight, { v -> onChange { it.copy(weight = v) } }, Modifier.weight(1.2f), { Text(stringResource(R.string.workout_weight), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal))
         TrazoField(set.reps, { v -> onChange { it.copy(reps = v.filter(Char::isDigit).take(3)) } }, Modifier.weight(0.9f), { Text(stringResource(R.string.workout_reps), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Number))
         TrazoField(set.rir, { v -> onChange { it.copy(rir = v) } }, Modifier.weight(0.8f), { Text(stringResource(R.string.workout_rir), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal))
-        val label = stringResource(if (set.done) R.string.workout_set_done else R.string.workout_mark_set, number)
+        val label = if (set.done) doneLabel else markLabel
         FilledIconToggleButton(
             checked = set.done, onCheckedChange = { onToggle() },
             modifier = Modifier.size(MinTouch).semantics { contentDescription = label },

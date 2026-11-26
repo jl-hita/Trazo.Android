@@ -104,6 +104,11 @@ fun ExercisePrescription(
             add(stringResource(R.string.session_rest, Labels.clock(ex.restSeconds)))
         }
         Text(parts.joinToString(" · "))
+        ex.supersetGroup?.let { Text(stringResource(R.string.workout_superset, it), color = TrazoPalette.Link, style = MaterialTheme.typography.bodySmall) }
+        ex.technique?.let {
+            Text(techniqueSummary(it), color = TrazoPalette.Link)
+            Text(techniqueHelp(it), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+        }
         ex.targetLoadKg?.let { Text(stringResource(R.string.session_target_load, WorkoutViewModel.formatKg(it)), color = TrazoPalette.Link) }
         ex.warmupSets?.takeIf { it > 0 }?.let {
             Text(
@@ -114,10 +119,12 @@ fun ExercisePrescription(
         if (ex.swappedFromExerciseId != null) Text(stringResource(R.string.session_swapped), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
         if (!done.isNullOrEmpty()) {
             SectionTitle(stringResource(R.string.session_done_sets))
-            done.sortedBy { it.setNumber }.forEach { set ->
+            done.sortedWith(compareBy({ it.setNumber }, { it.segment })).forEach { set ->
                 val weight = set.weightKg?.let { WorkoutViewModel.formatKg(it) + " kg" } ?: "–"
+                val repetitions = set.repetitions?.toString() ?: "–"
                 Text(
-                    stringResource(R.string.session_done_set, set.setNumber, weight, set.repetitions?.toString() ?: "–") +
+                    (if (set.segment > 0) stringResource(R.string.session_done_segment, set.segment, weight, repetitions)
+                    else stringResource(R.string.session_done_set, set.setNumber, weight, repetitions)) +
                         (set.rir?.let { " · " + stringResource(R.string.session_rir, WorkoutViewModel.formatKg(it)) } ?: "") +
                         (if (!set.completed) " · " + stringResource(R.string.session_set_skipped) else ""),
                     color = if (set.completed) TrazoPalette.Text else TrazoPalette.TextSecondary

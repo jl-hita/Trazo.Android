@@ -611,4 +611,25 @@
     <string name="health_withdraw">Retirar o consentimento</string>
     <string name="health_withdraw_text">Suas lesões, as marcações de dor e desconforto e os motivos por doença serão apagados. Seu histórico de treinos é mantido. Seu plano deixará de evitar as áreas que você tinha marcado.</string>
     <string name="health_withdraw_confirm">Retirar e apagar</string>
+    <string name="technique_straight">Séries normais</string>
+    <string name="technique_label">Técnica: %1$s</string>
+    <string name="technique_drop_set">Drop set</string>
+    <string name="technique_descending">Séries descendentes</string>
+    <string name="technique_myo_reps">Myo-reps</string>
+    <string name="technique_myo_match">Myo-rep match</string>
+    <string name="technique_rest_pause">Rest-pause</string>
+    <string name="technique_scope_last">Última série</string>
+    <string name="technique_scope_all">Todas as séries</string>
+    <string name="technique_drops">Reduções de carga: %1$d</string>
+    <string name="technique_none_allowed">Este exercício faz-se apenas com séries normais.</string>
+    <string name="technique_help_drop">Reduza a carga em %1$d%% e continue em até %2$d s.</string>
+    <string name="technique_help_myo">Descanse %1$d s e faça minisséries de %2$d–%3$d repetições com a mesma carga.</string>
+    <string name="technique_help_match">Descanse %1$d s e some minisséries até igualar as repetições da primeira série.</string>
+    <string name="technique_help_rest_pause">Descanse %1$d s e continue com a mesma carga.</string>
+    <string name="workout_segment">Parte %1$d</string>
+    <string name="workout_segment_done">%1$s concluída</string>
+    <string name="workout_add_segment">Adicionar uma parte</string>
+    <string name="workout_finish_set">Terminar esta série</string>
+    <string name="workout_superset_rounds">Voltas: %1$d</string>
+    <string name="session_done_segment">Parte %1$d: %2$s × %3$s</string>
 </resources>

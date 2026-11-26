@@ -606,4 +606,25 @@
     <string name="health_withdraw">Toestemming intrekken</string>
     <string name="health_withdraw_text">Je blessures, meldingen van pijn en ongemak en ziekteredenen worden gewist. Je trainingsgeschiedenis blijft bewaard. Je schema vermijdt de gemarkeerde zones niet meer.</string>
     <string name="health_withdraw_confirm">Intrekken en wissen</string>
+    <string name="technique_straight">Gewone sets</string>
+    <string name="technique_label">Techniek: %1$s</string>
+    <string name="technique_drop_set">Dropset</string>
+    <string name="technique_descending">Aflopende sets</string>
+    <string name="technique_myo_reps">Myo-reps</string>
+    <string name="technique_myo_match">Myo-rep match</string>
+    <string name="technique_rest_pause">Rest-pause</string>
+    <string name="technique_scope_last">Laatste set</string>
+    <string name="technique_scope_all">Alle sets</string>
+    <string name="technique_drops">Gewichtsverlagingen: %1$d</string>
+    <string name="technique_none_allowed">Deze oefening doe je alleen met gewone sets.</string>
+    <string name="technique_help_drop">Verlaag het gewicht met %1$d%% en ga binnen %2$d s verder.</string>
+    <string name="technique_help_myo">Rust %1$d s en doe minisets van %2$d–%3$d herhalingen met hetzelfde gewicht.</string>
+    <string name="technique_help_match">Rust %1$d s en voeg minisets toe tot je de herhalingen van je eerste set haalt.</string>
+    <string name="technique_help_rest_pause">Rust %1$d s en ga verder met hetzelfde gewicht.</string>
+    <string name="workout_segment">Deel %1$d</string>
+    <string name="workout_segment_done">%1$s klaar</string>
+    <string name="workout_add_segment">Deel toevoegen</string>
+    <string name="workout_finish_set">Deze set afronden</string>
+    <string name="workout_superset_rounds">Rondes: %1$d</string>
+    <string name="session_done_segment">Deel %1$d: %2$s × %3$s</string>
 </resources>

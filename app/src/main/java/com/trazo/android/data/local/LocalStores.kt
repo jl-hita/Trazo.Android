@@ -199,7 +199,11 @@ class PendingLogQueue(private val store: JsonFileStore) {
     private companion object { const val FILE = "pending_logs.json" }
 }
 
-class DraftSet(val exerciseId: String, val setNumber: Int, val weight: String, val reps: String, val rir: String, val done: Boolean)
+class DraftSet(
+    val exerciseId: String, val setNumber: Int, val weight: String, val reps: String, val rir: String, val done: Boolean,
+    /** 0 for the main set (and for drafts written before segments existed). */
+    val segment: Int = 0
+)
 class WorkoutDraft(val sessionId: String, val sets: List<DraftSet>, val savedAtMillis: Long)
 
 /** The sets typed so far in a workout, so an interrupted session (app killed, call received) is not lost. */

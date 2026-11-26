@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
 import com.trazo.android.data.model.ExerciseListItem
+import com.trazo.android.data.model.Techniques
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoField
@@ -91,6 +92,50 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
         ) { Text(stringResource(if (state.editing) (if (state.submitting) R.string.manual_saving else R.string.manual_save) else if (state.submitting) R.string.manual_creating else R.string.manual_create)) }
     }
     if (state.picking != null) ExercisePicker(state, viewModel)
+    state.technique?.let { pick ->
+        state.days[pick.day]?.exercises?.firstOrNull { it.id == pick.exerciseId }?.let { TechniqueDialog(pick, it, viewModel) }
+    }
+}
+
+@Composable
+private fun TechniqueDialog(pick: TechniquePick, exercise: ManualExercise, vm: ManualPlanViewModel) {
+    val straight = stringResource(R.string.technique_straight)
+    // A match needs two sets; what the exercise already has stays selectable.
+    val choices = pick.allowed.filter { it != Techniques.MATCH || exercise.sets > 1 }
+    val names = choices.associateWith { techniqueName(it) }
+    val scopes = mapOf(
+        Techniques.LAST_SET to stringResource(R.string.technique_scope_last), Techniques.ALL_SETS to stringResource(R.string.technique_scope_all)
+    )
+    AlertDialog(
+        onDismissRequest = vm::closeTechnique,
+        title = { Text(exercise.name) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                val error = pick.error
+                when {
+                    pick.loading -> LoadingBox(Modifier.height(100.dp))
+                    error != null -> InlineError(error)
+                    choices.isEmpty() -> Text(stringResource(R.string.technique_none_allowed))
+                    else -> {
+                        ChipGroup(
+                            listOf("") + choices, setOf(exercise.technique?.type.orEmpty()), { names[it] ?: straight },
+                            { vm.setTechnique(it.ifEmpty { null }) }
+                        )
+                        exercise.technique?.let { technique ->
+                            if (technique.type == Techniques.DROP_SET) Stepper(
+                                stringResource(R.string.technique_drops, technique.maxSegments), { vm.changeDrops(-1) }, { vm.changeDrops(1) }
+                            )
+                            if (technique.type != Techniques.MATCH) ChipGroup(
+                                scopes.keys.toList(), setOf(technique.appliesTo), { scopes.getValue(it) }, vm::setTechniqueScope
+                            )
+                            Text(techniqueHelp(technique), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = { TextButton(onClick = vm::closeTechnique) { Text(stringResource(R.string.manual_close)) } }
+    )
 }
 
 @Composable
@@ -110,6 +155,11 @@ private fun DayCard(header: String, day: String, routine: ManualDay, vm: ManualP
                 }
                 Stepper(stringResource(R.string.manual_sets, exercise.sets), { vm.changeSets(day, exercise.id, -1) }, { vm.changeSets(day, exercise.id, 1) })
                 Stepper(stringResource(R.string.manual_reps, exercise.minReps, exercise.maxReps), { vm.changeReps(day, exercise.id, -1) }, { vm.changeReps(day, exercise.id, 1) })
+                // A superset is not combined with another technique.
+                val joined = exercise.linkedToNext || routine.exercises.getOrNull(index - 1)?.linkedToNext == true
+                if (!joined) TextButton(onClick = { vm.openTechnique(day, exercise.id) }, modifier = Modifier.heightIn(min = MinTouch)) {
+                    Text(stringResource(R.string.technique_label, exercise.technique?.let { techniqueName(it.type, it.maxSegments) } ?: stringResource(R.string.technique_straight)))
+                }
                 if (index < routine.exercises.lastIndex) TextButton(onClick = { vm.toggleLink(day, exercise.id) }, modifier = Modifier.heightIn(min = MinTouch)) {
                     Text(stringResource(if (exercise.linkedToNext) R.string.manual_unlink else R.string.manual_link))
                 }

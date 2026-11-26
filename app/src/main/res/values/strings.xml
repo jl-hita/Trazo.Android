@@ -650,4 +650,25 @@
     <string name="health_withdraw">Withdraw consent</string>
     <string name="health_withdraw_text">Your injuries, pain and discomfort marks and illness reasons will be erased. Your training history stays. Your plan will no longer avoid the areas you had marked.</string>
     <string name="health_withdraw_confirm">Withdraw and erase</string>
+    <string name="technique_straight">Straight sets</string>
+    <string name="technique_label">Technique: %1$s</string>
+    <string name="technique_drop_set">Drop set</string>
+    <string name="technique_descending">Descending sets</string>
+    <string name="technique_myo_reps">Myo-reps</string>
+    <string name="technique_myo_match">Myo-rep match</string>
+    <string name="technique_rest_pause">Rest-pause</string>
+    <string name="technique_scope_last">Last set</string>
+    <string name="technique_scope_all">All sets</string>
+    <string name="technique_drops">Load drops: %1$d</string>
+    <string name="technique_none_allowed">This exercise is done with straight sets only.</string>
+    <string name="technique_help_drop">Lower the load by %1$d%% and continue within %2$d s.</string>
+    <string name="technique_help_myo">Rest %1$d s and do mini-sets of %2$d–%3$d reps with the same load.</string>
+    <string name="technique_help_match">Rest %1$d s and add mini-sets until you match the reps of your first set.</string>
+    <string name="technique_help_rest_pause">Rest %1$d s and continue with the same load.</string>
+    <string name="workout_segment">Part %1$d</string>
+    <string name="workout_segment_done">%1$s done</string>
+    <string name="workout_add_segment">Add a part</string>
+    <string name="workout_finish_set">Finish this set</string>
+    <string name="workout_superset_rounds">Rounds: %1$d</string>
+    <string name="session_done_segment">Part %1$d: %2$s × %3$s</string>
 </resources>

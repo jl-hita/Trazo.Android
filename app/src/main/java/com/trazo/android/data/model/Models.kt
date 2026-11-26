@@ -35,7 +35,9 @@ data class ExerciseView(
     /** Letter of the superset this exercise belongs to (consecutive exercises with the same letter), or null. */
     val supersetGroup: String? = null,
     /** True when the user added it to this session on top of the program (it is not repeated in other sessions). */
-    val isExtra: Boolean = false
+    val isExtra: Boolean = false,
+    /** Null for straight sets. */
+    val technique: TechniqueView? = null
 )
 
 data class LastSetView(val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?)
@@ -69,7 +71,9 @@ data class AdaptationHistoryView(
 
 data class LoggedSetView(
     val exerciseId: String, val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?,
-    val completed: Boolean, val skippedReason: String?, val pain: Boolean
+    val completed: Boolean, val skippedReason: String?, val pain: Boolean,
+    /** 0 for the main set; 1 and up for what followed it. */
+    val segment: Int = 0
 )
 
 data class LogView(
@@ -83,7 +87,8 @@ data class SessionView(
     val id: String, val weekNumber: Int, val date: String?, val day: String?, val title: String,
     val estimatedDurationMinutes: Int, val status: String, val exercises: List<ExerciseView>, val log: LogView?,
     /** Place of the session in the program: its identity and order, whatever day it is done. */
-    val sequenceIndex: Int = 0
+    val sequenceIndex: Int = 0,
+    val supersets: List<SupersetView>? = null
 )
 
 data class WeekView(
@@ -151,10 +156,10 @@ data class ManualPlanRequest(
     val schedulingMode: String? = null
 )
 /** [day] is null in a sequence plan (the routines rotate; there are no weekdays). */
-data class ManualDayRequest(val day: String?, val title: String, val exercises: List<ManualExerciseRequest>)
+data class ManualDayRequest(val day: String?, val title: String, val exercises: List<ManualExerciseRequest>, val supersets: List<SupersetView>? = null)
 data class ManualExerciseRequest(
     val exerciseId: String, val sets: Int, val minRepetitions: Int, val maxRepetitions: Int, val targetRir: Double? = null,
-    val restSeconds: Int? = null, val supersetGroup: String? = null
+    val restSeconds: Int? = null, val supersetGroup: String? = null, val technique: TechniqueView? = null
 )
 
 data class PlanProfileRequest(
@@ -177,7 +182,9 @@ data class UpdateMusclePrioritiesRequest(val musclePriorities: Map<String, Strin
 
 data class LogSetRequest(
     val exerciseId: String, val setNumber: Int, val weightKg: Double?, val repetitions: Int?, val rir: Double?,
-    val completed: Boolean, val skippedReason: String? = null, val painReported: Boolean = false
+    val completed: Boolean, val skippedReason: String? = null, val painReported: Boolean = false,
+    /** Absent for the main set; 1 and up for its segments. */
+    val segment: Int? = null
 )
 
 data class LogSessionRequest(
@@ -245,7 +252,9 @@ data class ExerciseDetail(
     val tipsEs: List<String>, val difficulty: String, val equipment: String?, val requiredEquipment: List<String>,
     val bodyPart: String?, val movementPattern: String, val primaryMuscles: List<String>, val secondaryMuscles: List<String>, val minimumExperience: String?,
     val localizedName: String? = null, val localizedNameLanguage: String? = null, val localizedDescription: String? = null,
-    val localizedInstructions: List<String>? = null, val localizedTips: List<String>? = null
+    val localizedInstructions: List<String>? = null, val localizedTips: List<String>? = null,
+    /** The techniques a manual plan may use on it; null from an older server. */
+    val allowedTechniques: List<String>? = null
 )
 
 /** Text resolved by GET /api/v1/exercises/{id}/localized for the request language. */
