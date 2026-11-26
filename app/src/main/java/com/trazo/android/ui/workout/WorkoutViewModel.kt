@@ -236,7 +236,6 @@ class WorkoutViewModel(
             val outcome = plans.submitLog(session.id, request)
             val next = when (outcome) {
                 is LogOutcome.Sent -> FinishState.Done(outcome.result, queued = false)
-                LogOutcome.AlreadyLogged -> FinishState.Done(null, queued = false)
                 LogOutcome.Queued -> FinishState.Done(null, queued = true)
                 is LogOutcome.Rejected -> FinishState.Failed(outcome.error)
             }

@@ -162,9 +162,10 @@ class PlanRepositoryTest {
         assertEquals(1, queue.all().size) // s2 was not queued
     }
 
-    @Test fun `a session already logged is delivered online, but a queued one is kept for the user`() = runTest {
+    @Test fun `a log for a session that holds something else is kept for the user, online or queued`() = runTest {
         api.logResponse = { _, _ -> httpError(409, problem(409, "session_already_logged")) }
-        assertEquals(LogOutcome.AlreadyLogged, repo.submitLog("s1", logRequest()))
+        assertTrue(repo.submitLog("s1", logRequest()) is LogOutcome.Rejected)
+        assertEquals("session_already_logged", queue.all().single().failureCode)
         queue.add(PendingLog("s1", logRequest(), now))
         assertEquals(1, repo.flushPending())
         assertEquals("session_already_logged", queue.all().single().failureCode)
