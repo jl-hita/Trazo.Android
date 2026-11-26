@@ -596,4 +596,14 @@
     <string name="account_delete_play">Управувај со претплатата во Google Play</string>
     <string name="account_delete_rejected">Лозинката, Google-сметката или кодот не се валидни.</string>
     <string name="account_deleted">Твојата сметка е избришана.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Здравствени податоци</string>
+    <string name="health_text">TRAZO ќе го користи она што ќе му го кажеш за повреди, болка, непријатност и болест само за да го прилагоди твојот тренинг. Не е задолжително: без тоа сè друго работи исто. Согласноста можеш да ја повлечеш кога сакаш во Профил, и тогаш тие податоци се бришат.</string>
+    <string name="health_agree">Се согласувам</string>
+    <string name="health_decline">Не, благодарам</string>
+    <string name="health_on">Му дозволуваш на TRAZO да ги користи твоите здравствени податоци.</string>
+    <string name="health_off">Не си му дозволил на TRAZO да користи здравствени податоци. Ќе те праша кога ќе сакаш да забележиш повреда, болка или болест.</string>
+    <string name="health_withdraw">Повлечи ја согласноста</string>
+    <string name="health_withdraw_text">Твоите повреди, ознаките за болка и непријатност и причините поради болест ќе се избришат. Историјата на тренинзи останува. Твојот план повеќе нема да ги избегнува означените делови.</string>
+    <string name="health_withdraw_confirm">Повлечи и избриши</string>
 </resources>

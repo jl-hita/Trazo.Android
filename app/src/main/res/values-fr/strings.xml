@@ -596,4 +596,14 @@
     <string name="account_delete_play">Gérer l\'abonnement dans Google Play</string>
     <string name="account_delete_rejected">Le mot de passe, le compte Google ou le code n\'est pas valide.</string>
     <string name="account_deleted">Ton compte a été supprimé.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Données de santé</string>
+    <string name="health_text">TRAZO utilisera ce que tu lui indiques sur tes blessures, douleurs, gênes et maladies uniquement pour adapter ton entraînement. C\'est facultatif : sans cela, tout le reste fonctionne pareil. Tu peux le retirer à tout moment dans Compte, et ces données sont alors effacées.</string>
+    <string name="health_agree">J\'accepte</string>
+    <string name="health_decline">Non, merci</string>
+    <string name="health_on">Tu autorises TRAZO à utiliser tes données de santé.</string>
+    <string name="health_off">Tu n\'as pas autorisé TRAZO à utiliser des données de santé. Il te le demandera quand tu voudras noter une blessure, une douleur ou une maladie.</string>
+    <string name="health_withdraw">Retirer le consentement</string>
+    <string name="health_withdraw_text">Tes blessures, les signalements de douleur et de gêne et les motifs pour maladie seront effacés. Ton historique d\'entraînement est conservé. Ton programme n\'évitera plus les zones que tu avais indiquées.</string>
+    <string name="health_withdraw_confirm">Retirer et effacer</string>
 </resources>

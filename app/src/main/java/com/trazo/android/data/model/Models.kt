@@ -191,6 +191,13 @@ data class LogSessionRequest(
     val clientRequestId: String? = null
 )
 
+fun LogSessionRequest.withoutHealthData() = copy(
+    nonCompletionReason = if (nonCompletionReason == "Illness") "Other" else nonCompletionReason,
+    painReported = false,
+    sets = sets.map { it.copy(painReported = false, skippedReason = if (it.skippedReason == "pain" || it.skippedReason == "illness") "other" else it.skippedReason) },
+    exerciseFeedback = exerciseFeedback?.mapValues { it.value.copy(discomfort = null) }?.filterValues { !it.isEmpty }
+)
+
 /** stimulus: low|adequate|high, discomfort: none|mild|strong, preFatigue: recovered|loaded. Each may be null (not answered). */
 data class ExerciseFeedbackRequest(val stimulus: String? = null, val discomfort: String? = null, val preFatigue: String? = null) {
     val isEmpty: Boolean get() = stimulus == null && discomfort == null && preFatigue == null

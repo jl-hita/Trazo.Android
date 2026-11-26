@@ -596,4 +596,14 @@
     <string name="account_delete_play">Abonnement beheren in Google Play</string>
     <string name="account_delete_rejected">Het wachtwoord, het Google-account of de code is niet geldig.</string>
     <string name="account_deleted">Je account is verwijderd.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Gezondheidsgegevens</string>
+    <string name="health_text">TRAZO gebruikt wat je vertelt over blessures, pijn, ongemak en ziekte alleen om je training aan te passen. Het is optioneel: zonder werkt al het andere hetzelfde. Je kunt de toestemming altijd intrekken bij Account, en dan worden die gegevens gewist.</string>
+    <string name="health_agree">Ik ga akkoord</string>
+    <string name="health_decline">Nee, bedankt</string>
+    <string name="health_on">Je staat TRAZO toe je gezondheidsgegevens te gebruiken.</string>
+    <string name="health_off">Je hebt TRAZO niet toegestaan gezondheidsgegevens te gebruiken. De app vraagt het je als je een blessure, pijn of ziekte wilt noteren.</string>
+    <string name="health_withdraw">Toestemming intrekken</string>
+    <string name="health_withdraw_text">Je blessures, meldingen van pijn en ongemak en ziekteredenen worden gewist. Je trainingsgeschiedenis blijft bewaard. Je schema vermijdt de gemarkeerde zones niet meer.</string>
+    <string name="health_withdraw_confirm">Intrekken en wissen</string>
 </resources>

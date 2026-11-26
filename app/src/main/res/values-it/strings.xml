@@ -596,4 +596,14 @@
     <string name="account_delete_play">Gestisci l\'abbonamento su Google Play</string>
     <string name="account_delete_rejected">La password, l\'account Google o il codice non sono validi.</string>
     <string name="account_deleted">Il tuo account è stato eliminato.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Dati sulla salute</string>
+    <string name="health_text">TRAZO userà ciò che gli dici su infortuni, dolore, fastidi e malattia solo per adattare il tuo allenamento. È facoltativo: senza, tutto il resto funziona allo stesso modo. Puoi revocarlo quando vuoi in Account, e quei dati vengono cancellati.</string>
+    <string name="health_agree">Accetto</string>
+    <string name="health_decline">No, grazie</string>
+    <string name="health_on">Consenti a TRAZO di usare i tuoi dati sulla salute.</string>
+    <string name="health_off">Non hai consentito a TRAZO di usare dati sulla salute. Te lo chiederà quando vorrai annotare un infortunio, un dolore o una malattia.</string>
+    <string name="health_withdraw">Revoca il consenso</string>
+    <string name="health_withdraw_text">I tuoi infortuni, le segnalazioni di dolore e fastidio e i motivi per malattia verranno cancellati. Lo storico degli allenamenti resta. Il tuo piano non eviterà più le zone che avevi indicato.</string>
+    <string name="health_withdraw_confirm">Revoca e cancella</string>
 </resources>

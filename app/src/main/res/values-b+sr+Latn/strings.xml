@@ -601,4 +601,14 @@
     <string name="account_delete_play">Upravljaj pretplatom na Google Playu</string>
     <string name="account_delete_rejected">Lozinka, Google račun ili kod nisu ispravni.</string>
     <string name="account_deleted">Tvoj račun je obrisan.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Zdravstveni podaci</string>
+    <string name="health_text">TRAZO će ono što mu kažeš o povredama, bolu, nelagodnosti i bolesti koristiti samo za prilagođavanje treninga. To nije obavezno: bez toga sve ostalo radi isto. Pristanak možeš da povučeš kad god želiš u Računu, a tada se ti podaci brišu.</string>
+    <string name="health_agree">Pristajem</string>
+    <string name="health_decline">Ne, hvala</string>
+    <string name="health_on">Dozvoljavaš da TRAZO koristi tvoje zdravstvene podatke.</string>
+    <string name="health_off">Nisi dozvolio da TRAZO koristi zdravstvene podatke. Pitaće te kad budeš hteo da zabeležiš povredu, bol ili bolest.</string>
+    <string name="health_withdraw">Povuci pristanak</string>
+    <string name="health_withdraw_text">Tvoje povrede, oznake bola i nelagodnosti i razlozi zbog bolesti biće obrisani. Istorija treninga ostaje. Tvoj plan više neće izbegavati oblasti koje si označio.</string>
+    <string name="health_withdraw_confirm">Povuci i obriši</string>
 </resources>

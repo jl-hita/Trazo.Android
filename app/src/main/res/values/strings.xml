@@ -640,4 +640,14 @@
     <string name="account_delete_play">Manage the subscription in Google Play</string>
     <string name="account_delete_rejected">The password, Google account or code is not valid.</string>
     <string name="account_deleted">Your account has been deleted.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Health data</string>
+    <string name="health_text">TRAZO will use what you tell it about injuries, pain, discomfort and illness only to adapt your training. It is optional: without it, everything else works the same. You can withdraw it at any time in Account, which erases that data.</string>
+    <string name="health_agree">I agree</string>
+    <string name="health_decline">No, thanks</string>
+    <string name="health_on">You allow TRAZO to use your health data.</string>
+    <string name="health_off">You have not allowed TRAZO to use health data. It will ask you when you want to note an injury, pain or an illness.</string>
+    <string name="health_withdraw">Withdraw consent</string>
+    <string name="health_withdraw_text">Your injuries, pain and discomfort marks and illness reasons will be erased. Your training history stays. Your plan will no longer avoid the areas you had marked.</string>
+    <string name="health_withdraw_confirm">Withdraw and erase</string>
 </resources>

@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.trazo.android.data.model.LogSessionRequest
+import com.trazo.android.data.model.withoutHealthData
 import com.trazo.android.data.model.PlanView
 import com.trazo.android.data.model.WeekView
 import com.trazo.android.data.net.ApiError
@@ -143,6 +144,9 @@ class PendingLog(
     fun rejected(error: ApiError) = PendingLog(sessionId, request, createdAtMillis, error.kind.name, error.code, error.serverMessage)
 
     fun waiting() = PendingLog(sessionId, request, createdAtMillis)
+
+    /** The same workout without its pain, discomfort and illness marks, for someone who withdrew the consent. */
+    fun withoutHealthData() = PendingLog(sessionId, request.withoutHealthData(), createdAtMillis, failureKind, failureCode, failureMessage)
 
     /** True for the same finished workout, whatever happened to it since. */
     fun sameAs(other: PendingLog) = sessionId == other.sessionId && createdAtMillis == other.createdAtMillis

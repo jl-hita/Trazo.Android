@@ -101,7 +101,7 @@ private inline fun <reified VM : ViewModel> containerViewModel(key: String? = nu
 @Composable
 fun AppRoot(actionType: String?, actionToken: String?, pushKind: String? = null, onPushHandled: () -> Unit = {}) {
     val c = container()
-    val app: AppViewModel = containerViewModel { AppViewModel(it.auth, it.subscription, it.sessionEvents, it::signOut, it.plans::clearLocal, forgetAccount = it::forgetDeletedAccount) }
+    val app: AppViewModel = containerViewModel { AppViewModel(it.auth, it.subscription, it.sessionEvents, it::signOut, it::clearAccountData, forgetAccount = it::forgetDeletedAccount) }
     val state by app.state.collectAsStateWithLifecycle()
     // A failure the app survived says which function is not available (and has already been reported as a ticket).
     val context = LocalContext.current
@@ -116,7 +116,9 @@ fun AppRoot(actionType: String?, actionToken: String?, pushKind: String? = null,
         when (val s = state) {
             AppState.Loading -> LoadingBox()
             AppState.SignedOut -> LoginScreen(c.auth, BuildConfig.GOOGLE_WEB_CLIENT_ID, actionType, actionToken, onSignedIn = app::onSignedIn)
-            is AppState.Ready -> MainNavigation(s.user, s.status, onLogout = app::signOut, onAccountDeleted = app::onAccountDeleted, pushKind = pushKind, onPushHandled = onPushHandled)
+            is AppState.Ready -> com.trazo.android.ui.common.HealthGate(c.healthConsent) {
+                MainNavigation(s.user, s.status, onLogout = app::signOut, onAccountDeleted = app::onAccountDeleted, pushKind = pushKind, onPushHandled = onPushHandled)
+            }
         }
     }
 }
@@ -151,6 +153,8 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
             (context as? android.app.Activity)?.recreate()
         }
     }
+    // The consent for health data may have been given or withdrawn on another phone, or still be waiting to be told to the server.
+    LaunchedEffect(Unit) { guarded(R.string.feature_account) { c.healthConsent.refresh() } }
     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     // The rest alert needs the same permission: asked (once) the first time a rest starts, when its use is obvious.
     val askRestNotifications: () -> Unit = {
@@ -229,7 +233,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
                     val planState by planVm.state.collectAsStateWithLifecycle()
                     LaunchedEffect(subscriptionVersion) { if (subscriptionVersion > 0) vm.load() }
-                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, generatedPlan = planState.plan?.origin == "Generated", onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() }, onReferrals = { nav.navigate(Routes.REFERRALS) }, onDeleteAccount = { nav.navigate(Routes.DELETE_ACCOUNT) })
+                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, generatedPlan = planState.plan?.origin == "Generated", onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() }, onReferrals = { nav.navigate(Routes.REFERRALS) }, onDeleteAccount = { nav.navigate(Routes.DELETE_ACCOUNT) }, health = { com.trazo.android.ui.account.HealthSection(c.healthConsent, onWithdrawn = { planVm.load() }) })
                 }
                 composable(Routes.DELETE_ACCOUNT) {
                     val vm: com.trazo.android.ui.account.DeleteAccountViewModel = containerViewModel { com.trazo.android.ui.account.DeleteAccountViewModel(it.account) }

@@ -596,4 +596,14 @@
     <string name="account_delete_play">Aboneliği Google Play\'de yönet</string>
     <string name="account_delete_rejected">Şifre, Google hesabı veya kod geçerli değil.</string>
     <string name="account_deleted">Hesabın silindi.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Sağlık verileri</string>
+    <string name="health_text">TRAZO sakatlık, ağrı, rahatsızlık ve hastalık hakkında söylediklerini yalnızca antrenmanını uyarlamak için kullanır. İsteğe bağlıdır: onsuz da diğer her şey aynı çalışır. İznini istediğin zaman Hesap bölümünden geri çekebilirsin; o zaman bu veriler silinir.</string>
+    <string name="health_agree">Kabul ediyorum</string>
+    <string name="health_decline">Hayır, teşekkürler</string>
+    <string name="health_on">TRAZO\'nun sağlık verilerini kullanmasına izin veriyorsun.</string>
+    <string name="health_off">TRAZO\'nun sağlık verilerini kullanmasına izin vermedin. Bir sakatlık, ağrı veya hastalık kaydetmek istediğinde sana soracak.</string>
+    <string name="health_withdraw">İzni geri çek</string>
+    <string name="health_withdraw_text">Sakatlıkların, ağrı ve rahatsızlık işaretlerin ve hastalık nedenlerin silinecek. Antrenman geçmişin korunur. Planın artık işaretlediğin bölgelerden kaçınmayacak.</string>
+    <string name="health_withdraw_confirm">Geri çek ve sil</string>
 </resources>

@@ -85,6 +85,17 @@ class AppContainer(context: Context) {
         // Never over what the user typed since: the draft is only rebuilt when there is none.
         restoreDraft = { log -> if (drafts.load(log.sessionId) == null) drafts.save(log.sessionId, com.trazo.android.ui.workout.WorkoutViewModel.draftOf(log.request)) },
         deleteDraft = drafts::delete)
+    val healthConsent = com.trazo.android.data.repo.HealthConsentRepository(
+        network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.repo.SharedPreferencesHealthConsentStore(appContext),
+        beforeWithdraw = { plans.flushPending() }, afterWithdraw = { plans.forgetHealthData() }
+    )
+
+    /** Everything stored on this phone for the signed-in account, except the session token. */
+    fun clearAccountData() {
+        plans.clearLocal()
+        healthConsent.clear()
+    }
+
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)
     val subscription = SubscriptionRepository(network.create(SubscriptionApi::class.java))
     val analytics = AnalyticsRepository(network.create(com.trazo.android.data.api.AnalyticsApi::class.java))
@@ -126,7 +137,7 @@ class AppContainer(context: Context) {
     fun forgetDeletedAccount() {
         pushScope.launchGuarded(R.string.feature_push) { push.forget() }
         tokens.clear()
-        plans.clearLocal()
+        clearAccountData()
     }
 
     /** Ends the session and removes everything stored for the account: token, cached week, queued logs and drafts. */
@@ -136,7 +147,7 @@ class AppContainer(context: Context) {
         try { push.unregister() } catch (e: CancellationException) { throw e } catch (e: Exception) { Diagnostics.report(e) }
         try { auth.logout() } catch (e: CancellationException) { throw e } catch (e: Exception) { Diagnostics.report(e) }
         tokens.clear()
-        plans.clearLocal()
+        clearAccountData()
     }
 }
 

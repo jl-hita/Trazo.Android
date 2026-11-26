@@ -269,6 +269,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
     var feedback by remember { mutableStateOf<Map<String, ExerciseFeedbackRequest>>(emptyMap()) }
     var performedOn by remember { mutableStateOf<java.time.LocalDate?>(null) }
     val context = androidx.compose.ui.platform.LocalContext.current
+    val health = com.trazo.android.ui.common.LocalHealthGate.current
     val incomplete = state.doneSets < state.allSets
     val sending = state.finish is FinishState.Sending
     AlertDialog(
@@ -280,14 +281,14 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
                 WhenPicker(performedOn) { performedOn = it }
                 if (incomplete) {
                     Text(stringResource(R.string.finish_reason))
-                    ChipGroup(REASONS, setOf(reason), Labels::reason, { reason = it })
+                    ChipGroup(REASONS, setOf(reason), Labels::reason, { value -> if (value == "Illness") health { reason = value } else reason = value })
                 }
                 Text(stringResource(R.string.finish_recovery))
                 ChipGroup(RECOVERIES, setOf(recovery), Labels::recovery, { recovery = it })
                 Text(stringResource(R.string.finish_rpe, rpe?.toInt()?.toString() ?: stringResource(R.string.finish_rpe_unset)))
                 Slider(value = rpe ?: 5f, onValueChange = { rpe = it.toInt().toFloat() }, valueRange = 0f..10f, steps = 9, modifier = Modifier.heightIn(min = MinTouch))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Switch(checked = pain, onCheckedChange = { pain = it })
+                    Switch(checked = pain, onCheckedChange = { on -> if (on) health { pain = true } else pain = false })
                     Spacer(Modifier.width(8.dp))
                     Text(stringResource(R.string.finish_pain))
                 }
@@ -303,7 +304,11 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
                         Text(stringResource(R.string.fb_stimulus), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
                         ChipGroup(STIMULUS, setOfNotNull(current.stimulus), { fbLabel(context, it) }, { v -> update(current.copy(stimulus = v.takeUnless { it == current.stimulus })) })
                         Text(stringResource(R.string.fb_discomfort), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
-                        ChipGroup(DISCOMFORT, setOfNotNull(current.discomfort), { fbLabel(context, it) }, { v -> update(current.copy(discomfort = v.takeUnless { it == current.discomfort })) })
+                        ChipGroup(DISCOMFORT, setOfNotNull(current.discomfort), { fbLabel(context, it) }, { v ->
+                            // Read the answers again when it runs: the consent question may have been on screen meanwhile.
+                            fun set(value: String?) { val latest = feedback[id] ?: ExerciseFeedbackRequest(); update(latest.copy(discomfort = value)) }
+                            if (v == current.discomfort) set(null) else health { set(v) }
+                        })
                         Text(stringResource(R.string.fb_prefatigue), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
                         ChipGroup(PRE_FATIGUE, setOfNotNull(current.preFatigue), { fbLabel(context, it) }, { v -> update(current.copy(preFatigue = v.takeUnless { it == current.preFatigue })) })
                     }

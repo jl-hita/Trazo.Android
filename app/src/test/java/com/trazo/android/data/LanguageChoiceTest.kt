@@ -28,6 +28,7 @@ class LanguageChoiceTest {
         val sent = mutableListOf<LanguageRequest>()
         override suspend fun language(request: LanguageRequest): Response<Unit> { sent += request; return response() }
         override suspend fun info() = error("not used here")
+        override suspend fun healthConsent(request: com.trazo.android.data.model.HealthConsentRequest) = error("not used here")
         override suspend fun delete(request: com.trazo.android.data.model.DeleteAccountRequest) = error("not used here")
     }
 

@@ -40,7 +40,8 @@ fun AccountScreen(
     /** The texts the server sent are in the old language: ask again. */
     onLanguageChanged: () -> Unit = {},
     onReferrals: () -> Unit = {},
-    onDeleteAccount: () -> Unit = {}
+    onDeleteAccount: () -> Unit = {},
+    health: @Composable () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var confirmLogout by remember { mutableStateOf(false) }
@@ -145,6 +146,8 @@ fun AccountScreen(
                 TrazoButton(onClick = { throw IllegalStateException("Test crash triggered on purpose from the app") },
                     secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.account_test_crash)) }
             }
+
+            health()
 
             SectionTitle(stringResource(R.string.legal_section))
             LegalLinks()

@@ -147,6 +147,8 @@ private val skipReasons = listOf("Time", "Equipment", "Motivation", "Fatigue", "
 @Composable
 private fun SkipDialog(enabled: Boolean, onDismiss: () -> Unit, onConfirm: (String) -> Unit) {
     var reason by rememberSaveable { mutableStateOf("Time") }
+    val health = com.trazo.android.ui.common.LocalHealthGate.current
+    fun choose(value: String) { if (value == "Illness") health { reason = value } else reason = value }
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.next_skip_title)) },
@@ -154,8 +156,8 @@ private fun SkipDialog(enabled: Boolean, onDismiss: () -> Unit, onConfirm: (Stri
             Column {
                 Text(stringResource(R.string.next_skip_text), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 skipReasons.forEach { value ->
-                    Row(Modifier.fillMaxWidth().heightIn(min = MinTouch).clickable { reason = value }, verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(selected = reason == value, onClick = { reason = value })
+                    Row(Modifier.fillMaxWidth().heightIn(min = MinTouch).clickable { choose(value) }, verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(selected = reason == value, onClick = { choose(value) })
                         Text(Labels.reason(value))
                     }
                 }

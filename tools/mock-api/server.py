@@ -243,6 +243,10 @@ OPTIONS = {"goals": ["GeneralFitness", "Hypertrophy", "Strength"], "experience":
            "schedulingModes": ["Calendar", "Sequence"], "minimumSessionsPerPeriod": 2, "maximumSessionsPerPeriod": 6}
 
 
+# What the person answered about health data, for as long as the mock runs.
+HEALTH = {"consent": False}
+
+
 class Handler(BaseHTTPRequestHandler):
     def _send(self, status, body, ctype="application/json"):
         data = body if isinstance(body, bytes) else json.dumps(body).encode()
@@ -277,9 +281,14 @@ class Handler(BaseHTTPRequestHandler):
         if self.command == "PUT" and path == "/api/v1/account/language":
             self.rfile.read(int(self.headers.get("Content-Length") or 0))
             return self._send(204, b"")
+        if self.command == "PUT" and path == "/api/v1/account/health-consent":
+            body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
+            HEALTH["consent"] = bool(body.get("consent"))
+            return self._send(204, b"")
         if path == "/api/v1/account":
             return self._send(200, {"canDelete": True, "cannotDeleteReason": None, "deletion": {
-                "requiresPassword": True, "requiresGoogleIdToken": False, "requiresTwoFactorCode": False, "warning": None, "manageSubscriptionUrl": None}})
+                "requiresPassword": True, "requiresGoogleIdToken": False, "requiresTwoFactorCode": False, "warning": None, "manageSubscriptionUrl": None},
+                "healthConsent": HEALTH["consent"]})
         if self.command == "POST" and path == "/api/v1/account/delete":
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
             # Any password works except "wrong", to see the refusal.

@@ -596,4 +596,14 @@
     <string name="account_delete_play">Kudeatu harpidetza Google Play-n</string>
     <string name="account_delete_rejected">Pasahitza, Google kontua edo kodea ez dira baliozkoak.</string>
     <string name="account_deleted">Zure kontua ezabatu da.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">Osasun-datuak</string>
+    <string name="health_text">TRAZOk lesio, min, ondoez eta gaixotasunei buruz kontatzen diozuna zure entrenamendua egokitzeko bakarrik erabiliko du. Aukerakoa da: hori gabe, gainerako guztiak berdin funtzionatzen du. Nahi duzunean ken dezakezu Kontua atalean, eta orduan datu horiek ezabatzen dira.</string>
+    <string name="health_agree">Onartzen dut</string>
+    <string name="health_decline">Ez, eskerrik asko</string>
+    <string name="health_on">TRAZOri zure osasun-datuak erabiltzen uzten diozu.</string>
+    <string name="health_off">Ez diozu TRAZOri osasun-daturik erabiltzen utzi. Lesio, min edo gaixotasun bat apuntatu nahi duzunean galdetuko dizu.</string>
+    <string name="health_withdraw">Kendu baimena</string>
+    <string name="health_withdraw_text">Zure lesioak, min eta ondoez markak eta gaixotasunagatiko arrazoiak ezabatuko dira. Entrenamenduen historia gorde egiten da. Zure planak ez ditu aurrerantzean markatu zenituen guneak saihestuko.</string>
+    <string name="health_withdraw_confirm">Kendu eta ezabatu</string>
 </resources>

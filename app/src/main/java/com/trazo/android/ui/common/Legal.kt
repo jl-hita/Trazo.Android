@@ -27,9 +27,16 @@ fun rememberUrlOpener(): (String) -> Unit {
 }
 
 @Composable
+fun PrivacyLink() {
+    val open = rememberUrlOpener()
+    val url = legalUrls(BuildConfig.APP_LINK_HOST, Locale.getDefault().language).privacy
+    TrazoLink(onClick = { open(url) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.legal_privacy)) }
+}
+
+@Composable
 fun LegalLinks() {
     val open = rememberUrlOpener()
     val urls = legalUrls(BuildConfig.APP_LINK_HOST, Locale.getDefault().language)
-    TrazoLink(onClick = { open(urls.privacy) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.legal_privacy)) }
+    PrivacyLink()
     TrazoLink(onClick = { open(urls.terms) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.legal_terms)) }
 }

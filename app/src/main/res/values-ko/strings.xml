@@ -591,4 +591,14 @@
     <string name="account_delete_play">Google Play에서 구독 관리</string>
     <string name="account_delete_rejected">비밀번호, Google 계정 또는 코드가 올바르지 않습니다.</string>
     <string name="account_deleted">계정이 삭제되었습니다.</string>
+    <!-- Consent for health data -->
+    <string name="health_title">건강 데이터</string>
+    <string name="health_text">TRAZO는 부상, 통증, 불편감, 질병에 대해 알려 준 내용을 훈련 조정에만 사용합니다. 선택 사항이며, 동의하지 않아도 다른 기능은 똑같이 작동합니다. 계정에서 언제든 동의를 철회할 수 있고, 철회하면 해당 데이터가 삭제됩니다.</string>
+    <string name="health_agree">동의합니다</string>
+    <string name="health_decline">괜찮습니다</string>
+    <string name="health_on">TRAZO가 건강 데이터를 사용하도록 허용했습니다.</string>
+    <string name="health_off">건강 데이터 사용을 허용하지 않았습니다. 부상, 통증, 질병을 기록하려고 할 때 다시 물어봅니다.</string>
+    <string name="health_withdraw">동의 철회</string>
+    <string name="health_withdraw_text">부상, 통증과 불편감 표시, 질병 사유가 삭제됩니다. 훈련 기록은 유지됩니다. 플랜은 표시했던 부위를 더 이상 피하지 않습니다.</string>
+    <string name="health_withdraw_confirm">철회하고 삭제</string>
 </resources>

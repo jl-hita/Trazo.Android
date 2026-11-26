@@ -1,7 +1,13 @@
 package com.trazo.android.data.model
 
 /** What `GET /api/v1/account` says about deleting the account: whether it can be done and what the person must prove. */
-data class AccountInfo(val canDelete: Boolean, val cannotDeleteReason: String? = null, val deletion: DeletionRequirements)
+data class AccountInfo(
+    val canDelete: Boolean, val cannotDeleteReason: String? = null, val deletion: DeletionRequirements,
+    /** Whether the explicit consent for health data is in force. */
+    val healthConsent: Boolean = false
+)
+
+data class HealthConsentRequest(val consent: Boolean)
 
 /** The password and the Google token are alternatives; the two-factor code goes on top when the account has it. */
 data class DeletionRequirements(
