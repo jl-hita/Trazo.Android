@@ -1,0 +1,33 @@
+{
+  "user": "Giulia Rossi",
+  "macro": "12 settimane di ipertrofia",
+  "notes": "Doppia progressione con scarichi programmati.",
+  "phases": [
+    ["Base di volume", "accumulation", "Costruire volume di lavoro con tecnica solida."],
+    ["Intensificazione", "intensification", "Aumentare il carico mantenendo il volume."],
+    ["Scarico", "deload", "Recuperare prima del blocco successivo."]
+  ],
+  "sessions": ["Parte alta A", "Parte bassa A", "Parte alta B"],
+  "disclaimer": "Piano orientativo generato automaticamente; non sostituisce il parere di un professionista sanitario.",
+  "adapt": "Stai andando bene: mantieni il carico e cerca una ripetizione in più per serie.",
+  "advice": [
+    ["squat", "Hai raggiunto il limite alto (10 rip.) con RIR 2 in tutte le serie: la prossima volta sali a 65 kg.", 65.0],
+    ["romanian-deadlift", "Non hai ancora completato l'intervallo in tutte le serie: resta a 50 kg e cerca una ripetizione in più.", 50.0]
+  ],
+  "applied": [
+    "Squat: +5 kg nelle prossime due sessioni della parte bassa.",
+    "Quadricipiti: recupero completo, il volume della settimana resta."
+  ],
+  "warnings": ["Se senti dolore, TRAZO non aumenta mai il carico: segnalalo nel questionario."],
+  "names": {
+    "db-bench-press": "Panca piana con manubri",
+    "seated-cable-row": "Pulley seduto",
+    "dumbbell-shoulder-press": "Lento avanti con manubri",
+    "lat-pulldown": "Lat machine avanti",
+    "hammer-curl": "Curl a martello con manubri",
+    "squat": "Back squat con bilanciere",
+    "romanian-deadlift": "Stacco rumeno",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust con bilanciere"
+  }
+}

@@ -131,7 +131,7 @@
     <string name="workout_title">Treeni</string>
     <string name="workout_set">Setti %1$d</string>
     <string name="workout_weight">Paino (kg)</string>
-    <string name="workout_reps">Toistot</string>
+    <string name="workout_reps">Toist.</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Setti %1$d tehty</string>
     <string name="workout_mark_set">Merkitse setti %1$d tehdyksi</string>

@@ -1,0 +1,33 @@
+{
+  "user": "Uxía Pereira",
+  "macro": "Hipertrofia en 12 semanas",
+  "notes": "Dobre progresión con descargas programadas.",
+  "phases": [
+    ["Base de volume", "accumulation", "Construír volume de traballo con técnica sólida."],
+    ["Intensificación", "intensification", "Subir a carga mantendo o volume."],
+    ["Descarga", "deload", "Recuperarse antes do seguinte bloque."]
+  ],
+  "sessions": ["Tren superior A", "Tren inferior A", "Tren superior B"],
+  "disclaimer": "Plan orientativo xerado automaticamente; non substitúe o consello dun profesional sanitario.",
+  "adapt": "Vas ben: mantén a carga e busca unha repetición máis por serie.",
+  "advice": [
+    ["squat", "Chegaches ao tope do rango (10 reps) con RIR 2 en todas as series: a próxima vez sobe a 65 kg.", 65.0],
+    ["romanian-deadlift", "Aínda non completaches o rango en todas as series: mantén 50 kg e busca unha repetición máis.", 50.0]
+  ],
+  "applied": [
+    "Agachamento: +5 kg nas dúas próximas sesións de tren inferior.",
+    "Cuádriceps: recuperación ao 100 %, o volume da semana mantense."
+  ],
+  "warnings": ["Se notas dor, TRAZO nunca sobe a carga: avísanos no cuestionario."],
+  "names": {
+    "db-bench-press": "Press de banca con mancornas",
+    "seated-cable-row": "Remo sentado en polea",
+    "dumbbell-shoulder-press": "Press de ombros con mancornas",
+    "lat-pulldown": "Xalón ao peito",
+    "hammer-curl": "Curl martelo con mancornas",
+    "squat": "Agachamento traseiro con barra",
+    "romanian-deadlift": "Peso morto romanés",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust con barra"
+  }
+}

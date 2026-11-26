@@ -1,0 +1,33 @@
+{
+  "user": "Aino Virtanen",
+  "macro": "Lihaskasvu 12 viikkoa",
+  "notes": "Kaksoisprogressio ja suunniteltu kevennys.",
+  "phases": [
+    ["Volyymipohja", "accumulation", "Kerrytä työtä hyvällä tekniikalla."],
+    ["Tehostaminen", "intensification", "Lisää painoa, sama volyymi."],
+    ["Kevennys", "deload", "Palaudu ennen seuraavaa jaksoa."]
+  ],
+  "sessions": ["Yläkroppa A", "Alakroppa A", "Yläkroppa B"],
+  "disclaimer": "Automaattisesti luotu suuntaa antava ohjelma. Se ei korvaa terveydenhuollon ammattilaisen neuvoja.",
+  "adapt": "Hyvä tahti: pidä painot ja tavoittele yhtä toistoa enemmän settiä kohti.",
+  "advice": [
+    ["squat", "Saavutit alueen ylärajan (10 toistoa) kaikissa seteissä, RIR 2: nosta ensi kerralla 65 kiloon.", 65.0],
+    ["romanian-deadlift", "Toistoalue ei vielä täyty kaikissa seteissä: pidä 50 kg ja tavoittele yhtä toistoa lisää.", 50.0]
+  ],
+  "applied": [
+    "Kyykky: +5 kg seuraaviin 2 alakropan treeniin.",
+    "Nelipäinen reisilihas: palautuminen 100 %, viikkovolyymi pidetään."
+  ],
+  "warnings": ["TRAZO ei koskaan lisää painoa, jos on kipua: kerro siitä kysymyksissä."],
+  "names": {
+    "db-bench-press": "Penkkipunnerrus käsipainoilla",
+    "seated-cable-row": "Istumasoutu taljassa",
+    "dumbbell-shoulder-press": "Pystypunnerrus käsipainoilla",
+    "lat-pulldown": "Ylätalja rinnalle",
+    "hammer-curl": "Vasarakääntö käsipainoilla",
+    "squat": "Takakyykky tangolla",
+    "romanian-deadlift": "Romanialainen maastaveto",
+    "hack-squat": "Hack-kyykky",
+    "hip-thrust": "Lantionnosto tangolla"
+  }
+}

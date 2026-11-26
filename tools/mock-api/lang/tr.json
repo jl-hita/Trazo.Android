@@ -1,0 +1,33 @@
+{
+  "user": "Elif Yılmaz",
+  "macro": "12 haftalık hipertrofi",
+  "notes": "Planlı hafifletmelerle çift ilerleme.",
+  "phases": [
+    ["Hacim temeli", "accumulation", "Sağlam teknikle çalışma hacmi oluşturmak."],
+    ["Yoğunlaşma", "intensification", "Hacmi koruyarak yükü artırmak."],
+    ["Hafifletme", "deload", "Sonraki bloktan önce toparlanmak."]
+  ],
+  "sessions": ["Üst vücut A", "Alt vücut A", "Üst vücut B"],
+  "disclaimer": "Otomatik oluşturulan yol gösterici plan; bir sağlık uzmanının tavsiyesinin yerini tutmaz.",
+  "adapt": "İyi gidiyorsun: yükü koru ve set başına bir tekrar daha hedefle.",
+  "advice": [
+    ["squat", "Tüm setlerde RIR 2 ile aralığın üst sınırına (10 tekrar) ulaştın: gelecek sefer 65 kg'a çık.", 65.0],
+    ["romanian-deadlift", "Aralığı henüz tüm setlerde tamamlamadın: 50 kg'da kal ve bir tekrar daha hedefle.", 50.0]
+  ],
+  "applied": [
+    "Squat: sonraki iki alt vücut seansında +5 kg.",
+    "Ön bacak: toparlanma %100, haftalık hacim korunuyor."
+  ],
+  "warnings": ["Ağrı hissedersen TRAZO yükü asla artırmaz: ankette bildir."],
+  "names": {
+    "db-bench-press": "Dambıl Bench Press",
+    "seated-cable-row": "Oturarak Kablo Kürek",
+    "dumbbell-shoulder-press": "Dambıl Omuz Press",
+    "lat-pulldown": "Lat Pulldown",
+    "hammer-curl": "Dambıl Hammer Curl",
+    "squat": "Halterle Back Squat",
+    "romanian-deadlift": "Romen Deadlift",
+    "hack-squat": "Hack Squat",
+    "hip-thrust": "Halterle Hip Thrust"
+  }
+}

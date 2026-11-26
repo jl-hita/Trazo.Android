@@ -1,0 +1,33 @@
+{
+  "user": "Elin Johansson",
+  "macro": "Hypertrofi i 12 veckor",
+  "notes": "Dubbel progression med planerad avlastning.",
+  "phases": [
+    ["Volymbas", "accumulation", "Bygg upp arbete med solid teknik."],
+    ["Intensifiering", "intensification", "Mer vikt, samma volym."],
+    ["Avlastning", "deload", "Återhämta dig före nästa block."]
+  ],
+  "sessions": ["Överkropp A", "Underkropp A", "Överkropp B"],
+  "disclaimer": "Vägledande plan som skapats automatiskt. Den ersätter inte råd från vårdpersonal.",
+  "adapt": "Bra takt: behåll vikterna och sikta på en rep till per set.",
+  "advice": [
+    ["squat", "Du nådde toppen av intervallet (10 reps) i alla set med RIR 2: gå upp till 65 kg nästa gång.", 65.0],
+    ["romanian-deadlift", "Du täcker inte intervallet i alla set ännu: behåll 50 kg och sikta på en rep till.", 50.0]
+  ],
+  "applied": [
+    "Knäböj: +5 kg i de kommande 2 underkroppspassen.",
+    "Framsida lår: återhämtad till 100 %, veckovolymen behålls."
+  ],
+  "warnings": ["TRAZO ökar aldrig vikten vid smärta: berätta det i frågorna."],
+  "names": {
+    "db-bench-press": "Hantelpress på bänk",
+    "seated-cable-row": "Sittande kabelrodd",
+    "dumbbell-shoulder-press": "Axelpress med hantlar",
+    "lat-pulldown": "Latsdrag till bröstet",
+    "hammer-curl": "Hammercurl med hantlar",
+    "squat": "Knäböj med skivstång på ryggen",
+    "romanian-deadlift": "Rumänska marklyft",
+    "hack-squat": "Hacklyft",
+    "hip-thrust": "Höftlyft med skivstång"
+  }
+}

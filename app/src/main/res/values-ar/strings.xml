@@ -131,7 +131,7 @@
     <string name="workout_title">التمرين</string>
     <string name="workout_set">المجموعة %1$d</string>
     <string name="workout_weight">الوزن (كغ)</string>
-    <string name="workout_reps">التكرارات</string>
+    <string name="workout_reps">تكرار</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">اكتملت المجموعة %1$d</string>
     <string name="workout_mark_set">تعليم المجموعة %1$d كمكتملة</string>

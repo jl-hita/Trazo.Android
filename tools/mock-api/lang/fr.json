@@ -1,0 +1,33 @@
+{
+  "user": "Léa Martin",
+  "macro": "12 semaines de prise de muscle",
+  "notes": "Double progression avec décharges programmées.",
+  "phases": [
+    ["Base de volume", "accumulation", "Construire le volume de travail avec une technique solide."],
+    ["Intensification", "intensification", "Augmenter la charge à volume constant."],
+    ["Décharge", "deload", "Récupérer avant le bloc suivant."]
+  ],
+  "sessions": ["Haut du corps A", "Bas du corps A", "Haut du corps B"],
+  "disclaimer": "Programme indicatif généré automatiquement ; il ne remplace pas l'avis d'un professionnel de santé.",
+  "adapt": "Tu es sur la bonne voie : garde la charge et vise une répétition de plus par série.",
+  "advice": [
+    ["squat", "Tu as atteint le haut de la fourchette (10 reps) à RIR 2 sur toutes les séries : passe à 65 kg la prochaine fois.", 65.0],
+    ["romanian-deadlift", "La fourchette n'est pas encore remplie sur toutes les séries : garde 50 kg et vise une répétition de plus.", 50.0]
+  ],
+  "applied": [
+    "Squat : +5 kg sur les deux prochaines séances du bas du corps.",
+    "Quadriceps : récupération complète, le volume de la semaine est maintenu."
+  ],
+  "warnings": ["En cas de douleur, TRAZO n'augmente jamais la charge : signale-le dans le questionnaire."],
+  "names": {
+    "db-bench-press": "Développé couché haltères",
+    "seated-cable-row": "Rowing assis à la poulie",
+    "dumbbell-shoulder-press": "Développé épaules aux haltères",
+    "lat-pulldown": "Tirage vertical poitrine",
+    "hammer-curl": "Curl marteau aux haltères",
+    "squat": "Squat barre nuque",
+    "romanian-deadlift": "Soulevé de terre roumain",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust à la barre"
+  }
+}

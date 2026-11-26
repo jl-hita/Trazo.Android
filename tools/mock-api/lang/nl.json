@@ -1,0 +1,33 @@
+{
+  "user": "Sanne de Vries",
+  "macro": "12 weken spiergroei",
+  "notes": "Dubbele progressie met geplande deloads.",
+  "phases": [
+    ["Volumebasis", "accumulation", "Werkvolume opbouwen met een stevige techniek."],
+    ["Intensivering", "intensification", "Het gewicht verhogen bij gelijk volume."],
+    ["Deload", "deload", "Herstellen vóór het volgende blok."]
+  ],
+  "sessions": ["Bovenlichaam A", "Onderlichaam A", "Bovenlichaam B"],
+  "disclaimer": "Automatisch gemaakt richtplan; het vervangt geen advies van een zorgprofessional.",
+  "adapt": "Je zit goed: houd het gewicht en haal één herhaling meer per set.",
+  "advice": [
+    ["squat", "Je haalde de bovenkant van het bereik (10 herh.) met RIR 2 in alle sets: ga volgende keer naar 65 kg.", 65.0],
+    ["romanian-deadlift", "Je haalt het bereik nog niet in alle sets: blijf op 50 kg en haal één herhaling meer.", 50.0]
+  ],
+  "applied": [
+    "Squat: +5 kg in de volgende twee trainingen voor het onderlichaam.",
+    "Quadriceps: volledig hersteld, het weekvolume blijft zoals gepland."
+  ],
+  "warnings": ["Bij pijn verhoogt TRAZO nooit het gewicht: meld het in de vragenlijst."],
+  "names": {
+    "db-bench-press": "Bankdrukken met dumbbells",
+    "seated-cable-row": "Zittend kabelroeien",
+    "dumbbell-shoulder-press": "Dumbbell shoulder press",
+    "lat-pulldown": "Lat pulldown",
+    "hammer-curl": "Hammer curl met dumbbells",
+    "squat": "Back squat met halterstang",
+    "romanian-deadlift": "Roemeense deadlift",
+    "hack-squat": "Hacksquat",
+    "hip-thrust": "Hip thrust met halterstang"
+  }
+}

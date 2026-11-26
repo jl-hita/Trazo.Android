@@ -1,0 +1,33 @@
+{
+  "user": "Freja Nielsen",
+  "macro": "Muskelvækst på 12 uger",
+  "notes": "Dobbelt progression med planlagte deloads.",
+  "phases": [
+    ["Volumengrundlag", "accumulation", "Opbygge arbejdsvolumen med solid teknik."],
+    ["Intensivering", "intensification", "Øge vægten og bevare volumen."],
+    ["Deload", "deload", "Restituere før næste blok."]
+  ],
+  "sessions": ["Overkrop A", "Underkrop A", "Overkrop B"],
+  "disclaimer": "Vejledende plan genereret automatisk; erstatter ikke råd fra en sundhedsfaglig person.",
+  "adapt": "Det går godt: behold vægten, og gå efter en gentagelse mere pr. sæt.",
+  "advice": [
+    ["squat", "Du nåede toppen af intervallet (10 reps) med RIR 2 i alle sæt: gå op til 65 kg næste gang.", 65.0],
+    ["romanian-deadlift", "Du har endnu ikke klaret intervallet i alle sæt: behold 50 kg, og gå efter en gentagelse mere.", 50.0]
+  ],
+  "applied": [
+    "Squat: +5 kg i de to næste underkropspas.",
+    "Forlår: restitution 100 %, ugens volumen bevares."
+  ],
+  "warnings": ["Mærker du smerte, hæver TRAZO aldrig vægten: fortæl det i spørgeskemaet."],
+  "names": {
+    "db-bench-press": "Bænkpres med håndvægte",
+    "seated-cable-row": "Siddende kabelroning",
+    "dumbbell-shoulder-press": "Skulderpres med håndvægte",
+    "lat-pulldown": "Nedtræk til brystet",
+    "hammer-curl": "Hammercurl med håndvægte",
+    "squat": "Back squat med vægtstang",
+    "romanian-deadlift": "Rumænsk dødløft",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust med vægtstang"
+  }
+}

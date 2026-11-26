@@ -131,7 +131,7 @@
     <string name="workout_title">Entrenamendua</string>
     <string name="workout_set">%1$d. seria</string>
     <string name="workout_weight">Pisua (kg)</string>
-    <string name="workout_reps">Errepik.</string>
+    <string name="workout_reps">Err.</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">%1$d. seria eginda</string>
     <string name="workout_mark_set">Markatu %1$d. seria eginda gisa</string>

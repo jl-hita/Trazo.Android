@@ -1,0 +1,33 @@
+{
+  "user": "王雨欣",
+  "macro": "12 周增肌",
+  "notes": "含计划减负的双重递进。",
+  "phases": [
+    ["容量基础", "accumulation", "以扎实的动作积累训练量。"],
+    ["强化期", "intensification", "保持容量的同时提高重量。"],
+    ["减负", "deload", "在下一个周期块前恢复。"]
+  ],
+  "sessions": ["上肢 A", "下肢 A", "上肢 B"],
+  "disclaimer": "自动生成的参考计划，不能替代医疗专业人士的建议。",
+  "adapt": "状态不错：保持重量，争取每组多做一次。",
+  "advice": [
+    ["squat", "所有组都以 RIR 2 达到范围上限（10 次）：下次加到 65 kg。", 65.0],
+    ["romanian-deadlift", "还没有在所有组中完成范围：保持 50 kg，争取多做一次。", 50.0]
+  ],
+  "applied": [
+    "深蹲：接下来两次下肢训练 +5 kg。",
+    "股四头肌：恢复 100%，本周容量保持不变。"
+  ],
+  "warnings": ["如果感到疼痛，TRAZO 绝不加重：请在问卷中告诉我们。"],
+  "names": {
+    "db-bench-press": "哑铃卧推",
+    "seated-cable-row": "坐姿绳索划船",
+    "dumbbell-shoulder-press": "哑铃肩推",
+    "lat-pulldown": "高位下拉",
+    "hammer-curl": "哑铃锤式弯举",
+    "squat": "杠铃后蹲",
+    "romanian-deadlift": "罗马尼亚硬拉",
+    "hack-squat": "哈克深蹲",
+    "hip-thrust": "杠铃臀推"
+  }
+}

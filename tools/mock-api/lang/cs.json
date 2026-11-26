@@ -1,0 +1,33 @@
+{
+  "user": "Tereza Nováková",
+  "macro": "Hypertrofie 12 týdnů",
+  "notes": "Dvojitá progrese s plánovaným odlehčením.",
+  "phases": [
+    ["Objemový základ", "accumulation", "Nabírej práci s jistou technikou."],
+    ["Intenzifikace", "intensification", "Větší váha, stejný objem."],
+    ["Odlehčení", "deload", "Zregeneruj před dalším blokem."]
+  ],
+  "sessions": ["Horní polovina A", "Spodní polovina A", "Horní polovina B"],
+  "disclaimer": "Orientační plán vytvořený automaticky. Nenahrazuje radu zdravotníka.",
+  "adapt": "Jde ti to dobře: nech váhy a miř na o opakování víc v sérii.",
+  "advice": [
+    ["squat", "Ve všech sériích jsi dosáhl(a) horní hranice (10 opak.) s RIR 2: příště přidej na 65 kg.", 65.0],
+    ["romanian-deadlift", "Rozsah zatím nesplňuješ ve všech sériích: nech 50 kg a miř na o opakování víc.", 50.0]
+  ],
+  "applied": [
+    "Dřep: +5 kg v příštích 2 trénincích spodní poloviny.",
+    "Čtyřhlavý sval stehenní: regenerace 100 %, týdenní objem zůstává."
+  ],
+  "warnings": ["Při bolesti TRAZO váhu nikdy nezvýší: dej nám vědět v dotazníku."],
+  "names": {
+    "db-bench-press": "Bench press s jednoručkami",
+    "seated-cable-row": "Přítahy spodní kladky vsedě",
+    "dumbbell-shoulder-press": "Tlaky na ramena s jednoručkami",
+    "lat-pulldown": "Stahování kladky k hrudníku",
+    "hammer-curl": "Kladivové zdvihy s jednoručkami",
+    "squat": "Zadní dřep s velkou činkou",
+    "romanian-deadlift": "Rumunský mrtvý tah",
+    "hack-squat": "Hack dřep",
+    "hip-thrust": "Hip thrust s velkou činkou"
+  }
+}

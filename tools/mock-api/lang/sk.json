@@ -1,0 +1,33 @@
+{
+  "user": "Zuzana Kováčová",
+  "macro": "Hypertrofia 12 týždňov",
+  "notes": "Dvojitá progresia s plánovaným odľahčením.",
+  "phases": [
+    ["Objemový základ", "accumulation", "Naberaj prácu s istou technikou."],
+    ["Intenzifikácia", "intensification", "Väčšia váha, rovnaký objem."],
+    ["Odľahčenie", "deload", "Zregeneruj pred ďalším blokom."]
+  ],
+  "sessions": ["Horná polovica A", "Dolná polovica A", "Horná polovica B"],
+  "disclaimer": "Orientačný plán vytvorený automaticky. Nenahrádza radu zdravotníka.",
+  "adapt": "Ide ti to dobre: nechaj váhy a mier na o opakovanie viac v sérii.",
+  "advice": [
+    ["squat", "Vo všetkých sériách si dosiahol(a) hornú hranicu (10 opak.) s RIR 2: nabudúce pridaj na 65 kg.", 65.0],
+    ["romanian-deadlift", "Rozsah zatiaľ nespĺňaš vo všetkých sériách: nechaj 50 kg a mier na o opakovanie viac.", 50.0]
+  ],
+  "applied": [
+    "Drep: +5 kg v ďalších 2 tréningoch dolnej polovice.",
+    "Štvorhlavý sval stehna: regenerácia 100 %, týždenný objem zostáva."
+  ],
+  "warnings": ["Pri bolesti TRAZO váhu nikdy nezvýši: daj nám vedieť v dotazníku."],
+  "names": {
+    "db-bench-press": "Bench press s jednoručkami",
+    "seated-cable-row": "Príťahy spodnej kladky v sede",
+    "dumbbell-shoulder-press": "Tlaky na ramená s jednoručkami",
+    "lat-pulldown": "Sťahovanie kladky k hrudníku",
+    "hammer-curl": "Kladivové zdvihy s jednoručkami",
+    "squat": "Zadný drep s veľkou činkou",
+    "romanian-deadlift": "Rumunský mŕtvy ťah",
+    "hack-squat": "Hack drep",
+    "hip-thrust": "Hip thrust s veľkou činkou"
+  }
+}

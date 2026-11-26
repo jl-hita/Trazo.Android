@@ -131,7 +131,7 @@
     <string name="workout_title">Træningspas</string>
     <string name="workout_set">Sæt %1$d</string>
     <string name="workout_weight">Vægt (kg)</string>
-    <string name="workout_reps">Gentagelser</string>
+    <string name="workout_reps">Reps</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Sæt %1$d færdigt</string>
     <string name="workout_mark_set">Markér sæt %1$d som færdigt</string>
