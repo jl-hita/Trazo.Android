@@ -131,7 +131,7 @@
     <string name="workout_title">Adestramento</string>
     <string name="workout_set">Serie %1$d</string>
     <string name="workout_weight">Peso (kg)</string>
-    <string name="workout_reps">Repeticións</string>
+    <string name="workout_reps">Reps</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Serie %1$d feita</string>
     <string name="workout_mark_set">Marcar a serie %1$d como feita</string>

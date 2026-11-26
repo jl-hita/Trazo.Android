@@ -1,0 +1,33 @@
+{
+  "user": "Ingrid Hansen",
+  "macro": "Hypertrofi i 12 uker",
+  "notes": "Dobbel progresjon med planlagt avlastning.",
+  "phases": [
+    ["Volumgrunnlag", "accumulation", "Bygg opp arbeid med solid teknikk."],
+    ["Intensifisering", "intensification", "Mer vekt, samme volum."],
+    ["Avlastning", "deload", "Restituer før neste blokk."]
+  ],
+  "sessions": ["Overkropp A", "Underkropp A", "Overkropp B"],
+  "disclaimer": "Veiledende plan som er laget automatisk. Den erstatter ikke råd fra helsepersonell.",
+  "adapt": "Godt tempo: behold vektene og sikt på en repetisjon mer per sett.",
+  "advice": [
+    ["squat", "Du nådde toppen av intervallet (10 reps) i alle sett med RIR 2: gå opp til 65 kg neste gang.", 65.0],
+    ["romanian-deadlift", "Du dekker ikke intervallet i alle sett ennå: behold 50 kg og sikt på en repetisjon til.", 50.0]
+  ],
+  "applied": [
+    "Knebøy: +5 kg i de neste 2 underkroppsøktene.",
+    "Lårets forside: restituert 100 %, ukevolumet beholdes."
+  ],
+  "warnings": ["TRAZO øker aldri vekten ved smerte: meld fra i spørsmålene."],
+  "names": {
+    "db-bench-press": "Benkpress med manualer",
+    "seated-cable-row": "Sittende kabelroing",
+    "dumbbell-shoulder-press": "Skulderpress med manualer",
+    "lat-pulldown": "Nedtrekk til bryst",
+    "hammer-curl": "Hammercurl med manualer",
+    "squat": "Knebøy med vektstang bak",
+    "romanian-deadlift": "Rumensk markløft",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust med vektstang"
+  }
+}

@@ -131,7 +131,7 @@
     <string name="workout_title">Προπόνηση</string>
     <string name="workout_set">Σετ %1$d</string>
     <string name="workout_weight">Βάρος (kg)</string>
-    <string name="workout_reps">Επαν.</string>
+    <string name="workout_reps">Επαν</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Το σετ %1$d ολοκληρώθηκε</string>
     <string name="workout_mark_set">Σήμανση του σετ %1$d ως ολοκληρωμένου</string>

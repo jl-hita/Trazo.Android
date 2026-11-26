@@ -131,7 +131,7 @@
     <string name="workout_title">Trening</string>
     <string name="workout_set">Serija %1$d</string>
     <string name="workout_weight">Teža (kg)</string>
-    <string name="workout_reps">Ponov.</string>
+    <string name="workout_reps">Pon.</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Serija %1$d opravljena</string>
     <string name="workout_mark_set">Označi serijo %1$d kot opravljeno</string>

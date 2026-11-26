@@ -127,7 +127,7 @@
     <string name="workout_title">Antrenman</string>
     <string name="workout_set">Set %1$d</string>
     <string name="workout_weight">Ağırlık (kg)</string>
-    <string name="workout_reps">Tekrar</string>
+    <string name="workout_reps">Tek.</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Set %1$d tamamlandı</string>
     <string name="workout_mark_set">Set %1$d\'i tamamlandı olarak işaretle</string>

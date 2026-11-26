@@ -1,0 +1,33 @@
+{
+  "user": "Nina Kranjc",
+  "macro": "Hipertrofija 12 tednov",
+  "notes": "Dvojno napredovanje z načrtovano razbremenitvijo.",
+  "phases": [
+    ["Osnova obsega", "accumulation", "Nabiraj delo z zanesljivo tehniko."],
+    ["Intenzifikacija", "intensification", "Večja teža, enak obseg."],
+    ["Razbremenitev", "deload", "Regeneriraj pred naslednjim blokom."]
+  ],
+  "sessions": ["Zgornji del A", "Spodnji del A", "Zgornji del B"],
+  "disclaimer": "Okvirni načrt, ustvarjen samodejno. Ne nadomešča nasveta zdravstvenega delavca.",
+  "adapt": "Gre ti dobro: ohrani teže in ciljaj na eno ponovitev več v seriji.",
+  "advice": [
+    ["squat", "V vseh serijah si dosegel zgornjo mejo (10 pon.) z RIR 2: naslednjič povečaj na 65 kg.", 65.0],
+    ["romanian-deadlift", "Razpona še ne dosegaš v vseh serijah: ohrani 50 kg in ciljaj na eno ponovitev več.", 50.0]
+  ],
+  "applied": [
+    "Počep: +5 kg v naslednjih 2 treningih spodnjega dela.",
+    "Štiriglava stegenska mišica: regeneracija 100 %, tedenski obseg ostaja."
+  ],
+  "warnings": ["Ob bolečini TRAZO teže nikoli ne poveča: sporoči nam v vprašalniku."],
+  "names": {
+    "db-bench-press": "Potisk na klopi z ročkama",
+    "seated-cable-row": "Veslanje sede na spodnjem škripcu",
+    "dumbbell-shoulder-press": "Potisk za ramena z ročkama",
+    "lat-pulldown": "Poteg navzdol k prsim",
+    "hammer-curl": "Kladivasti pregib z ročkama",
+    "squat": "Zadnji počep z dolgo ročko",
+    "romanian-deadlift": "Romunski mrtvi dvig",
+    "hack-squat": "Hack počep",
+    "hip-thrust": "Hip thrust z dolgo ročko"
+  }
+}

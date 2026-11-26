@@ -130,8 +130,8 @@
     <string name="session_view_exercise">Прикажи ја вежбата</string>
     <string name="workout_title">Тренинг</string>
     <string name="workout_set">Серија %1$d</string>
-    <string name="workout_weight">Тежина (kg)</string>
-    <string name="workout_reps">Повт.</string>
+    <string name="workout_weight">Тег (kg)</string>
+    <string name="workout_reps">Повт</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Серија %1$d готова</string>
     <string name="workout_mark_set">Означи ја серијата %1$d како готова</string>

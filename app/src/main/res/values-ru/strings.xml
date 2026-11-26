@@ -131,7 +131,7 @@
     <string name="workout_title">Тренировка</string>
     <string name="workout_set">Подход %1$d</string>
     <string name="workout_weight">Вес (кг)</string>
-    <string name="workout_reps">Повт.</string>
+    <string name="workout_reps">Повт</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Подход %1$d выполнен</string>
     <string name="workout_mark_set">Отметить подход %1$d выполненным</string>

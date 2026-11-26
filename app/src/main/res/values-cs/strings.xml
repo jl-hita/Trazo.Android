@@ -131,7 +131,7 @@
     <string name="workout_title">Trénink</string>
     <string name="workout_set">Série %1$d</string>
     <string name="workout_weight">Váha (kg)</string>
-    <string name="workout_reps">Opak.</string>
+    <string name="workout_reps">Opak</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Série %1$d hotová</string>
     <string name="workout_mark_set">Označit sérii %1$d jako hotovou</string>

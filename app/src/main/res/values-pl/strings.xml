@@ -127,7 +127,7 @@
     <string name="workout_title">Trening</string>
     <string name="workout_set">Seria %1$d</string>
     <string name="workout_weight">Ciężar (kg)</string>
-    <string name="workout_reps">Powt.</string>
+    <string name="workout_reps">Pow.</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Seria %1$d zrobiona</string>
     <string name="workout_mark_set">Oznacz serię %1$d jako zrobioną</string>

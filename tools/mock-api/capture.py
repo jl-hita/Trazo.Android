@@ -24,6 +24,9 @@ PACKAGE = "com.trazo.android"
 # Language of the app -> (folder of its strings, tag for `cmd locale`).
 FOLDERS = {"en": "values", "pt": "values-pt", "zh": "values-zh", "sr": "values-b+sr+Latn"}
 LOCALES = {"pt": "pt-BR", "zh": "zh-Hans-CN", "sr": "sr-Latn-RS"}
+# The day chips of the wizard follow the locale: how far Monday is from the first one
+# when the week starts on Sunday or Saturday.
+DAYS_BEFORE_MONDAY = {"pt": 1, "ja": 1, "ko": 1, "ar": 2}
 # Right-to-left languages mirror every row, so the order of the buttons in the tree is what counts, not their position.
 
 
@@ -96,9 +99,14 @@ class Strings:
         return self.values[key]
 
 
+def fold(value):
+    # Section titles are shown in capitals, and Turkish capitals do not round-trip: i -> İ and ı -> I.
+    return value.casefold().replace("̇", "").replace("ı", "i")
+
+
 def text(value):
-    wanted = value.casefold()   # section titles are shown in capitals
-    return lambda screen: next((n for n in screen if wanted in (n.text.casefold(), n.desc.casefold())), None)
+    wanted = fold(value)
+    return lambda screen: next((n for n in screen if wanted in (fold(n.text), fold(n.desc))), None)
 
 
 def press(value, wait=1.5):
@@ -173,7 +181,9 @@ def sign_in(language):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("language")
-    parser.add_argument("--webp", help="landing screenshots folder: also writes {folder}/{language}/*.webp")
+    parser.add_argument("--wizard-only", action="store_true", help="only the three screenshots of the creation wizard")
+    parser.add_argument("--progress-only", action="store_true", help="only the progress screenshot")
+    parser.add_argument("--webp",help="landing screenshots folder: also writes {folder}/{language}/*.webp")
     args = parser.parse_args()
     language = args.language
     strings = Strings(language)
@@ -188,8 +198,27 @@ def main():
         taken.append(path)
         print("  " + name, flush=True)
 
+    def finish():
+        if args.webp:
+            from PIL import Image
+            target = Path(args.webp) / language
+            target.mkdir(parents=True, exist_ok=True)
+            for path in taken:
+                image = Image.open(path).convert("RGB")
+                image = image.resize((640, round(image.height * 640 / image.width)), Image.LANCZOS)
+                image.save(target / (path.stem + ".webp"), quality=86, method=6)
+        print(f"{len(taken)} screenshots in {out}")
+
     mock = Mock(language)
     try:
+        if args.progress_only:
+            mock.start()
+            sign_in(language)
+            wait_for(text(strings["next_view"]), "plan")
+            press(strings["nav_progress"], 4)
+            shot("19-progress")
+            return finish()
+
         # ---- the creation wizard (an account without a plan)
         mock.start("--noplan")
         sign_in(language)
@@ -205,7 +234,8 @@ def main():
         wizard = wait_for(lambda s: len([n for n in s if n.clickable and n.top > 600]) > 12 and chips(), "wizard")
         tap(wizard[1], 0.5)   # goal: muscle growth
         tap(wizard[4], 0.5)   # level: intermediate
-        for day in (8, 10, 12):  # Monday, Wednesday, Friday
+        offset = DAYS_BEFORE_MONDAY.get(language, 0)
+        for day in (8 + offset, 10 + offset, 12 + offset):  # Monday, Wednesday, Friday
             tap(chips()[day], 0.5)
         shot("10-wizard-goal")
         tap(chips()[7], 1)    # no fixed days
@@ -224,6 +254,9 @@ def main():
         areas = [n for n in screen if n.clickable and title.bottom < n.top < 2560]
         tap(areas[1], 1)      # knee, shoulder, ...: shoulder
         shot("12-wizard-details")
+
+        if args.wizard_only:
+            return finish()
 
         # ---- the plan without dates
         mock.start("--mode", "sequence")
@@ -262,23 +295,12 @@ def main():
         shot("18-adaptation")
         launch()
         wait_for(text(strings["next_view"]), "plan")
-        tabs = sorted((n for n in clickables() if n.top > 2450), key=lambda n: n.left)
-        if language == "ar":
-            tabs.reverse()
-        tap(tabs[1], 4)
+        # By its label: counting items of the bottom bar breaks when a button of the plan reaches that low.
+        press(strings["nav_progress"], 4)
         shot("19-progress")
+        finish()
     finally:
         mock.stop()
-
-    if args.webp:
-        from PIL import Image
-        target = Path(args.webp) / language
-        target.mkdir(parents=True, exist_ok=True)
-        for path in taken:
-            image = Image.open(path).convert("RGB")
-            image = image.resize((640, round(image.height * 640 / image.width)), Image.LANCZOS)
-            image.save(target / (path.stem + ".webp"), quality=86, method=6)
-    print(f"{len(taken)} screenshots in {out}")
 
 
 if __name__ == "__main__":

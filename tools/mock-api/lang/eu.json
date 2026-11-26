@@ -1,0 +1,33 @@
+{
+  "user": "Ane Etxeberria",
+  "macro": "Hipertrofia 12 astean",
+  "notes": "Progresio bikoitza programatutako arintzeekin.",
+  "phases": [
+    ["Bolumen-oinarria", "accumulation", "Lan-bolumena eraikitzea teknika sendoarekin."],
+    ["Intentsifikazioa", "intensification", "Karga igotzea bolumena mantenduz."],
+    ["Arintzea", "deload", "Errekuperatzea hurrengo blokearen aurretik."]
+  ],
+  "sessions": ["Goiko gorputza A", "Beheko gorputza A", "Goiko gorputza B"],
+  "disclaimer": "Automatikoki sortutako orientaziozko plana; ez du osasun-profesional baten aholkua ordezkatzen.",
+  "adapt": "Ondo zoaz: mantendu karga eta bilatu errepikapen bat gehiago seria bakoitzeko.",
+  "advice": [
+    ["squat", "Tartearen goiko mugara iritsi zara (10 reps) RIR 2rekin serie guztietan: hurrengoan igo 65 kg-ra.", 65.0],
+    ["romanian-deadlift", "Oraindik ez duzu tartea serie guztietan osatu: mantendu 50 kg eta bilatu errepikapen bat gehiago.", 50.0]
+  ],
+  "applied": [
+    "Squata: +5 kg beheko gorputzeko hurrengo bi saioetan.",
+    "Koadrizepsak: errekuperazioa % 100, asteko bolumena mantendu egiten da."
+  ],
+  "warnings": ["Mina sentitzen baduzu, TRAZOk ez du inoiz karga igotzen: abisatu galdetegian."],
+  "names": {
+    "db-bench-press": "Banku-prentsa mankuernekin",
+    "seated-cable-row": "Eserikako arrauna polean",
+    "dumbbell-shoulder-press": "Sorbalda-prentsa mankuernekin",
+    "lat-pulldown": "Bularrerako jaitsiera",
+    "hammer-curl": "Mailu-curla mankuernekin",
+    "squat": "Atzeko squata barrarekin",
+    "romanian-deadlift": "Errumaniar pisu hila",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust barrarekin"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "user": "Ivana Horvat",
+  "macro": "Hipertrofija 12 nedelja",
+  "notes": "Dvostruko napredovanje s planiranim rasterećenjem.",
+  "phases": [
+    ["Baza volumena", "accumulation", "Skupljaj rad uz sigurnu tehniku."],
+    ["Intenzifikacija", "intensification", "Veća težina, isti volumen."],
+    ["Rasterećenje", "deload", "Oporavi se pre sledećeg bloka."]
+  ],
+  "sessions": ["Gornji deo A", "Donji deo A", "Gornji deo B"],
+  "disclaimer": "Okvirni plan stvoren automatski. Ne zamenjuje savet zdravstvenog radnika.",
+  "adapt": "Ide ti dobro: zadrži težine i ciljaj na jedno ponavljanje više po seriji.",
+  "advice": [
+    ["squat", "U svim serijama dosegnuo si gornju granicu (10 pon.) uz RIR 2: idući put povećaj na 65 kg.", 65.0],
+    ["romanian-deadlift", "Još ne ispunjavaš raspon u svim serijama: zadrži 50 kg i ciljaj na jedno ponavljanje više.", 50.0]
+  ],
+  "applied": [
+    "Čučanj: +5 kg na sledeća 2 treninga donjeg dela.",
+    "Četvoroglavi mišić: oporavak 100 %, nedeljni volumen ostaje."
+  ],
+  "warnings": ["Ako osećaš bol, TRAZO nikad ne povećava težinu: javi nam u upitniku."],
+  "names": {
+    "db-bench-press": "Potisak bučicama na klupi",
+    "seated-cable-row": "Sedeće veslanje na sajli",
+    "dumbbell-shoulder-press": "Potisak bučicama za ramena",
+    "lat-pulldown": "Povlačenje na grudi",
+    "hammer-curl": "Čekić pregib bučicama",
+    "squat": "Zadnji čučanj sa šipkom",
+    "romanian-deadlift": "Rumunsko mrtvo dizanje",
+    "hack-squat": "Hack čučanj",
+    "hip-thrust": "Hip thrust sa šipkom"
+  }
+}

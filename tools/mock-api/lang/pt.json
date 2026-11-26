@@ -1,0 +1,33 @@
+{
+  "user": "Luana Souza",
+  "macro": "Hipertrofia em 12 semanas",
+  "notes": "Dupla progressão com deloads programados.",
+  "phases": [
+    ["Base de volume", "accumulation", "Construir volume de trabalho com técnica sólida."],
+    ["Intensificação", "intensification", "Subir a carga mantendo o volume."],
+    ["Deload", "deload", "Recuperar antes do próximo bloco."]
+  ],
+  "sessions": ["Superiores A", "Inferiores A", "Superiores B"],
+  "disclaimer": "Plano orientativo gerado automaticamente; não substitui o conselho de um profissional de saúde.",
+  "adapt": "Você está indo bem: mantenha a carga e busque uma repetição a mais por série.",
+  "advice": [
+    ["squat", "Você chegou ao topo da faixa (10 reps) com RIR 2 em todas as séries: na próxima, suba para 65 kg.", 65.0],
+    ["romanian-deadlift", "Você ainda não completou a faixa em todas as séries: mantenha 50 kg e busque uma repetição a mais.", 50.0]
+  ],
+  "applied": [
+    "Agachamento: +5 kg nas próximas duas sessões de inferiores.",
+    "Quadríceps: recuperação completa, o volume da semana é mantido."
+  ],
+  "warnings": ["Se sentir dor, o TRAZO nunca aumenta a carga: avise no questionário."],
+  "names": {
+    "db-bench-press": "Supino reto com halteres",
+    "seated-cable-row": "Remada sentada na polia",
+    "dumbbell-shoulder-press": "Desenvolvimento com halteres",
+    "lat-pulldown": "Puxada alta pela frente",
+    "hammer-curl": "Rosca martelo com halteres",
+    "squat": "Agachamento livre com barra",
+    "romanian-deadlift": "Levantamento terra romeno",
+    "hack-squat": "Agachamento hack",
+    "hip-thrust": "Elevação pélvica com barra"
+  }
+}

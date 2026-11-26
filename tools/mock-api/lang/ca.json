@@ -1,0 +1,33 @@
+{
+  "user": "Júlia Puig",
+  "macro": "Hipertròfia en 12 setmanes",
+  "notes": "Progressió doble amb descàrregues programades.",
+  "phases": [
+    ["Base de volum", "accumulation", "Construir volum de treball amb tècnica sòlida."],
+    ["Intensificació", "intensification", "Pujar la càrrega mantenint el volum."],
+    ["Descàrrega", "deload", "Recuperar-se abans del bloc següent."]
+  ],
+  "sessions": ["Tren superior A", "Tren inferior A", "Tren superior B"],
+  "disclaimer": "Pla orientatiu generat automàticament; no substitueix el consell d'un professional sanitari.",
+  "adapt": "Vas bé: mantén la càrrega i busca una repetició més per sèrie.",
+  "advice": [
+    ["squat", "Has arribat al límit del rang (10 reps) amb RIR 2 en totes les sèries: la propera vegada puja a 65 kg.", 65.0],
+    ["romanian-deadlift", "Encara no has completat el rang en totes les sèries: mantén 50 kg i busca una repetició més.", 50.0]
+  ],
+  "applied": [
+    "Esquat: +5 kg en les dues properes sessions de tren inferior.",
+    "Quàdriceps: recuperació al 100 %, el volum de la setmana es manté."
+  ],
+  "warnings": ["Si notes dolor, TRAZO no puja mai la càrrega: avisa'ns al qüestionari."],
+  "names": {
+    "db-bench-press": "Press de banca amb manuelles",
+    "seated-cable-row": "Rem assegut en politja",
+    "dumbbell-shoulder-press": "Press d'espatlles amb manuelles",
+    "lat-pulldown": "Tracció al pit",
+    "hammer-curl": "Curl de martell amb manuelles",
+    "squat": "Esquat darrere amb barra",
+    "romanian-deadlift": "Pes mort romanès",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust amb barra"
+  }
+}

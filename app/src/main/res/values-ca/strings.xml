@@ -127,7 +127,7 @@
     <string name="workout_title">Entrenament</string>
     <string name="workout_set">Sèrie %1$d</string>
     <string name="workout_weight">Pes (kg)</string>
-    <string name="workout_reps">Repeticions</string>
+    <string name="workout_reps">Reps</string>
     <string name="workout_rir">RIR</string>
     <string name="workout_set_done">Sèrie %1$d feta</string>
     <string name="workout_mark_set">Marca la sèrie %1$d com a feta</string>

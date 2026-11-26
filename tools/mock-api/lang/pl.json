@@ -1,0 +1,33 @@
+{
+  "user": "Zofia Kowalska",
+  "macro": "Hipertrofia w 12 tygodni",
+  "notes": "Podwójna progresja z zaplanowanymi odciążeniami.",
+  "phases": [
+    ["Baza objętości", "accumulation", "Budowanie objętości pracy przy solidnej technice."],
+    ["Intensyfikacja", "intensification", "Zwiększanie ciężaru przy utrzymaniu objętości."],
+    ["Odciążenie", "deload", "Regeneracja przed kolejnym blokiem."]
+  ],
+  "sessions": ["Góra A", "Dół A", "Góra B"],
+  "disclaimer": "Orientacyjny plan wygenerowany automatycznie; nie zastępuje porady pracownika ochrony zdrowia.",
+  "adapt": "Idzie dobrze: utrzymaj ciężar i celuj w jedno powtórzenie więcej w serii.",
+  "advice": [
+    ["squat", "Górna granica zakresu (10 powt.) z RIR 2 we wszystkich seriach: następnym razem zwiększ do 65 kg.", 65.0],
+    ["romanian-deadlift", "Zakres nie jest jeszcze wykonany we wszystkich seriach: utrzymaj 50 kg i celuj w jedno powtórzenie więcej.", 50.0]
+  ],
+  "applied": [
+    "Przysiad: +5 kg w dwóch kolejnych sesjach dołu.",
+    "Czworogłowe: regeneracja 100 %, objętość tygodnia bez zmian."
+  ],
+  "warnings": ["Jeśli czujesz ból, TRAZO nigdy nie zwiększa ciężaru: zgłoś to w ankiecie."],
+  "names": {
+    "db-bench-press": "Wyciskanie hantli leżąc",
+    "seated-cable-row": "Wiosłowanie na wyciągu siedząc",
+    "dumbbell-shoulder-press": "Wyciskanie hantli nad głowę",
+    "lat-pulldown": "Ściąganie drążka do klatki",
+    "hammer-curl": "Uginanie młotkowe z hantlami",
+    "squat": "Przysiad ze sztangą na plecach",
+    "romanian-deadlift": "Rumuński martwy ciąg",
+    "hack-squat": "Hack squat",
+    "hip-thrust": "Hip thrust ze sztangą"
+  }
+}
