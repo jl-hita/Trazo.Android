@@ -595,4 +595,15 @@
     <string name="session_done_sets">Выполненные подходы</string>
     <string name="session_done_set">Подход %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">не выполнено</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Правовая информация</string>
+    <string name="legal_privacy">Политика конфиденциальности</string>
+    <string name="legal_terms">Условия использования</string>
+    <string name="account_delete">Удалить аккаунт</string>
+    <string name="account_delete_text">Твой аккаунт, планы и вся история тренировок будут удалены навсегда. Это нельзя отменить.</string>
+    <string name="account_delete_confirm">Удалить навсегда</string>
+    <string name="account_delete_google">Подтвердить через Google и удалить</string>
+    <string name="account_delete_play">Управлять подпиской в Google Play</string>
+    <string name="account_delete_rejected">Неверный пароль, аккаунт Google или код.</string>
+    <string name="account_deleted">Твой аккаунт удалён.</string>
 </resources>

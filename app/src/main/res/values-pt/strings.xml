@@ -585,4 +585,15 @@
     <string name="session_done_sets">Séries feitas</string>
     <string name="session_done_set">Série %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">não feita</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Informações legais</string>
+    <string name="legal_privacy">Política de privacidade</string>
+    <string name="legal_terms">Termos de uso</string>
+    <string name="account_delete">Excluir conta</string>
+    <string name="account_delete_text">Sua conta, seus planos e todo o seu histórico de treinos serão excluídos para sempre. Não dá para desfazer.</string>
+    <string name="account_delete_confirm">Excluir definitivamente</string>
+    <string name="account_delete_google">Confirmar com o Google e excluir</string>
+    <string name="account_delete_play">Gerenciar a assinatura no Google Play</string>
+    <string name="account_delete_rejected">A senha, a conta do Google ou o código não são válidos.</string>
+    <string name="account_deleted">Sua conta foi excluída.</string>
 </resources>

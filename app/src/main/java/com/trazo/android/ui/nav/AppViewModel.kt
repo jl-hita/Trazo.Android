@@ -35,7 +35,8 @@ class AppViewModel(
     events: SessionEvents,
     private val signOutAndClear: suspend () -> Unit,
     private val clearLocalData: () -> Unit,
-    private val io: CoroutineDispatcher = Dispatchers.IO
+    private val io: CoroutineDispatcher = Dispatchers.IO,
+    private val forgetAccount: () -> Unit = {}
 ) : ViewModel() {
     private val _state = MutableStateFlow<AppState>(AppState.Loading)
     val state: StateFlow<AppState> = _state.asStateFlow()
@@ -78,6 +79,12 @@ class AppViewModel(
             signOutAndClear()
             _state.value = AppState.SignedOut
         }
+    }
+
+    /** The user deleted the account from this phone: there is no session left to close on the server. */
+    fun onAccountDeleted() {
+        forgetAccount()
+        _state.value = AppState.SignedOut
     }
 
     private suspend fun onEvent(event: SessionEvent) {

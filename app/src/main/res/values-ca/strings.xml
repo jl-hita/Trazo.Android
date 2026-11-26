@@ -585,4 +585,15 @@
     <string name="session_done_sets">Sèries fetes</string>
     <string name="session_done_set">Sèrie %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">no feta</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Legal</string>
+    <string name="legal_privacy">Política de privadesa</string>
+    <string name="legal_terms">Condicions d\'ús</string>
+    <string name="account_delete">Elimina el compte</string>
+    <string name="account_delete_text">S\'esborraran per sempre el teu compte, els teus plans i tot el teu historial d\'entrenaments. No es pot desfer.</string>
+    <string name="account_delete_confirm">Elimina definitivament</string>
+    <string name="account_delete_google">Confirma amb Google i elimina</string>
+    <string name="account_delete_play">Gestiona la subscripció a Google Play</string>
+    <string name="account_delete_rejected">La contrasenya, el compte de Google o el codi no són vàlids.</string>
+    <string name="account_deleted">El teu compte s\'ha eliminat.</string>
 </resources>

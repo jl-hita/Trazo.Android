@@ -47,6 +47,9 @@ data class LanguageRequest(val language: String?)
 interface AccountApi {
     /** "es", "en" or "auto" (follow the language of each request). */
     @PUT("api/v1/account/language") suspend fun language(@Body request: LanguageRequest): Response<Unit>
+    @GET("api/v1/account") suspend fun info(): Response<com.trazo.android.data.model.AccountInfo>
+    /** POST rather than DELETE: the request carries the re-authentication in its body. */
+    @POST("api/v1/account/delete") suspend fun delete(@Body request: com.trazo.android.data.model.DeleteAccountRequest): Response<com.trazo.android.data.model.DeleteAccountResult>
 }
 
 interface ExercisesApi {

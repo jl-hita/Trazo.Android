@@ -585,4 +585,15 @@
     <string name="session_done_sets">Genomförda set</string>
     <string name="session_done_set">Set %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">ej gjort</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Juridiskt</string>
+    <string name="legal_privacy">Integritetspolicy</string>
+    <string name="legal_terms">Användarvillkor</string>
+    <string name="account_delete">Radera konto</string>
+    <string name="account_delete_text">Ditt konto, dina program och hela din träningshistorik raderas permanent. Det går inte att ångra.</string>
+    <string name="account_delete_confirm">Radera permanent</string>
+    <string name="account_delete_google">Bekräfta med Google och radera</string>
+    <string name="account_delete_play">Hantera prenumerationen i Google Play</string>
+    <string name="account_delete_rejected">Lösenordet, Google-kontot eller koden är inte giltig.</string>
+    <string name="account_deleted">Ditt konto har raderats.</string>
 </resources>

@@ -27,6 +27,8 @@ class LanguageChoiceTest {
     private class FakeAccountApi(var response: () -> Response<Unit> = { Response.success(Unit) }) : AccountApi {
         val sent = mutableListOf<LanguageRequest>()
         override suspend fun language(request: LanguageRequest): Response<Unit> { sent += request; return response() }
+        override suspend fun info() = error("not used here")
+        override suspend fun delete(request: com.trazo.android.data.model.DeleteAccountRequest) = error("not used here")
     }
 
     private lateinit var original: Locale

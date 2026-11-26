@@ -96,6 +96,18 @@ class PushRegistrar(
         }
     }
 
+    /** Drops this phone's token without calling the API, for an account that no longer exists. */
+    suspend fun forget() {
+        if (!startFromCache()) return
+        try {
+            FirebaseMessaging.getInstance().deleteToken()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Diagnostics.report(e)
+        }
+    }
+
     private fun ensureFirebase(config: PushClientConfig): Boolean = try {
         val options = FirebaseOptions.Builder()
             .setProjectId(config.projectId!!)

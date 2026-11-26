@@ -585,4 +585,15 @@
     <string name="session_done_sets">Tehdyt setit</string>
     <string name="session_done_set">Setti %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">ei tehty</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Oikeudelliset tiedot</string>
+    <string name="legal_privacy">Tietosuojakäytäntö</string>
+    <string name="legal_terms">Käyttöehdot</string>
+    <string name="account_delete">Poista tili</string>
+    <string name="account_delete_text">Tilisi, ohjelmasi ja koko harjoitushistoriasi poistetaan pysyvästi. Tätä ei voi perua.</string>
+    <string name="account_delete_confirm">Poista pysyvästi</string>
+    <string name="account_delete_google">Vahvista Googlella ja poista</string>
+    <string name="account_delete_play">Hallinnoi tilausta Google Playssa</string>
+    <string name="account_delete_rejected">Salasana, Google-tili tai koodi ei kelpaa.</string>
+    <string name="account_deleted">Tilisi on poistettu.</string>
 </resources>

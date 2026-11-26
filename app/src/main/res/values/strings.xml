@@ -629,4 +629,15 @@
     <string name="session_done_sets">Sets done</string>
     <string name="session_done_set">Set %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">not done</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Legal</string>
+    <string name="legal_privacy">Privacy policy</string>
+    <string name="legal_terms">Terms of use</string>
+    <string name="account_delete">Delete account</string>
+    <string name="account_delete_text">Your account, your plans and your whole training history will be permanently deleted. This cannot be undone.</string>
+    <string name="account_delete_confirm">Delete permanently</string>
+    <string name="account_delete_google">Confirm with Google and delete</string>
+    <string name="account_delete_play">Manage the subscription in Google Play</string>
+    <string name="account_delete_rejected">The password, Google account or code is not valid.</string>
+    <string name="account_deleted">Your account has been deleted.</string>
 </resources>

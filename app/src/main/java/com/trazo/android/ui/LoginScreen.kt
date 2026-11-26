@@ -180,6 +180,8 @@ fun LoginScreen(
                     }) { Text(stringResource(R.string.login_resend_button)) }
                     if (email.isBlank()) Text(stringResource(R.string.login_resend_need_email), style = MaterialTheme.typography.bodySmall)
                 }
+                // Readable before creating an account.
+                com.trazo.android.ui.common.LegalLinks()
             }
         }
     }

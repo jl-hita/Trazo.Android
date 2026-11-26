@@ -580,4 +580,15 @@
     <string name="session_done_sets">実施したセット</string>
     <string name="session_done_set">セット%1$d：%2$s × %3$s</string>
     <string name="session_set_skipped">未実施</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">法的情報</string>
+    <string name="legal_privacy">プライバシーポリシー</string>
+    <string name="legal_terms">利用規約</string>
+    <string name="account_delete">アカウントを削除</string>
+    <string name="account_delete_text">アカウント、プラン、すべてのトレーニング履歴が完全に削除されます。元に戻すことはできません。</string>
+    <string name="account_delete_confirm">完全に削除</string>
+    <string name="account_delete_google">Googleで確認して削除</string>
+    <string name="account_delete_play">Google Playで定期購入を管理</string>
+    <string name="account_delete_rejected">パスワード、Googleアカウント、またはコードが正しくありません。</string>
+    <string name="account_deleted">アカウントを削除しました。</string>
 </resources>

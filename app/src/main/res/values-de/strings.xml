@@ -585,4 +585,15 @@
     <string name="session_done_sets">Absolvierte Sätze</string>
     <string name="session_done_set">Satz %1$d: %2$s × %3$s</string>
     <string name="session_set_skipped">nicht gemacht</string>
+    <!-- Account deletion and legal pages -->
+    <string name="legal_section">Rechtliches</string>
+    <string name="legal_privacy">Datenschutzerklärung</string>
+    <string name="legal_terms">Nutzungsbedingungen</string>
+    <string name="account_delete">Konto löschen</string>
+    <string name="account_delete_text">Dein Konto, deine Pläne und dein gesamter Trainingsverlauf werden dauerhaft gelöscht. Das lässt sich nicht rückgängig machen.</string>
+    <string name="account_delete_confirm">Endgültig löschen</string>
+    <string name="account_delete_google">Mit Google bestätigen und löschen</string>
+    <string name="account_delete_play">Abo in Google Play verwalten</string>
+    <string name="account_delete_rejected">Passwort, Google-Konto oder Code sind ungültig.</string>
+    <string name="account_deleted">Dein Konto wurde gelöscht.</string>
 </resources>
