@@ -181,8 +181,9 @@ class PlanRepository(
     suspend fun requestReview(note: String?): ApiResult<ReviewRequestView> =
         apiCall { api.requestReview(ReviewRequestBody(note?.trim()?.takeIf { it.isNotEmpty() })) }
 
-    suspend fun sendReviewMessage(body: String): ApiResult<ReviewRequestView> =
-        apiCall { api.sendReviewMessage(ReviewMessageBody(body.trim())) }
+    /** [clientRequestId] must be the same on every attempt to send one message: the server then stores it once. */
+    suspend fun sendReviewMessage(body: String, clientRequestId: String): ApiResult<ReviewRequestView> =
+        apiCall { api.sendReviewMessage(ReviewMessageBody(body.trim(), clientRequestId)) }
 
     /** Replaces the muscle priorities; they shape the blocks generated from now on, so the cached plan is refreshed and the week is kept. */
     suspend fun updateMusclePriorities(priorities: Map<String, String>): ApiResult<PlanView> {
@@ -258,7 +259,10 @@ class PlanRepository(
                         result.error.code == SESSION_ALREADY_LOGGED -> { answered = true; disk { queue.remove(entry) }; LogOutcome.AlreadyLogged }
                         // The server rejected it only because another change reached the plan at the same moment and stored nothing: the same log
                         // (same ClientRequestId) will be accepted later. Any other 409 stays a final answer.
-                        result.error.retryable || result.error.code == PLAN_MODIFIED_CONCURRENTLY -> { disk { queue.add(entry) }; LogOutcome.Queued }
+                        // A session that expired is no verdict on the log: it waits for the user to sign in again.
+                        result.error.retryable || result.error.code == PLAN_MODIFIED_CONCURRENTLY || result.error.kind == ErrorKind.Unauthorized -> {
+                            disk { queue.add(entry) }; LogOutcome.Queued
+                        }
                         // The user is looking at the error and keeps the draft: nothing to keep in the queue.
                         else -> { answered = true; disk { queue.remove(entry) }; LogOutcome.Rejected(result.error) }
                     }
@@ -291,10 +295,14 @@ class PlanRepository(
             }
             val error = (result as ApiResult.Failure).error
             // Not final: the entry stays, untouched, and is sent again by a later pass.
-            if (error.kind == ErrorKind.Network || error.code == PLAN_MODIFIED_CONCURRENTLY) break
+            // Without a session none of the others can go either: they all wait for the next sign-in.
+            if (error.kind == ErrorKind.Network || error.kind == ErrorKind.Unauthorized || error.code == PLAN_MODIFIED_CONCURRENTLY) break
             // Sending the same data again cannot fix these (the server answers a repeated log with success, so
             // "already logged" means the session holds something else): keep it and let the user decide.
-            if (error.kind == ErrorKind.Validation || error.kind == ErrorKind.NotFound || error.kind == ErrorKind.Conflict) {
+            // Without Premium (402) a generated plan takes no logs: the user is told why and can retry after subscribing.
+            if (error.kind == ErrorKind.Validation || error.kind == ErrorKind.NotFound || error.kind == ErrorKind.Conflict ||
+                error.kind == ErrorKind.SubscriptionRequired
+            ) {
                 disk {
                     queue.replace(item.rejected(error))
                     try { restoreDraft(item) } catch (e: Exception) { Diagnostics.report(e) }
@@ -324,7 +332,14 @@ class PlanRepository(
 
     fun session(id: String): SessionView? = _week.value?.sessions?.firstOrNull { it.id == id } ?: carried?.takeIf { it.id == id }
 
-    /** Wipes every local copy: used on sign-out and when the account loses access. */
+    /** The session ended without the user asking: the copy of the plan goes, the unsent workouts and drafts stay. */
+    fun forgetCachedPlan() {
+        _week.value = null
+        cache.clear()
+        sync.cancel()
+    }
+
+    /** Wipes every local copy: used on sign-out, account deletion and when someone else signs in. */
     fun clearLocal() {
         _week.value = null
         cache.clear()

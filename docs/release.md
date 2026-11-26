@@ -98,7 +98,7 @@ Las compras solo se pueden probar con una versión subida a Play (al menos a la 
 
 ## 7. Lista de comprobación antes de subir
 
-- [ ] `./gradlew testDebugUnitTest` verde.
+- [ ] `./gradlew lintDebug testDebugUnitTest` verde y Android CI verde (incluye las pruebas instrumentadas).
 - [ ] AAB firmado con la clave de subida y `versionCode` nuevo.
 - [ ] Probado en un dispositivo real con la build release (login con Google, crear plan, registrar una sesión, modo avión + enviar después).
 - [ ] Política de privacidad publicada y enlazada.

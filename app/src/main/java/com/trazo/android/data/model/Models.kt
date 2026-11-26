@@ -217,7 +217,7 @@ data class ReviewRequestView(
 
 data class ReviewRequestBody(val note: String?)
 
-data class ReviewMessageBody(val body: String)
+data class ReviewMessageBody(val body: String, val clientRequestId: String? = null)
 
 /** Adds an exercise to one session only; the omitted fields take the server's moderate defaults. */
 data class AddExerciseRequest(

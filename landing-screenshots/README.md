@@ -47,4 +47,4 @@ abierto en el mismo puerto: en Windows ambos escuchan y contesta el antiguo.
 2. `./gradlew assembleDebug -PapiBaseUrl=http://10.0.2.2:8099/`, instalar en el emulador y entrar con cualquier correo/contraseña.
 3. Cambiar el idioma de la app: `adb shell cmd locale set-app-locales com.trazo.android --locales en`.
 
-En las compilaciones normales (y en release) las pantallas con la rutina bloquean las capturas (`FLAG_SECURE`).
+La app permite capturar todas las pantallas, también en release: el bloqueo con `FLAG_SECURE` se descartó (#85).

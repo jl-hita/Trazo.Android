@@ -101,7 +101,7 @@ private inline fun <reified VM : ViewModel> containerViewModel(key: String? = nu
 @Composable
 fun AppRoot(actionType: String?, actionToken: String?, pushKind: String? = null, onPushHandled: () -> Unit = {}) {
     val c = container()
-    val app: AppViewModel = containerViewModel { AppViewModel(it.auth, it.subscription, it.sessionEvents, it::signOut, it::clearAccountData, forgetAccount = it::forgetDeletedAccount) }
+    val app: AppViewModel = containerViewModel { AppViewModel(it.auth, it.subscription, it.sessionEvents, it::signOut, it.plans::forgetCachedPlan, forgetAccount = it::forgetDeletedAccount) }
     val state by app.state.collectAsStateWithLifecycle()
     // A failure the app survived says which function is not available (and has already been reported as a ticket).
     val context = LocalContext.current

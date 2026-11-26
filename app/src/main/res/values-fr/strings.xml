@@ -549,14 +549,17 @@
     <string name="account_promo_until">Premium gratuit jusqu\'au %1$s.</string>
     <plurals name="referral_days">
         <item quantity="one">%1$d jour</item>
+        <item quantity="many">%1$d jours</item>
         <item quantity="other">%1$d jours</item>
     </plurals>
     <plurals name="referral_days_pending">
         <item quantity="one">%1$d jour en attente d\'application</item>
+        <item quantity="many">%1$d jours en attente d\'application</item>
         <item quantity="other">%1$d jours en attente d\'application</item>
     </plurals>
     <plurals name="referral_reward_days">
         <item quantity="one">+%1$d jour de Premium</item>
+        <item quantity="many">+%1$d jours de Premium</item>
         <item quantity="other">+%1$d jours de Premium</item>
     </plurals>
     <string name="plan_create_manual">Créer un plan manuel</string>
@@ -573,10 +576,12 @@
     <string name="onb_break_long">%1$d mois ou plus</string>
     <plurals name="onb_prep_weeks">
         <item quantity="one">Préparation : %1$d semaine</item>
+        <item quantity="many">Préparation : %1$d semaines</item>
         <item quantity="other">Préparation : %1$d semaines</item>
     </plurals>
     <plurals name="onb_prep_then">
         <item quantity="one">Ensuite, %1$d semaine de plan complet (elle compte dans la durée totale).</item>
+        <item quantity="many">Ensuite, %1$d semaines de plan complet (elles comptent dans la durée totale).</item>
         <item quantity="other">Ensuite, %1$d semaines de plan complet (elles comptent dans la durée totale).</item>
     </plurals>
     <string name="exercise_explain">Voir comment faire l\'exercice</string>

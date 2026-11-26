@@ -47,6 +47,8 @@ class TranslationCoverageTest {
 
     /** The plural categories each language uses (CLDR), which the resource files must provide. */
     private val pluralForms = mapOf(
+        "ca" to setOf("one", "many", "other"), "es" to setOf("one", "many", "other"), "fr" to setOf("one", "many", "other"),
+        "it" to setOf("one", "many", "other"), "pt" to setOf("one", "many", "other"),
         "ru" to setOf("one", "few", "many", "other"), "pl" to setOf("one", "few", "many", "other"), "cs" to setOf("one", "few", "many", "other"),
         "sk" to setOf("one", "few", "many", "other"), "sl" to setOf("one", "two", "few", "other"),
         "hr" to setOf("one", "few", "other"), "sr" to setOf("one", "few", "other"), "bs" to setOf("one", "few", "other"),

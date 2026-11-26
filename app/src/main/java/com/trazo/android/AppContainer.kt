@@ -45,7 +45,9 @@ import java.io.File
  */
 class AppContainer(context: Context) {
     private val appContext = context.applicationContext
-    val tokens = SecureTokenStore(appContext)
+    private val owner = com.trazo.android.data.local.SharedPreferencesOwnerStore(appContext)
+    val tokens: com.trazo.android.auth.TokenStore =
+        com.trazo.android.data.local.OwnedTokenStore(SecureTokenStore(appContext), owner) { clearAccountData() }
     val sessionEvents = SessionEvents()
 
     init {
@@ -94,6 +96,7 @@ class AppContainer(context: Context) {
     fun clearAccountData() {
         plans.clearLocal()
         healthConsent.clear()
+        owner.set(null)
     }
 
     val exercises = ExerciseRepository(network.create(ExercisesApi::class.java), BuildConfig.API_BASE_URL)

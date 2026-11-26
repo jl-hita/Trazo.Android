@@ -57,6 +57,7 @@ android {
   val configuredVersionCode = providers.gradleProperty("versionCode").orNull?.toIntOrNull()
   versionCode = configuredVersionCode ?: 30002
   versionName = configuredVersionName
+  testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   val googleClientId = providers.gradleProperty("googleWebClientId").orNull ?: ""
   buildConfigField("String", "API_BASE_URL", "\"$releaseApiUrl\"")
   buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"$googleClientId\"")
@@ -85,7 +86,11 @@ android {
    if (hasReleaseSigning) signingConfig = signingConfigs.getByName("release")
   }
  }
- testOptions { unitTests.isReturnDefaultValues = true }
+ testOptions {
+  unitTests.isReturnDefaultValues = true
+  // The emulator CI uses for the instrumented tests; Gradle downloads and boots it.
+  managedDevices.localDevices.create("pixelApi34") { device = "Pixel 6"; apiLevel = 34; systemImageSource = "aosp-atd" }
+ }
  buildFeatures { compose = true; buildConfig = true }
  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
@@ -120,4 +125,12 @@ dependencies {
  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
  testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
  debugImplementation("androidx.compose.ui:ui-tooling")
+ androidTestImplementation(platform("androidx.compose:compose-bom:2025.10.00"))
+ androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+ androidTestImplementation("androidx.compose.ui:ui-test-junit4-accessibility")
+ androidTestImplementation("androidx.test.ext:junit:1.3.0")
+ androidTestImplementation("androidx.test:runner:1.7.0")
+ // Newer than the one Compose brings: older versions fail on recent Android.
+ androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
+ debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

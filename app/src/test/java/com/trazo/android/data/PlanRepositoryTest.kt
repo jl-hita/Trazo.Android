@@ -56,7 +56,7 @@ class PlanRepositoryTest {
     }
 
     @Test fun `a message to the team is trimmed and comes back in the conversation`() = runTest {
-        val result = repo.sendReviewMessage("  hola  ") as ApiResult.Success
+        val result = repo.sendReviewMessage("  hola  ", "message-1") as ApiResult.Success
         assertEquals("hola", api.sentMessage!!.body)
         assertEquals("hola", result.value.messages!!.single().body)
     }
@@ -178,6 +178,29 @@ class PlanRepositoryTest {
         assertEquals(listOf("bad"), queue.all().map { it.sessionId })
         assertEquals(0, repo.pendingCount.value)
         assertEquals(listOf("bad"), repo.rejected.value.map { it.sessionId })
+    }
+
+    @Test fun `an expired session keeps the unsent workouts and says nothing against them`() = runTest {
+        api.logResponse = { _, _ -> httpError(401) }
+        assertEquals(LogOutcome.Queued, repo.submitLog("s1", logRequest(), now))
+        queue.add(PendingLog("s2", logRequest(), now + 1))
+        val calls = api.logCalls.size
+        assertEquals(0, repo.flushPending())
+        assertEquals(calls + 1, api.logCalls.size) // without a session the rest are not even tried
+        repo.forgetCachedPlan()
+        assertNull(cache.week())
+        assertEquals(listOf("s1", "s2"), queue.all().map { it.sessionId })
+        assertTrue(queue.all().none { it.isRejected })
+    }
+
+    @Test fun `a queued log refused for lack of Premium shows why and can be retried`() = runTest {
+        queue.add(PendingLog("s1", logRequest(), now))
+        api.logResponse = { _, _ -> httpError(402, problem(402, "premium_required")) }
+        assertEquals(1, repo.flushPending())
+        assertEquals(ErrorKind.SubscriptionRequired, repo.rejected.value.single().failure!!.kind)
+        api.logResponse = { _, _ -> ok() }
+        assertEquals(1, repo.retryRejected(repo.rejected.value.single()))
+        assertTrue(queue.all().isEmpty())
     }
 
     // ---- outbox: saved before it is sent

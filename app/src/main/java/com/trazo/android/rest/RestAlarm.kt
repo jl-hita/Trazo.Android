@@ -1,5 +1,6 @@
 package com.trazo.android.rest
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.Application
@@ -98,6 +99,7 @@ object RestNotifier {
     private const val TAG = "rest"
     private const val ID = 2
 
+    @SuppressLint("MissingPermission") // canPost() checks the permission before notify().
     fun show(context: Context) {
         if (!PushNotifier.canPost(context)) return
         ensureChannel(context)
