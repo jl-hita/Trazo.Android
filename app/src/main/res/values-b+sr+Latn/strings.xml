@@ -623,6 +623,8 @@
     <string name="health_withdraw">Povuci pristanak</string>
     <string name="health_withdraw_text">Tvoje povrede, oznake bola i nelagodnosti i razlozi zbog bolesti biće obrisani. Istorija treninga ostaje. Tvoj plan više neće izbegavati oblasti koje si označio.</string>
     <string name="health_withdraw_confirm">Povuci i obriši</string>
+    <string name="research_title">Pomozi da TRAZO bude bolji (opciono)</string>
+    <string name="research_text">Ako ovo uključiš, TRAZO će koristiti tvoje podatke o treningu (planove, serije, opterećenja, ponavljanja, napor i nelagodu koje beležiš, bez tvog imena, e-pošte i beleški) da uporedi verzije mehanizma i prouči kako da planovi budu bolji. Podaci se zamenjuju ključevima koji nikoga ne identifikuju van svake analize, a rezultati se posmatraju grupno. Ne prodaju se i ne ustupaju. Ako obrišeš nalog, anonimne brojke po mišiću koje se čuvaju mogu biti grupisane. Možeš ga isključiti kad god želiš: nećeš biti u kasnijim analizama. Ne menja ništa od onoga što možeš da koristiš.</string>
     <string name="technique_straight">Obične serije</string>
     <string name="technique_label">Tehnika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

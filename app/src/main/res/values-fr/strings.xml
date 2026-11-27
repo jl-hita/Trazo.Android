@@ -623,6 +623,8 @@
     <string name="health_withdraw">Retirer le consentement</string>
     <string name="health_withdraw_text">Tes blessures, les signalements de douleur et de gêne et les motifs pour maladie seront effacés. Ton historique d\'entraînement est conservé. Ton programme n\'évitera plus les zones que tu avais indiquées.</string>
     <string name="health_withdraw_confirm">Retirer et effacer</string>
+    <string name="research_title">Aider à améliorer TRAZO (facultatif)</string>
+    <string name="research_text">Si vous l’activez, TRAZO utilisera vos données d’entraînement (programmes, séries, charges, répétitions, effort et gênes que vous enregistrez, sans votre nom, votre e-mail ni vos notes) pour comparer les versions du moteur et étudier comment améliorer les programmes. Les données sont remplacées par des clés qui n’identifient personne en dehors de chaque analyse, et les résultats sont examinés de façon groupée. Elles ne sont ni vendues ni cédées. Si vous supprimez votre compte, les chiffres anonymes par muscle qui sont conservés pourront être regroupés. Vous pouvez le désactiver à tout moment : vous ne serez plus inclus dans les analyses ultérieures. Cela ne change rien à ce que vous pouvez utiliser.</string>
     <string name="technique_straight">Séries classiques</string>
     <string name="technique_label">Technique : %1$s</string>
     <string name="technique_drop_set">Drop set</string>

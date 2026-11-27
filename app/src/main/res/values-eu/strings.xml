@@ -618,6 +618,8 @@
     <string name="health_withdraw">Kendu baimena</string>
     <string name="health_withdraw_text">Zure lesioak, min eta ondoez markak eta gaixotasunagatiko arrazoiak ezabatuko dira. Entrenamenduen historia gorde egiten da. Zure planak ez ditu aurrerantzean markatu zenituen guneak saihestuko.</string>
     <string name="health_withdraw_confirm">Kendu eta ezabatu</string>
+    <string name="research_title">Lagundu TRAZO hobetzen (aukerakoa)</string>
+    <string name="research_text">Aktibatzen baduzu, TRAZOk zure entrenamendu-datuak erabiliko ditu (planak, serieak, kargak, errepikapenak, ahalegina eta erregistratzen dituzun molestiak, zure izenik, helbide elektronikorik eta oharrik gabe) motorraren bertsioak alderatzeko eta planak nola hobetu aztertzeko. Datuak analisi bakoitzetik kanpo inor identifikatzen ez duten gakoekin ordezten dira, eta emaitzak multzoka aztertzen dira. Ez dira saltzen ez lagatzen. Kontua ezabatzen baduzu, gordetzen diren muskuluz muskuluko zifra anonimoak multzokatu ahal izango dira. Nahi duzunean desaktiba dezakezu: ez zara hurrengo analisietan sartuko. Ez du ezer aldatzen erabil dezakezunean.</string>
     <string name="technique_straight">Serie arruntak</string>
     <string name="technique_label">Teknika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

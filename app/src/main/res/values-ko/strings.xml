@@ -613,6 +613,8 @@
     <string name="health_withdraw">동의 철회</string>
     <string name="health_withdraw_text">부상, 통증과 불편감 표시, 질병 사유가 삭제됩니다. 훈련 기록은 유지됩니다. 플랜은 표시했던 부위를 더 이상 피하지 않습니다.</string>
     <string name="health_withdraw_confirm">철회하고 삭제</string>
+    <string name="research_title">TRAZO 개선 돕기(선택 사항)</string>
+    <string name="research_text">이 기능을 켜면 TRAZO는 트레이닝 데이터(플랜, 세트, 중량, 반복 횟수, 기록한 운동 강도와 불편감. 이름, 이메일, 메모는 제외)를 사용해 엔진 버전을 비교하고 플랜을 개선할 방법을 연구합니다. 데이터는 각 분석 밖에서는 누구도 식별할 수 없는 키로 대체되며, 결과는 묶어서 확인합니다. 판매하거나 제공하지 않습니다. 계정을 삭제하면 보관되는 근육별 익명 수치는 묶어서 집계될 수 있습니다. 언제든 끌 수 있으며, 이후 분석에는 포함되지 않습니다. 사용할 수 있는 기능은 달라지지 않습니다.</string>
     <string name="technique_straight">일반 세트</string>
     <string name="technique_label">테크닉: %1$s</string>
     <string name="technique_drop_set">드롭 세트</string>

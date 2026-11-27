@@ -4,10 +4,14 @@ package com.trazo.android.data.model
 data class AccountInfo(
     val canDelete: Boolean, val cannotDeleteReason: String? = null, val deletion: DeletionRequirements,
     /** Whether the explicit consent for health data is in force. */
-    val healthConsent: Boolean = false
+    val healthConsent: Boolean = false,
+    /** Whether the person lets their training data be used to study and improve the plans. */
+    val researchConsent: Boolean = false
 )
 
 data class HealthConsentRequest(val consent: Boolean)
+
+data class ResearchConsentRequest(val consent: Boolean)
 
 /** The password and the Google token are alternatives; the two-factor code goes on top when the account has it. */
 data class DeletionRequirements(

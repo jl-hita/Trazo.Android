@@ -623,6 +623,8 @@
     <string name="health_withdraw">Revoca il consenso</string>
     <string name="health_withdraw_text">I tuoi infortuni, le segnalazioni di dolore e fastidio e i motivi per malattia verranno cancellati. Lo storico degli allenamenti resta. Il tuo piano non eviterà più le zone che avevi indicato.</string>
     <string name="health_withdraw_confirm">Revoca e cancella</string>
+    <string name="research_title">Aiuta a migliorare TRAZO (facoltativo)</string>
+    <string name="research_text">Se lo attivi, TRAZO userà i tuoi dati di allenamento (piani, serie, carichi, ripetizioni, sforzo e fastidi che registri, senza nome, e-mail né note) per confrontare le versioni del motore e studiare come migliorare i piani. I dati vengono sostituiti da chiavi che non identificano nessuno al di fuori di ogni analisi e i risultati si esaminano in forma aggregata. Non vengono venduti né ceduti. Se elimini l’account, le cifre anonime per muscolo che vengono conservate potranno essere raggruppate. Puoi disattivarlo quando vuoi: non sarai più incluso nelle analisi successive. Non cambia nulla di ciò che puoi usare.</string>
     <string name="technique_straight">Serie classiche</string>
     <string name="technique_label">Tecnica: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

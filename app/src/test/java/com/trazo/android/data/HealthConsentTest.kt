@@ -41,6 +41,7 @@ class HealthConsentTest {
             serverConsent = request.consent
             return Response.success(Unit)
         }
+        override suspend fun researchConsent(request: ResearchConsentRequest): Response<Unit> = error("not used here")
         override suspend fun delete(request: DeleteAccountRequest) = error("not used here")
     }
 

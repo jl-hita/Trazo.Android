@@ -628,6 +628,8 @@
     <string name="health_withdraw">Odvolat souhlas</string>
     <string name="health_withdraw_text">Tvá zranění, záznamy o bolesti a nepohodlí a důvody kvůli nemoci se smažou. Historie tréninků zůstane. Tvůj plán se přestane vyhýbat označeným oblastem.</string>
     <string name="health_withdraw_confirm">Odvolat a smazat</string>
+    <string name="research_title">Pomoz zlepšit TRAZO (volitelné)</string>
+    <string name="research_text">Pokud to zapneš, TRAZO použije tvá tréninková data (plány, série, zátěže, opakování, úsilí a nepohodlí, které zaznamenáš, bez tvého jména, e-mailu a poznámek) k porovnání verzí systému a zkoumání, jak plány zlepšit. Data se nahrazují klíči, které mimo jednotlivé analýzy nikoho neidentifikují, a výsledky se vyhodnocují souhrnně. Neprodávají se ani nepředávají. Pokud smažeš účet, anonymní údaje o svalech, které se uchovávají, mohou být seskupeny. Můžeš to kdykoli vypnout: do pozdějších analýz už nebudeš zahrnut. Nic z toho, co můžeš používat, se nemění.</string>
     <string name="technique_straight">Běžné série</string>
     <string name="technique_label">Technika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>
