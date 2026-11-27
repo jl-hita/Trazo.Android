@@ -154,7 +154,6 @@
     <string name="finish_title">Encerrar a sessão</string>
     <string name="finish_recovery">Como você chegou de recuperação?</string>
     <string name="finish_rpe">Esforço da sessão: %1$s de 10</string>
-    <string name="finish_rpe_unset">não informado</string>
     <string name="finish_pain">Senti dor</string>
     <string name="finish_reason">Por que não foi concluída?</string>
     <string name="finish_notes">Observações (opcional)</string>
@@ -689,4 +688,6 @@
     <string name="update_available_body">Atualize para ter as correções e melhorias mais recentes.</string>
     <string name="update_action">Atualizar</string>
     <string name="update_later">Agora não</string>
+    <string name="finish_rpe_none">Esforço da sessão: não informado</string>
+    <string name="finish_reason_required">Escolha um motivo para enviar</string>
 </resources>

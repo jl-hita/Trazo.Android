@@ -154,7 +154,6 @@
     <string name="finish_title">Seansı kapat</string>
     <string name="finish_recovery">Ne kadar dinlenmiş geldin?</string>
     <string name="finish_rpe">Seans eforu: 10 üzerinden %1$s</string>
-    <string name="finish_rpe_unset">belirtilmedi</string>
     <string name="finish_pain">Ağrı hissettim</string>
     <string name="finish_reason">Neden tamamlanmadı?</string>
     <string name="finish_notes">Notlar (isteğe bağlı)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">En son düzeltmeler ve iyileştirmeler için güncelle.</string>
     <string name="update_action">Güncelle</string>
     <string name="update_later">Şimdi değil</string>
+    <string name="finish_rpe_none">Seans eforu: belirtilmedi</string>
+    <string name="finish_reason_required">Göndermek için bir neden seç</string>
 </resources>

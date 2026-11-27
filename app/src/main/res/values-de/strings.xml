@@ -154,7 +154,6 @@
     <string name="finish_title">Einheit abschließen</string>
     <string name="finish_recovery">Wie erholt bist du gekommen?</string>
     <string name="finish_rpe">Anstrengung der Einheit: %1$s von 10</string>
-    <string name="finish_rpe_unset">nicht angegeben</string>
     <string name="finish_pain">Ich hatte Schmerzen</string>
     <string name="finish_reason">Warum wurde sie nicht abgeschlossen?</string>
     <string name="finish_notes">Notizen (optional)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Aktualisiere, um die neuesten Korrekturen und Verbesserungen zu erhalten.</string>
     <string name="update_action">Aktualisieren</string>
     <string name="update_later">Nicht jetzt</string>
+    <string name="finish_rpe_none">Anstrengung der Einheit: nicht angegeben</string>
+    <string name="finish_reason_required">Wähle einen Grund, um zu senden</string>
 </resources>

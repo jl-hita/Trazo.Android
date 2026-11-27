@@ -158,7 +158,6 @@
     <string name="finish_title">Κλείσιμο προπόνησης</string>
     <string name="finish_recovery">Πόσο ξεκούραστος ήρθες;</string>
     <string name="finish_rpe">Προσπάθεια προπόνησης: %1$s στα 10</string>
-    <string name="finish_rpe_unset">δεν ορίστηκε</string>
     <string name="finish_pain">Ένιωσα πόνο</string>
     <string name="finish_reason">Γιατί δεν ολοκληρώθηκε;</string>
     <string name="finish_notes">Σημειώσεις (προαιρετικά)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Ενημέρωσε για τις τελευταίες διορθώσεις και βελτιώσεις.</string>
     <string name="update_action">Ενημέρωση</string>
     <string name="update_later">Όχι τώρα</string>
+    <string name="finish_rpe_none">Προσπάθεια προπόνησης: δεν ορίστηκε</string>
+    <string name="finish_reason_required">Διάλεξε έναν λόγο για αποστολή</string>
 </resources>

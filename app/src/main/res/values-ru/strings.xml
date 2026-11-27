@@ -158,7 +158,6 @@
     <string name="finish_title">Завершить тренировку</string>
     <string name="finish_recovery">Насколько вы восстановились к началу?</string>
     <string name="finish_rpe">Нагрузка тренировки: %1$s из 10</string>
-    <string name="finish_rpe_unset">не указано</string>
     <string name="finish_pain">Я почувствовал боль</string>
     <string name="finish_reason">Почему тренировка не завершена?</string>
     <string name="finish_notes">Заметки (необязательно)</string>
@@ -694,4 +693,6 @@
     <string name="update_available_body">Обновите, чтобы получить последние исправления и улучшения.</string>
     <string name="update_action">Обновить</string>
     <string name="update_later">Не сейчас</string>
+    <string name="finish_rpe_none">Нагрузка тренировки: не указано</string>
+    <string name="finish_reason_required">Выберите причину, чтобы отправить</string>
 </resources>

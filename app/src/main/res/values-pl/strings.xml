@@ -154,7 +154,6 @@
     <string name="finish_title">Zamknij sesję</string>
     <string name="finish_recovery">Jak bardzo byłeś zregenerowany?</string>
     <string name="finish_rpe">Wysiłek w sesji: %1$s na 10</string>
-    <string name="finish_rpe_unset">nie podano</string>
     <string name="finish_pain">Czułem ból</string>
     <string name="finish_reason">Dlaczego nie została ukończona?</string>
     <string name="finish_notes">Notatki (opcjonalnie)</string>
@@ -694,4 +693,6 @@
     <string name="update_available_body">Zaktualizuj, aby mieć najnowsze poprawki i ulepszenia.</string>
     <string name="update_action">Aktualizuj</string>
     <string name="update_later">Nie teraz</string>
+    <string name="finish_rpe_none">Wysiłek w sesji: nie podano</string>
+    <string name="finish_reason_required">Wybierz powód, aby wysłać</string>
 </resources>

@@ -158,7 +158,6 @@
     <string name="finish_title">إغلاق التمرين</string>
     <string name="finish_recovery">ما مدى تعافيك عند وصولك؟</string>
     <string name="finish_rpe">جهد التمرين: %1$s من 10</string>
-    <string name="finish_rpe_unset">غير محدد</string>
     <string name="finish_pain">شعرت بألم</string>
     <string name="finish_reason">لماذا لم يكتمل؟</string>
     <string name="finish_notes">ملاحظات (اختياري)</string>
@@ -704,4 +703,6 @@
     <string name="update_available_body">حدّث للحصول على أحدث الإصلاحات والتحسينات.</string>
     <string name="update_action">تحديث</string>
     <string name="update_later">ليس الآن</string>
+    <string name="finish_rpe_none">جهد التمرين: غير محدد</string>
+    <string name="finish_reason_required">اختر سببًا للإرسال</string>
 </resources>

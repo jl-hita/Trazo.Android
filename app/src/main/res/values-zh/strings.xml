@@ -154,7 +154,6 @@
     <string name="finish_title">结束本次训练</string>
     <string name="finish_recovery">你训练前恢复得如何？</string>
     <string name="finish_rpe">本次训练强度：%1$s / 10</string>
-    <string name="finish_rpe_unset">未设置</string>
     <string name="finish_pain">我感到疼痛</string>
     <string name="finish_reason">为什么没有完成？</string>
     <string name="finish_notes">备注（可选）</string>
@@ -679,4 +678,6 @@
     <string name="update_available_body">更新以获得最新的修复和改进。</string>
     <string name="update_action">更新</string>
     <string name="update_later">暂不</string>
+    <string name="finish_rpe_none">本次训练强度：未设置</string>
+    <string name="finish_reason_required">请选择原因后发送</string>
 </resources>

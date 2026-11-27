@@ -330,7 +330,8 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
     var rpe by remember { mutableStateOf<Float?>(null) }
     var pain by remember { mutableStateOf(false) }
     var notes by remember { mutableStateOf("") }
-    var reason by remember { mutableStateOf("Fatigue") }
+    // No answer is assumed: the reason changes what the plan does next (fatigue holds progression), so the person picks it.
+    var reason by remember { mutableStateOf<String?>(null) }
     var feedback by remember { mutableStateOf<Map<String, ExerciseFeedbackRequest>>(emptyMap()) }
     var performedOn by remember { mutableStateOf<java.time.LocalDate?>(null) }
     val context = androidx.compose.ui.platform.LocalContext.current
@@ -346,11 +347,12 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
                 WhenPicker(performedOn) { performedOn = it }
                 if (incomplete) {
                     Text(stringResource(R.string.finish_reason))
-                    ChipGroup(REASONS, setOf(reason), Labels::reason, { value -> if (value == "Illness") health { reason = value } else reason = value })
+                    ChipGroup(REASONS, setOfNotNull(reason), Labels::reason, { value -> if (value == "Illness") health { reason = value } else reason = value })
+                    if (reason == null) Text(stringResource(R.string.finish_reason_required), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 }
                 Text(stringResource(R.string.finish_recovery))
                 ChipGroup(RECOVERIES, setOf(recovery), Labels::recovery, { recovery = it })
-                Text(stringResource(R.string.finish_rpe, rpe?.toInt()?.toString() ?: stringResource(R.string.finish_rpe_unset)))
+                Text(rpe?.let { stringResource(R.string.finish_rpe, it.toInt().toString()) } ?: stringResource(R.string.finish_rpe_none))
                 Slider(value = rpe ?: 5f, onValueChange = { rpe = it.toInt().toFloat() }, valueRange = 0f..10f, steps = 9, modifier = Modifier.heightIn(min = MinTouch))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Switch(checked = pain, onCheckedChange = { on -> if (on) health { pain = true } else pain = false })
@@ -384,8 +386,8 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
         },
         confirmButton = {
             TextButton(
-                enabled = !sending, modifier = Modifier.heightIn(min = MinTouch),
-                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, if (incomplete) reason else "None", feedback, performedOn)) }
+                enabled = !sending && (!incomplete || reason != null), modifier = Modifier.heightIn(min = MinTouch),
+                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, reason?.takeIf { incomplete } ?: "None", feedback, performedOn)) }
             ) { Text(stringResource(if (sending) R.string.finish_sending else R.string.finish_send)) }
         },
         dismissButton = { TextButton(enabled = !sending, onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }

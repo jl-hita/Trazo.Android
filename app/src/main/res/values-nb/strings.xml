@@ -158,7 +158,6 @@
     <string name="finish_title">Avslutt økten</string>
     <string name="finish_recovery">Hvor uthvilt var du da du kom?</string>
     <string name="finish_rpe">Øktens anstrengelse: %1$s av 10</string>
-    <string name="finish_rpe_unset">ikke angitt</string>
     <string name="finish_pain">Jeg kjente smerte</string>
     <string name="finish_reason">Hvorfor ble den ikke fullført?</string>
     <string name="finish_notes">Notater (valgfritt)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Oppdater for å få de siste rettelsene og forbedringene.</string>
     <string name="update_action">Oppdater</string>
     <string name="update_later">Ikke nå</string>
+    <string name="finish_rpe_none">Øktens anstrengelse: ikke angitt</string>
+    <string name="finish_reason_required">Velg en grunn for å sende</string>
 </resources>
