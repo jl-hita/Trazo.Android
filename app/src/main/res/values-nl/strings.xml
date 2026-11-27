@@ -621,6 +621,8 @@
     <string name="technique_help_myo">Rust %1$d s en doe minisets van %2$d–%3$d herhalingen met hetzelfde gewicht.</string>
     <string name="technique_help_match">Rust %1$d s en voeg minisets toe tot je de herhalingen van je eerste set haalt.</string>
     <string name="technique_help_rest_pause">Rust %1$d s en ga verder met hetzelfde gewicht.</string>
+    <string name="technique_reason_priority">Toegevoegd omdat je deze spier voorrang wilt geven.</string>
+    <string name="technique_reason_time">Toegevoegd om meer werk in je trainingstijd te passen.</string>
     <string name="workout_segment">Deel %1$d</string>
     <string name="workout_segment_done">%1$s klaar</string>
     <string name="workout_add_segment">Deel toevoegen</string>

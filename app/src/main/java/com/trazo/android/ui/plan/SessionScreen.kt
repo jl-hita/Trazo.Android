@@ -108,6 +108,7 @@ fun ExercisePrescription(
         ex.technique?.let {
             Text(techniqueSummary(it), color = TrazoPalette.Link)
             Text(techniqueHelp(it), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+            techniqueReason(it.reason)?.let { why -> Text(why, color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall) }
         }
         ex.targetLoadKg?.let { Text(stringResource(R.string.session_target_load, WorkoutViewModel.formatKg(it)), color = TrazoPalette.Link) }
         ex.warmupSets?.takeIf { it > 0 }?.let {

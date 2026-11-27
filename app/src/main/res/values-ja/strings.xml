@@ -616,6 +616,8 @@
     <string name="technique_help_myo">%1$d秒休み、同じ重量で%2$d～%3$d回のミニセットを行います。</string>
     <string name="technique_help_match">%1$d秒休み、1セット目の回数に並ぶまでミニセットを足します。</string>
     <string name="technique_help_rest_pause">%1$d秒休み、同じ重量で続けます。</string>
+    <string name="technique_reason_priority">この部位を重点的に鍛えるために追加しました。</string>
+    <string name="technique_reason_time">トレーニング時間内の運動量を増やすために追加しました。</string>
     <string name="workout_segment">パート%1$d</string>
     <string name="workout_segment_done">%1$s 完了</string>
     <string name="workout_add_segment">パートを追加</string>

@@ -626,6 +626,8 @@
     <string name="technique_help_myo">Odmori %1$d s i radi mini serije od %2$d–%3$d ponavljanja sa istim opterećenjem.</string>
     <string name="technique_help_match">Odmori %1$d s i dodaj mini serije dok ne dostigneš ponavljanja prve serije.</string>
     <string name="technique_help_rest_pause">Odmori %1$d s i nastavi sa istim opterećenjem.</string>
+    <string name="technique_reason_priority">Dodato jer želite da naglasite ovaj mišić.</string>
+    <string name="technique_reason_time">Dodato da stane više rada u vreme vašeg treninga.</string>
     <string name="workout_segment">Deo %1$d</string>
     <string name="workout_segment_done">Urađeno: %1$s</string>
     <string name="workout_add_segment">Dodaj deo</string>

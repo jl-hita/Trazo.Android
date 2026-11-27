@@ -32,6 +32,14 @@ fun techniqueHelp(t: TechniqueView): String {
     }
 }
 
+/** Why the plan added a technique or a superset; null for the user's own and for a reason this version does not know. */
+@Composable
+fun techniqueReason(reason: String?): String? = when (reason) {
+    "PriorityMuscle" -> stringResource(R.string.technique_reason_priority)
+    "ShortOnTime" -> stringResource(R.string.technique_reason_time)
+    else -> null
+}
+
 /** "Drop set · Last set" and how to do it. */
 @Composable
 fun techniqueSummary(t: TechniqueView): String =

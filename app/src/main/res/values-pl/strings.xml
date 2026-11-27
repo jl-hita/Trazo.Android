@@ -631,6 +631,8 @@
     <string name="technique_help_myo">Odpocznij %1$d s i rób miniserie po %2$d–%3$d powtórzeń z tym samym ciężarem.</string>
     <string name="technique_help_match">Odpocznij %1$d s i dokładaj miniserie, aż wyrównasz powtórzenia z pierwszej serii.</string>
     <string name="technique_help_rest_pause">Odpocznij %1$d s i kontynuuj z tym samym ciężarem.</string>
+    <string name="technique_reason_priority">Dodano, ponieważ chcesz położyć nacisk na ten mięsień.</string>
+    <string name="technique_reason_time">Dodano, aby zmieścić więcej pracy w czasie treningu.</string>
     <string name="workout_segment">Część %1$d</string>
     <string name="workout_segment_done">Zrobione: %1$s</string>
     <string name="workout_add_segment">Dodaj część</string>

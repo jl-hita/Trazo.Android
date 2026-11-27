@@ -616,6 +616,8 @@
     <string name="technique_help_myo">%1$d초 쉬고 같은 중량으로 %2$d–%3$d회 미니 세트를 하세요.</string>
     <string name="technique_help_match">%1$d초 쉬고 첫 세트의 횟수를 채울 때까지 미니 세트를 더하세요.</string>
     <string name="technique_help_rest_pause">%1$d초 쉬고 같은 중량으로 계속하세요.</string>
+    <string name="technique_reason_priority">이 근육을 우선하기로 했기 때문에 추가했습니다.</string>
+    <string name="technique_reason_time">운동 시간 안에 더 많은 훈련을 담기 위해 추가했습니다.</string>
     <string name="workout_segment">파트 %1$d</string>
     <string name="workout_segment_done">%1$s 완료</string>
     <string name="workout_add_segment">파트 추가</string>

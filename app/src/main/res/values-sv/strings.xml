@@ -621,6 +621,8 @@
     <string name="technique_help_myo">Vila %1$d s och gör miniset med %2$d–%3$d repetitioner på samma vikt.</string>
     <string name="technique_help_match">Vila %1$d s och lägg till miniset tills du når repetitionerna i första setet.</string>
     <string name="technique_help_rest_pause">Vila %1$d s och fortsätt med samma vikt.</string>
+    <string name="technique_reason_priority">Tillagd för att du vill prioritera den här muskeln.</string>
+    <string name="technique_reason_time">Tillagd för att få in mer arbete under passet.</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">%1$s klart</string>
     <string name="workout_add_segment">Lägg till en del</string>
