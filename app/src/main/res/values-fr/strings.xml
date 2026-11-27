@@ -221,6 +221,17 @@
     <string name="account_archive_title">Archiver le plan ?</string>
     <string name="account_archive_text">Tu pourras en créer un nouveau. Ton historique de séances est conservé.</string>
     <string name="account_archive_confirm">Archiver</string>
+    <string name="archive_reason_title">Pourquoi veux-tu archiver ce plan ?</string>
+    <string name="archive_reason_completed">J\'ai terminé le plan</string>
+    <string name="archive_reason_new_plan">Je veux commencer un nouveau plan</string>
+    <string name="archive_reason_no_time">Je n\'ai plus le temps de le suivre</string>
+    <string name="archive_reason_too_hard">L\'entraînement est trop exigeant</string>
+    <string name="archive_reason_too_easy">L\'entraînement est trop facile</string>
+    <string name="archive_reason_discomfort">Je ressens une gêne pendant l\'entraînement</string>
+    <string name="archive_reason_goals">Mes objectifs ont changé</string>
+    <string name="archive_reason_not_convinced">Le plan ne me convainc pas</string>
+    <string name="archive_reason_other">Autre raison</string>
+    <string name="archive_reason_skip">Je préfère ne pas le dire</string>
     <string name="account_logout">Se déconnecter</string>
     <string name="account_logout_title">Te déconnecter ?</string>
     <string name="account_logout_text">Le plan en cache et les brouillons seront effacés de cet appareil. Les entraînements non encore envoyés seront perdus.</string>
@@ -627,7 +638,7 @@
     <string name="health_withdraw_text">Tes blessures, les signalements de douleur et de gêne et les motifs pour maladie seront effacés. Ton historique d\'entraînement est conservé. Ton programme n\'évitera plus les zones que tu avais indiquées.</string>
     <string name="health_withdraw_confirm">Retirer et effacer</string>
     <string name="research_title">Aider à améliorer TRAZO (facultatif)</string>
-    <string name="research_text">Si vous l’activez, TRAZO utilisera vos données d’entraînement (programmes, séries, charges, répétitions, effort, douleurs et gênes que vous enregistrez, sans votre nom, votre e-mail ni vos notes) pour comparer les versions du moteur et étudier comment améliorer les programmes. Les données sont remplacées par des clés qui n’identifient personne en dehors de chaque analyse, et les résultats sont examinés de façon groupée. Elles ne sont ni vendues ni cédées. Si vous supprimez votre compte, les chiffres anonymes par muscle qui sont conservés pourront être regroupés. Vous pouvez le désactiver à tout moment : vous ne serez plus inclus dans les analyses ultérieures. Cela ne change rien à ce que vous pouvez utiliser.</string>
+    <string name="research_text">Si vous l’activez, TRAZO utilisera vos données d’entraînement (programmes, séries, charges, répétitions, effort, douleurs et gênes que vous enregistrez et, si vous l’indiquez, la raison pour laquelle vous archivez un programme ; sans votre nom, votre e-mail ni vos notes) pour comparer les versions du moteur et étudier comment améliorer les programmes. Les données sont remplacées par des clés qui n’identifient personne en dehors de chaque analyse, et les résultats sont examinés de façon groupée. Elles ne sont ni vendues ni cédées. Si vous supprimez votre compte, les chiffres anonymes par muscle qui sont conservés pourront être regroupés. Vous pouvez le désactiver à tout moment : vous ne serez plus inclus dans les analyses ultérieures. Les motifs d’archivage que vous aviez indiqués sont effacés. Cela ne change rien à ce que vous pouvez utiliser.</string>
     <string name="technique_straight">Séries classiques</string>
     <string name="technique_label">Technique : %1$s</string>
     <string name="technique_drop_set">Drop set</string>

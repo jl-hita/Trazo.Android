@@ -225,6 +225,17 @@
     <string name="account_archive_title">Arkistoidaanko ohjelma?</string>
     <string name="account_archive_text">Voit luoda uuden. Treenihistoriasi säilyy.</string>
     <string name="account_archive_confirm">Arkistoi</string>
+    <string name="archive_reason_title">Miksi haluat arkistoida tämän ohjelman?</string>
+    <string name="archive_reason_completed">Olen suorittanut ohjelman</string>
+    <string name="archive_reason_new_plan">Haluan aloittaa uuden ohjelman</string>
+    <string name="archive_reason_no_time">Minulla ei ole enää aikaa noudattaa sitä</string>
+    <string name="archive_reason_too_hard">Harjoittelu on liian raskasta</string>
+    <string name="archive_reason_too_easy">Harjoittelu on liian helppoa</string>
+    <string name="archive_reason_discomfort">Minulla on vaivoja harjoitellessa</string>
+    <string name="archive_reason_goals">Tavoitteeni ovat muuttuneet</string>
+    <string name="archive_reason_not_convinced">Ohjelma ei vakuuta minua</string>
+    <string name="archive_reason_other">Muu syy</string>
+    <string name="archive_reason_skip">En halua kertoa</string>
     <string name="account_logout">Kirjaudu ulos</string>
     <string name="account_logout_title">Kirjaudutaanko ulos?</string>
     <string name="account_logout_text">Välimuistissa oleva ohjelma ja luonnokset poistetaan tältä laitteelta. Vielä lähettämättömät treenit menetetään.</string>
@@ -622,7 +633,7 @@
     <string name="health_withdraw_text">Vammasi, kipu- ja vaivamerkinnät sekä sairaussyyt poistetaan. Harjoitushistoriasi säilyy. Ohjelmasi ei enää vältä merkitsemiäsi alueita.</string>
     <string name="health_withdraw_confirm">Peruuta ja poista</string>
     <string name="research_title">Auta parantamaan TRAZOa (vapaaehtoinen)</string>
-    <string name="research_text">Jos otat tämän käyttöön, TRAZO käyttää harjoitustietojasi (ohjelmat, sarjat, kuormat, toistot, kirjaamasi rasitus, kivut ja vaivat, ilman nimeäsi, sähköpostiasi tai muistiinpanojasi) moottoriversioiden vertailuun ja ohjelmien parantamisen tutkimiseen. Tiedot korvataan avaimilla, joista ketään ei voi tunnistaa yksittäisen analyysin ulkopuolella, ja tuloksia tarkastellaan ryhmiteltyinä. Tietoja ei myydä eikä luovuteta. Jos poistat tilisi, säilytettävät nimettömät lihaskohtaiset luvut voidaan ryhmitellä. Voit poistaa tämän käytöstä milloin tahansa: et ole mukana myöhemmissä analyyseissä. Se ei muuta mitään siitä, mitä voit käyttää.</string>
+    <string name="research_text">Jos otat tämän käyttöön, TRAZO käyttää harjoitustietojasi (ohjelmat, sarjat, kuormat, toistot, kirjaamasi rasitus, kivut ja vaivat sekä, jos kerrot sen, miksi arkistoit ohjelman; ilman nimeäsi, sähköpostiasi tai muistiinpanojasi) moottoriversioiden vertailuun ja ohjelmien parantamisen tutkimiseen. Tiedot korvataan avaimilla, joista ketään ei voi tunnistaa yksittäisen analyysin ulkopuolella, ja tuloksia tarkastellaan ryhmiteltyinä. Tietoja ei myydä eikä luovuteta. Jos poistat tilisi, säilytettävät nimettömät lihaskohtaiset luvut voidaan ryhmitellä. Voit poistaa tämän käytöstä milloin tahansa: et ole mukana myöhemmissä analyyseissä. Ilmoittamasi arkistoinnin syyt poistetaan. Se ei muuta mitään siitä, mitä voit käyttää.</string>
     <string name="technique_straight">Tavalliset sarjat</string>
     <string name="technique_label">Tekniikka: %1$s</string>
     <string name="technique_drop_set">Drop-sarja</string>

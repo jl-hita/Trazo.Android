@@ -225,6 +225,17 @@
     <string name="account_archive_title">Archivovať plán?</string>
     <string name="account_archive_text">Budeš môcť vytvoriť nový. História tvojich tréningov zostane zachovaná.</string>
     <string name="account_archive_confirm">Archivovať</string>
+    <string name="archive_reason_title">Prečo chceš tento plán archivovať?</string>
+    <string name="archive_reason_completed">Plán mám dokončený</string>
+    <string name="archive_reason_new_plan">Chcem začať nový plán</string>
+    <string name="archive_reason_no_time">Už naň nemám čas</string>
+    <string name="archive_reason_too_hard">Tréning je príliš náročný</string>
+    <string name="archive_reason_too_easy">Tréning je príliš ľahký</string>
+    <string name="archive_reason_discomfort">Pri tréningu mám ťažkosti</string>
+    <string name="archive_reason_goals">Moje ciele sa zmenili</string>
+    <string name="archive_reason_not_convinced">Plán mi nevyhovuje</string>
+    <string name="archive_reason_other">Iný dôvod</string>
+    <string name="archive_reason_skip">Radšej neuvediem</string>
     <string name="account_logout">Odhlásiť sa</string>
     <string name="account_logout_title">Odhlásiť sa?</string>
     <string name="account_logout_text">Plán v medzipamäti a koncepty sa z tohto zariadenia vymažú. Zatiaľ neodoslané tréningy sa stratia.</string>
@@ -632,7 +643,7 @@
     <string name="health_withdraw_text">Tvoje zranenia, záznamy o bolesti a nepohodlí a dôvody pre chorobu sa vymažú. História tréningov zostane. Tvoj plán sa prestane vyhýbať označeným oblastiam.</string>
     <string name="health_withdraw_confirm">Odvolať a vymazať</string>
     <string name="research_title">Pomôž zlepšiť TRAZO (voliteľné)</string>
-    <string name="research_text">Ak to zapneš, TRAZO použije tvoje tréningové údaje (plány, série, záťaže, opakovania, úsilie, bolesť a nepohodlie, ktoré zaznamenáš, bez tvojho mena, e-mailu a poznámok) na porovnanie verzií systému a skúmanie, ako plány zlepšiť. Údaje sa nahrádzajú kľúčmi, ktoré mimo jednotlivých analýz nikoho neidentifikujú, a výsledky sa vyhodnocujú súhrnne. Nepredávajú sa ani neodovzdávajú. Ak zmažeš účet, anonymné údaje o svaloch, ktoré sa uchovávajú, sa môžu zoskupiť. Kedykoľvek to môžeš vypnúť: do neskorších analýz už nebudeš zahrnutý. Nič z toho, čo môžeš používať, sa nemení.</string>
+    <string name="research_text">Ak to zapneš, TRAZO použije tvoje tréningové údaje (plány, série, záťaže, opakovania, úsilie, bolesť a nepohodlie, ktoré zaznamenáš, a ak ho uvedieš, aj dôvod archivácie plánu; bez tvojho mena, e-mailu a poznámok) na porovnanie verzií systému a skúmanie, ako plány zlepšiť. Údaje sa nahrádzajú kľúčmi, ktoré mimo jednotlivých analýz nikoho neidentifikujú, a výsledky sa vyhodnocujú súhrnne. Nepredávajú sa ani neodovzdávajú. Ak zmažeš účet, anonymné údaje o svaloch, ktoré sa uchovávajú, sa môžu zoskupiť. Kedykoľvek to môžeš vypnúť: do neskorších analýz už nebudeš zahrnutý. Uvedené dôvody archivácie sa vymažú. Nič z toho, čo môžeš používať, sa nemení.</string>
     <string name="technique_straight">Bežné série</string>
     <string name="technique_label">Technika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

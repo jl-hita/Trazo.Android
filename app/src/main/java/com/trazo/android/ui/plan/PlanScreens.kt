@@ -62,6 +62,7 @@ fun PlanScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pending by viewModel.pendingLogs.collectAsStateWithLifecycle()
     val rejected by viewModel.rejectedLogs.collectAsStateWithLifecycle()
+    state.archiveQuestion?.let { ArchiveReasonDialog(it, onAnswer = viewModel::archiveBecause, onCancel = viewModel::cancelArchive) }
     Column(Modifier.fillMaxSize().statusBarsPadding()) {
         val week = state.week
         when {

@@ -225,6 +225,17 @@
     <string name="account_archive_title">Arkivere planen?</string>
     <string name="account_archive_text">Du kan oprette en ny. Din pashistorik bevares.</string>
     <string name="account_archive_confirm">Arkivér</string>
+    <string name="archive_reason_title">Hvorfor vil du arkivere denne plan?</string>
+    <string name="archive_reason_completed">Jeg har gennemført planen</string>
+    <string name="archive_reason_new_plan">Jeg vil starte en ny plan</string>
+    <string name="archive_reason_no_time">Jeg har ikke længere tid til at følge den</string>
+    <string name="archive_reason_too_hard">Træningen er for krævende</string>
+    <string name="archive_reason_too_easy">Træningen er for let</string>
+    <string name="archive_reason_discomfort">Jeg har gener under træningen</string>
+    <string name="archive_reason_goals">Mine mål har ændret sig</string>
+    <string name="archive_reason_not_convinced">Planen overbeviser mig ikke</string>
+    <string name="archive_reason_other">En anden årsag</string>
+    <string name="archive_reason_skip">Det vil jeg helst ikke oplyse</string>
     <string name="account_logout">Log ud</string>
     <string name="account_logout_title">Log ud?</string>
     <string name="account_logout_text">Den cachede plan og kladderne slettes fra denne enhed. Træningspas, der endnu ikke er sendt, går tabt.</string>
@@ -622,7 +633,7 @@
     <string name="health_withdraw_text">Dine skader, markeringer af smerte og ubehag og sygdomsårsager slettes. Din træningshistorik bevares. Din plan undgår ikke længere de områder, du havde markeret.</string>
     <string name="health_withdraw_confirm">Træk tilbage og slet</string>
     <string name="research_title">Hjælp med at gøre TRAZO bedre (valgfrit)</string>
-    <string name="research_text">Hvis du slår dette til, bruger TRAZO dine træningsdata (planer, sæt, belastninger, gentagelser, anstrengelse, smerter og ubehag, du registrerer, uden dit navn, din e-mail eller dine noter) til at sammenligne versioner af motoren og undersøge, hvordan planerne kan blive bedre. Dataene erstattes af nøgler, der ikke identificerer nogen uden for den enkelte analyse, og resultaterne ses samlet. De sælges eller videregives ikke. Sletter du din konto, kan de anonyme tal pr. muskel, der gemmes, blive samlet i grupper. Du kan slå det fra når som helst: du indgår ikke i senere analyser. Det ændrer intet ved, hvad du kan bruge.</string>
+    <string name="research_text">Hvis du slår dette til, bruger TRAZO dine træningsdata (planer, sæt, belastninger, gentagelser, anstrengelse, smerter og ubehag, du registrerer, og, hvis du oplyser det, hvorfor du arkiverer en plan; uden dit navn, din e-mail eller dine noter) til at sammenligne versioner af motoren og undersøge, hvordan planerne kan blive bedre. Dataene erstattes af nøgler, der ikke identificerer nogen uden for den enkelte analyse, og resultaterne ses samlet. De sælges eller videregives ikke. Sletter du din konto, kan de anonyme tal pr. muskel, der gemmes, blive samlet i grupper. Du kan slå det fra når som helst: du indgår ikke i senere analyser. De årsager til arkivering, du har oplyst, slettes. Det ændrer intet ved, hvad du kan bruge.</string>
     <string name="technique_straight">Almindelige sæt</string>
     <string name="technique_label">Teknik: %1$s</string>
     <string name="technique_drop_set">Drop sæt</string>

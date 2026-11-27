@@ -221,6 +221,17 @@
     <string name="account_archive_title">Zarchiwizować plan?</string>
     <string name="account_archive_text">Będziesz mógł utworzyć nowy. Historia Twoich sesji zostaje zachowana.</string>
     <string name="account_archive_confirm">Zarchiwizuj</string>
+    <string name="archive_reason_title">Dlaczego chcesz zarchiwizować ten plan?</string>
+    <string name="archive_reason_completed">Plan jest ukończony</string>
+    <string name="archive_reason_new_plan">Chcę zacząć nowy plan</string>
+    <string name="archive_reason_no_time">Nie mam już czasu go realizować</string>
+    <string name="archive_reason_too_hard">Trening jest zbyt wymagający</string>
+    <string name="archive_reason_too_easy">Trening jest zbyt łatwy</string>
+    <string name="archive_reason_discomfort">Odczuwam dolegliwości podczas treningu</string>
+    <string name="archive_reason_goals">Moje cele się zmieniły</string>
+    <string name="archive_reason_not_convinced">Plan mnie nie przekonuje</string>
+    <string name="archive_reason_other">Inny powód</string>
+    <string name="archive_reason_skip">Wolę nie podawać</string>
     <string name="account_logout">Wyloguj się</string>
     <string name="account_logout_title">Wylogować się?</string>
     <string name="account_logout_text">Plan z pamięci podręcznej i szkice zostaną usunięte z tego urządzenia. Treningi, które nie zostały jeszcze wysłane, przepadną.</string>
@@ -632,7 +643,7 @@
     <string name="health_withdraw_text">Twoje kontuzje, oznaczenia bólu i dyskomfortu oraz powody związane z chorobą zostaną usunięte. Historia treningów pozostanie. Plan przestanie omijać zaznaczone wcześniej obszary.</string>
     <string name="health_withdraw_confirm">Wycofaj i usuń</string>
     <string name="research_title">Pomóż ulepszać TRAZO (opcjonalnie)</string>
-    <string name="research_text">Jeśli to włączysz, TRAZO wykorzysta Twoje dane treningowe (plany, serie, ciężary, powtórzenia, wysiłek, ból i dolegliwości, które zapisujesz, bez Twojego imienia i nazwiska, e-maila i notatek), aby porównywać wersje silnika i badać, jak ulepszać plany. Dane są zastępowane kluczami, które poza daną analizą nikogo nie identyfikują, a wyniki są analizowane zbiorczo. Nie są sprzedawane ani udostępniane. Jeśli usuniesz konto, zachowywane anonimowe liczby dla poszczególnych mięśni mogą być grupowane. Możesz to wyłączyć w każdej chwili: nie będziesz uwzględniany w późniejszych analizach. Nie zmienia to niczego, z czego możesz korzystać.</string>
+    <string name="research_text">Jeśli to włączysz, TRAZO wykorzysta Twoje dane treningowe (plany, serie, ciężary, powtórzenia, wysiłek, ból i dolegliwości, które zapisujesz, oraz, jeśli go podasz, powód archiwizacji planu; bez Twojego imienia i nazwiska, e-maila i notatek), aby porównywać wersje silnika i badać, jak ulepszać plany. Dane są zastępowane kluczami, które poza daną analizą nikogo nie identyfikują, a wyniki są analizowane zbiorczo. Nie są sprzedawane ani udostępniane. Jeśli usuniesz konto, zachowywane anonimowe liczby dla poszczególnych mięśni mogą być grupowane. Możesz to wyłączyć w każdej chwili: nie będziesz uwzględniany w późniejszych analizach. Podane przez Ciebie powody archiwizacji zostaną usunięte. Nie zmienia to niczego, z czego możesz korzystać.</string>
     <string name="technique_straight">Zwykłe serie</string>
     <string name="technique_label">Technika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

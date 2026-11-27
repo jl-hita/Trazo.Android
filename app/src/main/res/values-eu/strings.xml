@@ -225,6 +225,17 @@
     <string name="account_archive_title">Plana artxibatu?</string>
     <string name="account_archive_text">Berri bat sortu ahal izango duzu. Zure saioen historiala gordetzen da.</string>
     <string name="account_archive_confirm">Artxibatu</string>
+    <string name="archive_reason_title">Zergatik artxibatu nahi duzu plan hau?</string>
+    <string name="archive_reason_completed">Plana osatu dut</string>
+    <string name="archive_reason_new_plan">Plan berri bat hasi nahi dut</string>
+    <string name="archive_reason_no_time">Jada ez dut denborarik jarraitzeko</string>
+    <string name="archive_reason_too_hard">Entrenamendua zorrotzegia da</string>
+    <string name="archive_reason_too_easy">Entrenamendua errazegia da</string>
+    <string name="archive_reason_discomfort">Ondoeza dut entrenatzean</string>
+    <string name="archive_reason_goals">Nire helburuak aldatu dira</string>
+    <string name="archive_reason_not_convinced">Planak ez nau konbentzitzen</string>
+    <string name="archive_reason_other">Beste arrazoi bat</string>
+    <string name="archive_reason_skip">Nahiago dut ez esan</string>
     <string name="account_logout">Itxi saioa</string>
     <string name="account_logout_title">Saioa itxi?</string>
     <string name="account_logout_text">Cachean dagoen plana eta zirriborroak gailu honetatik ezabatuko dira. Oraindik bidali gabeko entrenamenduak galduko dira.</string>
@@ -622,7 +633,7 @@
     <string name="health_withdraw_text">Zure lesioak, min eta ondoez markak eta gaixotasunagatiko arrazoiak ezabatuko dira. Entrenamenduen historia gorde egiten da. Zure planak ez ditu aurrerantzean markatu zenituen guneak saihestuko.</string>
     <string name="health_withdraw_confirm">Kendu eta ezabatu</string>
     <string name="research_title">Lagundu TRAZO hobetzen (aukerakoa)</string>
-    <string name="research_text">Aktibatzen baduzu, TRAZOk zure entrenamendu-datuak erabiliko ditu (planak, serieak, kargak, errepikapenak, ahalegina eta erregistratzen dituzun minak eta molestiak, zure izenik, helbide elektronikorik eta oharrik gabe) motorraren bertsioak alderatzeko eta planak nola hobetu aztertzeko. Datuak analisi bakoitzetik kanpo inor identifikatzen ez duten gakoekin ordezten dira, eta emaitzak multzoka aztertzen dira. Ez dira saltzen ez lagatzen. Kontua ezabatzen baduzu, gordetzen diren muskuluz muskuluko zifra anonimoak multzokatu ahal izango dira. Nahi duzunean desaktiba dezakezu: ez zara hurrengo analisietan sartuko. Ez du ezer aldatzen erabil dezakezunean.</string>
+    <string name="research_text">Aktibatzen baduzu, TRAZOk zure entrenamendu-datuak erabiliko ditu (planak, serieak, kargak, errepikapenak, ahalegina eta erregistratzen dituzun minak eta molestiak eta, adierazten baduzu, plan bat artxibatzeko arrazoia; zure izenik, helbide elektronikorik eta oharrik gabe) motorraren bertsioak alderatzeko eta planak nola hobetu aztertzeko. Datuak analisi bakoitzetik kanpo inor identifikatzen ez duten gakoekin ordezten dira, eta emaitzak multzoka aztertzen dira. Ez dira saltzen ez lagatzen. Kontua ezabatzen baduzu, gordetzen diren muskuluz muskuluko zifra anonimoak multzokatu ahal izango dira. Nahi duzunean desaktiba dezakezu: ez zara hurrengo analisietan sartuko. Adierazitako artxibatze-arrazoiak ezabatu egiten dira. Ez du ezer aldatzen erabil dezakezunean.</string>
     <string name="technique_straight">Serie arruntak</string>
     <string name="technique_label">Teknika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

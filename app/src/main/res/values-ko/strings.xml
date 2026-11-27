@@ -225,6 +225,17 @@
     <string name="account_archive_title">플랜을 보관하시겠어요?</string>
     <string name="account_archive_text">새 플랜을 만들 수 있습니다. 운동 기록은 유지됩니다.</string>
     <string name="account_archive_confirm">보관</string>
+    <string name="archive_reason_title">이 플랜을 보관하려는 이유가 무엇인가요?</string>
+    <string name="archive_reason_completed">플랜을 완료했어요</string>
+    <string name="archive_reason_new_plan">새 플랜을 시작하고 싶어요</string>
+    <string name="archive_reason_no_time">이제 따라 할 시간이 없어요</string>
+    <string name="archive_reason_too_hard">운동이 너무 힘들어요</string>
+    <string name="archive_reason_too_easy">운동이 너무 쉬워요</string>
+    <string name="archive_reason_discomfort">운동 중에 불편함이 있어요</string>
+    <string name="archive_reason_goals">목표가 바뀌었어요</string>
+    <string name="archive_reason_not_convinced">플랜이 마음에 들지 않아요</string>
+    <string name="archive_reason_other">다른 이유</string>
+    <string name="archive_reason_skip">말하고 싶지 않아요</string>
     <string name="account_logout">로그아웃</string>
     <string name="account_logout_title">로그아웃하시겠어요?</string>
     <string name="account_logout_text">캐시된 플랜과 임시 저장본이 이 기기에서 삭제됩니다. 아직 전송되지 않은 운동은 사라집니다.</string>
@@ -617,7 +628,7 @@
     <string name="health_withdraw_text">부상, 통증과 불편감 표시, 질병 사유가 삭제됩니다. 훈련 기록은 유지됩니다. 플랜은 표시했던 부위를 더 이상 피하지 않습니다.</string>
     <string name="health_withdraw_confirm">철회하고 삭제</string>
     <string name="research_title">TRAZO 개선 돕기(선택 사항)</string>
-    <string name="research_text">이 기능을 켜면 TRAZO는 트레이닝 데이터(플랜, 세트, 중량, 반복 횟수, 기록한 운동 강도, 통증, 불편감. 이름, 이메일, 메모는 제외)를 사용해 엔진 버전을 비교하고 플랜을 개선할 방법을 연구합니다. 데이터는 각 분석 밖에서는 누구도 식별할 수 없는 키로 대체되며, 결과는 묶어서 확인합니다. 판매하거나 제공하지 않습니다. 계정을 삭제하면 보관되는 근육별 익명 수치는 묶어서 집계될 수 있습니다. 언제든 끌 수 있으며, 이후 분석에는 포함되지 않습니다. 사용할 수 있는 기능은 달라지지 않습니다.</string>
+    <string name="research_text">이 기능을 켜면 TRAZO는 트레이닝 데이터(플랜, 세트, 중량, 반복 횟수, 기록한 운동 강도, 통증, 불편감, 그리고 알려 준 경우 플랜을 보관하는 이유. 이름, 이메일, 메모는 제외)를 사용해 엔진 버전을 비교하고 플랜을 개선할 방법을 연구합니다. 데이터는 각 분석 밖에서는 누구도 식별할 수 없는 키로 대체되며, 결과는 묶어서 확인합니다. 판매하거나 제공하지 않습니다. 계정을 삭제하면 보관되는 근육별 익명 수치는 묶어서 집계될 수 있습니다. 언제든 끌 수 있으며, 이후 분석에는 포함되지 않습니다. 알려 준 보관 이유는 삭제됩니다. 사용할 수 있는 기능은 달라지지 않습니다.</string>
     <string name="technique_straight">일반 세트</string>
     <string name="technique_label">테크닉: %1$s</string>
     <string name="technique_drop_set">드롭 세트</string>

@@ -221,6 +221,17 @@
     <string name="account_archive_title">Archiviare il piano?</string>
     <string name="account_archive_text">Potrai crearne uno nuovo. La cronologia delle tue sessioni viene conservata.</string>
     <string name="account_archive_confirm">Archivia</string>
+    <string name="archive_reason_title">Perché vuoi archiviare questo piano?</string>
+    <string name="archive_reason_completed">Ho completato il piano</string>
+    <string name="archive_reason_new_plan">Voglio iniziare un nuovo piano</string>
+    <string name="archive_reason_no_time">Non ho più tempo per seguirlo</string>
+    <string name="archive_reason_too_hard">L\'allenamento è troppo impegnativo</string>
+    <string name="archive_reason_too_easy">L\'allenamento è troppo facile</string>
+    <string name="archive_reason_discomfort">Provo fastidio durante l\'allenamento</string>
+    <string name="archive_reason_goals">I miei obiettivi sono cambiati</string>
+    <string name="archive_reason_not_convinced">Il piano non mi convince</string>
+    <string name="archive_reason_other">Un altro motivo</string>
+    <string name="archive_reason_skip">Preferisco non indicarlo</string>
     <string name="account_logout">Esci</string>
     <string name="account_logout_title">Uscire?</string>
     <string name="account_logout_text">Il piano in cache e le bozze verranno cancellati da questo dispositivo. Gli allenamenti non ancora inviati andranno persi.</string>
@@ -627,7 +638,7 @@
     <string name="health_withdraw_text">I tuoi infortuni, le segnalazioni di dolore e fastidio e i motivi per malattia verranno cancellati. Lo storico degli allenamenti resta. Il tuo piano non eviterà più le zone che avevi indicato.</string>
     <string name="health_withdraw_confirm">Revoca e cancella</string>
     <string name="research_title">Aiuta a migliorare TRAZO (facoltativo)</string>
-    <string name="research_text">Se lo attivi, TRAZO userà i tuoi dati di allenamento (piani, serie, carichi, ripetizioni, sforzo, dolore e fastidi che registri, senza nome, e-mail né note) per confrontare le versioni del motore e studiare come migliorare i piani. I dati vengono sostituiti da chiavi che non identificano nessuno al di fuori di ogni analisi e i risultati si esaminano in forma aggregata. Non vengono venduti né ceduti. Se elimini l’account, le cifre anonime per muscolo che vengono conservate potranno essere raggruppate. Puoi disattivarlo quando vuoi: non sarai più incluso nelle analisi successive. Non cambia nulla di ciò che puoi usare.</string>
+    <string name="research_text">Se lo attivi, TRAZO userà i tuoi dati di allenamento (piani, serie, carichi, ripetizioni, sforzo, dolore e fastidi che registri e, se lo indichi, il motivo per cui archivi un piano; senza nome, e-mail né note) per confrontare le versioni del motore e studiare come migliorare i piani. I dati vengono sostituiti da chiavi che non identificano nessuno al di fuori di ogni analisi e i risultati si esaminano in forma aggregata. Non vengono venduti né ceduti. Se elimini l’account, le cifre anonime per muscolo che vengono conservate potranno essere raggruppate. Puoi disattivarlo quando vuoi: non sarai più incluso nelle analisi successive. I motivi di archiviazione che avevi indicato vengono cancellati. Non cambia nulla di ciò che puoi usare.</string>
     <string name="technique_straight">Serie classiche</string>
     <string name="technique_label">Tecnica: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

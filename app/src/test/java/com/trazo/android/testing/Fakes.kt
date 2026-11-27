@@ -91,7 +91,10 @@ class FakePlansApi : PlansApi {
     override suspend fun next(): Response<NextSessionView> = nextResponse()
     override suspend fun progress(): Response<ProgressView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
     override suspend fun history(take: Int): Response<List<HistoryItem>> = Response.success(emptyList())
-    override suspend fun archive(): Response<Unit> = Response.success(Unit)
+    var archiveResponse: () -> Response<Unit> = { Response.success(204, Unit) }
+    /** Every archive sent. */
+    val archived = mutableListOf<ArchivePlanRequest>()
+    override suspend fun archive(request: ArchivePlanRequest): Response<Unit> { archived += request; return archiveResponse() }
     var messagesResponse: (() -> Response<ReviewRequestView>)? = null
     override suspend fun reviewRequest(messages: Boolean) = if (messages && messagesResponse != null) messagesResponse!!() else reviewResponse()
     var sentMessage: ReviewMessageBody? = null

@@ -225,6 +225,17 @@
     <string name="account_archive_title">プランをアーカイブしますか？</string>
     <string name="account_archive_text">新しいプランを作れるようになります。トレーニング履歴は残ります。</string>
     <string name="account_archive_confirm">アーカイブ</string>
+    <string name="archive_reason_title">このプランをアーカイブする理由は何ですか？</string>
+    <string name="archive_reason_completed">プランをやり終えた</string>
+    <string name="archive_reason_new_plan">新しいプランを始めたい</string>
+    <string name="archive_reason_no_time">続ける時間がなくなった</string>
+    <string name="archive_reason_too_hard">トレーニングがきつすぎる</string>
+    <string name="archive_reason_too_easy">トレーニングが楽すぎる</string>
+    <string name="archive_reason_discomfort">トレーニング中に違和感がある</string>
+    <string name="archive_reason_goals">目標が変わった</string>
+    <string name="archive_reason_not_convinced">プランに納得できない</string>
+    <string name="archive_reason_other">その他の理由</string>
+    <string name="archive_reason_skip">回答しない</string>
     <string name="account_logout">ログアウト</string>
     <string name="account_logout_title">ログアウトしますか？</string>
     <string name="account_logout_text">キャッシュ済みのプランと下書きがこの端末から削除されます。未送信のトレーニングは失われます。</string>
@@ -617,7 +628,7 @@
     <string name="health_withdraw_text">ケガ、痛みや違和感の記録、病気という理由が削除されます。トレーニング履歴は残ります。プランは、指定していた部位を避けなくなります。</string>
     <string name="health_withdraw_confirm">撤回して削除</string>
     <string name="research_title">TRAZOの改善に協力する（任意）</string>
-    <string name="research_text">オンにすると、TRAZOはあなたのトレーニングデータ（プラン、セット、重量、回数、記録した運動強度、痛み、違和感。氏名、メールアドレス、メモは含みません）を使い、エンジンのバージョンを比較してプランの改善方法を調べます。データは各分析の外では誰も特定できないキーに置き換えられ、結果はまとめて確認します。販売や提供はしません。アカウントを削除した場合、保持される筋肉ごとの匿名の数値はまとめて集計されることがあります。いつでもオフにでき、以後の分析には含まれません。利用できる機能は何も変わりません。</string>
+    <string name="research_text">オンにすると、TRAZOはあなたのトレーニングデータ（プラン、セット、重量、回数、記録した運動強度、痛み、違和感、および回答した場合はプランをアーカイブする理由。氏名、メールアドレス、メモは含みません）を使い、エンジンのバージョンを比較してプランの改善方法を調べます。データは各分析の外では誰も特定できないキーに置き換えられ、結果はまとめて確認します。販売や提供はしません。アカウントを削除した場合、保持される筋肉ごとの匿名の数値はまとめて集計されることがあります。いつでもオフにでき、以後の分析には含まれません。それまでに回答したアーカイブの理由は削除されます。利用できる機能は何も変わりません。</string>
     <string name="technique_straight">通常セット</string>
     <string name="technique_label">テクニック：%1$s</string>
     <string name="technique_drop_set">ドロップセット</string>

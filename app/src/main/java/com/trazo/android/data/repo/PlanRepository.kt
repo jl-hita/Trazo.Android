@@ -242,8 +242,8 @@ class PlanRepository(
         return result
     }
 
-    suspend fun archive(): ApiResult<Unit> {
-        val result = apiCall { api.archive() }
+    suspend fun archive(planId: String? = null, reason: ArchiveReason? = null): ApiResult<Unit> {
+        val result = apiCall { api.archive(ArchivePlanRequest(reason?.code, planId)) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear() } }
         return result
     }

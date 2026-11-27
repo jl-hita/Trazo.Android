@@ -221,6 +221,17 @@
     <string name="account_archive_title">Plan arşivlensin mi?</string>
     <string name="account_archive_text">Yeni bir tane oluşturabileceksin. Seans geçmişin korunur.</string>
     <string name="account_archive_confirm">Arşivle</string>
+    <string name="archive_reason_title">Bu planı neden arşivlemek istiyorsun?</string>
+    <string name="archive_reason_completed">Planı tamamladım</string>
+    <string name="archive_reason_new_plan">Yeni bir plana başlamak istiyorum</string>
+    <string name="archive_reason_no_time">Artık uygulayacak zamanım yok</string>
+    <string name="archive_reason_too_hard">Antrenman fazla zorlayıcı</string>
+    <string name="archive_reason_too_easy">Antrenman fazla kolay</string>
+    <string name="archive_reason_discomfort">Antrenman sırasında rahatsızlık duyuyorum</string>
+    <string name="archive_reason_goals">Hedeflerim değişti</string>
+    <string name="archive_reason_not_convinced">Plan beni ikna etmiyor</string>
+    <string name="archive_reason_other">Başka bir neden</string>
+    <string name="archive_reason_skip">Belirtmek istemiyorum</string>
     <string name="account_logout">Çıkış yap</string>
     <string name="account_logout_title">Çıkış yapılsın mı?</string>
     <string name="account_logout_text">Önbellekteki plan ve taslaklar bu cihazdan silinecek. Henüz gönderilmemiş antrenmanlar kaybolacak.</string>
@@ -622,7 +633,7 @@
     <string name="health_withdraw_text">Sakatlıkların, ağrı ve rahatsızlık işaretlerin ve hastalık nedenlerin silinecek. Antrenman geçmişin korunur. Planın artık işaretlediğin bölgelerden kaçınmayacak.</string>
     <string name="health_withdraw_confirm">Geri çek ve sil</string>
     <string name="research_title">TRAZO\'yu geliştirmeye yardım et (isteğe bağlı)</string>
-    <string name="research_text">Bunu açarsan TRAZO, motor sürümlerini karşılaştırmak ve planların nasıl iyileştirileceğini incelemek için antrenman verilerini (planlar, setler, yükler, tekrarlar, kaydettiğin efor, ağrı ve rahatsızlıklar; adın, e-postan ve notların olmadan) kullanır. Veriler, her analizin dışında kimseyi tanımlamayan anahtarlarla değiştirilir ve sonuçlar toplu olarak incelenir. Satılmaz ve paylaşılmaz. Hesabını silersen, saklanan anonim kas bazlı rakamlar gruplanabilir. İstediğin zaman kapatabilirsin: sonraki analizlere dahil edilmezsin. Kullanabildiklerinde hiçbir şey değişmez.</string>
+    <string name="research_text">Bunu açarsan TRAZO, motor sürümlerini karşılaştırmak ve planların nasıl iyileştirileceğini incelemek için antrenman verilerini (planlar, setler, yükler, tekrarlar, kaydettiğin efor, ağrı ve rahatsızlıklar ile belirtirsen bir planı arşivleme nedenin; adın, e-postan ve notların olmadan) kullanır. Veriler, her analizin dışında kimseyi tanımlamayan anahtarlarla değiştirilir ve sonuçlar toplu olarak incelenir. Satılmaz ve paylaşılmaz. Hesabını silersen, saklanan anonim kas bazlı rakamlar gruplanabilir. İstediğin zaman kapatabilirsin: sonraki analizlere dahil edilmezsin. Belirttiğin arşivleme nedenleri silinir. Kullanabildiklerinde hiçbir şey değişmez.</string>
     <string name="technique_straight">Normal setler</string>
     <string name="technique_label">Teknik: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

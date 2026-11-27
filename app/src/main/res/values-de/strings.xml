@@ -221,6 +221,17 @@
     <string name="account_archive_title">Plan archivieren?</string>
     <string name="account_archive_text">Du kannst einen neuen erstellen. Dein Einheitenverlauf bleibt erhalten.</string>
     <string name="account_archive_confirm">Archivieren</string>
+    <string name="archive_reason_title">Warum möchtest du diesen Plan archivieren?</string>
+    <string name="archive_reason_completed">Ich habe den Plan abgeschlossen</string>
+    <string name="archive_reason_new_plan">Ich möchte einen neuen Plan beginnen</string>
+    <string name="archive_reason_no_time">Ich habe keine Zeit mehr dafür</string>
+    <string name="archive_reason_too_hard">Das Training ist zu anstrengend</string>
+    <string name="archive_reason_too_easy">Das Training ist zu leicht</string>
+    <string name="archive_reason_discomfort">Ich habe beim Training Beschwerden</string>
+    <string name="archive_reason_goals">Meine Ziele haben sich geändert</string>
+    <string name="archive_reason_not_convinced">Der Plan überzeugt mich nicht</string>
+    <string name="archive_reason_other">Ein anderer Grund</string>
+    <string name="archive_reason_skip">Möchte ich nicht angeben</string>
     <string name="account_logout">Abmelden</string>
     <string name="account_logout_title">Abmelden?</string>
     <string name="account_logout_text">Der zwischengespeicherte Plan und Entwürfe werden von diesem Gerät gelöscht. Noch nicht gesendete Trainings gehen verloren.</string>
@@ -622,7 +633,7 @@
     <string name="health_withdraw_text">Deine Verletzungen, Schmerz- und Beschwerdeangaben und Krankheitsgründe werden gelöscht. Dein Trainingsverlauf bleibt erhalten. Dein Plan meidet die markierten Bereiche dann nicht mehr.</string>
     <string name="health_withdraw_confirm">Widerrufen und löschen</string>
     <string name="research_title">TRAZO verbessern helfen (optional)</string>
-    <string name="research_text">Wenn du dies aktivierst, nutzt TRAZO deine Trainingsdaten (Pläne, Sätze, Gewichte, Wiederholungen, Anstrengung, Schmerzen und Beschwerden, die du erfasst, ohne deinen Namen, deine E-Mail oder Notizen), um Versionen der Engine zu vergleichen und zu untersuchen, wie Pläne besser werden. Die Daten werden durch Schlüssel ersetzt, die außerhalb der jeweiligen Analyse niemanden identifizieren, und die Ergebnisse werden zusammengefasst betrachtet. Sie werden weder verkauft noch weitergegeben. Wenn du dein Konto löschst, können die anonymen Werte je Muskel, die erhalten bleiben, gruppiert werden. Du kannst es jederzeit ausschalten: In späteren Analysen bist du dann nicht mehr enthalten. An dem, was du nutzen kannst, ändert sich nichts.</string>
+    <string name="research_text">Wenn du dies aktivierst, nutzt TRAZO deine Trainingsdaten (Pläne, Sätze, Gewichte, Wiederholungen, Anstrengung, Schmerzen und Beschwerden, die du erfasst, und, wenn du ihn angibst, den Grund, aus dem du einen Plan archivierst; ohne deinen Namen, deine E-Mail oder Notizen), um Versionen der Engine zu vergleichen und zu untersuchen, wie Pläne besser werden. Die Daten werden durch Schlüssel ersetzt, die außerhalb der jeweiligen Analyse niemanden identifizieren, und die Ergebnisse werden zusammengefasst betrachtet. Sie werden weder verkauft noch weitergegeben. Wenn du dein Konto löschst, können die anonymen Werte je Muskel, die erhalten bleiben, gruppiert werden. Du kannst es jederzeit ausschalten: In späteren Analysen bist du dann nicht mehr enthalten. Die Archivierungsgründe, die du angegeben hast, werden gelöscht. An dem, was du nutzen kannst, ändert sich nichts.</string>
     <string name="technique_straight">Normale Sätze</string>
     <string name="technique_label">Technik: %1$s</string>
     <string name="technique_drop_set">Drop-Satz</string>

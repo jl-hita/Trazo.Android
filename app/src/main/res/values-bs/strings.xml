@@ -225,6 +225,17 @@
     <string name="account_archive_title">Arhivirati plan?</string>
     <string name="account_archive_text">Moći ćeš izraditi novi. Historija tvojih treninga se čuva.</string>
     <string name="account_archive_confirm">Arhiviraj</string>
+    <string name="archive_reason_title">Zašto želiš arhivirati ovaj plan?</string>
+    <string name="archive_reason_completed">Završio/la sam plan</string>
+    <string name="archive_reason_new_plan">Želim započeti novi plan</string>
+    <string name="archive_reason_no_time">Više nemam vremena da ga pratim</string>
+    <string name="archive_reason_too_hard">Trening je previše zahtjevan</string>
+    <string name="archive_reason_too_easy">Trening je previše lagan</string>
+    <string name="archive_reason_discomfort">Osjećam nelagodu tokom treninga</string>
+    <string name="archive_reason_goals">Moji ciljevi su se promijenili</string>
+    <string name="archive_reason_not_convinced">Plan me ne uvjerava</string>
+    <string name="archive_reason_other">Drugi razlog</string>
+    <string name="archive_reason_skip">Radije ne bih naveo/la</string>
     <string name="account_logout">Odjava</string>
     <string name="account_logout_title">Odjaviti se?</string>
     <string name="account_logout_text">Plan u kešu i skice bit će izbrisani s ovog uređaja. Još neposlani treninzi bit će izgubljeni.</string>
@@ -627,7 +638,7 @@
     <string name="health_withdraw_text">Tvoje povrede, oznake bola i nelagode i razlozi zbog bolesti bit će izbrisani. Historija treninga ostaje. Tvoj plan više neće izbjegavati područja koja si označio.</string>
     <string name="health_withdraw_confirm">Povuci i izbriši</string>
     <string name="research_title">Pomozi da TRAZO bude bolji (opcionalno)</string>
-    <string name="research_text">Ako ovo uključiš, TRAZO će koristiti tvoje podatke o treningu (planove, serije, opterećenja, ponavljanja, napor, bol i nelagodu koje bilježiš, bez tvog imena, e-pošte i bilješki) da uporedi verzije mehanizma i prouči kako da planovi budu bolji. Podaci se zamjenjuju ključevima koji nikoga ne identificiraju izvan svake analize, a rezultati se posmatraju grupno. Ne prodaju se i ne ustupaju. Ako obrišeš račun, anonimne brojke po mišiću koje se čuvaju mogu biti grupisane. Možeš ga isključiti kad god želiš: nećeš biti u kasnijim analizama. Ne mijenja ništa od onoga što možeš koristiti.</string>
+    <string name="research_text">Ako ovo uključiš, TRAZO će koristiti tvoje podatke o treningu (planove, serije, opterećenja, ponavljanja, napor, bol i nelagodu koje bilježiš i, ako ga navedeš, razlog arhiviranja plana; bez tvog imena, e-pošte i bilješki) da uporedi verzije mehanizma i prouči kako da planovi budu bolji. Podaci se zamjenjuju ključevima koji nikoga ne identificiraju izvan svake analize, a rezultati se posmatraju grupno. Ne prodaju se i ne ustupaju. Ako obrišeš račun, anonimne brojke po mišiću koje se čuvaju mogu biti grupisane. Možeš ga isključiti kad god želiš: nećeš biti u kasnijim analizama. Razlozi arhiviranja koje si naveo/la brišu se. Ne mijenja ništa od onoga što možeš koristiti.</string>
     <string name="technique_straight">Obične serije</string>
     <string name="technique_label">Tehnika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

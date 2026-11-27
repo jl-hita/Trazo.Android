@@ -225,6 +225,17 @@
     <string name="account_archive_title">أرشفة الخطة؟</string>
     <string name="account_archive_text">ستتمكن من إنشاء خطة جديدة. يبقى سجلّ تمارينك محفوظًا.</string>
     <string name="account_archive_confirm">أرشفة</string>
+    <string name="archive_reason_title">لماذا تريد أرشفة هذه الخطة؟</string>
+    <string name="archive_reason_completed">أكملت الخطة</string>
+    <string name="archive_reason_new_plan">أريد بدء خطة جديدة</string>
+    <string name="archive_reason_no_time">لم يعد لديّ وقت لاتباعها</string>
+    <string name="archive_reason_too_hard">التمرين شاقّ أكثر من اللازم</string>
+    <string name="archive_reason_too_easy">التمرين سهل أكثر من اللازم</string>
+    <string name="archive_reason_discomfort">أشعر بانزعاج أثناء التمرين</string>
+    <string name="archive_reason_goals">تغيّرت أهدافي</string>
+    <string name="archive_reason_not_convinced">الخطة لا تقنعني</string>
+    <string name="archive_reason_other">سبب آخر</string>
+    <string name="archive_reason_skip">أفضّل عدم الإفصاح</string>
     <string name="account_logout">تسجيل الخروج</string>
     <string name="account_logout_title">تسجيل الخروج؟</string>
     <string name="account_logout_text">ستُحذف الخطة المخزّنة مؤقتًا والمسودات من هذا الجهاز. التمارين التي لم تُرسل بعد ستُفقد.</string>
@@ -642,7 +653,7 @@
     <string name="health_withdraw_text">ستُحذف إصاباتك وعلامات الألم والانزعاج وأسباب المرض. يبقى سجل تمارينك. لن تتجنب خطتك بعد الآن المناطق التي حددتها.</string>
     <string name="health_withdraw_confirm">اسحب واحذف</string>
     <string name="research_title">ساعِد في تحسين TRAZO (اختياري)</string>
-    <string name="research_text">إذا فعّلت هذا الخيار، سيستخدم TRAZO بيانات تدريبك (الخطط والمجموعات والأوزان والتكرارات والجهد والألم والانزعاج التي تسجلها، دون اسمك أو بريدك أو ملاحظاتك) لمقارنة إصدارات المحرك ودراسة كيفية تحسين الخطط. تُستبدل البيانات بمفاتيح لا تحدد هوية أي شخص خارج كل تحليل، وتُقرأ النتائج مجمعة. لا تُباع ولا تُشارك. إذا حذفت حسابك، قد تُجمَّع الأرقام المجهولة لكل عضلة التي يُحتفظ بها. يمكنك إيقافه في أي وقت: لن تُدرج في التحليلات اللاحقة. ولا يغير أي شيء مما يمكنك استخدامه.</string>
+    <string name="research_text">إذا فعّلت هذا الخيار، سيستخدم TRAZO بيانات تدريبك (الخطط والمجموعات والأوزان والتكرارات والجهد والألم والانزعاج التي تسجلها، وسبب أرشفتك لخطة إن ذكرته؛ دون اسمك أو بريدك أو ملاحظاتك) لمقارنة إصدارات المحرك ودراسة كيفية تحسين الخطط. تُستبدل البيانات بمفاتيح لا تحدد هوية أي شخص خارج كل تحليل، وتُقرأ النتائج مجمعة. لا تُباع ولا تُشارك. إذا حذفت حسابك، قد تُجمَّع الأرقام المجهولة لكل عضلة التي يُحتفظ بها. يمكنك إيقافه في أي وقت: لن تُدرج في التحليلات اللاحقة. وتُمحى أسباب الأرشفة التي سبق أن ذكرتها. ولا يغير أي شيء مما يمكنك استخدامه.</string>
     <string name="technique_straight">مجموعات عادية</string>
     <string name="technique_label">التقنية: %1$s</string>
     <string name="technique_drop_set">دروب سيت</string>

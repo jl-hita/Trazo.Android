@@ -221,6 +221,17 @@
     <string name="account_archive_title">Arquivar o plano?</string>
     <string name="account_archive_text">Você poderá criar um novo. O seu histórico de sessões é mantido.</string>
     <string name="account_archive_confirm">Arquivar</string>
+    <string name="archive_reason_title">Por que você quer arquivar este plano?</string>
+    <string name="archive_reason_completed">Concluí o plano</string>
+    <string name="archive_reason_new_plan">Quero começar um plano novo</string>
+    <string name="archive_reason_no_time">Não tenho mais tempo para segui-lo</string>
+    <string name="archive_reason_too_hard">O treino é exigente demais</string>
+    <string name="archive_reason_too_easy">O treino é fácil demais</string>
+    <string name="archive_reason_discomfort">Sinto desconforto durante o treino</string>
+    <string name="archive_reason_goals">Meus objetivos mudaram</string>
+    <string name="archive_reason_not_convinced">O plano não me convence</string>
+    <string name="archive_reason_other">Outro motivo</string>
+    <string name="archive_reason_skip">Prefiro não informar</string>
     <string name="account_logout">Sair</string>
     <string name="account_logout_title">Sair?</string>
     <string name="account_logout_text">O plano em cache e os rascunhos serão apagados deste dispositivo. Os treinos ainda não enviados serão perdidos.</string>
@@ -627,7 +638,7 @@
     <string name="health_withdraw_text">Suas lesões, as marcações de dor e desconforto e os motivos por doença serão apagados. Seu histórico de treinos é mantido. Seu plano deixará de evitar as áreas que você tinha marcado.</string>
     <string name="health_withdraw_confirm">Retirar e apagar</string>
     <string name="research_title">Ajudar a melhorar o TRAZO (opcional)</string>
-    <string name="research_text">Se ativares esta opção, o TRAZO vai usar os teus dados de treino (planos, séries, cargas, repetições, esforço, dor e desconforto que registares, sem o teu nome, email nem notas) para comparar versões do motor e estudar como melhorar os planos. Os dados são substituídos por chaves que não identificam ninguém fora de cada análise e os resultados são vistos de forma agrupada. Não são vendidos nem cedidos. Se eliminares a conta, os números anónimos por músculo que são conservados poderão ser agrupados. Podes desativar quando quiseres: deixas de ser incluído nas análises posteriores. Não muda nada do que podes usar.</string>
+    <string name="research_text">Se ativares esta opção, o TRAZO vai usar os teus dados de treino (planos, séries, cargas, repetições, esforço, dor e desconforto que registares e, se o indicares, o motivo pelo qual arquivas um plano; sem o teu nome, email nem notas) para comparar versões do motor e estudar como melhorar os planos. Os dados são substituídos por chaves que não identificam ninguém fora de cada análise e os resultados são vistos de forma agrupada. Não são vendidos nem cedidos. Se eliminares a conta, os números anónimos por músculo que são conservados poderão ser agrupados. Podes desativar quando quiseres: deixas de ser incluído nas análises posteriores. Os motivos de arquivamento que tenhas indicado são apagados. Não muda nada do que podes usar.</string>
     <string name="technique_straight">Séries normais</string>
     <string name="technique_label">Técnica: %1$s</string>
     <string name="technique_drop_set">Drop set</string>
