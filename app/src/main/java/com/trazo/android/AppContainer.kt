@@ -87,6 +87,9 @@ class AppContainer(context: Context) {
         // Never over what the user typed since: the draft is only rebuilt when there is none.
         restoreDraft = { log -> if (drafts.load(log.sessionId) == null) drafts.save(log.sessionId, com.trazo.android.ui.workout.WorkoutViewModel.draftOf(log.request)) },
         deleteDraft = drafts::delete)
+    val researchConsent = com.trazo.android.data.repo.ResearchConsentRepository(
+        network.create(com.trazo.android.data.api.AccountApi::class.java)
+    )
     val healthConsent = com.trazo.android.data.repo.HealthConsentRepository(
         network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.repo.SharedPreferencesHealthConsentStore(appContext),
         beforeWithdraw = { plans.flushPending() }, afterWithdraw = { plans.forgetHealthData() }

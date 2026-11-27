@@ -610,7 +610,7 @@
     <string name="account_deleted">Tilisi on poistettu.</string>
     <!-- Consent for health data -->
     <string name="health_title">Terveystiedot</string>
-    <string name="health_text">TRAZO käyttää kertomiasi tietoja vammoista, kivusta, vaivoista ja sairaudesta vain harjoittelusi mukauttamiseen. Se on vapaaehtoista: ilman sitä kaikki muu toimii samoin. Voit peruuttaa suostumuksen milloin tahansa Tili-sivulla, jolloin tiedot poistetaan.</string>
+    <string name="health_text">TRAZO käyttää kertomiasi tietoja vammoista, kivusta, vaivoista ja sairaudesta vain harjoittelusi mukauttamiseen ja, jos otat käyttöön myös kohdan ”Auta parantamaan TRAZOa”, vaivoja myös sen tutkimiseen, miten ohjelmia voisi parantaa. Se on vapaaehtoista: ilman sitä kaikki muu toimii samoin. Voit peruuttaa suostumuksen milloin tahansa Tili-sivulla, jolloin tiedot poistetaan.</string>
     <string name="health_agree">Hyväksyn</string>
     <string name="health_decline">Ei kiitos</string>
     <string name="health_on">Annat TRAZOn käyttää terveystietojasi.</string>
@@ -618,6 +618,8 @@
     <string name="health_withdraw">Peruuta suostumus</string>
     <string name="health_withdraw_text">Vammasi, kipu- ja vaivamerkinnät sekä sairaussyyt poistetaan. Harjoitushistoriasi säilyy. Ohjelmasi ei enää vältä merkitsemiäsi alueita.</string>
     <string name="health_withdraw_confirm">Peruuta ja poista</string>
+    <string name="research_title">Auta parantamaan TRAZOa (vapaaehtoinen)</string>
+    <string name="research_text">Jos otat tämän käyttöön, TRAZO käyttää harjoitustietojasi (ohjelmat, sarjat, kuormat, toistot, kirjaamasi rasitus ja vaivat, ilman nimeäsi, sähköpostiasi tai muistiinpanojasi) moottoriversioiden vertailuun ja ohjelmien parantamisen tutkimiseen. Tiedot korvataan avaimilla, joista ketään ei voi tunnistaa yksittäisen analyysin ulkopuolella, ja tuloksia tarkastellaan ryhmiteltyinä. Tietoja ei myydä eikä luovuteta. Jos poistat tilisi, säilytettävät nimettömät lihaskohtaiset luvut voidaan ryhmitellä. Voit poistaa tämän käytöstä milloin tahansa: et ole mukana myöhemmissä analyyseissä. Se ei muuta mitään siitä, mitä voit käyttää.</string>
     <string name="technique_straight">Tavalliset sarjat</string>
     <string name="technique_label">Tekniikka: %1$s</string>
     <string name="technique_drop_set">Drop-sarja</string>

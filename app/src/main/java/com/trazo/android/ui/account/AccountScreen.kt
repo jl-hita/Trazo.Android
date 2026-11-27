@@ -41,7 +41,8 @@ fun AccountScreen(
     onLanguageChanged: () -> Unit = {},
     onReferrals: () -> Unit = {},
     onDeleteAccount: () -> Unit = {},
-    health: @Composable () -> Unit = {}
+    health: @Composable () -> Unit = {},
+    research: @Composable () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var confirmLogout by remember { mutableStateOf(false) }
@@ -148,6 +149,8 @@ fun AccountScreen(
             }
 
             health()
+
+            research()
 
             SectionTitle(stringResource(R.string.legal_section))
             LegalLinks()

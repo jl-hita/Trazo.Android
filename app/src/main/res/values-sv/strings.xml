@@ -610,7 +610,7 @@
     <string name="account_deleted">Ditt konto har raderats.</string>
     <!-- Consent for health data -->
     <string name="health_title">Hälsouppgifter</string>
-    <string name="health_text">TRAZO använder det du berättar om skador, smärta, obehag och sjukdom enbart för att anpassa din träning. Det är frivilligt: utan det fungerar allt annat likadant. Du kan när som helst återkalla det under Konto, och då raderas uppgifterna.</string>
+    <string name="health_text">TRAZO använder det du berättar om skador, smärta, obehag och sjukdom enbart för att anpassa din träning och, om du även slår på ”Hjälp till att förbättra TRAZO”, obehaget också för att studera hur programmen kan bli bättre. Det är frivilligt: utan det fungerar allt annat likadant. Du kan när som helst återkalla det under Konto, och då raderas uppgifterna.</string>
     <string name="health_agree">Jag godkänner</string>
     <string name="health_decline">Nej tack</string>
     <string name="health_on">Du låter TRAZO använda dina hälsouppgifter.</string>
@@ -618,6 +618,8 @@
     <string name="health_withdraw">Återkalla samtycket</string>
     <string name="health_withdraw_text">Dina skador, markeringar av smärta och obehag och sjukdomsskäl raderas. Din träningshistorik finns kvar. Ditt program undviker inte längre de områden du hade markerat.</string>
     <string name="health_withdraw_confirm">Återkalla och radera</string>
+    <string name="research_title">Hjälp till att förbättra TRAZO (frivilligt)</string>
+    <string name="research_text">Om du slår på detta använder TRAZO dina träningsdata (program, set, belastningar, repetitioner, ansträngning och obehag som du registrerar, utan ditt namn, din e-post eller dina anteckningar) för att jämföra versioner av motorn och studera hur programmen kan bli bättre. Uppgifterna ersätts med nycklar som inte identifierar någon utanför respektive analys, och resultaten granskas i grupp. De säljs inte och lämnas inte ut. Om du raderar kontot kan de anonyma siffror per muskel som sparas komma att grupperas. Du kan stänga av det när som helst: du ingår inte i senare analyser. Det ändrar ingenting i vad du kan använda.</string>
     <string name="technique_straight">Vanliga set</string>
     <string name="technique_label">Teknik: %1$s</string>
     <string name="technique_drop_set">Dropset</string>

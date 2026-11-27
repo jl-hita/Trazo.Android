@@ -62,6 +62,8 @@ interface AccountApi {
     @GET("api/v1/account") suspend fun info(): Response<com.trazo.android.data.model.AccountInfo>
     /** Gives the explicit consent for health data, or withdraws it (the server erases that data). */
     @PUT("api/v1/account/health-consent") suspend fun healthConsent(@Body request: com.trazo.android.data.model.HealthConsentRequest): Response<Unit>
+    /** Optional and revocable: whether the training data may be used to study and improve the plans. */
+    @PUT("api/v1/account/research-consent") suspend fun researchConsent(@Body request: com.trazo.android.data.model.ResearchConsentRequest): Response<Unit>
     /** POST rather than DELETE: the request carries the re-authentication in its body. */
     @POST("api/v1/account/delete") suspend fun delete(@Body request: com.trazo.android.data.model.DeleteAccountRequest): Response<com.trazo.android.data.model.DeleteAccountResult>
 }
