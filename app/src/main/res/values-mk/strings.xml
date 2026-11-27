@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Одмори %1$d с и продолжи со истиот товар.</string>
     <string name="technique_reason_priority">Додадено затоа што сакате да го нагласите овој мускул.</string>
     <string name="technique_reason_time">Додадено за да собере повеќе работа во времето на тренингот.</string>
+    <string name="session_edit">Уреди тренинг</string>
+    <string name="session_edit_note">Автоматските прилагодувања ги почитуваат вашите измени. Болката и лесните недели имаат предност.</string>
+    <string name="session_edit_only_this">Само овој тренинг</string>
+    <string name="session_edit_later_too">Овој и следните</string>
+    <string name="session_edit_forget">Заборави ги трајните измени</string>
+    <string name="session_edit_forgotten">Готово: новите блокови повторно го следат планот.</string>
+    <string name="session_customised">Изменето од вас</string>
     <string name="workout_segment">Дел %1$d</string>
     <string name="workout_segment_done">Завршено: %1$s</string>
     <string name="workout_add_segment">Додај дел</string>

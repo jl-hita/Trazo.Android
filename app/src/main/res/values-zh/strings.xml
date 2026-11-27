@@ -618,6 +618,13 @@
     <string name="technique_help_rest_pause">休息 %1$d 秒，用相同重量继续。</string>
     <string name="technique_reason_priority">因为你想重点训练该肌群而添加。</string>
     <string name="technique_reason_time">为了在训练时间内完成更多训练量而添加。</string>
+    <string name="session_edit">编辑训练</string>
+    <string name="session_edit_note">自动调整会尊重你的修改。疼痛和减量周仍然优先。</string>
+    <string name="session_edit_only_this">仅本次训练</string>
+    <string name="session_edit_later_too">本次及之后</string>
+    <string name="session_edit_forget">清除我的长期修改</string>
+    <string name="session_edit_forgotten">完成：新的训练阶段将重新按计划进行。</string>
+    <string name="session_customised">你已修改</string>
     <string name="workout_segment">分段 %1$d</string>
     <string name="workout_segment_done">%1$s 已完成</string>
     <string name="workout_add_segment">添加分段</string>

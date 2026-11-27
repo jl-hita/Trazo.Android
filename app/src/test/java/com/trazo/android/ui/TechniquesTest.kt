@@ -169,6 +169,34 @@ class TechniquesTest : ViewModelTestBase() {
         advanceUntilIdle()
     }
 
+    @Test fun `a session of a generated plan is edited on its own or for later too`() = runTest(dispatcher) {
+        val api = FakePlansApi()
+        val a = sampleExercise("a")
+        val b = sampleExercise("b").copy(order = 2, technique = drop.copy(reason = "ShortOnTime"))
+        api.weekResponse = { Response.success(sampleWeek().copy(sessions = listOf(sampleSession("s1", a, b)))) }
+        val repo = plansRepo(api)
+        repo.currentWeek()
+        val vm = ManualPlanViewModel(repo, ExerciseRepository(FakeExercisesApi()), sessionId = "s1")
+        advanceUntilIdle()
+        assertTrue(vm.state.value.canSubmit)
+
+        vm.removeExercise(ManualPlanViewModel.SESSION_KEY, "a")
+        vm.setKeepForLater(true)
+        vm.submit(emptyList())
+        advanceUntilIdle()
+        val (id, sent) = api.sessionEdits.single()
+        assertEquals("s1", id)
+        assertEquals("plan", sent.scope)
+        assertEquals(listOf("b"), sent.exercises.map { it.exerciseId })
+        assertEquals("DropSet", sent.exercises.single().technique!!.type)
+        assertTrue(vm.state.value.created)
+
+        vm.forgetChanges()
+        advanceUntilIdle()
+        assertEquals(1, api.adjustmentsCleared)
+        assertTrue(vm.state.value.forgotten)
+    }
+
     @Test fun `the technique dialog offers what the catalog admits`() = runTest(dispatcher) {
         val exercises = FakeExercisesApi()
         exercises.detailResponse = Response.success(exercises.detailResponse.body()!!.copy(allowedTechniques = listOf("DropSet", "MyoRepMatch")))

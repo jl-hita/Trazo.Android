@@ -644,6 +644,13 @@
     <string name="technique_help_rest_pause">Descansa %1$d s y continúa con la misma carga.</string>
     <string name="technique_reason_priority">Añadida porque quieres priorizar este músculo.</string>
     <string name="technique_reason_time">Añadida para meter más trabajo en el tiempo de tu sesión.</string>
+    <string name="session_edit">Editar sesión</string>
+    <string name="session_edit_note">Los ajustes automáticos respetan lo que cambies. El dolor y las semanas suaves siguen teniendo prioridad.</string>
+    <string name="session_edit_only_this">Solo esta sesión</string>
+    <string name="session_edit_later_too">Esta y las siguientes</string>
+    <string name="session_edit_forget">Olvidar mis cambios permanentes</string>
+    <string name="session_edit_forgotten">Hecho: los bloques nuevos vuelven a seguir el plan.</string>
+    <string name="session_customised">Cambiada por ti</string>
     <string name="workout_segment">Parte %1$d</string>
     <string name="workout_segment_done">%1$s hecha</string>
     <string name="workout_add_segment">Añadir una parte</string>

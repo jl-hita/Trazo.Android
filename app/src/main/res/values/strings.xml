@@ -667,6 +667,13 @@
     <string name="technique_help_rest_pause">Rest %1$d s and continue with the same load.</string>
     <string name="technique_reason_priority">Added because you want to emphasise this muscle.</string>
     <string name="technique_reason_time">Added to fit more work into your session time.</string>
+    <string name="session_edit">Edit session</string>
+    <string name="session_edit_note">Automatic adjustments respect what you change. Pain and lighter weeks still come first.</string>
+    <string name="session_edit_only_this">Only this session</string>
+    <string name="session_edit_later_too">This and later ones</string>
+    <string name="session_edit_forget">Forget my lasting changes</string>
+    <string name="session_edit_forgotten">Done: new blocks will follow the plan again.</string>
+    <string name="session_customised">Changed by you</string>
     <string name="workout_segment">Part %1$d</string>
     <string name="workout_segment_done">%1$s done</string>
     <string name="workout_add_segment">Add a part</string>

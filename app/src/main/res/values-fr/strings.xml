@@ -628,6 +628,13 @@
     <string name="technique_help_rest_pause">Repose-toi %1$d s et continue avec la même charge.</string>
     <string name="technique_reason_priority">Ajouté parce que vous voulez mettre l’accent sur ce muscle.</string>
     <string name="technique_reason_time">Ajouté pour faire tenir plus de travail dans le temps de votre séance.</string>
+    <string name="session_edit">Modifier la séance</string>
+    <string name="session_edit_note">Les ajustements automatiques respectent vos changements. La douleur et les semaines légères restent prioritaires.</string>
+    <string name="session_edit_only_this">Seulement cette séance</string>
+    <string name="session_edit_later_too">Celle-ci et les suivantes</string>
+    <string name="session_edit_forget">Oublier mes changements durables</string>
+    <string name="session_edit_forgotten">C’est fait : les nouveaux blocs suivent à nouveau le programme.</string>
+    <string name="session_customised">Modifiée par vous</string>
     <string name="workout_segment">Partie %1$d</string>
     <string name="workout_segment_done">%1$s terminée</string>
     <string name="workout_add_segment">Ajouter une partie</string>

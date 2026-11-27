@@ -628,6 +628,13 @@
     <string name="technique_help_rest_pause">Descansa %1$d s i continua amb la mateixa càrrega.</string>
     <string name="technique_reason_priority">Afegida perquè vols prioritzar aquest múscul.</string>
     <string name="technique_reason_time">Afegida per encabir més feina en el temps de la sessió.</string>
+    <string name="session_edit">Editar la sessió</string>
+    <string name="session_edit_note">Els ajustos automàtics respecten el que canvies. El dolor i les setmanes suaus continuen passant davant.</string>
+    <string name="session_edit_only_this">Només aquesta sessió</string>
+    <string name="session_edit_later_too">Aquesta i les següents</string>
+    <string name="session_edit_forget">Oblidar els meus canvis permanents</string>
+    <string name="session_edit_forgotten">Fet: els blocs nous tornen a seguir el pla.</string>
+    <string name="session_customised">Canviada per tu</string>
     <string name="workout_segment">Part %1$d</string>
     <string name="workout_segment_done">%1$s feta</string>
     <string name="workout_add_segment">Afegeix una part</string>

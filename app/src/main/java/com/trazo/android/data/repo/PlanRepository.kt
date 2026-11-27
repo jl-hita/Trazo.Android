@@ -109,6 +109,16 @@ class PlanRepository(
         return result
     }
 
+    /** Rewrites a pending session of a generated plan. It can reach other sessions, so the week is read again. */
+    suspend fun editSession(sessionId: String, request: SessionEditRequest): ApiResult<SessionView> {
+        val result = apiCall { api.editSession(sessionId, request) }
+        if (result is ApiResult.Success) { _week.value = null; carried = null; disk { cache.clear() }; currentWeek() }
+        return result
+    }
+
+    /** Forgets the lasting changes: blocks generated from now on are the plan's own proposal again. */
+    suspend fun clearAdjustments(): ApiResult<Unit> = apiCall { api.clearAdjustments() }
+
     suspend fun createManualPlan(request: ManualPlanRequest): ApiResult<PlanView> {
         val result = apiCall { api.createManual(request) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }

@@ -23,7 +23,9 @@ data class SessionUiState(
     /** The session as it is after a swap made from this screen. */
     val swapped: SessionView? = null,
     val alternatives: AlternativesState? = null,
-    val swapError: ApiError? = null
+    val swapError: ApiError? = null,
+    /** A generated plan: its pending sessions can be edited. */
+    val generated: Boolean = false
 )
 
 /** What the session screen does besides showing the prescription: finds past sessions and swaps an exercise before the workout starts. */
@@ -35,7 +37,16 @@ class SessionViewModel(
     private val _state = MutableStateFlow(SessionUiState())
     val state: StateFlow<SessionUiState> = _state.asStateFlow()
 
-    init { if (plans.session(sessionId) == null) findInBlock() }
+    init {
+        if (plans.session(sessionId) == null) findInBlock()
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { }) {
+            val plan = (plans.currentPlan() as? ApiResult.Success)?.value?.value
+            _state.update { it.copy(generated = plan?.origin == "Generated") }
+        }
+    }
+
+    /** Before leaving to edit: what a swap left on screen would hide what the edit changes. */
+    fun forgetSwapped() = _state.update { it.copy(swapped = null) }
 
     private fun findInBlock() {
         _state.update { it.copy(searching = true) }

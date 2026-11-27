@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Hvil %1$d s og fortsett med samme vekt.</string>
     <string name="technique_reason_priority">Lagt til fordi du vil prioritere denne muskelen.</string>
     <string name="technique_reason_time">Lagt til for å få plass til mer arbeid i økten din.</string>
+    <string name="session_edit">Rediger økten</string>
+    <string name="session_edit_note">Automatiske justeringer respekterer endringene dine. Smerter og lette uker går fortsatt foran.</string>
+    <string name="session_edit_only_this">Bare denne økten</string>
+    <string name="session_edit_later_too">Denne og de neste</string>
+    <string name="session_edit_forget">Glem mine varige endringer</string>
+    <string name="session_edit_forgotten">Ferdig: nye blokker følger planen igjen.</string>
+    <string name="session_customised">Endret av deg</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">%1$s fullført</string>
     <string name="workout_add_segment">Legg til en del</string>

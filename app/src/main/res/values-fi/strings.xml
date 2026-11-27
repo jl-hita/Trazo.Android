@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Lepää %1$d s ja jatka samalla painolla.</string>
     <string name="technique_reason_priority">Lisätty, koska haluat painottaa tätä lihasta.</string>
     <string name="technique_reason_time">Lisätty, jotta harjoitusaikaasi mahtuu enemmän työtä.</string>
+    <string name="session_edit">Muokkaa harjoitusta</string>
+    <string name="session_edit_note">Automaattiset säädöt kunnioittavat muutoksiasi. Kipu ja kevyet viikot menevät silti edelle.</string>
+    <string name="session_edit_only_this">Vain tämä harjoitus</string>
+    <string name="session_edit_later_too">Tämä ja seuraavat</string>
+    <string name="session_edit_forget">Unohda pysyvät muutokseni</string>
+    <string name="session_edit_forgotten">Valmis: uudet jaksot noudattavat taas ohjelmaa.</string>
+    <string name="session_customised">Sinun muokkaamasi</string>
     <string name="workout_segment">Osa %1$d</string>
     <string name="workout_segment_done">%1$s tehty</string>
     <string name="workout_add_segment">Lisää osa</string>

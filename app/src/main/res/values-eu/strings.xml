@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Hartu atseden %1$d s eta jarraitu karga berarekin.</string>
     <string name="technique_reason_priority">Gihar hau lehenetsi nahi duzulako gehitu da.</string>
     <string name="technique_reason_time">Saioaren denboran lan gehiago sartzeko gehitu da.</string>
+    <string name="session_edit">Editatu saioa</string>
+    <string name="session_edit_note">Doikuntza automatikoek zure aldaketak errespetatzen dituzte. Mina eta aste arinak lehenetsita jarraitzen dute.</string>
+    <string name="session_edit_only_this">Saio hau bakarrik</string>
+    <string name="session_edit_later_too">Hau eta hurrengoak</string>
+    <string name="session_edit_forget">Ahaztu nire aldaketa iraunkorrak</string>
+    <string name="session_edit_forgotten">Eginda: blok berriek planari jarraituko diote berriro.</string>
+    <string name="session_customised">Zuk aldatua</string>
     <string name="workout_segment">%1$d. zatia</string>
     <string name="workout_segment_done">Eginda: %1$s</string>
     <string name="workout_add_segment">Gehitu zati bat</string>

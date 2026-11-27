@@ -88,8 +88,16 @@ data class SessionView(
     val estimatedDurationMinutes: Int, val status: String, val exercises: List<ExerciseView>, val log: LogView?,
     /** Place of the session in the program: its identity and order, whatever day it is done. */
     val sequenceIndex: Int = 0,
-    val supersets: List<SupersetView>? = null
+    val supersets: List<SupersetView>? = null,
+    /** The user fixed something in this session of a generated plan. */
+    val customised: Boolean = false
 )
+
+/**
+ * A pending session of a generated plan as the user wants it. [scope] is "session" (only this one) or "plan" (this one and
+ * its later repetitions).
+ */
+data class SessionEditRequest(val scope: String, val exercises: List<ManualExerciseRequest>, val supersets: List<SupersetView>?)
 
 data class WeekView(
     val planId: String, val weekNumber: Int, val weekStart: String?, val weekEnd: String?, val timeline: String,

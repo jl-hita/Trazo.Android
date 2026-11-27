@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Ξεκουράσου %1$d δ και συνέχισε με το ίδιο φορτίο.</string>
     <string name="technique_reason_priority">Προστέθηκε επειδή θέλετε να δώσετε έμφαση σε αυτόν τον μυ.</string>
     <string name="technique_reason_time">Προστέθηκε για να χωρέσει περισσότερη δουλειά στον χρόνο της προπόνησης.</string>
+    <string name="session_edit">Επεξεργασία προπόνησης</string>
+    <string name="session_edit_note">Οι αυτόματες προσαρμογές σέβονται τις αλλαγές σας. Ο πόνος και οι ελαφριές εβδομάδες προηγούνται.</string>
+    <string name="session_edit_only_this">Μόνο αυτή την προπόνηση</string>
+    <string name="session_edit_later_too">Αυτή και τις επόμενες</string>
+    <string name="session_edit_forget">Διαγραφή των μόνιμων αλλαγών μου</string>
+    <string name="session_edit_forgotten">Έγινε: τα νέα μπλοκ ακολουθούν ξανά το πρόγραμμα.</string>
+    <string name="session_customised">Αλλαγμένη από εσάς</string>
     <string name="workout_segment">Μέρος %1$d</string>
     <string name="workout_segment_done">Ολοκληρώθηκε: %1$s</string>
     <string name="workout_add_segment">Προσθήκη μέρους</string>

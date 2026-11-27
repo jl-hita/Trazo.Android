@@ -79,6 +79,8 @@ object Routes {
     const val REFERRALS = "referrals"
     const val DELETE_ACCOUNT = "account/delete"
     const val SESSION = "session/{id}"
+    const val SESSION_EDIT = "session/{id}/edit"
+    fun sessionEdit(id: String) = "session/$id/edit"
     const val WORKOUT = "workout/{id}"
     const val EXERCISE = "exercise/{id}"
     /** [source] says where the offer was opened from (account, plan, session, onboarding); it only feeds an anonymous counter. */
@@ -283,10 +285,15 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                     val vm: HistoryViewModel = containerViewModel { HistoryViewModel(it.plans) }
                     HistoryScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.session(it)) })
                 }
+                composable(Routes.SESSION_EDIT) { entry ->
+                    val id = entry.arguments?.getString("id").orEmpty()
+                    val vm: ManualPlanViewModel = containerViewModel(key = "session-edit-$id") { ManualPlanViewModel(it.plans, it.exercises, sessionId = id) }
+                    ManualPlanScreen(vm, onBack = { nav.popBackStack() }, onCreated = { planVm.load(); nav.popBackStack() })
+                }
                 composable(Routes.SESSION, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
                     val vm: SessionViewModel = containerViewModel(key = "session-$id") { SessionViewModel(it.plans, it.exercises, id) }
-                    SessionScreen(vm, c.plans.week, id, lookup = c.plans::session, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) })
+                    SessionScreen(vm, c.plans.week, id, lookup = c.plans::session, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) }, onEdit = { nav.navigate(Routes.sessionEdit(id)) })
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()

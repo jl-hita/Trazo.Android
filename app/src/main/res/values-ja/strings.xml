@@ -618,6 +618,13 @@
     <string name="technique_help_rest_pause">%1$d秒休み、同じ重量で続けます。</string>
     <string name="technique_reason_priority">この部位を重点的に鍛えるために追加しました。</string>
     <string name="technique_reason_time">トレーニング時間内の運動量を増やすために追加しました。</string>
+    <string name="session_edit">セッションを編集</string>
+    <string name="session_edit_note">自動調整はあなたの変更を尊重します。痛みと軽めの週は引き続き優先されます。</string>
+    <string name="session_edit_only_this">このセッションのみ</string>
+    <string name="session_edit_later_too">今回以降すべて</string>
+    <string name="session_edit_forget">継続する変更を取り消す</string>
+    <string name="session_edit_forgotten">完了しました。新しいブロックはプラン通りになります。</string>
+    <string name="session_customised">あなたが変更</string>
     <string name="workout_segment">パート%1$d</string>
     <string name="workout_segment_done">%1$s 完了</string>
     <string name="workout_add_segment">パートを追加</string>
