@@ -627,4 +627,7 @@
     <string name="workout_finish_set">Deze set afronden</string>
     <string name="workout_superset_rounds">Rondes: %1$d</string>
     <string name="session_done_segment">Deel %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Superset %1$s</string>
+    <string name="manual_rest_between">Rust tussen oefeningen: %1$d s</string>
+    <string name="manual_rest_after">Rust na elke ronde: %1$d s</string>
 </resources>

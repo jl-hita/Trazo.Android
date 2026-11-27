@@ -141,9 +141,32 @@ class TechniquesTest : ViewModelTestBase() {
         val state = com.trazo.android.ui.manual.ManualPlanState(name = "Plan", days = mapOf("Monday" to day))
         val sent = ManualPlanViewModel.buildRequest(state, listOf("Monday")).days.single()
         assertEquals(listOf(null, null, drop), sent.exercises.map { it.technique })
-        assertEquals(listOf(SupersetView("A", 4, 20, 100)), sent.supersets)
+        // The rounds follow the sets of its exercises.
+        assertEquals(listOf(SupersetView("A", 3, 20, 100)), sent.supersets)
         val plain = ManualPlanViewModel.buildRequest(state.copy(days = mapOf("Monday" to day.copy(exercises = day.exercises.map { it.copy(superset = null) }))), listOf("Monday"))
         assertNull(plain.days.single().supersets)
+    }
+
+    @Test fun `the editor sets the rounds and rests of a superset of up to four`() = runTest(dispatcher) {
+        val vm = ManualPlanViewModel(plansRepo(FakePlansApi()), ExerciseRepository(FakeExercisesApi()))
+        vm.toggleDay("Monday", "A")
+        val item = FakeExercisesApi().let { vm.openPicker("Monday"); advanceUntilIdle(); vm.state.value.results.first() }
+        listOf("a", "b", "c", "d", "e").forEach { name -> vm.openPicker("Monday"); vm.pick(item.copy(id = name), name) }
+        listOf("a", "b", "c", "d").forEach { vm.toggleLink("Monday", it) }
+        fun exercises() = vm.state.value.days.getValue("Monday").exercises
+        assertEquals(listOf("A", "A", "A", "A", null), ManualPlanViewModel.supersetGroups(exercises())) // a fifth is refused
+
+        fun sent() = ManualPlanViewModel.buildRequest(vm.state.value.copy(name = "Plan"), listOf("Monday")).days.single()
+        assertNull(sent().supersets) // untouched: done as supersets always were
+        vm.changeRounds("Monday", "a", 1)
+        assertEquals(listOf(4, 4, 4, 4, 3), exercises().map { it.sets })
+        assertNull(sent().supersets)
+        vm.changeSupersetRest("Monday", "a", false, 15)
+        vm.changeSupersetRest("Monday", "a", true, 30)
+        assertEquals(listOf(SupersetView("A", 4, 15, 120)), sent().supersets)
+        vm.changeSupersetRest("Monday", "a", false, -60)
+        assertEquals(0, sent().supersets!!.single().restBetweenSeconds)
+        advanceUntilIdle()
     }
 
     @Test fun `the technique dialog offers what the catalog admits`() = runTest(dispatcher) {

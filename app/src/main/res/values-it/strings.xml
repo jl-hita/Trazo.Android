@@ -632,4 +632,7 @@
     <string name="workout_finish_set">Concludi questa serie</string>
     <string name="workout_superset_rounds">Giri: %1$d</string>
     <string name="session_done_segment">Parte %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Superserie %1$s</string>
+    <string name="manual_rest_between">Recupero tra gli esercizi: %1$d s</string>
+    <string name="manual_rest_after">Recupero dopo ogni giro: %1$d s</string>
 </resources>

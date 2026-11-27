@@ -622,4 +622,7 @@
     <string name="workout_finish_set">이 세트 끝내기</string>
     <string name="workout_superset_rounds">라운드: %1$d</string>
     <string name="session_done_segment">파트 %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">슈퍼세트 %1$s</string>
+    <string name="manual_rest_between">운동 사이 휴식: %1$d초</string>
+    <string name="manual_rest_after">라운드 후 휴식: %1$d초</string>
 </resources>

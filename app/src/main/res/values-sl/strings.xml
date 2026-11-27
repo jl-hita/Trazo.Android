@@ -637,4 +637,7 @@
     <string name="workout_finish_set">Končaj to serijo</string>
     <string name="workout_superset_rounds">Krogi: %1$d</string>
     <string name="session_done_segment">Del %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Supernizanje %1$s</string>
+    <string name="manual_rest_between">Počitek med vajami: %1$d s</string>
+    <string name="manual_rest_after">Počitek po vsakem krogu: %1$d s</string>
 </resources>

@@ -627,4 +627,7 @@
     <string name="workout_finish_set">Avslutt dette settet</string>
     <string name="workout_superset_rounds">Runder: %1$d</string>
     <string name="session_done_segment">Del %1$d: %2$s × %3$s</string>
+    <string name="manual_superset_title">Superset %1$s</string>
+    <string name="manual_rest_between">Hvile mellom øvelser: %1$d s</string>
+    <string name="manual_rest_after">Hvile etter hver runde: %1$d s</string>
 </resources>

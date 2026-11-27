@@ -627,4 +627,7 @@
     <string name="workout_finish_set">Amaitu serie hau</string>
     <string name="workout_superset_rounds">Txandak: %1$d</string>
     <string name="session_done_segment">%1$d. zatia: %2$s × %3$s</string>
+    <string name="manual_superset_title">%1$s superseria</string>
+    <string name="manual_rest_between">Atsedena ariketen artean: %1$d s</string>
+    <string name="manual_rest_after">Atsedena txanda bakoitzaren ondoren: %1$d s</string>
 </resources>

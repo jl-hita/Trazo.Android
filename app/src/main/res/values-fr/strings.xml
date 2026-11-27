@@ -632,4 +632,7 @@
     <string name="workout_finish_set">Terminer cette série</string>
     <string name="workout_superset_rounds">Tours : %1$d</string>
     <string name="session_done_segment">Partie %1$d : %2$s × %3$s</string>
+    <string name="manual_superset_title">Superset %1$s</string>
+    <string name="manual_rest_between">Repos entre les exercices : %1$d s</string>
+    <string name="manual_rest_after">Repos après chaque tour : %1$d s</string>
 </resources>

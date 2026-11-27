@@ -147,8 +147,25 @@ private fun DayCard(header: String, day: String, routine: ManualDay, vm: ManualP
         if (routine.exercises.isEmpty()) {
             Text(stringResource(R.string.manual_no_exercises), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 8.dp))
         }
+        val groups = ManualPlanViewModel.supersetGroups(routine.exercises)
         routine.exercises.forEachIndexed { index, exercise ->
             Column(Modifier.fillMaxWidth().padding(top = 12.dp)) {
+                // The rounds and rests of a superset are set once, above its first exercise.
+                val group = groups[index]
+                if (group != null && (index == 0 || groups[index - 1] != group)) {
+                    val superset = ManualPlanViewModel.supersetOf(routine.exercises.filterIndexed { i, _ -> groups[i] == group })
+                    val step = ManualPlanViewModel.REST_STEP
+                    Text(stringResource(R.string.manual_superset_title, group), color = TrazoPalette.Link, style = MaterialTheme.typography.titleSmall)
+                    Stepper(stringResource(R.string.workout_superset_rounds, superset.rounds), { vm.changeRounds(day, exercise.id, -1) }, { vm.changeRounds(day, exercise.id, 1) })
+                    Stepper(
+                        stringResource(R.string.manual_rest_between, superset.restBetweenSeconds),
+                        { vm.changeSupersetRest(day, exercise.id, false, -step) }, { vm.changeSupersetRest(day, exercise.id, false, step) }
+                    )
+                    Stepper(
+                        stringResource(R.string.manual_rest_after, superset.restAfterRoundSeconds),
+                        { vm.changeSupersetRest(day, exercise.id, true, -step) }, { vm.changeSupersetRest(day, exercise.id, true, step) }
+                    )
+                }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(exercise.name, Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
                     TextButton(onClick = { vm.removeExercise(day, exercise.id) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_remove)) }

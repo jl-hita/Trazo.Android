@@ -622,4 +622,7 @@
     <string name="workout_finish_set">このセットを終える</string>
     <string name="workout_superset_rounds">ラウンド数：%1$d</string>
     <string name="session_done_segment">パート%1$d：%2$s × %3$s</string>
+    <string name="manual_superset_title">スーパーセット%1$s</string>
+    <string name="manual_rest_between">種目間の休憩：%1$d秒</string>
+    <string name="manual_rest_after">各ラウンド後の休憩：%1$d秒</string>
 </resources>

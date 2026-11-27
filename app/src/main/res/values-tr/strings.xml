@@ -627,4 +627,7 @@
     <string name="workout_finish_set">Bu seti bitir</string>
     <string name="workout_superset_rounds">Tur sayısı: %1$d</string>
     <string name="session_done_segment">%1$d. bölüm: %2$s × %3$s</string>
+    <string name="manual_superset_title">Süper set %1$s</string>
+    <string name="manual_rest_between">Egzersizler arası dinlenme: %1$d sn</string>
+    <string name="manual_rest_after">Her turdan sonra dinlenme: %1$d sn</string>
 </resources>
