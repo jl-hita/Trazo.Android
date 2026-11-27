@@ -628,6 +628,13 @@
     <string name="technique_help_rest_pause">Odmori %1$d s i nastavi sa istim opterećenjem.</string>
     <string name="technique_reason_priority">Dodato jer želite da naglasite ovaj mišić.</string>
     <string name="technique_reason_time">Dodato da stane više rada u vreme vašeg treninga.</string>
+    <string name="session_edit">Izmeni trening</string>
+    <string name="session_edit_note">Automatska prilagođavanja poštuju ono što promenite. Bol i lakše nedelje i dalje imaju prednost.</string>
+    <string name="session_edit_only_this">Samo ovaj trening</string>
+    <string name="session_edit_later_too">Ovaj i naredne</string>
+    <string name="session_edit_forget">Zaboravi moje trajne izmene</string>
+    <string name="session_edit_forgotten">Gotovo: novi blokovi ponovo prate plan.</string>
+    <string name="session_customised">Vi ste izmenili</string>
     <string name="workout_segment">Deo %1$d</string>
     <string name="workout_segment_done">Urađeno: %1$s</string>
     <string name="workout_add_segment">Dodaj deo</string>

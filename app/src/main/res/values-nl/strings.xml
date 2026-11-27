@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Rust %1$d s en ga verder met hetzelfde gewicht.</string>
     <string name="technique_reason_priority">Toegevoegd omdat je deze spier voorrang wilt geven.</string>
     <string name="technique_reason_time">Toegevoegd om meer werk in je trainingstijd te passen.</string>
+    <string name="session_edit">Training bewerken</string>
+    <string name="session_edit_note">Automatische aanpassingen respecteren jouw wijzigingen. Pijn en lichte weken gaan nog steeds voor.</string>
+    <string name="session_edit_only_this">Alleen deze training</string>
+    <string name="session_edit_later_too">Deze en de volgende</string>
+    <string name="session_edit_forget">Mijn blijvende wijzigingen vergeten</string>
+    <string name="session_edit_forgotten">Klaar: nieuwe blokken volgen weer het schema.</string>
+    <string name="session_customised">Door jou gewijzigd</string>
     <string name="workout_segment">Deel %1$d</string>
     <string name="workout_segment_done">%1$s klaar</string>
     <string name="workout_add_segment">Deel toevoegen</string>

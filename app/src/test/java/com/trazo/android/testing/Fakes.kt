@@ -44,6 +44,13 @@ class FakePlansApi : PlansApi {
         WeekLoadView(1, "2026-11-09", "accumulation", false, 20, 18, 2, 2), WeekLoadView(2, "2026-11-16", "accumulation", false, 22, 5, 2, 1),
         WeekLoadView(3, "2026-11-23", "accumulation", false, 22, null, 2, 0), WeekLoadView(4, "2026-11-30", "deload", true, null, null, 0, 0)))) }
     override suspend fun updateManual(request: ManualPlanRequest): Response<PlanView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
+    val sessionEdits = mutableListOf<Pair<String, SessionEditRequest>>()
+    override suspend fun editSession(sessionId: String, request: SessionEditRequest): Response<SessionView> {
+        sessionEdits += sessionId to request
+        return Response.success(sampleSession(sessionId).copy(customised = true))
+    }
+    var adjustmentsCleared = 0
+    override suspend fun clearAdjustments(): Response<Unit> { adjustmentsCleared++; return Response.success(204, Unit) }
     override suspend fun load() = loadResponse()
     override suspend fun block(): Response<BlockView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))
     var prioritiesResponse: (Map<String, String>) -> Response<PlanView> = { Response.success(samplePlan().copy(musclePriorities = it)) }

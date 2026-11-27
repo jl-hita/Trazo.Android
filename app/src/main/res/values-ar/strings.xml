@@ -643,6 +643,13 @@
     <string name="technique_help_rest_pause">استرح %1$d ث وتابع بالوزن نفسه.</string>
     <string name="technique_reason_priority">أُضيفت لأنك تريد التركيز على هذه العضلة.</string>
     <string name="technique_reason_time">أُضيفت لإنجاز عمل أكثر ضمن وقت حصتك.</string>
+    <string name="session_edit">تعديل الحصة</string>
+    <string name="session_edit_note">تحترم التعديلات التلقائية ما تغيّره. ويبقى الألم وأسابيع التخفيف أولوية.</string>
+    <string name="session_edit_only_this">هذه الحصة فقط</string>
+    <string name="session_edit_later_too">هذه والحصص التالية</string>
+    <string name="session_edit_forget">إلغاء تغييراتي الدائمة</string>
+    <string name="session_edit_forgotten">تم: ستتبع المراحل الجديدة الخطة من جديد.</string>
+    <string name="session_customised">عدّلتها أنت</string>
     <string name="workout_segment">جزء %1$d</string>
     <string name="workout_segment_done">تم: %1$s</string>
     <string name="workout_add_segment">إضافة جزء</string>

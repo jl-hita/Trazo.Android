@@ -35,7 +35,8 @@ fun SessionScreen(
     onBack: () -> Unit,
     onPremium: () -> Unit,
     onStart: () -> Unit,
-    onExercise: (String) -> Unit
+    onExercise: (String) -> Unit,
+    onEdit: () -> Unit = {}
 ) {
     val current by week.collectAsStateWithLifecycle()
     val ui by viewModel.state.collectAsStateWithLifecycle()
@@ -54,6 +55,10 @@ fun SessionScreen(
                     sessionWhen(session) + " · " + stringResource(R.string.plan_session_minutes, session.estimatedDurationMinutes),
                     color = TrazoPalette.TextSecondary
                 )
+            }
+            if (ui.generated && !logged && session.status == "Planned" && current?.locked != true) item {
+                if (session.customised) Text(stringResource(R.string.session_customised), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
+                TrazoLink(onClick = { viewModel.forgetSwapped(); onEdit() }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.session_edit)) }
             }
             items(session.exercises, key = { it.exerciseId }) { ex ->
                 ExercisePrescription(

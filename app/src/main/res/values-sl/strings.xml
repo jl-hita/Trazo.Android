@@ -633,6 +633,13 @@
     <string name="technique_help_rest_pause">Počivaj %1$d s in nadaljuj z istim bremenom.</string>
     <string name="technique_reason_priority">Dodano, ker želite poudariti to mišico.</string>
     <string name="technique_reason_time">Dodano, da v čas vadbe stane več dela.</string>
+    <string name="session_edit">Uredi vadbo</string>
+    <string name="session_edit_note">Samodejne prilagoditve upoštevajo vaše spremembe. Bolečina in lažji tedni imajo še vedno prednost.</string>
+    <string name="session_edit_only_this">Samo ta vadba</string>
+    <string name="session_edit_later_too">Ta in naslednje</string>
+    <string name="session_edit_forget">Pozabi moje trajne spremembe</string>
+    <string name="session_edit_forgotten">Končano: novi bloki spet sledijo načrtu.</string>
+    <string name="session_customised">Spremenili ste vi</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">Opravljeno: %1$s</string>
     <string name="workout_add_segment">Dodaj del</string>

@@ -633,6 +633,13 @@
     <string name="technique_help_rest_pause">Odpocznij %1$d s i kontynuuj z tym samym ciężarem.</string>
     <string name="technique_reason_priority">Dodano, ponieważ chcesz położyć nacisk na ten mięsień.</string>
     <string name="technique_reason_time">Dodano, aby zmieścić więcej pracy w czasie treningu.</string>
+    <string name="session_edit">Edytuj trening</string>
+    <string name="session_edit_note">Automatyczne korekty szanują twoje zmiany. Ból i lżejsze tygodnie nadal mają pierwszeństwo.</string>
+    <string name="session_edit_only_this">Tylko ten trening</string>
+    <string name="session_edit_later_too">Ten i kolejne</string>
+    <string name="session_edit_forget">Zapomnij moje trwałe zmiany</string>
+    <string name="session_edit_forgotten">Gotowe: nowe bloki znów idą zgodnie z planem.</string>
+    <string name="session_customised">Zmienione przez ciebie</string>
     <string name="workout_segment">Część %1$d</string>
     <string name="workout_segment_done">Zrobione: %1$s</string>
     <string name="workout_add_segment">Dodaj część</string>

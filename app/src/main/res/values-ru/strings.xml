@@ -633,6 +633,13 @@
     <string name="technique_help_rest_pause">Отдохните %1$d с и продолжайте с тем же весом.</string>
     <string name="technique_reason_priority">Добавлено, потому что вы хотите сделать упор на эту мышцу.</string>
     <string name="technique_reason_time">Добавлено, чтобы уместить больше работы во время тренировки.</string>
+    <string name="session_edit">Изменить тренировку</string>
+    <string name="session_edit_note">Автоматические корректировки учитывают ваши изменения. Боль и лёгкие недели по-прежнему в приоритете.</string>
+    <string name="session_edit_only_this">Только эту тренировку</string>
+    <string name="session_edit_later_too">Эту и следующие</string>
+    <string name="session_edit_forget">Забыть мои постоянные изменения</string>
+    <string name="session_edit_forgotten">Готово: новые блоки снова следуют плану.</string>
+    <string name="session_customised">Изменено вами</string>
     <string name="workout_segment">Часть %1$d</string>
     <string name="workout_segment_done">Выполнено: %1$s</string>
     <string name="workout_add_segment">Добавить часть</string>

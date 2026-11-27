@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">%1$d sn dinlen ve aynı ağırlıkla devam et.</string>
     <string name="technique_reason_priority">Bu kasa öncelik vermek istediğiniz için eklendi.</string>
     <string name="technique_reason_time">Antrenman sürenize daha fazla çalışma sığdırmak için eklendi.</string>
+    <string name="session_edit">Antrenmanı düzenle</string>
+    <string name="session_edit_note">Otomatik ayarlamalar yaptığınız değişikliklere uyar. Ağrı ve hafif haftalar yine önceliklidir.</string>
+    <string name="session_edit_only_this">Yalnızca bu antrenman</string>
+    <string name="session_edit_later_too">Bu ve sonrakiler</string>
+    <string name="session_edit_forget">Kalıcı değişikliklerimi unut</string>
+    <string name="session_edit_forgotten">Tamam: yeni bloklar yeniden planı izleyecek.</string>
+    <string name="session_customised">Sizin değiştirdiğiniz</string>
     <string name="workout_segment">%1$d. bölüm</string>
     <string name="workout_segment_done">%1$s tamam</string>
     <string name="workout_add_segment">Bölüm ekle</string>

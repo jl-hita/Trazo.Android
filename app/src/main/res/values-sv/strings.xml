@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Vila %1$d s och fortsätt med samma vikt.</string>
     <string name="technique_reason_priority">Tillagd för att du vill prioritera den här muskeln.</string>
     <string name="technique_reason_time">Tillagd för att få in mer arbete under passet.</string>
+    <string name="session_edit">Redigera passet</string>
+    <string name="session_edit_note">Automatiska justeringar respekterar dina ändringar. Smärta och lätta veckor går fortfarande först.</string>
+    <string name="session_edit_only_this">Bara det här passet</string>
+    <string name="session_edit_later_too">Det här och kommande</string>
+    <string name="session_edit_forget">Glöm mina bestående ändringar</string>
+    <string name="session_edit_forgotten">Klart: nya block följer programmet igen.</string>
+    <string name="session_customised">Ändrat av dig</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">%1$s klart</string>
     <string name="workout_add_segment">Lägg till en del</string>

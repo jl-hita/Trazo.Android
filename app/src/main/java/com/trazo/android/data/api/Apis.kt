@@ -3,6 +3,7 @@ package com.trazo.android.data.api
 import com.trazo.android.data.model.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -35,6 +36,9 @@ interface PlansApi {
     suspend fun log(@Path("sessionId") sessionId: String, @Body request: LogSessionRequest): Response<LogResult>
     @GET("api/v1/plans/current/sessions/{sessionId}/exercises/{exerciseId}/alternatives")
     suspend fun alternatives(@Path("sessionId") sessionId: String, @Path("exerciseId") exerciseId: String, @Query("limit") limit: Int = 5): Response<AlternativesResult>
+    @PUT("api/v1/plans/current/sessions/{sessionId}/exercises")
+    suspend fun editSession(@Path("sessionId") sessionId: String, @Body request: SessionEditRequest): Response<SessionView>
+    @DELETE("api/v1/plans/current/adjustments") suspend fun clearAdjustments(): Response<Unit>
     @POST("api/v1/plans/current/sessions/{sessionId}/exercises/{exerciseId}/swap")
     suspend fun swap(@Path("sessionId") sessionId: String, @Path("exerciseId") exerciseId: String, @Body request: SwapRequest): Response<SessionView>
     @POST("api/v1/plans/current/sessions/{sessionId}/exercises")

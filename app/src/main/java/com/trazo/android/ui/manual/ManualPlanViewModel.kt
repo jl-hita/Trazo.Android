@@ -70,21 +70,57 @@ data class ManualPlanState(
      * equal whatever their order, so a reordering kept only there would never reach the state flow.
      */
     val order: List<String> = emptyList(),
-    val technique: TechniquePick? = null
+    val technique: TechniquePick? = null,
+    /** Editing one session of a generated plan: its only routine is kept under [SESSION_KEY]. */
+    val session: Boolean = false,
+    /** Whether that edit also reaches the later repetitions of the session. */
+    val keepForLater: Boolean = false,
+    /** The lasting changes were just forgotten. */
+    val forgotten: Boolean = false
 ) {
     val isSequence: Boolean get() = schedulingMode == "Sequence"
     val canSubmit: Boolean
-        get() = name.isNotBlank() && days.isNotEmpty() && days.values.all { it.exercises.isNotEmpty() } && !submitting
+        get() = (session || name.isNotBlank()) && days.isNotEmpty() && days.values.all { it.exercises.isNotEmpty() } && !submitting
 }
 
 /** Lets the user write their own plan: weekday → routine → exercises with sets and repetitions. Free for every account. */
 class ManualPlanViewModel(
-    private val plans: PlanRepository, private val exercises: ExerciseRepository, editing: Boolean = false
+    private val plans: PlanRepository, private val exercises: ExerciseRepository, editing: Boolean = false,
+    /** Edits this pending session of a generated plan instead of a whole plan. */
+    private val sessionId: String? = null
 ) : ViewModel() {
-    private val _state = MutableStateFlow(ManualPlanState(editing = editing, loadingExisting = editing))
+    private val _state = MutableStateFlow(
+        ManualPlanState(editing = editing || sessionId != null, loadingExisting = editing || sessionId != null, session = sessionId != null)
+    )
     val state: StateFlow<ManualPlanState> = _state.asStateFlow()
 
-    init { if (editing) loadExisting() else loadOptions() }
+    init { if (sessionId != null) loadSession(sessionId) else if (editing) loadExisting() else loadOptions() }
+
+    private fun loadSession(id: String) {
+        viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(loadingExisting = false, error = ApiError(ErrorKind.Unknown)) } }) {
+            var found = plans.session(id)
+            if (found == null) {
+                when (val block = plans.block()) {
+                    is ApiResult.Failure -> return@launchGuarded _state.update { it.copy(loadingExisting = false, error = block.error) }
+                    is ApiResult.Success -> found = block.value.weeks.flatMap { it.sessions }.firstOrNull { it.id == id }
+                }
+            }
+            val session = found ?: return@launchGuarded _state.update { it.copy(loadingExisting = false, error = ApiError(ErrorKind.Unknown)) }
+            val routine = routinesOf(listOf(session.copy(day = SESSION_KEY))).getValue(SESSION_KEY)
+            _state.update { it.copy(loadingExisting = false, name = session.title, days = mapOf(SESSION_KEY to routine)) }
+        }
+    }
+
+    fun setKeepForLater(value: Boolean) = _state.update { it.copy(keepForLater = value) }
+
+    fun forgetChanges() {
+        viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(error = ApiError(ErrorKind.Unknown)) } }) {
+            when (val result = plans.clearAdjustments()) {
+                is ApiResult.Success -> _state.update { it.copy(forgotten = true, error = null) }
+                is ApiResult.Failure -> _state.update { it.copy(error = result.error) }
+            }
+        }
+    }
 
     private fun loadOptions() {
         viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { }) {
@@ -211,8 +247,9 @@ class ManualPlanViewModel(
         if (!s.canSubmit) return
         _state.update { it.copy(submitting = true, error = null) }
         viewModelScope.launchGuarded(R.string.feature_manual_plan, onFailure = { _state.update { it.copy(submitting = false, error = ApiError(ErrorKind.Unknown)) } }) {
-            val request = buildRequest(s, weekOrder)
-            when (val result = if (s.editing) plans.updateManualPlan(request) else plans.createManualPlan(request)) {
+            val result: ApiResult<Any> = if (sessionId != null) plans.editSession(sessionId, buildSessionRequest(s))
+            else buildRequest(s, weekOrder).let { if (s.editing) plans.updateManualPlan(it) else plans.createManualPlan(it) }
+            when (result) {
                 is ApiResult.Success -> _state.update { it.copy(submitting = false, created = true) }
                 is ApiResult.Failure -> _state.update { it.copy(submitting = false, error = result.error) }
             }
@@ -287,6 +324,13 @@ class ManualPlanViewModel(
 
     companion object {
         const val MAX_SUPERSET = 4
+        const val SESSION_KEY = "session"
+
+        /** The routine of a session being edited, as the server takes it. */
+        fun buildSessionRequest(s: ManualPlanState): com.trazo.android.data.model.SessionEditRequest {
+            val sent = buildRequest(s.copy(name = "-", schedulingMode = "Calendar"), listOf(SESSION_KEY)).days.single()
+            return com.trazo.android.data.model.SessionEditRequest(if (s.keepForLater) "plan" else "session", sent.exercises, sent.supersets)
+        }
         const val REST_STEP = 15
         const val MAX_REST = 600
 

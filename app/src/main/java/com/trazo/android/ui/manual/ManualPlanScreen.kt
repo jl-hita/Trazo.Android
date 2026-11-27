@@ -18,6 +18,7 @@ import com.trazo.android.data.model.Techniques
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
 import com.trazo.android.ui.theme.TrazoField
+import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
 private val WEEK = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
@@ -31,12 +32,26 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
     val order = Labels.inWeekOrder(WEEK)
     val context = androidx.compose.ui.platform.LocalContext.current
     Column(Modifier.fillMaxSize()) {
-        TrazoTopBar(stringResource(if (state.editing) R.string.manual_edit_title else R.string.manual_title), onBack)
+        TrazoTopBar(
+            stringResource(if (state.session) R.string.session_edit else if (state.editing) R.string.manual_edit_title else R.string.manual_title), onBack
+        )
         if (state.loadingExisting) { LoadingBox(Modifier.weight(1f)); return@Column }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            TrazoField(state.name, viewModel::setName, Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.manual_name)) })
+            if (!state.session) TrazoField(state.name, viewModel::setName, Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.manual_name)) })
 
-            if (state.editing) Notice(stringResource(R.string.manual_edit_note))
+            if (state.session) {
+                Notice(stringResource(R.string.session_edit_note))
+                val scopes = mapOf(false to stringResource(R.string.session_edit_only_this), true to stringResource(R.string.session_edit_later_too))
+                ChipGroup(
+                    listOf("one", "later"), setOf(if (state.keepForLater) "later" else "one"),
+                    { scopes.getValue(it == "later") }, { viewModel.setKeepForLater(it == "later") }
+                )
+                state.days[ManualPlanViewModel.SESSION_KEY]?.let { DayCard(state.name, ManualPlanViewModel.SESSION_KEY, it, viewModel, titled = false) }
+                TrazoLink(onClick = viewModel::forgetChanges, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.session_edit_forget)) }
+                if (state.forgotten) Text(stringResource(R.string.session_edit_forgotten), color = TrazoPalette.Ok)
+            }
+
+            if (state.editing && !state.session) Notice(stringResource(R.string.manual_edit_note))
             if (!state.editing) Text(stringResource(R.string.manual_weeks, state.totalWeeks), modifier = Modifier.padding(top = 8.dp))
             if (!state.editing) Slider(
                 value = state.totalWeeks.toFloat(), onValueChange = { viewModel.setTotalWeeks(it.toInt()) },
@@ -54,7 +69,9 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
                 )
             }
 
-            if (state.isSequence) {
+            if (state.session) {
+                // Only the routine above: a session of a generated plan has no days to choose.
+            } else if (state.isSequence) {
                 SectionTitle(stringResource(R.string.manual_routines))
                 Text(stringResource(R.string.manual_routines_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 val keys = state.order.filter { it in state.days }
@@ -139,11 +156,13 @@ private fun TechniqueDialog(pick: TechniquePick, exercise: ManualExercise, vm: M
 }
 
 @Composable
-private fun DayCard(header: String, day: String, routine: ManualDay, vm: ManualPlanViewModel, actions: @Composable () -> Unit = {}) {
+private fun DayCard(
+    header: String, day: String, routine: ManualDay, vm: ManualPlanViewModel, titled: Boolean = true, actions: @Composable () -> Unit = {}
+) {
     TrazoCard(Modifier.fillMaxWidth()) {
         Text(header, style = MaterialTheme.typography.titleSmall)
         actions()
-        TrazoField(routine.title, { vm.setTitle(day, it) }, Modifier.fillMaxWidth().padding(top = 8.dp), label = { Text(stringResource(R.string.manual_routine_title)) })
+        if (titled) TrazoField(routine.title, { vm.setTitle(day, it) }, Modifier.fillMaxWidth().padding(top = 8.dp), label = { Text(stringResource(R.string.manual_routine_title)) })
         if (routine.exercises.isEmpty()) {
             Text(stringResource(R.string.manual_no_exercises), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 8.dp))
         }

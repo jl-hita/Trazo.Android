@@ -623,6 +623,13 @@
     <string name="technique_help_rest_pause">Pausiere %1$d s und mach mit gleichem Gewicht weiter.</string>
     <string name="technique_reason_priority">Hinzugefügt, weil du diesen Muskel betonen willst.</string>
     <string name="technique_reason_time">Hinzugefügt, um mehr Arbeit in deine Trainingszeit zu bringen.</string>
+    <string name="session_edit">Einheit bearbeiten</string>
+    <string name="session_edit_note">Automatische Anpassungen respektieren deine Änderungen. Schmerzen und leichte Wochen haben weiter Vorrang.</string>
+    <string name="session_edit_only_this">Nur diese Einheit</string>
+    <string name="session_edit_later_too">Diese und folgende</string>
+    <string name="session_edit_forget">Meine dauerhaften Änderungen vergessen</string>
+    <string name="session_edit_forgotten">Erledigt: Neue Blöcke folgen wieder dem Plan.</string>
+    <string name="session_customised">Von dir geändert</string>
     <string name="workout_segment">Teil %1$d</string>
     <string name="workout_segment_done">%1$s erledigt</string>
     <string name="workout_add_segment">Teil hinzufügen</string>

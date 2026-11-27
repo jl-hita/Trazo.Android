@@ -633,6 +633,13 @@
     <string name="technique_help_rest_pause">Oddýchni si %1$d s a pokračuj s rovnakou záťažou.</string>
     <string name="technique_reason_priority">Pridané, pretože chcete tento sval uprednostniť.</string>
     <string name="technique_reason_time">Pridané, aby sa do času tréningu zmestilo viac práce.</string>
+    <string name="session_edit">Upraviť tréning</string>
+    <string name="session_edit_note">Automatické úpravy rešpektujú vaše zmeny. Bolesť a ľahšie týždne majú stále prednosť.</string>
+    <string name="session_edit_only_this">Len tento tréning</string>
+    <string name="session_edit_later_too">Tento aj ďalšie</string>
+    <string name="session_edit_forget">Zabudnúť moje trvalé zmeny</string>
+    <string name="session_edit_forgotten">Hotovo: nové bloky sa opäť riadia plánom.</string>
+    <string name="session_customised">Upravené vami</string>
     <string name="workout_segment">Časť %1$d</string>
     <string name="workout_segment_done">Hotovo: %1$s</string>
     <string name="workout_add_segment">Pridať časť</string>
