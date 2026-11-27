@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">Ocen. 1RM %1$s kg</string>
     <string name="progress_best_reps">Najboljše: %1$d ponov.</string>
     <string name="progress_muscles">Serije po mišicah</string>
-    <string name="progress_muscles_note">Učinkovite serije na teden (glavna mišica šteje 1 na serijo, pomožna 0,5). Zeleni stolpec je ta teden; drugi so prejšnjih 7.</string>
+    <string name="progress_muscles_note">Vsaka serija šteje 1 za vsako mišico, ki res dela; deli serije skupaj dodajo 0,5. Zeleni stolpec je ta teden.</string>
+    <string name="progress_planned">Načrtovano: %1$s na teden</string>
+    <string name="progress_muscle_sessions">Vadbe ta teden: %1$d</string>
+    <string name="progress_blocks">Blok za blokom</string>
+    <string name="progress_block_title">Blok %1$d · tedni %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d od %2$d vadb</string>
+    <string name="progress_block_sets">%1$s: %2$s od %3$s serij</string>
+    <string name="progress_block_change">%1$s: %2$s%% ocenjenega 1RM</string>
+    <string name="progress_block_note">Bremena se primerjajo samo pri vajah, skupnih dvema vadbenima blokoma. To je ocena, ne meritev mišice.</string>
     <string name="progress_sets_this_week">Serij ta teden: %1$s</string>
     <string name="progress_exercises">Po vajah</string>
     <string name="progress_sessions">Treningov: %1$d</string>

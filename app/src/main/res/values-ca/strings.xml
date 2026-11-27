@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">1RM est. %1$s kg</string>
     <string name="progress_best_reps">Millor: %1$d repeticions</string>
     <string name="progress_muscles">Sèries per múscul</string>
-    <string name="progress_muscles_note">Sèries efectives per setmana (un múscul principal compta 1 per sèrie, un de secundari 0,5). La barra verda és aquesta setmana; les altres són les 7 anteriors.</string>
+    <string name="progress_muscles_note">Cada sèrie compta 1 per a cada múscul que la treballa de debò; les parts d\'una sèrie sumen 0,5 entre totes. La barra verda és aquesta setmana.</string>
+    <string name="progress_planned">Previst: %1$s per setmana</string>
+    <string name="progress_muscle_sessions">%1$d entrenaments aquesta setmana</string>
+    <string name="progress_blocks">Bloc a bloc</string>
+    <string name="progress_block_title">Bloc %1$d · setmanes %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d de %2$d sessions</string>
+    <string name="progress_block_sets">%1$s: %2$s de %3$s sèries</string>
+    <string name="progress_block_change">%1$s: %2$s%% d\'1RM estimat</string>
+    <string name="progress_block_note">Les càrregues només es comparen en exercicis que comparteixen dos blocs d\'entrenament. És una estimació, no una mesura del múscul.</string>
     <string name="progress_sets_this_week">%1$s sèries aquesta setmana</string>
     <string name="progress_exercises">Per exercici</string>
     <string name="progress_sessions">%1$d entrenaments</string>

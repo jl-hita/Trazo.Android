@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">Odhad. 1RM %1$s kg</string>
     <string name="progress_best_reps">Najlepšie: %1$d opak.</string>
     <string name="progress_muscles">Série na sval</string>
-    <string name="progress_muscles_note">Efektívne série za týždeň (hlavný sval sa počíta 1 za sériu, pomocný 0,5). Zelený stĺpec je tento týždeň; ostatné sú predchádzajúcich 7.</string>
+    <string name="progress_muscles_note">Každá séria sa počíta 1 pre každý sval, ktorý naozaj pracuje; časti série spolu pridajú 0,5. Zelený stĺpec je tento týždeň.</string>
+    <string name="progress_planned">Plán: %1$s týždenne</string>
+    <string name="progress_muscle_sessions">Tréningy tento týždeň: %1$d</string>
+    <string name="progress_blocks">Blok po bloku</string>
+    <string name="progress_block_title">Blok %1$d · týždne %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d z %2$d tréningov</string>
+    <string name="progress_block_sets">%1$s: %2$s z %3$s sérií</string>
+    <string name="progress_block_change">%1$s: %2$s%% odhadovaného 1RM</string>
+    <string name="progress_block_note">Záťaže sa porovnávajú len pri cvikoch spoločných pre dva tréningové bloky. Je to odhad, nie meranie svalu.</string>
     <string name="progress_sets_this_week">Sérií tento týždeň: %1$s</string>
     <string name="progress_exercises">Podľa cviku</string>
     <string name="progress_sessions">Tréningov: %1$d</string>

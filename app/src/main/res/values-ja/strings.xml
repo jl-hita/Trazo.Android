@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">推定1RM %1$s kg</string>
     <string name="progress_best_reps">ベスト：%1$d回</string>
     <string name="progress_muscles">筋肉ごとのセット数</string>
-    <string name="progress_muscles_note">週あたりの有効セット数（主働筋は1セットにつき1、補助筋は0.5として計算）。緑の棒が今週、他は直前の7週です。</string>
+    <string name="progress_muscles_note">各セットは実際に働く筋肉ごとに1と数え、セット内の追加分は合計0.5です。緑のバーが今週です。</string>
+    <string name="progress_planned">予定：週%1$s</string>
+    <string name="progress_muscle_sessions">今週%1$d回</string>
+    <string name="progress_blocks">ブロックごと</string>
+    <string name="progress_block_title">ブロック%1$d・%2$d〜%3$d週</string>
+    <string name="progress_block_sessions">%2$d回中%1$d回</string>
+    <string name="progress_block_sets">%1$s：%3$sセット中%2$s</string>
+    <string name="progress_block_change">%1$s：推定1RM %2$s%%</string>
+    <string name="progress_block_note">重量の比較は、2つのトレーニングブロックに共通する種目のみです。推定値であり、筋肉の測定ではありません。</string>
     <string name="progress_sets_this_week">今週%1$sセット</string>
     <string name="progress_exercises">種目別</string>
     <string name="progress_sessions">%1$d回のトレーニング</string>

@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">추정 1RM %1$s kg</string>
     <string name="progress_best_reps">최고: %1$d회</string>
     <string name="progress_muscles">근육별 세트</string>
-    <string name="progress_muscles_note">주당 유효 세트 수(주동근은 세트당 1, 보조근은 0.5로 계산). 초록 막대가 이번 주이고 나머지는 이전 7주입니다.</string>
+    <string name="progress_muscles_note">각 세트는 실제로 쓰이는 근육마다 1로 계산하고, 세트의 추가 부분은 합쳐서 0.5를 더합니다. 초록 막대가 이번 주입니다.</string>
+    <string name="progress_planned">계획: 주 %1$s</string>
+    <string name="progress_muscle_sessions">이번 주 운동 %1$d회</string>
+    <string name="progress_blocks">블록별</string>
+    <string name="progress_block_title">블록 %1$d · %2$d–%3$d주차</string>
+    <string name="progress_block_sessions">세션 %2$d회 중 %1$d회</string>
+    <string name="progress_block_sets">%1$s: %3$s세트 중 %2$s</string>
+    <string name="progress_block_change">%1$s: 추정 1RM %2$s%%</string>
+    <string name="progress_block_note">중량은 두 훈련 블록에 공통으로 있는 운동만 비교합니다. 추정치이며 근육 측정이 아닙니다.</string>
     <string name="progress_sets_this_week">이번 주 %1$s세트</string>
     <string name="progress_exercises">운동별</string>
     <string name="progress_sessions">운동 %1$d회</string>

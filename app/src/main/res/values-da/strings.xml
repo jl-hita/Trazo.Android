@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">Est. 1RM %1$s kg</string>
     <string name="progress_best_reps">Bedste: %1$d gentagelser</string>
     <string name="progress_muscles">Sæt pr. muskel</string>
-    <string name="progress_muscles_note">Effektive sæt pr. uge (en primær muskel tæller 1 pr. sæt, en sekundær 0,5). Den grønne søjle er denne uge; de andre er de foregående 7.</string>
+    <string name="progress_muscles_note">Hvert sæt tæller 1 for hver muskel, der reelt arbejder; delene af et sæt lægger 0,5 til tilsammen. Den grønne søjle er denne uge.</string>
+    <string name="progress_planned">Planlagt: %1$s om ugen</string>
+    <string name="progress_muscle_sessions">%1$d træninger i denne uge</string>
+    <string name="progress_blocks">Blok for blok</string>
+    <string name="progress_block_title">Blok %1$d · uge %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d af %2$d pas</string>
+    <string name="progress_block_sets">%1$s: %2$s af %3$s sæt</string>
+    <string name="progress_block_change">%1$s: %2$s%% estimeret 1RM</string>
+    <string name="progress_block_note">Belastninger sammenlignes kun på øvelser, som to træningsblokke deler. Det er et skøn, ikke en måling af muskler.</string>
     <string name="progress_sets_this_week">%1$s sæt denne uge</string>
     <string name="progress_exercises">Pr. øvelse</string>
     <string name="progress_sessions">%1$d træningspas</string>

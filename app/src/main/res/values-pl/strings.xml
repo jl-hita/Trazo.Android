@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">Szac. 1RM %1$s kg</string>
     <string name="progress_best_reps">Najlepiej: %1$d powt.</string>
     <string name="progress_muscles">Serie na mięsień</string>
-    <string name="progress_muscles_note">Efektywne serie na tydzień (mięsień główny liczy się jako 1 na serię, pomocniczy jako 0,5). Zielony słupek to ten tydzień; pozostałe to 7 poprzednich.</string>
+    <string name="progress_muscles_note">Każda seria liczy się jako 1 dla każdego mięśnia, który naprawdę pracuje; części serii dodają łącznie 0,5. Zielony słupek to ten tydzień.</string>
+    <string name="progress_planned">Zaplanowane: %1$s tygodniowo</string>
+    <string name="progress_muscle_sessions">Treningi w tym tygodniu: %1$d</string>
+    <string name="progress_blocks">Blok po bloku</string>
+    <string name="progress_block_title">Blok %1$d · tygodnie %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d z %2$d treningów</string>
+    <string name="progress_block_sets">%1$s: %2$s z %3$s serii</string>
+    <string name="progress_block_change">%1$s: %2$s%% szacowanego 1RM</string>
+    <string name="progress_block_note">Obciążenia porównujemy tylko w ćwiczeniach wspólnych dla dwóch bloków treningowych. To szacunek, nie pomiar mięśnia.</string>
     <string name="progress_sets_this_week">Serie w tym tygodniu: %1$s</string>
     <string name="progress_exercises">Według ćwiczeń</string>
     <string name="progress_sessions">Treningi: %1$d</string>

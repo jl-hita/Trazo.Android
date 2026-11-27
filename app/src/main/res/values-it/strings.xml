@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">1RM stim. %1$s kg</string>
     <string name="progress_best_reps">Migliore: %1$d rip.</string>
     <string name="progress_muscles">Serie per muscolo</string>
-    <string name="progress_muscles_note">Serie effettive a settimana (un muscolo principale conta 1 per serie, uno secondario 0,5). La barra verde è questa settimana; le altre sono le 7 precedenti.</string>
+    <string name="progress_muscles_note">Ogni serie vale 1 per ogni muscolo che la lavora davvero; le parti di una serie aggiungono 0,5 in tutto. La barra verde è questa settimana.</string>
+    <string name="progress_planned">Previsto: %1$s a settimana</string>
+    <string name="progress_muscle_sessions">%1$d allenamenti questa settimana</string>
+    <string name="progress_blocks">Blocco per blocco</string>
+    <string name="progress_block_title">Blocco %1$d · settimane %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d sedute su %2$d</string>
+    <string name="progress_block_sets">%1$s: %2$s serie su %3$s</string>
+    <string name="progress_block_change">%1$s: %2$s%% di 1RM stimato</string>
+    <string name="progress_block_note">I carichi si confrontano solo sugli esercizi comuni a due blocchi di allenamento. È una stima, non una misura del muscolo.</string>
     <string name="progress_sets_this_week">%1$s serie questa settimana</string>
     <string name="progress_exercises">Per esercizio</string>
     <string name="progress_sessions">%1$d allenamenti</string>
