@@ -46,7 +46,9 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
                     listOf("one", "later"), setOf(if (state.keepForLater) "later" else "one"),
                     { scopes.getValue(it == "later") }, { viewModel.setKeepForLater(it == "later") }
                 )
-                state.days[ManualPlanViewModel.SESSION_KEY]?.let { DayCard(state.name, ManualPlanViewModel.SESSION_KEY, it, viewModel, titled = false) }
+                state.days[ManualPlanViewModel.SESSION_KEY]?.let {
+                    DayCard(state.name, ManualPlanViewModel.SESSION_KEY, it, viewModel, titled = false, strengthPlan = state.strengthPlan)
+                }
                 TrazoLink(onClick = viewModel::forgetChanges, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.session_edit_forget)) }
                 if (state.forgotten) Text(stringResource(R.string.session_edit_forgotten), color = TrazoPalette.Ok)
             }
@@ -78,6 +80,7 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
                 keys.forEachIndexed { index, key ->
                     DayCard(
                         stringResource(R.string.manual_default_routine, index + 1), key, state.days.getValue(key), viewModel,
+                        strengthPlan = state.strengthPlan,
                         actions = {
                             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 TextButton(onClick = { viewModel.moveRoutine(key, -1) }, enabled = index > 0, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_move_up)) }
@@ -97,7 +100,7 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
                 DayPicker(WEEK, state.days.keys, { day -> viewModel.toggleDay(day, context.getString(R.string.manual_default_routine, state.days.size + 1)) })
 
                 order.filter { it in state.days }.forEach { day ->
-                    DayCard(Labels.day(day), day, state.days.getValue(day), viewModel)
+                    DayCard(Labels.day(day), day, state.days.getValue(day), viewModel, strengthPlan = state.strengthPlan)
                 }
             }
 
@@ -110,12 +113,12 @@ fun ManualPlanScreen(viewModel: ManualPlanViewModel, onBack: () -> Unit, onCreat
     }
     if (state.picking != null) ExercisePicker(state, viewModel)
     state.technique?.let { pick ->
-        state.days[pick.day]?.exercises?.firstOrNull { it.id == pick.exerciseId }?.let { TechniqueDialog(pick, it, viewModel) }
+        state.days[pick.day]?.exercises?.firstOrNull { it.id == pick.exerciseId }?.let { TechniqueDialog(pick, it, viewModel, state.strengthPlan) }
     }
 }
 
 @Composable
-private fun TechniqueDialog(pick: TechniquePick, exercise: ManualExercise, vm: ManualPlanViewModel) {
+private fun TechniqueDialog(pick: TechniquePick, exercise: ManualExercise, vm: ManualPlanViewModel, strengthPlan: Boolean) {
     val straight = stringResource(R.string.technique_straight)
     // A match needs two sets; what the exercise already has stays selectable.
     val choices = pick.allowed.filter { it != Techniques.MATCH || exercise.sets > 1 }
@@ -134,6 +137,7 @@ private fun TechniqueDialog(pick: TechniquePick, exercise: ManualExercise, vm: M
                     error != null -> InlineError(error)
                     choices.isEmpty() -> Text(stringResource(R.string.technique_none_allowed))
                     else -> {
+                        if (strengthPlan) Notice(stringResource(R.string.technique_strength_warning))
                         ChipGroup(
                             listOf("") + choices, setOf(exercise.technique?.type.orEmpty()), { names[it] ?: straight },
                             { vm.setTechnique(it.ifEmpty { null }) }
@@ -157,7 +161,8 @@ private fun TechniqueDialog(pick: TechniquePick, exercise: ManualExercise, vm: M
 
 @Composable
 private fun DayCard(
-    header: String, day: String, routine: ManualDay, vm: ManualPlanViewModel, titled: Boolean = true, actions: @Composable () -> Unit = {}
+    header: String, day: String, routine: ManualDay, vm: ManualPlanViewModel, titled: Boolean = true, strengthPlan: Boolean = false,
+    actions: @Composable () -> Unit = {}
 ) {
     TrazoCard(Modifier.fillMaxWidth()) {
         Text(header, style = MaterialTheme.typography.titleSmall)
@@ -167,6 +172,9 @@ private fun DayCard(
             Text(stringResource(R.string.manual_no_exercises), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 8.dp))
         }
         val groups = ManualPlanViewModel.supersetGroups(routine.exercises)
+        if (strengthPlan && (groups.any { it != null } || routine.exercises.any { it.technique != null })) {
+            Notice(stringResource(R.string.technique_strength_warning), Modifier.padding(top = 8.dp))
+        }
         routine.exercises.forEachIndexed { index, exercise ->
             Column(Modifier.fillMaxWidth().padding(top = 12.dp)) {
                 // The rounds and rests of a superset are set once, above its first exercise.

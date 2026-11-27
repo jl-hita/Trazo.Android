@@ -629,6 +629,7 @@
     <string name="technique_scope_all">Serie guztiak</string>
     <string name="technique_drops">Karga jaitsierak: %1$d</string>
     <string name="technique_none_allowed">Ariketa hau serie arruntekin bakarrik egiten da.</string>
+    <string name="technique_strength_warning">TRAZOk ez du teknikarik ez superseriarik gehitzen indar-planetan: muskulua irabazteko eta denbora aurrezteko dira. Hala ere erabil ditzakezu.</string>
     <string name="technique_help_drop">Jaitsi karga %%%1$d eta jarraitu %2$d s baino lehen.</string>
     <string name="technique_help_myo">Hartu atseden %1$d s eta egin %2$d–%3$d errepikapeneko miniserieak karga berarekin.</string>
     <string name="technique_help_match">Hartu atseden %1$d s eta gehitu miniserieak lehen serieko errepikapenak berdindu arte.</string>

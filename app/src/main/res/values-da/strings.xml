@@ -629,6 +629,7 @@
     <string name="technique_scope_all">Alle sæt</string>
     <string name="technique_drops">Vægtreduktioner: %1$d</string>
     <string name="technique_none_allowed">Denne øvelse laves kun med almindelige sæt.</string>
+    <string name="technique_strength_warning">TRAZO tilføjer ikke teknikker eller supersæt til styrkeplaner: de er tænkt til muskelvækst og til at spare tid. Du kan stadig bruge dem.</string>
     <string name="technique_help_drop">Sænk vægten med %1$d%% og fortsæt inden for %2$d s.</string>
     <string name="technique_help_myo">Hvil %1$d s og lav minisæt på %2$d–%3$d reps med samme vægt.</string>
     <string name="technique_help_match">Hvil %1$d s og tilføj minisæt, til du når reps fra dit første sæt.</string>

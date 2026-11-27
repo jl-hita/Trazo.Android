@@ -639,6 +639,7 @@
     <string name="technique_scope_all">Všechny série</string>
     <string name="technique_drops">Snížení zátěže: %1$d</string>
     <string name="technique_none_allowed">Tento cvik se cvičí jen v běžných sériích.</string>
+    <string name="technique_strength_warning">TRAZO do silových plánů nepřidává techniky ani supersérie: slouží k růstu svalů a úspoře času. Přesto je můžeš použít.</string>
     <string name="technique_help_drop">Sniž zátěž o %1$d%% a pokračuj do %2$d s.</string>
     <string name="technique_help_myo">Odpočiň si %1$d s a dělej minisérie po %2$d–%3$d opakováních se stejnou zátěží.</string>
     <string name="technique_help_match">Odpočiň si %1$d s a přidávej minisérie, dokud nedorovnáš opakování první série.</string>

@@ -673,6 +673,7 @@
     <string name="technique_scope_all">All sets</string>
     <string name="technique_drops">Load drops: %1$d</string>
     <string name="technique_none_allowed">This exercise is done with straight sets only.</string>
+    <string name="technique_strength_warning">TRAZO does not add techniques or supersets to strength plans: they are meant for muscle growth and for saving time. You can still use them.</string>
     <string name="technique_help_drop">Lower the load by %1$d%% and continue within %2$d s.</string>
     <string name="technique_help_myo">Rest %1$d s and do mini-sets of %2$d–%3$d reps with the same load.</string>
     <string name="technique_help_match">Rest %1$d s and add mini-sets until you match the reps of your first set.</string>

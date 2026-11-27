@@ -629,6 +629,7 @@
     <string name="technique_scope_all">Όλα τα σετ</string>
     <string name="technique_drops">Μειώσεις φορτίου: %1$d</string>
     <string name="technique_none_allowed">Αυτή η άσκηση γίνεται μόνο με κανονικά σετ.</string>
+    <string name="technique_strength_warning">Το TRAZO δεν προσθέτει τεχνικές ή υπερσέτ σε προγράμματα δύναμης: είναι για μυϊκή υπερτροφία και εξοικονόμηση χρόνου. Μπορείς όμως να τα χρησιμοποιήσεις.</string>
     <string name="technique_help_drop">Μείωσε το φορτίο κατά %1$d%% και συνέχισε μέσα σε %2$d δ.</string>
     <string name="technique_help_myo">Ξεκουράσου %1$d δ και κάνε μίνι σετ %2$d–%3$d επαναλήψεων με το ίδιο φορτίο.</string>
     <string name="technique_help_match">Ξεκουράσου %1$d δ και πρόσθεσε μίνι σετ ώσπου να φτάσεις τις επαναλήψεις του πρώτου σετ.</string>

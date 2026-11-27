@@ -629,6 +629,7 @@
     <string name="technique_scope_all">Сите серии</string>
     <string name="technique_drops">Намалувања на товарот: %1$d</string>
     <string name="technique_none_allowed">Оваа вежба се изведува само со обични серии.</string>
+    <string name="technique_strength_warning">TRAZO не додава техники ни суперсерии во плановите за сила: тие се за раст на мускулите и заштеда на време. Сепак можеш да ги користиш.</string>
     <string name="technique_help_drop">Намали го товарот за %1$d%% и продолжи за %2$d с.</string>
     <string name="technique_help_myo">Одмори %1$d с и прави мини-серии од %2$d–%3$d повторувања со истиот товар.</string>
     <string name="technique_help_match">Одмори %1$d с и додавај мини-серии додека не ги достигнеш повторувањата од првата серија.</string>

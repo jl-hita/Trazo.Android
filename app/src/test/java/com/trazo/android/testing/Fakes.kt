@@ -24,7 +24,8 @@ class FakePlansApi : PlansApi {
     var weekResponse: () -> Response<WeekView> = { Response.success(sampleWeek()) }
     /** What the server keeps after a limitations update, so the plan read afterwards shows it. */
     var storedLimitations: List<String> = emptyList()
-    var planResponse: () -> Response<PlanView> = { Response.success(samplePlan().copy(limitations = storedLimitations)) }
+    var planGoal = "Hypertrophy"
+    var planResponse: () -> Response<PlanView> = { Response.success(samplePlan().copy(limitations = storedLimitations, goal = planGoal)) }
     var logResponse: (String, LogSessionRequest) -> Response<LogResult> = { _, _ -> Response.success(LogResult(sampleSession(), sampleReport())) }
     var optionsResponse: () -> Response<PlanOptions> = { Response.success(sampleOptions()) }
     var createResponse: (PlanProfileRequest) -> Response<PlanView> = { Response.success(samplePlan()) }

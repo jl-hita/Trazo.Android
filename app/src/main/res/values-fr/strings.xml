@@ -634,6 +634,7 @@
     <string name="technique_scope_all">Toutes les séries</string>
     <string name="technique_drops">Baisses de charge : %1$d</string>
     <string name="technique_none_allowed">Cet exercice se fait uniquement en séries classiques.</string>
+    <string name="technique_strength_warning">TRAZO n’ajoute ni techniques ni supersets aux plans de force : ils visent la prise de muscle et le gain de temps. Vous pouvez quand même les utiliser.</string>
     <string name="technique_help_drop">Baisse la charge de %1$d%% et reprends en moins de %2$d s.</string>
     <string name="technique_help_myo">Repose-toi %1$d s et fais des mini-séries de %2$d–%3$d répétitions avec la même charge.</string>
     <string name="technique_help_match">Repose-toi %1$d s et ajoute des mini-séries jusqu’à égaler les répétitions de ta première série.</string>

@@ -629,6 +629,7 @@
     <string name="technique_scope_all">Alle Sätze</string>
     <string name="technique_drops">Gewichtsreduktionen: %1$d</string>
     <string name="technique_none_allowed">Diese Übung wird nur mit normalen Sätzen ausgeführt.</string>
+    <string name="technique_strength_warning">TRAZO fügt Kraftplänen keine Techniken oder Supersätze hinzu: Sie sind für Muskelaufbau und zum Zeitsparen gedacht. Du kannst sie trotzdem nutzen.</string>
     <string name="technique_help_drop">Reduziere das Gewicht um %1$d%% und mach innerhalb von %2$d s weiter.</string>
     <string name="technique_help_myo">Pausiere %1$d s und mach Minisätze mit %2$d–%3$d Wiederholungen bei gleichem Gewicht.</string>
     <string name="technique_help_match">Pausiere %1$d s und häng Minisätze an, bis du die Wiederholungen deines ersten Satzes erreichst.</string>
