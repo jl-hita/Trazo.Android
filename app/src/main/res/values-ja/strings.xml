@@ -158,7 +158,6 @@
     <string name="finish_title">トレーニングを締める</string>
     <string name="finish_recovery">開始時の回復具合はどうでしたか？</string>
     <string name="finish_rpe">トレーニングのきつさ：10段階中%1$s</string>
-    <string name="finish_rpe_unset">未設定</string>
     <string name="finish_pain">痛みを感じた</string>
     <string name="finish_reason">なぜ完了しなかったのですか？</string>
     <string name="finish_notes">メモ（任意）</string>
@@ -679,4 +678,6 @@
     <string name="update_available_body">更新すると最新の修正と改善を利用できます。</string>
     <string name="update_action">更新</string>
     <string name="update_later">後で</string>
+    <string name="finish_rpe_none">トレーニングのきつさ：未設定</string>
+    <string name="finish_reason_required">送信するには理由を選んでください</string>
 </resources>

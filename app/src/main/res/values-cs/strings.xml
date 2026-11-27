@@ -158,7 +158,6 @@
     <string name="finish_title">Uzavřít trénink</string>
     <string name="finish_recovery">Jak odpočatý(á) jsi přišel(a)?</string>
     <string name="finish_rpe">Náročnost tréninku: %1$s z 10</string>
-    <string name="finish_rpe_unset">nezadáno</string>
     <string name="finish_pain">Cítil(a) jsem bolest</string>
     <string name="finish_reason">Proč nebyl dokončen?</string>
     <string name="finish_notes">Poznámky (volitelné)</string>
@@ -694,4 +693,6 @@
     <string name="update_available_body">Aktualizuj a získej nejnovější opravy a vylepšení.</string>
     <string name="update_action">Aktualizovat</string>
     <string name="update_later">Teď ne</string>
+    <string name="finish_rpe_none">Náročnost tréninku: nezadáno</string>
+    <string name="finish_reason_required">Pro odeslání vyber důvod</string>
 </resources>

@@ -158,7 +158,6 @@
     <string name="finish_title">Zaključi trening</string>
     <string name="finish_recovery">Kako spočit si prišel?</string>
     <string name="finish_rpe">Napor treninga: %1$s od 10</string>
-    <string name="finish_rpe_unset">ni nastavljeno</string>
     <string name="finish_pain">Čutil sem bolečino</string>
     <string name="finish_reason">Zakaj ni bil dokončan?</string>
     <string name="finish_notes">Opombe (izbirno)</string>
@@ -694,4 +693,6 @@
     <string name="update_available_body">Posodobi za najnovejše popravke in izboljšave.</string>
     <string name="update_action">Posodobi</string>
     <string name="update_later">Ne zdaj</string>
+    <string name="finish_rpe_none">Napor treninga: ni nastavljeno</string>
+    <string name="finish_reason_required">Za pošiljanje izberi razlog</string>
 </resources>

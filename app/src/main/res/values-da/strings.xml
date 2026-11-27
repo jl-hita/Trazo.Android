@@ -158,7 +158,6 @@
     <string name="finish_title">Afslut passet</string>
     <string name="finish_recovery">Hvor restitueret var du, da du kom?</string>
     <string name="finish_rpe">Passets anstrengelse: %1$s af 10</string>
-    <string name="finish_rpe_unset">ikke angivet</string>
     <string name="finish_pain">Jeg mærkede smerte</string>
     <string name="finish_reason">Hvorfor blev det ikke gennemført?</string>
     <string name="finish_notes">Noter (valgfrit)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Opdater for at få de nyeste rettelser og forbedringer.</string>
     <string name="update_action">Opdater</string>
     <string name="update_later">Ikke nu</string>
+    <string name="finish_rpe_none">Passets anstrengelse: ikke angivet</string>
+    <string name="finish_reason_required">Vælg en årsag for at sende</string>
 </resources>

@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.trazo.android.push.PushKinds
 import com.trazo.android.push.PushNotifier
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -211,7 +212,8 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
             }
         }
     ) { padding ->
-        Box(Modifier.padding(padding)) {
+        // The insets applied here are consumed, so the top bars and screens inside do not leave the status bar's space again.
+        Box(Modifier.padding(padding).consumeWindowInsets(padding)) {
             NavHost(nav, startDestination = Routes.PLAN) {
                 composable(Routes.PLAN) {
                     val state by planVm.state.collectAsStateWithLifecycle()

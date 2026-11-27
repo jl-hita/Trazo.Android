@@ -152,7 +152,7 @@ fun DayPicker(days: List<String>, selected: Set<String>, onToggle: (String) -> U
 fun ChipGroup(
     options: List<String>, selected: Set<String>, label: (String) -> String, onToggle: (String) -> Unit, modifier: Modifier = Modifier
 ) {
-    FlowRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(0.dp)) {
+    FlowRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         options.forEach { option ->
             FilterChip(
                 selected = option in selected, onClick = { onToggle(option) }, label = { Text(label(option)) },

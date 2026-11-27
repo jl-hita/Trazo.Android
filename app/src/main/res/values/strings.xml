@@ -161,7 +161,6 @@
     <string name="finish_title">Close the session</string>
     <string name="finish_recovery">How recovered did you arrive?</string>
     <string name="finish_rpe">Session effort: %1$s out of 10</string>
-    <string name="finish_rpe_unset">not set</string>
     <string name="finish_pain">I felt pain</string>
     <string name="finish_reason">Why wasn\'t it completed?</string>
     <string name="finish_notes">Notes (optional)</string>
@@ -728,4 +727,6 @@
     <string name="update_available_body">Update to get the latest fixes and improvements.</string>
     <string name="update_action">Update</string>
     <string name="update_later">Not now</string>
+    <string name="finish_rpe_none">Session effort: not set</string>
+    <string name="finish_reason_required">Choose a reason to send</string>
 </resources>

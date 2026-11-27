@@ -158,7 +158,6 @@
     <string name="finish_title">Pechar a sesión</string>
     <string name="finish_recovery">Que tal recuperado chegaches?</string>
     <string name="finish_rpe">Esforzo da sesión: %1$s sobre 10</string>
-    <string name="finish_rpe_unset">sen indicar</string>
     <string name="finish_pain">Sentín dor</string>
     <string name="finish_reason">Por que non se completou?</string>
     <string name="finish_notes">Notas (opcional)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Actualiza para ter as últimas correccións e melloras.</string>
     <string name="update_action">Actualizar</string>
     <string name="update_later">Agora non</string>
+    <string name="finish_rpe_none">Esforzo da sesión: sen indicar</string>
+    <string name="finish_reason_required">Elixe un motivo para enviar</string>
 </resources>

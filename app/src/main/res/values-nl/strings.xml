@@ -158,7 +158,6 @@
     <string name="finish_title">Training afsluiten</string>
     <string name="finish_recovery">Hoe hersteld kwam je aan?</string>
     <string name="finish_rpe">Inspanning van de training: %1$s van 10</string>
-    <string name="finish_rpe_unset">niet ingesteld</string>
     <string name="finish_pain">Ik voelde pijn</string>
     <string name="finish_reason">Waarom is ze niet afgemaakt?</string>
     <string name="finish_notes">Notities (optioneel)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Werk bij voor de nieuwste oplossingen en verbeteringen.</string>
     <string name="update_action">Bijwerken</string>
     <string name="update_later">Niet nu</string>
+    <string name="finish_rpe_none">Inspanning van de training: niet ingesteld</string>
+    <string name="finish_reason_required">Kies een reden om te versturen</string>
 </resources>

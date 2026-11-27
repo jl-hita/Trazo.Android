@@ -154,7 +154,6 @@
     <string name="finish_title">Tanca la sessió</string>
     <string name="finish_recovery">Com de recuperat has arribat?</string>
     <string name="finish_rpe">Esforç de la sessió: %1$s sobre 10</string>
-    <string name="finish_rpe_unset">sense indicar</string>
     <string name="finish_pain">He notat dolor</string>
     <string name="finish_reason">Per què no s\'ha completat?</string>
     <string name="finish_notes">Notes (opcional)</string>
@@ -689,4 +688,6 @@
     <string name="update_available_body">Actualitza per tenir les últimes correccions i millores.</string>
     <string name="update_action">Actualitza</string>
     <string name="update_later">Ara no</string>
+    <string name="finish_rpe_none">Esforç de la sessió: sense indicar</string>
+    <string name="finish_reason_required">Tria un motiu per enviar</string>
 </resources>

@@ -158,7 +158,6 @@
     <string name="finish_title">Затвори го тренингот</string>
     <string name="finish_recovery">Колку одморен дојде?</string>
     <string name="finish_rpe">Напор на тренингот: %1$s од 10</string>
-    <string name="finish_rpe_unset">не е поставено</string>
     <string name="finish_pain">Почувствував болка</string>
     <string name="finish_reason">Зошто не беше завршен?</string>
     <string name="finish_notes">Белешки (незадолжително)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Ажурирај за најновите поправки и подобрувања.</string>
     <string name="update_action">Ажурирај</string>
     <string name="update_later">Не сега</string>
+    <string name="finish_rpe_none">Напор на тренингот: не е поставено</string>
+    <string name="finish_reason_required">Избери причина за да испратиш</string>
 </resources>

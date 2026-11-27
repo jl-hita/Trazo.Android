@@ -154,7 +154,6 @@
     <string name="finish_title">Avsluta passet</string>
     <string name="finish_recovery">Hur återhämtad var du när du kom?</string>
     <string name="finish_rpe">Passets ansträngning: %1$s av 10</string>
-    <string name="finish_rpe_unset">inte angiven</string>
     <string name="finish_pain">Jag kände smärta</string>
     <string name="finish_reason">Varför slutfördes det inte?</string>
     <string name="finish_notes">Anteckningar (valfritt)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Uppdatera för att få de senaste rättningarna och förbättringarna.</string>
     <string name="update_action">Uppdatera</string>
     <string name="update_later">Inte nu</string>
+    <string name="finish_rpe_none">Passets ansträngning: inte angiven</string>
+    <string name="finish_reason_required">Välj en orsak för att skicka</string>
 </resources>

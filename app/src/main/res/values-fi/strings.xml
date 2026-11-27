@@ -158,7 +158,6 @@
     <string name="finish_title">Päätä treeni</string>
     <string name="finish_recovery">Kuinka levänneenä tulit?</string>
     <string name="finish_rpe">Treenin rasittavuus: %1$s / 10</string>
-    <string name="finish_rpe_unset">ei asetettu</string>
     <string name="finish_pain">Tunsin kipua</string>
     <string name="finish_reason">Miksi sitä ei tehty loppuun?</string>
     <string name="finish_notes">Muistiinpanot (valinnainen)</string>
@@ -684,4 +683,6 @@
     <string name="update_available_body">Päivitä saadaksesi uusimmat korjaukset ja parannukset.</string>
     <string name="update_action">Päivitä</string>
     <string name="update_later">Ei nyt</string>
+    <string name="finish_rpe_none">Treenin rasittavuus: ei asetettu</string>
+    <string name="finish_reason_required">Valitse syy lähettääksesi</string>
 </resources>
