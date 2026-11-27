@@ -631,6 +631,8 @@
     <string name="technique_help_myo">Отдохните %1$d с и делайте мини-подходы по %2$d–%3$d повторений с тем же весом.</string>
     <string name="technique_help_match">Отдохните %1$d с и добавляйте мини-подходы, пока не наберёте повторения первого подхода.</string>
     <string name="technique_help_rest_pause">Отдохните %1$d с и продолжайте с тем же весом.</string>
+    <string name="technique_reason_priority">Добавлено, потому что вы хотите сделать упор на эту мышцу.</string>
+    <string name="technique_reason_time">Добавлено, чтобы уместить больше работы во время тренировки.</string>
     <string name="workout_segment">Часть %1$d</string>
     <string name="workout_segment_done">Выполнено: %1$s</string>
     <string name="workout_add_segment">Добавить часть</string>

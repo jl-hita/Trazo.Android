@@ -626,6 +626,8 @@
     <string name="technique_help_myo">Repose-toi %1$d s et fais des mini-séries de %2$d–%3$d répétitions avec la même charge.</string>
     <string name="technique_help_match">Repose-toi %1$d s et ajoute des mini-séries jusqu’à égaler les répétitions de ta première série.</string>
     <string name="technique_help_rest_pause">Repose-toi %1$d s et continue avec la même charge.</string>
+    <string name="technique_reason_priority">Ajouté parce que vous voulez mettre l’accent sur ce muscle.</string>
+    <string name="technique_reason_time">Ajouté pour faire tenir plus de travail dans le temps de votre séance.</string>
     <string name="workout_segment">Partie %1$d</string>
     <string name="workout_segment_done">%1$s terminée</string>
     <string name="workout_add_segment">Ajouter une partie</string>

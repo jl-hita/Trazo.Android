@@ -641,6 +641,8 @@
     <string name="technique_help_myo">استرح %1$d ث ثم أدِّ مجموعات صغيرة من %2$d–%3$d تكرارات بالوزن نفسه.</string>
     <string name="technique_help_match">استرح %1$d ث وأضف مجموعات صغيرة حتى تبلغ تكرارات مجموعتك الأولى.</string>
     <string name="technique_help_rest_pause">استرح %1$d ث وتابع بالوزن نفسه.</string>
+    <string name="technique_reason_priority">أُضيفت لأنك تريد التركيز على هذه العضلة.</string>
+    <string name="technique_reason_time">أُضيفت لإنجاز عمل أكثر ضمن وقت حصتك.</string>
     <string name="workout_segment">جزء %1$d</string>
     <string name="workout_segment_done">تم: %1$s</string>
     <string name="workout_add_segment">إضافة جزء</string>

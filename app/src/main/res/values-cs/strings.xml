@@ -631,6 +631,8 @@
     <string name="technique_help_myo">Odpočiň si %1$d s a dělej minisérie po %2$d–%3$d opakováních se stejnou zátěží.</string>
     <string name="technique_help_match">Odpočiň si %1$d s a přidávej minisérie, dokud nedorovnáš opakování první série.</string>
     <string name="technique_help_rest_pause">Odpočiň si %1$d s a pokračuj se stejnou zátěží.</string>
+    <string name="technique_reason_priority">Přidáno, protože chcete tento sval upřednostnit.</string>
+    <string name="technique_reason_time">Přidáno, aby se do času tréninku vešlo více práce.</string>
     <string name="workout_segment">Část %1$d</string>
     <string name="workout_segment_done">Hotovo: %1$s</string>
     <string name="workout_add_segment">Přidat část</string>

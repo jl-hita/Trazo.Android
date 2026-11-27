@@ -621,6 +621,8 @@
     <string name="technique_help_myo">Ξεκουράσου %1$d δ και κάνε μίνι σετ %2$d–%3$d επαναλήψεων με το ίδιο φορτίο.</string>
     <string name="technique_help_match">Ξεκουράσου %1$d δ και πρόσθεσε μίνι σετ ώσπου να φτάσεις τις επαναλήψεις του πρώτου σετ.</string>
     <string name="technique_help_rest_pause">Ξεκουράσου %1$d δ και συνέχισε με το ίδιο φορτίο.</string>
+    <string name="technique_reason_priority">Προστέθηκε επειδή θέλετε να δώσετε έμφαση σε αυτόν τον μυ.</string>
+    <string name="technique_reason_time">Προστέθηκε για να χωρέσει περισσότερη δουλειά στον χρόνο της προπόνησης.</string>
     <string name="workout_segment">Μέρος %1$d</string>
     <string name="workout_segment_done">Ολοκληρώθηκε: %1$s</string>
     <string name="workout_add_segment">Προσθήκη μέρους</string>

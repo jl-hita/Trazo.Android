@@ -8,11 +8,15 @@ package com.trazo.android.data.model
 data class TechniqueView(
     val type: String, val appliesTo: String = Techniques.LAST_SET, val maxSegments: Int = 1, val restSeconds: Int = 0,
     val loadDropPercent: Int? = null, val segmentMinRepetitions: Int? = null, val segmentMaxRepetitions: Int? = null,
-    val targetRir: Double? = null
+    val targetRir: Double? = null,
+    /** Why the generator added it ("PriorityMuscle" or "ShortOnTime"); null when the user chose it. */
+    val reason: String? = null
 )
 
 /** How the exercises that share a superset letter are alternated. */
-data class SupersetView(val group: String, val rounds: Int, val restBetweenSeconds: Int, val restAfterRoundSeconds: Int)
+data class SupersetView(
+    val group: String, val rounds: Int, val restBetweenSeconds: Int, val restAfterRoundSeconds: Int, val reason: String? = null
+)
 
 /** The rules of the techniques the app needs: defaults (the server's), which sets carry one and when it is over. */
 object Techniques {

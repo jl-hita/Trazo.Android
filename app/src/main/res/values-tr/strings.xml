@@ -621,6 +621,8 @@
     <string name="technique_help_myo">%1$d sn dinlen ve aynı ağırlıkla %2$d–%3$d tekrarlık mini setler yap.</string>
     <string name="technique_help_match">%1$d sn dinlen ve ilk setindeki tekrar sayısına ulaşana kadar mini set ekle.</string>
     <string name="technique_help_rest_pause">%1$d sn dinlen ve aynı ağırlıkla devam et.</string>
+    <string name="technique_reason_priority">Bu kasa öncelik vermek istediğiniz için eklendi.</string>
+    <string name="technique_reason_time">Antrenman sürenize daha fazla çalışma sığdırmak için eklendi.</string>
     <string name="workout_segment">%1$d. bölüm</string>
     <string name="workout_segment_done">%1$s tamam</string>
     <string name="workout_add_segment">Bölüm ekle</string>

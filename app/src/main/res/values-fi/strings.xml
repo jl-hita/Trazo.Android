@@ -621,6 +621,8 @@
     <string name="technique_help_myo">Lepää %1$d s ja tee %2$d–%3$d toiston minisarjoja samalla painolla.</string>
     <string name="technique_help_match">Lepää %1$d s ja lisää minisarjoja, kunnes saavutat ensimmäisen sarjan toistot.</string>
     <string name="technique_help_rest_pause">Lepää %1$d s ja jatka samalla painolla.</string>
+    <string name="technique_reason_priority">Lisätty, koska haluat painottaa tätä lihasta.</string>
+    <string name="technique_reason_time">Lisätty, jotta harjoitusaikaasi mahtuu enemmän työtä.</string>
     <string name="workout_segment">Osa %1$d</string>
     <string name="workout_segment_done">%1$s tehty</string>
     <string name="workout_add_segment">Lisää osa</string>

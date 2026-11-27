@@ -665,6 +665,8 @@
     <string name="technique_help_myo">Rest %1$d s and do mini-sets of %2$d–%3$d reps with the same load.</string>
     <string name="technique_help_match">Rest %1$d s and add mini-sets until you match the reps of your first set.</string>
     <string name="technique_help_rest_pause">Rest %1$d s and continue with the same load.</string>
+    <string name="technique_reason_priority">Added because you want to emphasise this muscle.</string>
+    <string name="technique_reason_time">Added to fit more work into your session time.</string>
     <string name="workout_segment">Part %1$d</string>
     <string name="workout_segment_done">%1$s done</string>
     <string name="workout_add_segment">Add a part</string>

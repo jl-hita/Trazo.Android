@@ -621,6 +621,8 @@
     <string name="technique_help_myo">Hvil %1$d s og ta minisett på %2$d–%3$d repetisjoner med samme vekt.</string>
     <string name="technique_help_match">Hvil %1$d s og legg til minisett til du når repetisjonene fra første sett.</string>
     <string name="technique_help_rest_pause">Hvil %1$d s og fortsett med samme vekt.</string>
+    <string name="technique_reason_priority">Lagt til fordi du vil prioritere denne muskelen.</string>
+    <string name="technique_reason_time">Lagt til for å få plass til mer arbeid i økten din.</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">%1$s fullført</string>
     <string name="workout_add_segment">Legg til en del</string>

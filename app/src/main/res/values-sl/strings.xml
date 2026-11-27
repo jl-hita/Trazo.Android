@@ -631,6 +631,8 @@
     <string name="technique_help_myo">Počivaj %1$d s in delaj miniserije po %2$d–%3$d ponovitev z istim bremenom.</string>
     <string name="technique_help_match">Počivaj %1$d s in dodajaj miniserije, dokler ne dosežeš ponovitev prve serije.</string>
     <string name="technique_help_rest_pause">Počivaj %1$d s in nadaljuj z istim bremenom.</string>
+    <string name="technique_reason_priority">Dodano, ker želite poudariti to mišico.</string>
+    <string name="technique_reason_time">Dodano, da v čas vadbe stane več dela.</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">Opravljeno: %1$s</string>
     <string name="workout_add_segment">Dodaj del</string>

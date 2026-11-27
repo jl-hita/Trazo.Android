@@ -626,6 +626,8 @@
     <string name="technique_help_myo">Recupera %1$d s e fai mini-serie da %2$d–%3$d ripetizioni con lo stesso carico.</string>
     <string name="technique_help_match">Recupera %1$d s e aggiungi mini-serie fino a eguagliare le ripetizioni della prima serie.</string>
     <string name="technique_help_rest_pause">Recupera %1$d s e continua con lo stesso carico.</string>
+    <string name="technique_reason_priority">Aggiunta perché vuoi dare priorità a questo muscolo.</string>
+    <string name="technique_reason_time">Aggiunta per far stare più lavoro nel tempo della seduta.</string>
     <string name="workout_segment">Parte %1$d</string>
     <string name="workout_segment_done">%1$s completata</string>
     <string name="workout_add_segment">Aggiungi una parte</string>

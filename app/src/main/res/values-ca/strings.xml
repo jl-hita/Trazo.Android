@@ -626,6 +626,8 @@
     <string name="technique_help_myo">Descansa %1$d s i fes minisèries de %2$d–%3$d repeticions amb la mateixa càrrega.</string>
     <string name="technique_help_match">Descansa %1$d s i suma minisèries fins a igualar les repeticions de la primera sèrie.</string>
     <string name="technique_help_rest_pause">Descansa %1$d s i continua amb la mateixa càrrega.</string>
+    <string name="technique_reason_priority">Afegida perquè vols prioritzar aquest múscul.</string>
+    <string name="technique_reason_time">Afegida per encabir més feina en el temps de la sessió.</string>
     <string name="workout_segment">Part %1$d</string>
     <string name="workout_segment_done">%1$s feta</string>
     <string name="workout_add_segment">Afegeix una part</string>

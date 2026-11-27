@@ -69,6 +69,7 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                                 Text(stringResource(R.string.workout_superset, group), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
                                 state.session?.supersets?.firstOrNull { it.group == group }?.let {
                                     Text(stringResource(R.string.workout_superset_rounds, it.rounds), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
+                                    techniqueReason(it.reason)?.let { why -> Text(why, color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall) }
                                 }
                             }
                         }
@@ -84,6 +85,7 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                     ex.technique?.let {
                         Text(techniqueSummary(it), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
                         Text(techniqueHelp(it), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                        techniqueReason(it.reason)?.let { why -> Text(why, color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall) }
                     }
                     entry.sets.forEachIndexed { index, set ->
                         SetRow(

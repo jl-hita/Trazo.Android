@@ -621,6 +621,8 @@
     <string name="technique_help_myo">Pausiere %1$d s und mach Minisätze mit %2$d–%3$d Wiederholungen bei gleichem Gewicht.</string>
     <string name="technique_help_match">Pausiere %1$d s und häng Minisätze an, bis du die Wiederholungen deines ersten Satzes erreichst.</string>
     <string name="technique_help_rest_pause">Pausiere %1$d s und mach mit gleichem Gewicht weiter.</string>
+    <string name="technique_reason_priority">Hinzugefügt, weil du diesen Muskel betonen willst.</string>
+    <string name="technique_reason_time">Hinzugefügt, um mehr Arbeit in deine Trainingszeit zu bringen.</string>
     <string name="workout_segment">Teil %1$d</string>
     <string name="workout_segment_done">%1$s erledigt</string>
     <string name="workout_add_segment">Teil hinzufügen</string>

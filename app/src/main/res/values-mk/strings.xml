@@ -621,6 +621,8 @@
     <string name="technique_help_myo">Одмори %1$d с и прави мини-серии од %2$d–%3$d повторувања со истиот товар.</string>
     <string name="technique_help_match">Одмори %1$d с и додавај мини-серии додека не ги достигнеш повторувањата од првата серија.</string>
     <string name="technique_help_rest_pause">Одмори %1$d с и продолжи со истиот товар.</string>
+    <string name="technique_reason_priority">Додадено затоа што сакате да го нагласите овој мускул.</string>
+    <string name="technique_reason_time">Додадено за да собере повеќе работа во времето на тренингот.</string>
     <string name="workout_segment">Дел %1$d</string>
     <string name="workout_segment_done">Завршено: %1$s</string>
     <string name="workout_add_segment">Додај дел</string>
