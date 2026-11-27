@@ -610,7 +610,7 @@
     <string name="account_deleted">Je account is verwijderd.</string>
     <!-- Consent for health data -->
     <string name="health_title">Gezondheidsgegevens</string>
-    <string name="health_text">TRAZO gebruikt wat je vertelt over blessures, pijn, ongemak en ziekte alleen om je training aan te passen en, als je ook ‘Help TRAZO verbeteren’ aanzet, het ongemak ook om te onderzoeken hoe schema’s beter kunnen. Het is optioneel: zonder werkt al het andere hetzelfde. Je kunt de toestemming altijd intrekken bij Account, en dan worden die gegevens gewist.</string>
+    <string name="health_text">TRAZO gebruikt wat je vertelt over blessures, pijn, ongemak en ziekte alleen om je training aan te passen en, als je ook ‘Help TRAZO verbeteren’ aanzet, pijn en ongemak ook om te onderzoeken hoe schema’s beter kunnen. Het is optioneel: zonder werkt al het andere hetzelfde. Je kunt de toestemming altijd intrekken bij Account, en dan worden die gegevens gewist.</string>
     <string name="health_agree">Ik ga akkoord</string>
     <string name="health_decline">Nee, bedankt</string>
     <string name="health_on">Je staat TRAZO toe je gezondheidsgegevens te gebruiken.</string>
@@ -619,7 +619,7 @@
     <string name="health_withdraw_text">Je blessures, meldingen van pijn en ongemak en ziekteredenen worden gewist. Je trainingsgeschiedenis blijft bewaard. Je schema vermijdt de gemarkeerde zones niet meer.</string>
     <string name="health_withdraw_confirm">Intrekken en wissen</string>
     <string name="research_title">Help TRAZO verbeteren (optioneel)</string>
-    <string name="research_text">Als je dit aanzet, gebruikt TRAZO je trainingsgegevens (schema’s, sets, gewichten, herhalingen, inspanning en ongemak die je registreert, zonder je naam, e-mail of notities) om versies van de engine te vergelijken en te onderzoeken hoe schema’s beter kunnen. De gegevens worden vervangen door sleutels die buiten elke analyse niemand identificeren, en de resultaten worden gegroepeerd bekeken. Ze worden niet verkocht of gedeeld. Als je je account verwijdert, kunnen de anonieme cijfers per spier die bewaard blijven worden gegroepeerd. Je kunt het op elk moment uitzetten: je wordt dan niet meer meegenomen in latere analyses. Het verandert niets aan wat je kunt gebruiken.</string>
+    <string name="research_text">Als je dit aanzet, gebruikt TRAZO je trainingsgegevens (schema’s, sets, gewichten, herhalingen, inspanning, pijn en ongemak die je registreert, zonder je naam, e-mail of notities) om versies van de engine te vergelijken en te onderzoeken hoe schema’s beter kunnen. De gegevens worden vervangen door sleutels die buiten elke analyse niemand identificeren, en de resultaten worden gegroepeerd bekeken. Ze worden niet verkocht of gedeeld. Als je je account verwijdert, kunnen de anonieme cijfers per spier die bewaard blijven worden gegroepeerd. Je kunt het op elk moment uitzetten: je wordt dan niet meer meegenomen in latere analyses. Het verandert niets aan wat je kunt gebruiken.</string>
     <string name="technique_straight">Gewone sets</string>
     <string name="technique_label">Techniek: %1$s</string>
     <string name="technique_drop_set">Dropset</string>

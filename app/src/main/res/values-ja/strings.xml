@@ -605,7 +605,7 @@
     <string name="account_deleted">アカウントを削除しました。</string>
     <!-- Consent for health data -->
     <string name="health_title">健康に関するデータ</string>
-    <string name="health_text">TRAZOは、ケガ・痛み・違和感・病気について入力された内容を、トレーニングの調整にのみ使います。「TRAZOの改善に協力する」もオンにした場合は、違和感をプランの改善方法を調べるためにも使います。任意です。同意しなくてもほかの機能は同じように使えます。同意は「アカウント」でいつでも撤回でき、撤回するとそのデータは削除されます。</string>
+    <string name="health_text">TRAZOは、ケガ・痛み・違和感・病気について入力された内容を、トレーニングの調整にのみ使います。「TRAZOの改善に協力する」もオンにした場合は、痛みと違和感をプランの改善方法を調べるためにも使います。任意です。同意しなくてもほかの機能は同じように使えます。同意は「アカウント」でいつでも撤回でき、撤回するとそのデータは削除されます。</string>
     <string name="health_agree">同意する</string>
     <string name="health_decline">同意しない</string>
     <string name="health_on">TRAZOが健康データを使うことを許可しています。</string>
@@ -614,7 +614,7 @@
     <string name="health_withdraw_text">ケガ、痛みや違和感の記録、病気という理由が削除されます。トレーニング履歴は残ります。プランは、指定していた部位を避けなくなります。</string>
     <string name="health_withdraw_confirm">撤回して削除</string>
     <string name="research_title">TRAZOの改善に協力する（任意）</string>
-    <string name="research_text">オンにすると、TRAZOはあなたのトレーニングデータ（プラン、セット、重量、回数、記録した運動強度と違和感。氏名、メールアドレス、メモは含みません）を使い、エンジンのバージョンを比較してプランの改善方法を調べます。データは各分析の外では誰も特定できないキーに置き換えられ、結果はまとめて確認します。販売や提供はしません。アカウントを削除した場合、保持される筋肉ごとの匿名の数値はまとめて集計されることがあります。いつでもオフにでき、以後の分析には含まれません。利用できる機能は何も変わりません。</string>
+    <string name="research_text">オンにすると、TRAZOはあなたのトレーニングデータ（プラン、セット、重量、回数、記録した運動強度、痛み、違和感。氏名、メールアドレス、メモは含みません）を使い、エンジンのバージョンを比較してプランの改善方法を調べます。データは各分析の外では誰も特定できないキーに置き換えられ、結果はまとめて確認します。販売や提供はしません。アカウントを削除した場合、保持される筋肉ごとの匿名の数値はまとめて集計されることがあります。いつでもオフにでき、以後の分析には含まれません。利用できる機能は何も変わりません。</string>
     <string name="technique_straight">通常セット</string>
     <string name="technique_label">テクニック：%1$s</string>
     <string name="technique_drop_set">ドロップセット</string>
