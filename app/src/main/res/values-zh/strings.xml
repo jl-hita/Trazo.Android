@@ -628,7 +628,7 @@
     <string name="health_withdraw_text">你的伤病、疼痛和不适标记以及生病原因将被删除。训练记录会保留。计划将不再避开你之前标记的部位。</string>
     <string name="health_withdraw_confirm">撤回并删除</string>
     <string name="research_title">帮助改进 TRAZO（可选）</string>
-    <string name="research_text">开启后，TRAZO 将使用你的训练数据（计划、组数、负重、次数、你记录的强度、疼痛和不适，不含你的姓名、邮箱和备注）来比较引擎版本，并研究如何改进计划。数据会替换为在单次分析之外无法识别任何人的键值，结果以汇总方式查看。数据不会出售或提供给他人。如果你删除账号，保留下来的按肌群统计的匿名数据可能会被汇总。你可以随时关闭：之后的分析将不再包含你。这不会改变你可以使用的任何功能。</string>
+    <string name="research_text">开启后，TRAZO 将使用你的训练数据（计划、组数、负重、次数、你记录的强度、疼痛和不适，以及你选择说明时归档计划的原因；不含你的姓名、邮箱和备注）来比较引擎版本，并研究如何改进计划。数据会替换为在单次分析之外无法识别任何人的键值，结果以汇总方式查看。数据不会出售或提供给他人。如果你删除账号，保留下来的按肌群统计的匿名数据可能会被汇总。你可以随时关闭：之后的分析将不再包含你。你此前说明的归档原因会被删除。这不会改变你可以使用的任何功能。</string>
     <string name="technique_straight">常规组</string>
     <string name="technique_label">训练技巧：%1$s</string>
     <string name="technique_drop_set">递减组</string>
