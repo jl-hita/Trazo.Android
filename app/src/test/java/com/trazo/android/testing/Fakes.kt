@@ -40,7 +40,8 @@ class FakePlansApi : PlansApi {
     override suspend fun create(request: PlanProfileRequest): Response<PlanView> { createdWith = request; return createResponse(request) }
     override suspend fun createManual(request: ManualPlanRequest): Response<PlanView> { manualCreatedWith = request; return manualResponse(request) }
     override suspend fun current() = planResponse()
-    override suspend fun week() = weekResponse()
+    var weekCalls = 0
+    override suspend fun week(): Response<WeekView> { weekCalls++; return weekResponse() }
     var loadResponse: () -> Response<PlanLoadView> = { Response.success(PlanLoadView("p1", 4, 2, "sets", listOf(
         WeekLoadView(1, "2026-11-09", "accumulation", false, 20, 18, 2, 2), WeekLoadView(2, "2026-11-16", "accumulation", false, 22, 5, 2, 1),
         WeekLoadView(3, "2026-11-23", "accumulation", false, 22, null, 2, 0), WeekLoadView(4, "2026-11-30", "deload", true, null, null, 0, 0)))) }
@@ -101,9 +102,15 @@ class FakePlansApi : PlansApi {
         logCalls += sessionId to request
         return logResponse(sessionId, request)
     }
-    override suspend fun alternatives(sessionId: String, exerciseId: String, limit: Int): Response<AlternativesResult> =
-        Response.success(AlternativesResult(exerciseId, emptyList(), null))
-    override suspend fun swap(sessionId: String, exerciseId: String, request: SwapRequest): Response<SessionView> = Response.success(sampleSession())
+    var alternativesResponse: (String) -> Response<AlternativesResult> = { Response.success(AlternativesResult(it, emptyList(), null)) }
+    override suspend fun alternatives(sessionId: String, exerciseId: String, limit: Int): Response<AlternativesResult> = alternativesResponse(exerciseId)
+    var swapResponse: () -> Response<SessionView> = { Response.success(sampleSession()) }
+    /** Every swap sent: session, exercise and what was asked. */
+    val swaps = mutableListOf<Triple<String, String, SwapRequest>>()
+    override suspend fun swap(sessionId: String, exerciseId: String, request: SwapRequest): Response<SessionView> {
+        swaps += Triple(sessionId, exerciseId, request)
+        return swapResponse()
+    }
     override suspend fun addExercise(sessionId: String, request: AddExerciseRequest): Response<SessionView> = Response.success(
         sampleSession(sessionId, sampleExercise(), sampleExercise().copy(exerciseId = request.exerciseId, order = 2, sets = 3, isExtra = true))
     )

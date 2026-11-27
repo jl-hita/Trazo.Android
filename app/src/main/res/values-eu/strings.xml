@@ -148,7 +148,10 @@
     <string name="workout_finish">Amaitu saioa</string>
     <string name="workout_alternatives_title">Alternatibak</string>
     <string name="workout_alternatives_empty">Ez dago ariketa honen alternatibarik zure materialarekin eta mugekin.</string>
-    <string name="workout_swap_block">Aplikatu blokearen gainerakoari ere</string>
+    <string name="workout_swap_scope_title">Non aplikatu aldaketa?</string>
+    <string name="workout_swap_scope_session">Saio honetan bakarrik</string>
+    <string name="workout_swap_scope_block">Bloke honetako egiteke dauden saio guztietan</string>
+    <string name="workout_swap_scope_hint">Egindako saioak eta aurrekoak ez dira aldatzen.</string>
     <string name="workout_leave_title">Entrenamendua utzi?</string>
     <string name="workout_leave_text">Sartutakoa gailu honetan gordetzen da eta berriro hasi dezakezu.</string>
     <string name="workout_leave">Irten</string>

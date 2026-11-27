@@ -148,7 +148,10 @@
     <string name="workout_finish">Završi trening</string>
     <string name="workout_alternatives_title">Alternative</string>
     <string name="workout_alternatives_empty">S tvojom opremom i ograničenjima nema alternativa za ovu vježbu.</string>
-    <string name="workout_swap_block">Primijeni i na ostatak bloka</string>
+    <string name="workout_swap_scope_title">Gdje primijeniti promjenu?</string>
+    <string name="workout_swap_scope_session">Samo ovaj trening</string>
+    <string name="workout_swap_scope_block">Svi preostali treninzi ovog bloka</string>
+    <string name="workout_swap_scope_hint">Već odrađeni i raniji treninzi se ne mijenjaju.</string>
     <string name="workout_leave_title">Napustiti trening?</string>
     <string name="workout_leave_text">Ono što si unio spremljeno je na ovom uređaju i možeš nastaviti.</string>
     <string name="workout_leave">Napusti</string>

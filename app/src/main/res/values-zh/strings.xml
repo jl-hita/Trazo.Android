@@ -144,7 +144,10 @@
     <string name="workout_finish">结束训练</string>
     <string name="workout_alternatives_title">替代动作</string>
     <string name="workout_alternatives_empty">根据你的器材和限制，该动作没有可替代的动作。</string>
-    <string name="workout_swap_block">同时应用到本阶段其余训练</string>
+    <string name="workout_swap_scope_title">将更改应用到哪里？</string>
+    <string name="workout_swap_scope_session">仅本次训练</string>
+    <string name="workout_swap_scope_block">本训练周期内所有待完成的训练</string>
+    <string name="workout_swap_scope_hint">已完成的训练和之前的训练不会改变。</string>
     <string name="workout_leave_title">要离开训练吗？</string>
     <string name="workout_leave_text">你输入的内容已保存在此设备上，之后可以继续。</string>
     <string name="workout_leave">离开</string>

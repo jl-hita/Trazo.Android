@@ -151,7 +151,10 @@
     <string name="workout_finish">Finish session</string>
     <string name="workout_alternatives_title">Alternatives</string>
     <string name="workout_alternatives_empty">There are no alternatives for this exercise with your equipment and limitations.</string>
-    <string name="workout_swap_block">Also apply to the rest of the block</string>
+    <string name="workout_swap_scope_title">Where should the change apply?</string>
+    <string name="workout_swap_scope_session">This session only</string>
+    <string name="workout_swap_scope_block">All pending sessions of this block</string>
+    <string name="workout_swap_scope_hint">Sessions already done and earlier ones do not change.</string>
     <string name="workout_leave_title">Leave the workout?</string>
     <string name="workout_leave_text">What you entered is saved on this device and you can resume it.</string>
     <string name="workout_leave">Leave</string>

@@ -144,7 +144,10 @@
     <string name="workout_finish">Terminer la séance</string>
     <string name="workout_alternatives_title">Alternatives</string>
     <string name="workout_alternatives_empty">Il n\'y a pas d\'alternative à cet exercice avec ton matériel et tes limitations.</string>
-    <string name="workout_swap_block">Appliquer aussi au reste du bloc</string>
+    <string name="workout_swap_scope_title">Où appliquer le changement ?</string>
+    <string name="workout_swap_scope_session">Cette séance seulement</string>
+    <string name="workout_swap_scope_block">Toutes les séances restantes de ce bloc</string>
+    <string name="workout_swap_scope_hint">Les séances déjà faites et les précédentes ne changent pas.</string>
     <string name="workout_leave_title">Quitter l\'entraînement ?</string>
     <string name="workout_leave_text">Ce que tu as saisi est enregistré sur cet appareil et tu pourras le reprendre.</string>
     <string name="workout_leave">Quitter</string>

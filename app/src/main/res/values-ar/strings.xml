@@ -148,7 +148,10 @@
     <string name="workout_finish">إنهاء التمرين</string>
     <string name="workout_alternatives_title">البدائل</string>
     <string name="workout_alternatives_empty">لا توجد بدائل لهذا التمرين مع معداتك وقيودك.</string>
-    <string name="workout_swap_block">تطبيق ذلك أيضًا على باقي الكتلة</string>
+    <string name="workout_swap_scope_title">أين تريد تطبيق التغيير؟</string>
+    <string name="workout_swap_scope_session">هذه الحصة فقط</string>
+    <string name="workout_swap_scope_block">كل الحصص المتبقية في هذه الكتلة</string>
+    <string name="workout_swap_scope_hint">الحصص المنجزة والسابقة لا تتغير.</string>
     <string name="workout_leave_title">مغادرة التمرين؟</string>
     <string name="workout_leave_text">ما أدخلته محفوظ على هذا الجهاز ويمكنك استئنافه.</string>
     <string name="workout_leave">مغادرة</string>

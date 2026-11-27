@@ -42,7 +42,9 @@ data class AlternativesState(
     val loading: Boolean = true,
     val items: List<AlternativeView> = emptyList(),
     val message: String? = null,
-    val error: ApiError? = null
+    val error: ApiError? = null,
+    /** A replacement has been sent and the server has not answered yet. */
+    val swapping: Boolean = false
 )
 
 data class AddExerciseState(
@@ -262,7 +264,9 @@ class WorkoutViewModel(
     fun dismissAlternatives() = _state.update { it.copy(alternatives = null, swapError = null) }
 
     fun swap(exerciseId: String, replacementId: String, remainingBlock: Boolean) {
-        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(swapError = ApiError(ErrorKind.Unknown)) } }) {
+        if (_state.value.alternatives?.swapping == true) return
+        _state.update { it.copy(alternatives = it.alternatives?.copy(swapping = true), swapError = null) }
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(alternatives = it.alternatives?.copy(swapping = false), swapError = ApiError(ErrorKind.Unknown)) } }) {
             when (val r = plans.swap(sessionId, exerciseId, replacementId, remainingBlock)) {
                 is ApiResult.Success -> _state.update { s ->
                     // Keep what was typed for the exercises that did not change; the swapped one starts fresh.
@@ -272,7 +276,7 @@ class WorkoutViewModel(
                         entries = r.value.exercises.map { ex -> keep[ex.exerciseId]?.copy(exercise = ex) ?: freshEntry(ex) }
                     )
                 }
-                is ApiResult.Failure -> _state.update { it.copy(swapError = r.error) }
+                is ApiResult.Failure -> _state.update { it.copy(alternatives = it.alternatives?.copy(swapping = false), swapError = r.error) }
             }
             saveDraft()
         }

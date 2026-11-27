@@ -70,10 +70,12 @@ class SessionViewModel(
     fun dismissAlternatives() = _state.update { it.copy(alternatives = null, swapError = null) }
 
     fun swap(exerciseId: String, replacementId: String, remainingBlock: Boolean) {
-        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(swapError = ApiError(ErrorKind.Unknown)) } }) {
+        if (_state.value.alternatives?.swapping == true) return
+        _state.update { it.copy(alternatives = it.alternatives?.copy(swapping = true), swapError = null) }
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(alternatives = it.alternatives?.copy(swapping = false), swapError = ApiError(ErrorKind.Unknown)) } }) {
             when (val r = plans.swap(sessionId, exerciseId, replacementId, remainingBlock)) {
                 is ApiResult.Success -> _state.update { it.copy(swapped = r.value, alternatives = null, swapError = null) }
-                is ApiResult.Failure -> _state.update { it.copy(swapError = r.error) }
+                is ApiResult.Failure -> _state.update { it.copy(alternatives = it.alternatives?.copy(swapping = false), swapError = r.error) }
             }
         }
     }

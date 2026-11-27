@@ -148,7 +148,10 @@
     <string name="workout_finish">운동 종료</string>
     <string name="workout_alternatives_title">대체 운동</string>
     <string name="workout_alternatives_empty">보유한 장비와 제한 사항으로는 이 운동의 대체 운동이 없습니다.</string>
-    <string name="workout_swap_block">블록의 나머지에도 적용</string>
+    <string name="workout_swap_scope_title">변경을 어디에 적용할까요?</string>
+    <string name="workout_swap_scope_session">이번 세션만</string>
+    <string name="workout_swap_scope_block">이 블록의 남은 세션 모두</string>
+    <string name="workout_swap_scope_hint">이미 완료한 세션과 이전 세션은 바뀌지 않습니다.</string>
     <string name="workout_leave_title">운동을 나가시겠어요?</string>
     <string name="workout_leave_text">입력한 내용은 이 기기에 저장되어 나중에 이어서 할 수 있습니다.</string>
     <string name="workout_leave">나가기</string>

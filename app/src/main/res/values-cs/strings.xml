@@ -148,7 +148,10 @@
     <string name="workout_finish">Ukončit trénink</string>
     <string name="workout_alternatives_title">Alternativy</string>
     <string name="workout_alternatives_empty">S tvým vybavením a omezeními nejsou pro tento cvik žádné alternativy.</string>
-    <string name="workout_swap_block">Použít i na zbytek bloku</string>
+    <string name="workout_swap_scope_title">Kde změnu použít?</string>
+    <string name="workout_swap_scope_session">Jen tento trénink</string>
+    <string name="workout_swap_scope_block">Všechny zbývající tréninky tohoto bloku</string>
+    <string name="workout_swap_scope_hint">Hotové a dřívější tréninky se nemění.</string>
     <string name="workout_leave_title">Opustit trénink?</string>
     <string name="workout_leave_text">Co jsi zadal(a), je uloženo v tomto zařízení a můžeš pokračovat.</string>
     <string name="workout_leave">Opustit</string>
