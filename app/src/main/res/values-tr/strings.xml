@@ -221,6 +221,17 @@
     <string name="account_archive_title">Plan arşivlensin mi?</string>
     <string name="account_archive_text">Yeni bir tane oluşturabileceksin. Seans geçmişin korunur.</string>
     <string name="account_archive_confirm">Arşivle</string>
+    <string name="archive_reason_title">Bu planı neden arşivlemek istiyorsun?</string>
+    <string name="archive_reason_completed">Planı tamamladım</string>
+    <string name="archive_reason_new_plan">Yeni bir plana başlamak istiyorum</string>
+    <string name="archive_reason_no_time">Artık uygulayacak zamanım yok</string>
+    <string name="archive_reason_too_hard">Antrenman fazla zorlayıcı</string>
+    <string name="archive_reason_too_easy">Antrenman fazla kolay</string>
+    <string name="archive_reason_discomfort">Antrenman sırasında rahatsızlık duyuyorum</string>
+    <string name="archive_reason_goals">Hedeflerim değişti</string>
+    <string name="archive_reason_not_convinced">Plan beni ikna etmiyor</string>
+    <string name="archive_reason_other">Başka bir neden</string>
+    <string name="archive_reason_skip">Belirtmek istemiyorum</string>
     <string name="account_logout">Çıkış yap</string>
     <string name="account_logout_title">Çıkış yapılsın mı?</string>
     <string name="account_logout_text">Önbellekteki plan ve taslaklar bu cihazdan silinecek. Henüz gönderilmemiş antrenmanlar kaybolacak.</string>

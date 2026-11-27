@@ -225,6 +225,17 @@
     <string name="account_archive_title">Arhivirati načrt?</string>
     <string name="account_archive_text">Lahko boš ustvaril novega. Zgodovina tvojih treningov se ohrani.</string>
     <string name="account_archive_confirm">Arhiviraj</string>
+    <string name="archive_reason_title">Zakaj želiš arhivirati ta načrt?</string>
+    <string name="archive_reason_completed">Načrt sem dokončal/a</string>
+    <string name="archive_reason_new_plan">Želim začeti nov načrt</string>
+    <string name="archive_reason_no_time">Nimam več časa, da bi mu sledil/a</string>
+    <string name="archive_reason_too_hard">Trening je prezahteven</string>
+    <string name="archive_reason_too_easy">Trening je prelahek</string>
+    <string name="archive_reason_discomfort">Med treningom čutim nelagodje</string>
+    <string name="archive_reason_goals">Moji cilji so se spremenili</string>
+    <string name="archive_reason_not_convinced">Načrt me ne prepriča</string>
+    <string name="archive_reason_other">Drug razlog</string>
+    <string name="archive_reason_skip">Raje ne bi povedal/a</string>
     <string name="account_logout">Odjava</string>
     <string name="account_logout_title">Se odjaviti?</string>
     <string name="account_logout_text">Predpomnjen načrt in osnutki bodo izbrisani iz te naprave. Še neposlani treningi bodo izgubljeni.</string>

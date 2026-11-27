@@ -13,6 +13,12 @@ data class HealthConsentRequest(val consent: Boolean)
 
 data class ResearchConsentRequest(val consent: Boolean)
 
+/**
+ * What goes with archiving a plan: [planId] is the plan the person was looking at and [reason] a code of
+ * [com.trazo.android.data.repo.ArchiveReason]. Both are left out when unknown or not answered.
+ */
+data class ArchivePlanRequest(val reason: String? = null, val planId: String? = null)
+
 /** The password and the Google token are alternatives; the two-factor code goes on top when the account has it. */
 data class DeletionRequirements(
     val requiresPassword: Boolean = false,

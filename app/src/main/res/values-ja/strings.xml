@@ -225,6 +225,17 @@
     <string name="account_archive_title">プランをアーカイブしますか？</string>
     <string name="account_archive_text">新しいプランを作れるようになります。トレーニング履歴は残ります。</string>
     <string name="account_archive_confirm">アーカイブ</string>
+    <string name="archive_reason_title">このプランをアーカイブする理由は何ですか？</string>
+    <string name="archive_reason_completed">プランをやり終えた</string>
+    <string name="archive_reason_new_plan">新しいプランを始めたい</string>
+    <string name="archive_reason_no_time">続ける時間がなくなった</string>
+    <string name="archive_reason_too_hard">トレーニングがきつすぎる</string>
+    <string name="archive_reason_too_easy">トレーニングが楽すぎる</string>
+    <string name="archive_reason_discomfort">トレーニング中に違和感がある</string>
+    <string name="archive_reason_goals">目標が変わった</string>
+    <string name="archive_reason_not_convinced">プランに納得できない</string>
+    <string name="archive_reason_other">その他の理由</string>
+    <string name="archive_reason_skip">回答しない</string>
     <string name="account_logout">ログアウト</string>
     <string name="account_logout_title">ログアウトしますか？</string>
     <string name="account_logout_text">キャッシュ済みのプランと下書きがこの端末から削除されます。未送信のトレーニングは失われます。</string>

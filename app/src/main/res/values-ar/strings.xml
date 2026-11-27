@@ -225,6 +225,17 @@
     <string name="account_archive_title">أرشفة الخطة؟</string>
     <string name="account_archive_text">ستتمكن من إنشاء خطة جديدة. يبقى سجلّ تمارينك محفوظًا.</string>
     <string name="account_archive_confirm">أرشفة</string>
+    <string name="archive_reason_title">لماذا تريد أرشفة هذه الخطة؟</string>
+    <string name="archive_reason_completed">أكملت الخطة</string>
+    <string name="archive_reason_new_plan">أريد بدء خطة جديدة</string>
+    <string name="archive_reason_no_time">لم يعد لديّ وقت لاتباعها</string>
+    <string name="archive_reason_too_hard">التمرين شاقّ أكثر من اللازم</string>
+    <string name="archive_reason_too_easy">التمرين سهل أكثر من اللازم</string>
+    <string name="archive_reason_discomfort">أشعر بانزعاج أثناء التمرين</string>
+    <string name="archive_reason_goals">تغيّرت أهدافي</string>
+    <string name="archive_reason_not_convinced">الخطة لا تقنعني</string>
+    <string name="archive_reason_other">سبب آخر</string>
+    <string name="archive_reason_skip">أفضّل عدم الإفصاح</string>
     <string name="account_logout">تسجيل الخروج</string>
     <string name="account_logout_title">تسجيل الخروج؟</string>
     <string name="account_logout_text">ستُحذف الخطة المخزّنة مؤقتًا والمسودات من هذا الجهاز. التمارين التي لم تُرسل بعد ستُفقد.</string>

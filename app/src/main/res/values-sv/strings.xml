@@ -221,6 +221,17 @@
     <string name="account_archive_title">Arkivera planen?</string>
     <string name="account_archive_text">Du kan skapa en ny. Din passhistorik sparas.</string>
     <string name="account_archive_confirm">Arkivera</string>
+    <string name="archive_reason_title">Varför vill du arkivera den här planen?</string>
+    <string name="archive_reason_completed">Jag har slutfört planen</string>
+    <string name="archive_reason_new_plan">Jag vill börja en ny plan</string>
+    <string name="archive_reason_no_time">Jag har inte längre tid att följa den</string>
+    <string name="archive_reason_too_hard">Träningen är för krävande</string>
+    <string name="archive_reason_too_easy">Träningen är för lätt</string>
+    <string name="archive_reason_discomfort">Jag har besvär under träningen</string>
+    <string name="archive_reason_goals">Mina mål har ändrats</string>
+    <string name="archive_reason_not_convinced">Planen övertygar mig inte</string>
+    <string name="archive_reason_other">Annan orsak</string>
+    <string name="archive_reason_skip">Jag vill helst inte säga</string>
     <string name="account_logout">Logga ut</string>
     <string name="account_logout_title">Logga ut?</string>
     <string name="account_logout_text">Den cachade planen och utkasten raderas från den här enheten. Träningspass som inte har skickats går förlorade.</string>

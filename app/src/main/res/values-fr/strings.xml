@@ -221,6 +221,17 @@
     <string name="account_archive_title">Archiver le plan ?</string>
     <string name="account_archive_text">Tu pourras en créer un nouveau. Ton historique de séances est conservé.</string>
     <string name="account_archive_confirm">Archiver</string>
+    <string name="archive_reason_title">Pourquoi veux-tu archiver ce plan ?</string>
+    <string name="archive_reason_completed">J\'ai terminé le plan</string>
+    <string name="archive_reason_new_plan">Je veux commencer un nouveau plan</string>
+    <string name="archive_reason_no_time">Je n\'ai plus le temps de le suivre</string>
+    <string name="archive_reason_too_hard">L\'entraînement est trop exigeant</string>
+    <string name="archive_reason_too_easy">L\'entraînement est trop facile</string>
+    <string name="archive_reason_discomfort">Je ressens une gêne pendant l\'entraînement</string>
+    <string name="archive_reason_goals">Mes objectifs ont changé</string>
+    <string name="archive_reason_not_convinced">Le plan ne me convainc pas</string>
+    <string name="archive_reason_other">Autre raison</string>
+    <string name="archive_reason_skip">Je préfère ne pas le dire</string>
     <string name="account_logout">Se déconnecter</string>
     <string name="account_logout_title">Te déconnecter ?</string>
     <string name="account_logout_text">Le plan en cache et les brouillons seront effacés de cet appareil. Les entraînements non encore envoyés seront perdus.</string>

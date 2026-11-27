@@ -34,6 +34,8 @@ fun AccountScreen(
     user: UserSummary?,
     hasPlan: Boolean,
     generatedPlan: Boolean = false,
+    /** The plan on screen, the one "Archive my current plan" means. */
+    planId: String? = null,
     onLogout: () -> Unit,
     onPremium: () -> Unit,
     onPlanArchived: () -> Unit,
@@ -179,9 +181,10 @@ fun AccountScreen(
         onDismissRequest = { confirmArchive = false },
         title = { Text(stringResource(R.string.account_archive_title)) },
         text = { Text(stringResource(R.string.account_archive_text)) },
-        confirmButton = { TextButton(onClick = { confirmArchive = false; viewModel.archivePlan() }) { Text(stringResource(R.string.account_archive_confirm)) } },
+        confirmButton = { TextButton(onClick = { confirmArchive = false; viewModel.archivePlan(planId) }) { Text(stringResource(R.string.account_archive_confirm)) } },
         dismissButton = { TextButton(onClick = { confirmArchive = false }) { Text(stringResource(R.string.cancel)) } }
     )
+    state.archiveQuestion?.let { ArchiveReasonDialog(it, onAnswer = viewModel::archiveBecause, onCancel = viewModel::cancelArchive) }
     if (confirmLogout) AlertDialog(
         onDismissRequest = { confirmLogout = false },
         title = { Text(stringResource(R.string.account_logout_title)) },

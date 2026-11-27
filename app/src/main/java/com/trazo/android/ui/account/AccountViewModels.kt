@@ -13,6 +13,8 @@ import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.repo.BillingOffer
 import com.trazo.android.data.repo.BillingRepository
+import com.trazo.android.data.repo.ArchiveQuestion
+import com.trazo.android.data.repo.ArchiveReason
 import com.trazo.android.data.repo.PlanRepository
 import com.trazo.android.data.repo.PurchaseResult
 import com.trazo.android.data.repo.SubscriptionRepository
@@ -26,6 +28,8 @@ data class AccountState(
     val status: SubscriptionStatus? = null,
     val statusError: ApiError? = null,
     val archiving: Boolean = false,
+    /** Waiting for the person to say why the plan is archived. */
+    val archiveQuestion: ArchiveQuestion? = null,
     val archived: Boolean = false,
     val archiveError: ApiError? = null,
     val pendingLogs: Int = 0,
@@ -41,7 +45,8 @@ data class AccountState(
 /** Account tab: subscription state, archiving the plan, and the number of workouts waiting to be sent. */
 class AccountViewModel(
     private val subscription: SubscriptionRepository,
-    private val plans: PlanRepository
+    private val plans: PlanRepository,
+    private val archiveQuestion: suspend () -> ArchiveQuestion? = { null }
 ) : ViewModel() {
     private val _state = MutableStateFlow(AccountState())
     val state: StateFlow<AccountState> = _state.asStateFlow()
@@ -67,13 +72,38 @@ class AccountViewModel(
         }
     }
 
-    fun archivePlan() {
+    /** The plan the person asked to archive, so the archive and its reason never reach another one. */
+    private var archivedPlanId: String? = null
+
+    /** Asked after the confirmation: archives at once, or asks why first when that applies. */
+    fun archivePlan(planId: String? = null) {
+        if (_state.value.archiving || _state.value.archiveQuestion != null) return
+        archivedPlanId = planId
         _state.update { it.copy(archiving = true, archiveError = null) }
-        viewModelScope.launchGuarded(R.string.feature_account, onFailure = { _state.update { it.copy(archiving = false, archiveError = ApiError(ErrorKind.Unknown)) } }) {
-            when (val r = plans.archive()) {
-                is ApiResult.Success -> _state.update { it.copy(archiving = false, archived = true) }
-                is ApiResult.Failure -> _state.update { it.copy(archiving = false, archiveError = r.error) }
-            }
+        archiving {
+            val question = archiveQuestion()
+            if (question == null) archive(null) else _state.update { it.copy(archiving = false, archiveQuestion = question) }
+        }
+    }
+
+    /** The answer to the question; null is "prefer not to say". */
+    fun archiveBecause(reason: ArchiveReason?) {
+        if (_state.value.archiveQuestion == null) return
+        _state.update { it.copy(archiving = true, archiveQuestion = null) }
+        archiving { archive(reason) }
+    }
+
+    /** Closing the question leaves the plan as it was. */
+    fun cancelArchive() { _state.update { it.copy(archiveQuestion = null) } }
+
+    private fun archiving(block: suspend () -> Unit) {
+        viewModelScope.launchGuarded(R.string.feature_account, onFailure = { _state.update { it.copy(archiving = false, archiveError = ApiError(ErrorKind.Unknown)) } }) { block() }
+    }
+
+    private suspend fun archive(reason: ArchiveReason?) {
+        when (val r = plans.archive(archivedPlanId, reason)) {
+            is ApiResult.Success -> _state.update { it.copy(archiving = false, archived = true) }
+            is ApiResult.Failure -> _state.update { it.copy(archiving = false, archiveError = r.error) }
         }
     }
 

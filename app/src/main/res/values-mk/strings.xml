@@ -225,6 +225,17 @@
     <string name="account_archive_title">Да го архивираш планот?</string>
     <string name="account_archive_text">Ќе можеш да создадеш нов. Историјата на твоите тренинзи се чува.</string>
     <string name="account_archive_confirm">Архивирај</string>
+    <string name="archive_reason_title">Зошто сакаш да го архивираш овој план?</string>
+    <string name="archive_reason_completed">Го завршив планот</string>
+    <string name="archive_reason_new_plan">Сакам да започнам нов план</string>
+    <string name="archive_reason_no_time">Веќе немам време да го следам</string>
+    <string name="archive_reason_too_hard">Тренингот е премногу напорен</string>
+    <string name="archive_reason_too_easy">Тренингот е премногу лесен</string>
+    <string name="archive_reason_discomfort">Чувствувам непријатност при тренирање</string>
+    <string name="archive_reason_goals">Моите цели се сменија</string>
+    <string name="archive_reason_not_convinced">Планот не ме убедува</string>
+    <string name="archive_reason_other">Друга причина</string>
+    <string name="archive_reason_skip">Претпочитам да не кажам</string>
     <string name="account_logout">Одјави се</string>
     <string name="account_logout_title">Да се одјавиш?</string>
     <string name="account_logout_text">Планот во кешот и нацртите ќе бидат избришани од овој уред. Тренинзите што сè уште не се испратени ќе бидат изгубени.</string>

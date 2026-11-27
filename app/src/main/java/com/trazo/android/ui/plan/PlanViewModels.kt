@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.model.*
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
+import com.trazo.android.data.repo.ArchiveQuestion
+import com.trazo.android.data.repo.ArchiveReason
 import com.trazo.android.data.repo.PlanRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,11 +36,18 @@ data class PlanUiState(
     val savingMinutes: Boolean = false,
     /** Saving the injured areas is in progress. */
     val savingLimitations: Boolean = false,
+    /** Archiving the plan is in progress. */
+    val archiving: Boolean = false,
+    /** Waiting for the person to say why the plan is archived. */
+    val archiveQuestion: ArchiveQuestion? = null,
     val error: ApiError? = null
 )
 
 /** The "Plan" tab: current week with its sessions and the macrocycle summary. */
-class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
+class PlanViewModel(
+    private val plans: PlanRepository,
+    private val archiveQuestion: suspend () -> ArchiveQuestion? = { null }
+) : ViewModel() {
     private val _state = MutableStateFlow(PlanUiState())
     val state: StateFlow<PlanUiState> = _state.asStateFlow()
     val pendingLogs: StateFlow<Int> = plans.pendingCount
@@ -46,12 +55,34 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
 
     init { load() }
 
-    /** The plan is over: closes it (history is kept) so the onboarding can create the next one. */
+    /** The plan on screen, so an archive and its reason never reach another one. */
+    private var archivedPlanId: String? = null
+
+    /** The plan is over: closes it (history is kept) so the onboarding can create the next one, asking why first when that applies. */
     fun startNextPlan() {
-        viewModelScope.launchGuarded(R.string.feature_plan) {
-            plans.archive()
-            load()
+        if (_state.value.archiving || _state.value.archiveQuestion != null) return
+        archivedPlanId = _state.value.week?.planId
+        _state.update { it.copy(archiving = true) }
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.update { it.copy(archiving = false) } }) {
+            val question = archiveQuestion()
+            if (question == null) archive(null) else _state.update { it.copy(archiving = false, archiveQuestion = question) }
         }
+    }
+
+    /** The answer to the question; null is "prefer not to say". */
+    fun archiveBecause(reason: ArchiveReason?) {
+        if (_state.value.archiveQuestion == null) return
+        _state.update { it.copy(archiving = true, archiveQuestion = null) }
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.update { it.copy(archiving = false) } }) { archive(reason) }
+    }
+
+    /** Closing the question leaves the plan as it was. */
+    fun cancelArchive() { _state.update { it.copy(archiveQuestion = null) } }
+
+    private suspend fun archive(reason: ArchiveReason?) {
+        plans.archive(archivedPlanId, reason)
+        _state.update { it.copy(archiving = false) }
+        load()
     }
 
     /** Moves the program to this week (calendar plans that fell behind) and reloads the plan. */

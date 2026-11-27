@@ -225,6 +225,17 @@
     <string name="account_archive_title">Het plan archiveren?</string>
     <string name="account_archive_text">Je kunt een nieuw plan maken. Je trainingsgeschiedenis blijft bewaard.</string>
     <string name="account_archive_confirm">Archiveren</string>
+    <string name="archive_reason_title">Waarom wil je dit plan archiveren?</string>
+    <string name="archive_reason_completed">Ik heb het plan voltooid</string>
+    <string name="archive_reason_new_plan">Ik wil een nieuw plan beginnen</string>
+    <string name="archive_reason_no_time">Ik heb geen tijd meer om het te volgen</string>
+    <string name="archive_reason_too_hard">De training is te zwaar</string>
+    <string name="archive_reason_too_easy">De training is te makkelijk</string>
+    <string name="archive_reason_discomfort">Ik heb last tijdens het trainen</string>
+    <string name="archive_reason_goals">Mijn doelen zijn veranderd</string>
+    <string name="archive_reason_not_convinced">Het plan overtuigt me niet</string>
+    <string name="archive_reason_other">Een andere reden</string>
+    <string name="archive_reason_skip">Dat zeg ik liever niet</string>
     <string name="account_logout">Uitloggen</string>
     <string name="account_logout_title">Uitloggen?</string>
     <string name="account_logout_text">Het gecachete plan en de concepten worden van dit apparaat gewist. Nog niet verzonden trainingen gaan verloren.</string>

@@ -225,6 +225,17 @@
     <string name="account_archive_title">Arquivar o plan?</string>
     <string name="account_archive_text">Poderás crear un novo. O teu historial de sesións consérvase.</string>
     <string name="account_archive_confirm">Arquivar</string>
+    <string name="archive_reason_title">Por que queres arquivar este plan?</string>
+    <string name="archive_reason_completed">Completei o plan</string>
+    <string name="archive_reason_new_plan">Quero comezar un plan novo</string>
+    <string name="archive_reason_no_time">Xa non teño tempo para seguilo</string>
+    <string name="archive_reason_too_hard">O adestramento é demasiado esixente</string>
+    <string name="archive_reason_too_easy">O adestramento é demasiado doado</string>
+    <string name="archive_reason_discomfort">Teño molestias durante o adestramento</string>
+    <string name="archive_reason_goals">Cambiaron os meus obxectivos</string>
+    <string name="archive_reason_not_convinced">O plan non me convence</string>
+    <string name="archive_reason_other">Outro motivo</string>
+    <string name="archive_reason_skip">Prefiro non indicalo</string>
     <string name="account_logout">Pechar sesión</string>
     <string name="account_logout_title">Pechar sesión?</string>
     <string name="account_logout_text">O plan en caché e os borradores borraranse deste dispositivo. Os adestramentos aínda non enviados perderanse.</string>

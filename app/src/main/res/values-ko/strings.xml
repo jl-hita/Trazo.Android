@@ -225,6 +225,17 @@
     <string name="account_archive_title">플랜을 보관하시겠어요?</string>
     <string name="account_archive_text">새 플랜을 만들 수 있습니다. 운동 기록은 유지됩니다.</string>
     <string name="account_archive_confirm">보관</string>
+    <string name="archive_reason_title">이 플랜을 보관하려는 이유가 무엇인가요?</string>
+    <string name="archive_reason_completed">플랜을 완료했어요</string>
+    <string name="archive_reason_new_plan">새 플랜을 시작하고 싶어요</string>
+    <string name="archive_reason_no_time">이제 따라 할 시간이 없어요</string>
+    <string name="archive_reason_too_hard">운동이 너무 힘들어요</string>
+    <string name="archive_reason_too_easy">운동이 너무 쉬워요</string>
+    <string name="archive_reason_discomfort">운동 중에 불편함이 있어요</string>
+    <string name="archive_reason_goals">목표가 바뀌었어요</string>
+    <string name="archive_reason_not_convinced">플랜이 마음에 들지 않아요</string>
+    <string name="archive_reason_other">다른 이유</string>
+    <string name="archive_reason_skip">말하고 싶지 않아요</string>
     <string name="account_logout">로그아웃</string>
     <string name="account_logout_title">로그아웃하시겠어요?</string>
     <string name="account_logout_text">캐시된 플랜과 임시 저장본이 이 기기에서 삭제됩니다. 아직 전송되지 않은 운동은 사라집니다.</string>

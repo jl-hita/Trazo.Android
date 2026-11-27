@@ -225,6 +225,17 @@
     <string name="account_archive_title">Αρχειοθέτηση προγράμματος;</string>
     <string name="account_archive_text">Θα μπορείς να δημιουργήσεις νέο. Το ιστορικό των προπονήσεών σου διατηρείται.</string>
     <string name="account_archive_confirm">Αρχειοθέτηση</string>
+    <string name="archive_reason_title">Γιατί θέλεις να αρχειοθετήσεις αυτό το πρόγραμμα;</string>
+    <string name="archive_reason_completed">Ολοκλήρωσα το πρόγραμμα</string>
+    <string name="archive_reason_new_plan">Θέλω να ξεκινήσω νέο πρόγραμμα</string>
+    <string name="archive_reason_no_time">Δεν έχω πια χρόνο να το ακολουθώ</string>
+    <string name="archive_reason_too_hard">Η προπόνηση είναι υπερβολικά απαιτητική</string>
+    <string name="archive_reason_too_easy">Η προπόνηση είναι υπερβολικά εύκολη</string>
+    <string name="archive_reason_discomfort">Έχω ενοχλήσεις κατά την προπόνηση</string>
+    <string name="archive_reason_goals">Άλλαξαν οι στόχοι μου</string>
+    <string name="archive_reason_not_convinced">Το πρόγραμμα δεν με πείθει</string>
+    <string name="archive_reason_other">Άλλος λόγος</string>
+    <string name="archive_reason_skip">Προτιμώ να μην απαντήσω</string>
     <string name="account_logout">Αποσύνδεση</string>
     <string name="account_logout_title">Αποσύνδεση;</string>
     <string name="account_logout_text">Το αποθηκευμένο πρόγραμμα και τα προσχέδια θα διαγραφούν από αυτή τη συσκευή. Οι προπονήσεις που δεν έχουν σταλεί ακόμη θα χαθούν.</string>

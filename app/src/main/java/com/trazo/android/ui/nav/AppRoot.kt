@@ -141,7 +141,7 @@ private val TABS = listOf(
 private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLogout: () -> Unit, onAccountDeleted: () -> Unit, pushKind: String? = null, onPushHandled: () -> Unit = {}) {
     val c = container()
     val nav = rememberNavController()
-    val planVm: PlanViewModel = containerViewModel { PlanViewModel(it.plans) }
+    val planVm: PlanViewModel = containerViewModel { PlanViewModel(it.plans, it.researchConsent::archiveQuestion) }
     // Bumped when a purchase is confirmed, so the account tab asks the backend again instead of showing the state it loaded earlier.
     var subscriptionVersion by rememberSaveable { mutableIntStateOf(0) }
     // What the backend said about the account when the app opened, refreshed when a purchase is confirmed. Null (unknown, e.g.
@@ -236,10 +236,10 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                     CatalogScreen(vm, onOpen = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.ACCOUNT) {
-                    val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans) }
+                    val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans, it.researchConsent::archiveQuestion) }
                     val planState by planVm.state.collectAsStateWithLifecycle()
                     LaunchedEffect(subscriptionVersion) { if (subscriptionVersion > 0) vm.load() }
-                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, generatedPlan = planState.plan?.origin == "Generated", onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() }, onReferrals = { nav.navigate(Routes.REFERRALS) }, onDeleteAccount = { nav.navigate(Routes.DELETE_ACCOUNT) }, health = { com.trazo.android.ui.account.HealthSection(c.healthConsent, onWithdrawn = { planVm.load() }) }, research = { com.trazo.android.ui.account.ResearchSection(c.researchConsent) })
+                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, generatedPlan = planState.plan?.origin == "Generated", planId = planState.week?.planId ?: planState.plan?.id, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() }, onReferrals = { nav.navigate(Routes.REFERRALS) }, onDeleteAccount = { nav.navigate(Routes.DELETE_ACCOUNT) }, health = { com.trazo.android.ui.account.HealthSection(c.healthConsent, onWithdrawn = { planVm.load() }) }, research = { com.trazo.android.ui.account.ResearchSection(c.researchConsent) })
                 }
                 composable(Routes.DELETE_ACCOUNT) {
                     val vm: com.trazo.android.ui.account.DeleteAccountViewModel = containerViewModel { com.trazo.android.ui.account.DeleteAccountViewModel(it.account) }

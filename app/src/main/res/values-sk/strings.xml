@@ -225,6 +225,17 @@
     <string name="account_archive_title">Archivovať plán?</string>
     <string name="account_archive_text">Budeš môcť vytvoriť nový. História tvojich tréningov zostane zachovaná.</string>
     <string name="account_archive_confirm">Archivovať</string>
+    <string name="archive_reason_title">Prečo chceš tento plán archivovať?</string>
+    <string name="archive_reason_completed">Plán mám dokončený</string>
+    <string name="archive_reason_new_plan">Chcem začať nový plán</string>
+    <string name="archive_reason_no_time">Už naň nemám čas</string>
+    <string name="archive_reason_too_hard">Tréning je príliš náročný</string>
+    <string name="archive_reason_too_easy">Tréning je príliš ľahký</string>
+    <string name="archive_reason_discomfort">Pri tréningu mám ťažkosti</string>
+    <string name="archive_reason_goals">Moje ciele sa zmenili</string>
+    <string name="archive_reason_not_convinced">Plán mi nevyhovuje</string>
+    <string name="archive_reason_other">Iný dôvod</string>
+    <string name="archive_reason_skip">Radšej neuvediem</string>
     <string name="account_logout">Odhlásiť sa</string>
     <string name="account_logout_title">Odhlásiť sa?</string>
     <string name="account_logout_text">Plán v medzipamäti a koncepty sa z tohto zariadenia vymažú. Zatiaľ neodoslané tréningy sa stratia.</string>

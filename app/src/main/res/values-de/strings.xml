@@ -221,6 +221,17 @@
     <string name="account_archive_title">Plan archivieren?</string>
     <string name="account_archive_text">Du kannst einen neuen erstellen. Dein Einheitenverlauf bleibt erhalten.</string>
     <string name="account_archive_confirm">Archivieren</string>
+    <string name="archive_reason_title">Warum möchtest du diesen Plan archivieren?</string>
+    <string name="archive_reason_completed">Ich habe den Plan abgeschlossen</string>
+    <string name="archive_reason_new_plan">Ich möchte einen neuen Plan beginnen</string>
+    <string name="archive_reason_no_time">Ich habe keine Zeit mehr dafür</string>
+    <string name="archive_reason_too_hard">Das Training ist zu anstrengend</string>
+    <string name="archive_reason_too_easy">Das Training ist zu leicht</string>
+    <string name="archive_reason_discomfort">Ich habe beim Training Beschwerden</string>
+    <string name="archive_reason_goals">Meine Ziele haben sich geändert</string>
+    <string name="archive_reason_not_convinced">Der Plan überzeugt mich nicht</string>
+    <string name="archive_reason_other">Ein anderer Grund</string>
+    <string name="archive_reason_skip">Möchte ich nicht angeben</string>
     <string name="account_logout">Abmelden</string>
     <string name="account_logout_title">Abmelden?</string>
     <string name="account_logout_text">Der zwischengespeicherte Plan und Entwürfe werden von diesem Gerät gelöscht. Noch nicht gesendete Trainings gehen verloren.</string>

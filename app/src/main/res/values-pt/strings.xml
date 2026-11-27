@@ -221,6 +221,17 @@
     <string name="account_archive_title">Arquivar o plano?</string>
     <string name="account_archive_text">Você poderá criar um novo. O seu histórico de sessões é mantido.</string>
     <string name="account_archive_confirm">Arquivar</string>
+    <string name="archive_reason_title">Por que você quer arquivar este plano?</string>
+    <string name="archive_reason_completed">Concluí o plano</string>
+    <string name="archive_reason_new_plan">Quero começar um plano novo</string>
+    <string name="archive_reason_no_time">Não tenho mais tempo para segui-lo</string>
+    <string name="archive_reason_too_hard">O treino é exigente demais</string>
+    <string name="archive_reason_too_easy">O treino é fácil demais</string>
+    <string name="archive_reason_discomfort">Sinto desconforto durante o treino</string>
+    <string name="archive_reason_goals">Meus objetivos mudaram</string>
+    <string name="archive_reason_not_convinced">O plano não me convence</string>
+    <string name="archive_reason_other">Outro motivo</string>
+    <string name="archive_reason_skip">Prefiro não informar</string>
     <string name="account_logout">Sair</string>
     <string name="account_logout_title">Sair?</string>
     <string name="account_logout_text">O plano em cache e os rascunhos serão apagados deste dispositivo. Os treinos ainda não enviados serão perdidos.</string>

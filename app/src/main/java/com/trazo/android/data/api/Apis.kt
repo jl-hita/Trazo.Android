@@ -38,7 +38,7 @@ interface PlansApi {
     @POST("api/v1/plans/current/reschedule") suspend fun reschedule(): Response<RescheduleResult>
     @POST("api/v1/plans/current/sessions/{sessionId}/skip")
     suspend fun skip(@Path("sessionId") sessionId: String, @Body request: SkipSessionRequest): Response<SkipResult>
-    @POST("api/v1/plans/current/archive") suspend fun archive(): Response<Unit>
+    @POST("api/v1/plans/current/archive") suspend fun archive(@Body request: com.trazo.android.data.model.ArchivePlanRequest): Response<Unit>
     @POST("api/v1/plans/current/sessions/{sessionId}/log")
     suspend fun log(@Path("sessionId") sessionId: String, @Body request: LogSessionRequest): Response<LogResult>
     @GET("api/v1/plans/current/sessions/{sessionId}/exercises/{exerciseId}/alternatives")

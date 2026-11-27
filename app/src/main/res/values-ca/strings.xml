@@ -221,6 +221,17 @@
     <string name="account_archive_title">Vols arxivar el pla?</string>
     <string name="account_archive_text">Podràs crear-ne un de nou. El teu historial de sessions es conserva.</string>
     <string name="account_archive_confirm">Arxiva</string>
+    <string name="archive_reason_title">Per què vols arxivar aquest pla?</string>
+    <string name="archive_reason_completed">He completat el pla</string>
+    <string name="archive_reason_new_plan">Vull començar un pla nou</string>
+    <string name="archive_reason_no_time">Ja no tinc temps per seguir-lo</string>
+    <string name="archive_reason_too_hard">L\'entrenament és massa exigent</string>
+    <string name="archive_reason_too_easy">L\'entrenament és massa fàcil</string>
+    <string name="archive_reason_discomfort">Tinc molèsties durant l\'entrenament</string>
+    <string name="archive_reason_goals">Els meus objectius han canviat</string>
+    <string name="archive_reason_not_convinced">El pla no em convenç</string>
+    <string name="archive_reason_other">Un altre motiu</string>
+    <string name="archive_reason_skip">Prefereixo no indicar-ho</string>
     <string name="account_logout">Tanca la sessió</string>
     <string name="account_logout_title">Vols tancar la sessió?</string>
     <string name="account_logout_text">El pla en memòria cau i els esborranys s\'esborraran d\'aquest dispositiu. Els entrenaments encara no enviats es perdran.</string>

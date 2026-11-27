@@ -225,6 +225,17 @@
     <string name="account_archive_title">Архивировать план?</string>
     <string name="account_archive_text">Вы сможете создать новый. История ваших тренировок сохранится.</string>
     <string name="account_archive_confirm">Архивировать</string>
+    <string name="archive_reason_title">Почему вы хотите архивировать этот план?</string>
+    <string name="archive_reason_completed">План выполнен</string>
+    <string name="archive_reason_new_plan">Хочу начать новый план</string>
+    <string name="archive_reason_no_time">У меня больше нет на него времени</string>
+    <string name="archive_reason_too_hard">Тренировки слишком тяжёлые</string>
+    <string name="archive_reason_too_easy">Тренировки слишком лёгкие</string>
+    <string name="archive_reason_discomfort">Во время тренировок есть дискомфорт</string>
+    <string name="archive_reason_goals">Мои цели изменились</string>
+    <string name="archive_reason_not_convinced">План меня не устраивает</string>
+    <string name="archive_reason_other">Другая причина</string>
+    <string name="archive_reason_skip">Предпочитаю не указывать</string>
     <string name="account_logout">Выйти</string>
     <string name="account_logout_title">Выйти?</string>
     <string name="account_logout_text">Кэшированный план и черновики будут удалены с этого устройства. Ещё не отправленные тренировки будут потеряны.</string>

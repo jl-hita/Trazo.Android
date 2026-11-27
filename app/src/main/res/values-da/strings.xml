@@ -225,6 +225,17 @@
     <string name="account_archive_title">Arkivere planen?</string>
     <string name="account_archive_text">Du kan oprette en ny. Din pashistorik bevares.</string>
     <string name="account_archive_confirm">Arkivér</string>
+    <string name="archive_reason_title">Hvorfor vil du arkivere denne plan?</string>
+    <string name="archive_reason_completed">Jeg har gennemført planen</string>
+    <string name="archive_reason_new_plan">Jeg vil starte en ny plan</string>
+    <string name="archive_reason_no_time">Jeg har ikke længere tid til at følge den</string>
+    <string name="archive_reason_too_hard">Træningen er for krævende</string>
+    <string name="archive_reason_too_easy">Træningen er for let</string>
+    <string name="archive_reason_discomfort">Jeg har gener under træningen</string>
+    <string name="archive_reason_goals">Mine mål har ændret sig</string>
+    <string name="archive_reason_not_convinced">Planen overbeviser mig ikke</string>
+    <string name="archive_reason_other">En anden årsag</string>
+    <string name="archive_reason_skip">Det vil jeg helst ikke oplyse</string>
     <string name="account_logout">Log ud</string>
     <string name="account_logout_title">Log ud?</string>
     <string name="account_logout_text">Den cachede plan og kladderne slettes fra denne enhed. Træningspas, der endnu ikke er sendt, går tabt.</string>
