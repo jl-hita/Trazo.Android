@@ -76,7 +76,9 @@ data class ManualPlanState(
     /** Whether that edit also reaches the later repetitions of the session. */
     val keepForLater: Boolean = false,
     /** The lasting changes were just forgotten. */
-    val forgotten: Boolean = false
+    val forgotten: Boolean = false,
+    /** The plan being edited trains for strength: techniques and supersets get a warning, and stay allowed. */
+    val strengthPlan: Boolean = false
 ) {
     val isSequence: Boolean get() = schedulingMode == "Sequence"
     val canSubmit: Boolean
@@ -107,7 +109,11 @@ class ManualPlanViewModel(
             }
             val session = found ?: return@launchGuarded _state.update { it.copy(loadingExisting = false, error = ApiError(ErrorKind.Unknown)) }
             val routine = routinesOf(listOf(session.copy(day = SESSION_KEY))).getValue(SESSION_KEY)
-            _state.update { it.copy(loadingExisting = false, name = session.title, days = mapOf(SESSION_KEY to routine)) }
+            // Only for the warning: without the plan the session is edited all the same.
+            val goal = (plans.currentPlan() as? ApiResult.Success)?.value?.value?.goal
+            _state.update {
+                it.copy(loadingExisting = false, name = session.title, days = mapOf(SESSION_KEY to routine), strengthPlan = goal == STRENGTH_GOAL)
+            }
         }
     }
 
@@ -142,7 +148,7 @@ class ManualPlanViewModel(
                         loadingExisting = false, name = plan?.macrocycle?.name.orEmpty(), notes = plan?.macrocycle?.notes,
                         totalWeeks = plan?.totalWeeks ?: it.totalWeeks, days = routines,
                         schedulingMode = if (sequence) "Sequence" else "Calendar", nextRoutine = routines.size + 1,
-                        order = if (sequence) routines.keys.toList() else emptyList()
+                        order = if (sequence) routines.keys.toList() else emptyList(), strengthPlan = plan?.goal == STRENGTH_GOAL
                     )
                 }
             }
@@ -325,6 +331,7 @@ class ManualPlanViewModel(
     companion object {
         const val MAX_SUPERSET = 4
         const val SESSION_KEY = "session"
+        private const val STRENGTH_GOAL = "Strength"
 
         /** The routine of a session being edited, as the server takes it. */
         fun buildSessionRequest(s: ManualPlanState): com.trazo.android.data.model.SessionEditRequest {

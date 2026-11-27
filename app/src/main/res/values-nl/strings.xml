@@ -629,6 +629,7 @@
     <string name="technique_scope_all">Alle sets</string>
     <string name="technique_drops">Gewichtsverlagingen: %1$d</string>
     <string name="technique_none_allowed">Deze oefening doe je alleen met gewone sets.</string>
+    <string name="technique_strength_warning">TRAZO voegt geen technieken of supersets toe aan krachtschema’s: ze zijn bedoeld voor spiergroei en om tijd te besparen. Je kunt ze toch gebruiken.</string>
     <string name="technique_help_drop">Verlaag het gewicht met %1$d%% en ga binnen %2$d s verder.</string>
     <string name="technique_help_myo">Rust %1$d s en doe minisets van %2$d–%3$d herhalingen met hetzelfde gewicht.</string>
     <string name="technique_help_match">Rust %1$d s en voeg minisets toe tot je de herhalingen van je eerste set haalt.</string>

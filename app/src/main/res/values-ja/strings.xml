@@ -624,6 +624,7 @@
     <string name="technique_scope_all">全セット</string>
     <string name="technique_drops">重量を下げる回数：%1$d</string>
     <string name="technique_none_allowed">この種目は通常セットのみで行います。</string>
+    <string name="technique_strength_warning">TRAZOは筋力向上プランにテクニックやスーパーセットを追加しません。これらは筋肥大と時間短縮のためのものです。使うこともできます。</string>
     <string name="technique_help_drop">重量を%1$d%%下げて、%2$d秒以内に続けます。</string>
     <string name="technique_help_myo">%1$d秒休み、同じ重量で%2$d～%3$d回のミニセットを行います。</string>
     <string name="technique_help_match">%1$d秒休み、1セット目の回数に並ぶまでミニセットを足します。</string>

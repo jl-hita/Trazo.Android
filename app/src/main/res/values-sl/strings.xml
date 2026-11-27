@@ -639,6 +639,7 @@
     <string name="technique_scope_all">Vse serije</string>
     <string name="technique_drops">Znižanja bremena: %1$d</string>
     <string name="technique_none_allowed">To vajo izvajaš le z običajnimi serijami.</string>
+    <string name="technique_strength_warning">TRAZO v načrte za moč ne dodaja tehnik ali supernizov: namenjeni so rasti mišic in prihranku časa. Vseeno jih lahko uporabiš.</string>
     <string name="technique_help_drop">Zmanjšaj breme za %1$d%% in nadaljuj v %2$d s.</string>
     <string name="technique_help_myo">Počivaj %1$d s in delaj miniserije po %2$d–%3$d ponovitev z istim bremenom.</string>
     <string name="technique_help_match">Počivaj %1$d s in dodajaj miniserije, dokler ne dosežeš ponovitev prve serije.</string>

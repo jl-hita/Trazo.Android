@@ -639,6 +639,7 @@
     <string name="technique_scope_all">Все подходы</string>
     <string name="technique_drops">Снижений веса: %1$d</string>
     <string name="technique_none_allowed">Это упражнение выполняется только обычными подходами.</string>
+    <string name="technique_strength_warning">TRAZO не добавляет техники и суперсеты в силовые планы: они предназначены для роста мышц и экономии времени. Но вы всё равно можете их использовать.</string>
     <string name="technique_help_drop">Снизьте вес на %1$d%% и продолжайте в течение %2$d с.</string>
     <string name="technique_help_myo">Отдохните %1$d с и делайте мини-подходы по %2$d–%3$d повторений с тем же весом.</string>
     <string name="technique_help_match">Отдохните %1$d с и добавляйте мини-подходы, пока не наберёте повторения первого подхода.</string>

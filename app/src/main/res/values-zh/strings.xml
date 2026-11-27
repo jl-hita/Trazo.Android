@@ -624,6 +624,7 @@
     <string name="technique_scope_all">所有组</string>
     <string name="technique_drops">减重次数：%1$d</string>
     <string name="technique_none_allowed">此动作只能用常规组完成。</string>
+    <string name="technique_strength_warning">TRAZO 不会在力量计划中加入训练技巧或超级组：它们适用于增肌和节省时间。你仍然可以使用。</string>
     <string name="technique_help_drop">减重 %1$d%%，并在 %2$d 秒内继续。</string>
     <string name="technique_help_myo">休息 %1$d 秒，用相同重量做 %2$d–%3$d 次的小组。</string>
     <string name="technique_help_match">休息 %1$d 秒，追加小组直到达到第一组的次数。</string>

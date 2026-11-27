@@ -629,6 +629,7 @@
     <string name="technique_scope_all">Kaikki sarjat</string>
     <string name="technique_drops">Painon pudotukset: %1$d</string>
     <string name="technique_none_allowed">Tämä liike tehdään vain tavallisina sarjoina.</string>
+    <string name="technique_strength_warning">TRAZO ei lisää tekniikoita eikä supersarjoja voimaohjelmiin: ne on tarkoitettu lihaskasvuun ja ajan säästämiseen. Voit silti käyttää niitä.</string>
     <string name="technique_help_drop">Vähennä painoa %1$d%% ja jatka %2$d sekunnin sisällä.</string>
     <string name="technique_help_myo">Lepää %1$d s ja tee %2$d–%3$d toiston minisarjoja samalla painolla.</string>
     <string name="technique_help_match">Lepää %1$d s ja lisää minisarjoja, kunnes saavutat ensimmäisen sarjan toistot.</string>

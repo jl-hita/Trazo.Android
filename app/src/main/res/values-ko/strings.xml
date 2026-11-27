@@ -624,6 +624,7 @@
     <string name="technique_scope_all">모든 세트</string>
     <string name="technique_drops">중량 감량 횟수: %1$d</string>
     <string name="technique_none_allowed">이 운동은 일반 세트로만 합니다.</string>
+    <string name="technique_strength_warning">TRAZO는 근력 플랜에 테크닉이나 슈퍼세트를 추가하지 않습니다. 근육 성장과 시간 절약을 위한 것이기 때문입니다. 원하면 사용할 수 있습니다.</string>
     <string name="technique_help_drop">중량을 %1$d%% 낮추고 %2$d초 안에 이어서 하세요.</string>
     <string name="technique_help_myo">%1$d초 쉬고 같은 중량으로 %2$d–%3$d회 미니 세트를 하세요.</string>
     <string name="technique_help_match">%1$d초 쉬고 첫 세트의 횟수를 채울 때까지 미니 세트를 더하세요.</string>

@@ -639,6 +639,7 @@
     <string name="technique_scope_all">Wszystkie serie</string>
     <string name="technique_drops">Zmniejszenia ciężaru: %1$d</string>
     <string name="technique_none_allowed">To ćwiczenie wykonuje się tylko zwykłymi seriami.</string>
+    <string name="technique_strength_warning">TRAZO nie dodaje technik ani superserii do planów siłowych: służą budowaniu mięśni i oszczędzaniu czasu. Nadal możesz ich używać.</string>
     <string name="technique_help_drop">Zmniejsz ciężar o %1$d%% i kontynuuj w ciągu %2$d s.</string>
     <string name="technique_help_myo">Odpocznij %1$d s i rób miniserie po %2$d–%3$d powtórzeń z tym samym ciężarem.</string>
     <string name="technique_help_match">Odpocznij %1$d s i dokładaj miniserie, aż wyrównasz powtórzenia z pierwszej serii.</string>

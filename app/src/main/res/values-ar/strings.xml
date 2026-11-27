@@ -649,6 +649,7 @@
     <string name="technique_scope_all">كل المجموعات</string>
     <string name="technique_drops">مرات خفض الوزن: %1$d</string>
     <string name="technique_none_allowed">يُؤدّى هذا التمرين بمجموعات عادية فقط.</string>
+    <string name="technique_strength_warning">لا يضيف TRAZO تقنيات أو مجموعات سوبر إلى خطط القوة: فهي مخصصة لبناء العضلات وتوفير الوقت. يمكنك استخدامها إن أردت.</string>
     <string name="technique_help_drop">اخفض الوزن %1$d%% وتابع خلال %2$d ث.</string>
     <string name="technique_help_myo">استرح %1$d ث ثم أدِّ مجموعات صغيرة من %2$d–%3$d تكرارات بالوزن نفسه.</string>
     <string name="technique_help_match">استرح %1$d ث وأضف مجموعات صغيرة حتى تبلغ تكرارات مجموعتك الأولى.</string>

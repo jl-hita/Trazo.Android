@@ -634,6 +634,7 @@
     <string name="technique_scope_all">Totes les sèries</string>
     <string name="technique_drops">Baixades de càrrega: %1$d</string>
     <string name="technique_none_allowed">Aquest exercici només es fa amb sèries normals.</string>
+    <string name="technique_strength_warning">TRAZO no afegeix tècniques ni superseries als plans de força: estan pensades per a la hipertròfia i per estalviar temps. Les pots fer servir igualment.</string>
     <string name="technique_help_drop">Abaixa la càrrega un %1$d%% i continua abans de %2$d s.</string>
     <string name="technique_help_myo">Descansa %1$d s i fes minisèries de %2$d–%3$d repeticions amb la mateixa càrrega.</string>
     <string name="technique_help_match">Descansa %1$d s i suma minisèries fins a igualar les repeticions de la primera sèrie.</string>

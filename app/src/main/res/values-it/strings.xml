@@ -634,6 +634,7 @@
     <string name="technique_scope_all">Tutte le serie</string>
     <string name="technique_drops">Riduzioni di carico: %1$d</string>
     <string name="technique_none_allowed">Questo esercizio si fa solo con serie classiche.</string>
+    <string name="technique_strength_warning">TRAZO non aggiunge tecniche né superserie ai piani di forza: servono per la crescita muscolare e per risparmiare tempo. Puoi usarle comunque.</string>
     <string name="technique_help_drop">Riduci il carico del %1$d%% e riparti entro %2$d s.</string>
     <string name="technique_help_myo">Recupera %1$d s e fai mini-serie da %2$d–%3$d ripetizioni con lo stesso carico.</string>
     <string name="technique_help_match">Recupera %1$d s e aggiungi mini-serie fino a eguagliare le ripetizioni della prima serie.</string>

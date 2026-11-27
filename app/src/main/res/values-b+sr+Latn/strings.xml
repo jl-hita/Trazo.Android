@@ -634,6 +634,7 @@
     <string name="technique_scope_all">Sve serije</string>
     <string name="technique_drops">Smanjenja opterećenja: %1$d</string>
     <string name="technique_none_allowed">Ova vežba se radi samo običnim serijama.</string>
+    <string name="technique_strength_warning">TRAZO ne dodaje tehnike ni superserije u planove za snagu: namenjene su rastu mišića i uštedi vremena. Ipak ih možeš koristiti.</string>
     <string name="technique_help_drop">Smanji opterećenje za %1$d%% i nastavi u roku od %2$d s.</string>
     <string name="technique_help_myo">Odmori %1$d s i radi mini serije od %2$d–%3$d ponavljanja sa istim opterećenjem.</string>
     <string name="technique_help_match">Odmori %1$d s i dodaj mini serije dok ne dostigneš ponavljanja prve serije.</string>

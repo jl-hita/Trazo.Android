@@ -224,6 +224,21 @@ class TechniquesTest : ViewModelTestBase() {
         assertEquals(75, vm.state.value.plan!!.maxSessionMinutes)
     }
 
+    @Test fun `editing a strength plan or one of its sessions is marked so it can be warned about`() = runTest(dispatcher) {
+        for ((goal, warned) in listOf("Strength" to true, "Hypertrophy" to false)) {
+            val api = FakePlansApi()
+            api.planGoal = goal
+            val whole = ManualPlanViewModel(plansRepo(api), ExerciseRepository(FakeExercisesApi()), editing = true)
+            val repo = plansRepo(api)
+            api.weekResponse = { Response.success(sampleWeek().copy(sessions = listOf(sampleSession("s1", sampleExercise())))) }
+            repo.currentWeek()
+            val one = ManualPlanViewModel(repo, ExerciseRepository(FakeExercisesApi()), sessionId = "s1")
+            advanceUntilIdle()
+            assertEquals(warned, whole.state.value.strengthPlan)
+            assertEquals(warned, one.state.value.strengthPlan)
+        }
+    }
+
     @Test fun `the technique dialog offers what the catalog admits`() = runTest(dispatcher) {
         val exercises = FakeExercisesApi()
         exercises.detailResponse = Response.success(exercises.detailResponse.body()!!.copy(allowedTechniques = listOf("DropSet", "MyoRepMatch")))
