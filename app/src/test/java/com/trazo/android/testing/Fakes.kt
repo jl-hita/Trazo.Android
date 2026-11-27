@@ -50,6 +50,12 @@ class FakePlansApi : PlansApi {
         return Response.success(sampleSession(sessionId).copy(customised = true))
     }
     var adjustmentsCleared = 0
+    val program = ProgramView("full-body-3", "Full body", "x", "Beginner", 3, "Calendar", "FullBody", 60, 12)
+    var programCreated: Pair<String, PlanProfileRequest>? = null
+    override suspend fun programs(): Response<List<ProgramView>> = Response.success(listOf(program))
+    override suspend fun programSheet(id: String, request: PlanProfileRequest): Response<ProgramSheetView> =
+        Response.success(ProgramSheetView(program, listOf("dumbbell"), listOf(ProgramMuscleSets("Chest", 8.0)), ProgramSampleSession("A", 55, emptyList())))
+    override suspend fun createProgram(id: String, request: PlanProfileRequest): Response<PlanView> { programCreated = id to request; return Response.success(samplePlan()) }
     override suspend fun clearAdjustments(): Response<Unit> { adjustmentsCleared++; return Response.success(204, Unit) }
     override suspend fun load() = loadResponse()
     override suspend fun block(): Response<BlockView> = Response.error(404, okhttp3.ResponseBody.create(null, ""))

@@ -45,5 +45,5 @@ internal val VocabularyEl = Vocabulary(
             "lat-pulldown-machine" to "Μηχάνημα κάθετου τραβήγματος"
         ),
     difficulty = mapOf("Beginner" to "Αρχάριος", "Intermediate" to "Μέσος", "Advanced" to "Προχωρημένος", "Easy" to "Εύκολο", "Hard" to "Δύσκολο"),
-    split = mapOf("Automatic" to "Αυτόματο", "FullBody" to "Ολόκληρο σώμα", "UpperLower" to "Άνω / κάτω μέρος σώματος", "PushPullLegs" to "Ώθηση / τράβηγμα / πόδια", "BroSplit" to "Ανά μυϊκή ομάδα")
+    split = mapOf("Automatic" to "Αυτόματο", "FullBody" to "Ολόκληρο σώμα", "UpperLower" to "Άνω / κάτω μέρος σώματος", "PushPullLegs" to "Ώθηση / τράβηγμα / πόδια", "Hybrid" to "Υβριδικό", "BroSplit" to "Ανά μυϊκή ομάδα")
 )

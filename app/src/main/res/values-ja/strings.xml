@@ -625,6 +625,14 @@
     <string name="session_edit_forget">継続する変更を取り消す</string>
     <string name="session_edit_forgotten">完了しました。新しいブロックはプラン通りになります。</string>
     <string name="session_customised">あなたが変更</string>
+    <string name="programs_title">用意されたプログラム</string>
+    <string name="programs_link">用意されたプログラムから始める</string>
+    <string name="program_days">週%1$d日</string>
+    <string name="program_minutes">1回%1$d分</string>
+    <string name="program_level">対象レベル：%1$s以上</string>
+    <string name="program_weekly_sets">部位ごとの週間セット数</string>
+    <string name="program_sample">セッション例</string>
+    <string name="program_start">このプログラムを始める</string>
     <string name="workout_segment">パート%1$d</string>
     <string name="workout_segment_done">%1$s 完了</string>
     <string name="workout_add_segment">パートを追加</string>

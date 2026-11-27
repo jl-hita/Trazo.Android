@@ -45,5 +45,5 @@ internal val VocabularySl = Vocabulary(
             "lat-pulldown-machine" to "Stroj za poteg navzdol"
         ),
     difficulty = mapOf("Beginner" to "Začetnik", "Intermediate" to "Srednje napreden", "Advanced" to "Napreden", "Easy" to "Lahko", "Hard" to "Težko"),
-    split = mapOf("Automatic" to "Samodejno", "FullBody" to "Celotno telo", "UpperLower" to "Zgornji / spodnji del telesa", "PushPullLegs" to "Potisk / poteg / noge", "BroSplit" to "Po mišičnih skupinah")
+    split = mapOf("Automatic" to "Samodejno", "FullBody" to "Celotno telo", "UpperLower" to "Zgornji / spodnji del telesa", "PushPullLegs" to "Potisk / poteg / noge", "Hybrid" to "Hibridno", "BroSplit" to "Po mišičnih skupinah")
 )

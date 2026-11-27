@@ -45,5 +45,5 @@ internal val VocabularyZh = Vocabulary(
             "lat-pulldown-machine" to "高位下拉机"
         ),
     difficulty = mapOf("Beginner" to "初级", "Intermediate" to "中级", "Advanced" to "高级", "Easy" to "简单", "Hard" to "困难"),
-    split = mapOf("Automatic" to "自动", "FullBody" to "全身", "UpperLower" to "上肢 / 下肢", "PushPullLegs" to "推 / 拉 / 腿", "BroSplit" to "按肌群分化")
+    split = mapOf("Automatic" to "自动", "FullBody" to "全身", "UpperLower" to "上肢 / 下肢", "PushPullLegs" to "推 / 拉 / 腿", "Hybrid" to "混合", "BroSplit" to "按肌群分化")
 )

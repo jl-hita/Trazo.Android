@@ -14,6 +14,11 @@ interface PlansApi {
     @GET("api/v1/plans/options") suspend fun options(): Response<PlanOptions>
     @POST("api/v1/plans") suspend fun create(@Body request: PlanProfileRequest): Response<PlanView>
     @POST("api/v1/plans/manual") suspend fun createManual(@Body request: ManualPlanRequest): Response<PlanView>
+    @GET("api/v1/plans/programs") suspend fun programs(): Response<List<ProgramView>>
+    @POST("api/v1/plans/programs/{id}/sheet")
+    suspend fun programSheet(@Path("id") id: String, @Body request: PlanProfileRequest): Response<ProgramSheetView>
+    @POST("api/v1/plans/programs/{id}")
+    suspend fun createProgram(@Path("id") id: String, @Body request: PlanProfileRequest): Response<PlanView>
     @PUT("api/v1/plans/current/manual") suspend fun updateManual(@Body request: ManualPlanRequest): Response<PlanView>
     @GET("api/v1/plans/current") suspend fun current(): Response<PlanView>
     @GET("api/v1/plans/current/week") suspend fun week(): Response<WeekView>

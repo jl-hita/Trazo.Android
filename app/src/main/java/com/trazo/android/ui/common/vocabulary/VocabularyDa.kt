@@ -45,5 +45,5 @@ internal val VocabularyDa = Vocabulary(
             "lat-pulldown-machine" to "Latsmaskine"
         ),
     difficulty = mapOf("Beginner" to "Begynder", "Intermediate" to "Øvet", "Advanced" to "Avanceret", "Easy" to "Let", "Hard" to "Svær"),
-    split = mapOf("Automatic" to "Automatisk", "FullBody" to "Hele kroppen", "UpperLower" to "Overkrop / underkrop", "PushPullLegs" to "Skub / træk / ben", "BroSplit" to "Pr. muskelgruppe")
+    split = mapOf("Automatic" to "Automatisk", "FullBody" to "Hele kroppen", "UpperLower" to "Overkrop / underkrop", "PushPullLegs" to "Skub / træk / ben", "Hybrid" to "Hybrid", "BroSplit" to "Pr. muskelgruppe")
 )

@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Unohda pysyvät muutokseni</string>
     <string name="session_edit_forgotten">Valmis: uudet jaksot noudattavat taas ohjelmaa.</string>
     <string name="session_customised">Sinun muokkaamasi</string>
+    <string name="programs_title">Valmiit ohjelmat</string>
+    <string name="programs_link">Aloita valmiista ohjelmasta</string>
+    <string name="program_days">%1$d päivää viikossa</string>
+    <string name="program_minutes">%1$d min harjoitusta kohti</string>
+    <string name="program_level">Tasosta: %1$s</string>
+    <string name="program_weekly_sets">Viikkosarjat lihasta kohti</string>
+    <string name="program_sample">Esimerkkiharjoitus</string>
+    <string name="program_start">Aloita tämä ohjelma</string>
     <string name="workout_segment">Osa %1$d</string>
     <string name="workout_segment_done">%1$s tehty</string>
     <string name="workout_add_segment">Lisää osa</string>

@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Kalıcı değişikliklerimi unut</string>
     <string name="session_edit_forgotten">Tamam: yeni bloklar yeniden planı izleyecek.</string>
     <string name="session_customised">Sizin değiştirdiğiniz</string>
+    <string name="programs_title">Hazır programlar</string>
+    <string name="programs_link">Hazır bir programla başlayın</string>
+    <string name="program_days">Haftada %1$d gün</string>
+    <string name="program_minutes">Antrenman başına %1$d dk</string>
+    <string name="program_level">Şu düzeyden itibaren: %1$s</string>
+    <string name="program_weekly_sets">Kas başına haftalık set</string>
+    <string name="program_sample">Örnek antrenman</string>
+    <string name="program_start">Bu programı başlat</string>
     <string name="workout_segment">%1$d. bölüm</string>
     <string name="workout_segment_done">%1$s tamam</string>
     <string name="workout_add_segment">Bölüm ekle</string>

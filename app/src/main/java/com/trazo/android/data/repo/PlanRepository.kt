@@ -119,6 +119,16 @@ class PlanRepository(
     /** Forgets the lasting changes: blocks generated from now on are the plan's own proposal again. */
     suspend fun clearAdjustments(): ApiResult<Unit> = apiCall { api.clearAdjustments() }
 
+    suspend fun programs(): ApiResult<List<ProgramView>> = apiCall { api.programs() }
+
+    suspend fun programSheet(id: String, request: PlanProfileRequest): ApiResult<ProgramSheetView> = apiCall { api.programSheet(id, request) }
+
+    suspend fun createProgramPlan(id: String, request: PlanProfileRequest): ApiResult<PlanView> {
+        val result = apiCall { api.createProgram(id, request) }
+        if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
+        return result
+    }
+
     suspend fun createManualPlan(request: ManualPlanRequest): ApiResult<PlanView> {
         val result = apiCall { api.createManual(request) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }

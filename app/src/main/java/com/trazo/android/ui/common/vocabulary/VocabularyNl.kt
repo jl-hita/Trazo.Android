@@ -45,5 +45,5 @@ internal val VocabularyNl = Vocabulary(
             "lat-pulldown-machine" to "Lat pulldown-machine"
         ),
     difficulty = mapOf("Beginner" to "Beginner", "Intermediate" to "Gemiddeld", "Advanced" to "Gevorderd", "Easy" to "Makkelijk", "Hard" to "Moeilijk"),
-    split = mapOf("Automatic" to "Automatisch", "FullBody" to "Full body", "UpperLower" to "Boven- / onderlichaam", "PushPullLegs" to "Duwen / trekken / benen", "BroSplit" to "Per spiergroep")
+    split = mapOf("Automatic" to "Automatisch", "FullBody" to "Full body", "UpperLower" to "Boven- / onderlichaam", "PushPullLegs" to "Duwen / trekken / benen", "Hybrid" to "Hybride", "BroSplit" to "Per spiergroep")
 )

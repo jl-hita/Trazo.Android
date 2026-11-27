@@ -640,6 +640,14 @@
     <string name="session_edit_forget">Pozabi moje trajne spremembe</string>
     <string name="session_edit_forgotten">Končano: novi bloki spet sledijo načrtu.</string>
     <string name="session_customised">Spremenili ste vi</string>
+    <string name="programs_title">Pripravljeni programi</string>
+    <string name="programs_link">Začni s pripravljenim programom</string>
+    <string name="program_days">%1$d dni na teden</string>
+    <string name="program_minutes">%1$d min na vadbo</string>
+    <string name="program_level">Od ravni: %1$s</string>
+    <string name="program_weekly_sets">Tedenske serije na mišico</string>
+    <string name="program_sample">Vzorčna vadba</string>
+    <string name="program_start">Začni ta program</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">Opravljeno: %1$s</string>
     <string name="workout_add_segment">Dodaj del</string>

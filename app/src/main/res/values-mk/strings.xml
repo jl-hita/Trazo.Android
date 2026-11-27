@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Заборави ги трајните измени</string>
     <string name="session_edit_forgotten">Готово: новите блокови повторно го следат планот.</string>
     <string name="session_customised">Изменето од вас</string>
+    <string name="programs_title">Готови програми</string>
+    <string name="programs_link">Почнете со готова програма</string>
+    <string name="program_days">%1$d дена неделно</string>
+    <string name="program_minutes">%1$d мин по тренинг</string>
+    <string name="program_level">Од ниво: %1$s</string>
+    <string name="program_weekly_sets">Неделни серии по мускул</string>
+    <string name="program_sample">Пример тренинг</string>
+    <string name="program_start">Започни ја програмата</string>
     <string name="workout_segment">Дел %1$d</string>
     <string name="workout_segment_done">Завршено: %1$s</string>
     <string name="workout_add_segment">Додај дел</string>

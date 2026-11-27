@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Mijn blijvende wijzigingen vergeten</string>
     <string name="session_edit_forgotten">Klaar: nieuwe blokken volgen weer het schema.</string>
     <string name="session_customised">Door jou gewijzigd</string>
+    <string name="programs_title">Kant-en-klare schema\'s</string>
+    <string name="programs_link">Begin met een kant-en-klaar schema</string>
+    <string name="program_days">%1$d dagen per week</string>
+    <string name="program_minutes">%1$d min per training</string>
+    <string name="program_level">Vanaf niveau: %1$s</string>
+    <string name="program_weekly_sets">Sets per spier per week</string>
+    <string name="program_sample">Voorbeeldtraining</string>
+    <string name="program_start">Dit schema starten</string>
     <string name="workout_segment">Deel %1$d</string>
     <string name="workout_segment_done">%1$s klaar</string>
     <string name="workout_add_segment">Deel toevoegen</string>

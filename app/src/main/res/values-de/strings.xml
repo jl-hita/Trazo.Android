@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Meine dauerhaften Änderungen vergessen</string>
     <string name="session_edit_forgotten">Erledigt: Neue Blöcke folgen wieder dem Plan.</string>
     <string name="session_customised">Von dir geändert</string>
+    <string name="programs_title">Fertige Programme</string>
+    <string name="programs_link">Mit einem fertigen Programm starten</string>
+    <string name="program_days">%1$d Tage pro Woche</string>
+    <string name="program_minutes">%1$d Min. pro Einheit</string>
+    <string name="program_level">Ab Level: %1$s</string>
+    <string name="program_weekly_sets">Sätze pro Muskel und Woche</string>
+    <string name="program_sample">Beispieleinheit</string>
+    <string name="program_start">Dieses Programm starten</string>
     <string name="workout_segment">Teil %1$d</string>
     <string name="workout_segment_done">%1$s erledigt</string>
     <string name="workout_add_segment">Teil hinzufügen</string>

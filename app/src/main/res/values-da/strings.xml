@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Glem mine varige ændringer</string>
     <string name="session_edit_forgotten">Klaret: nye blokke følger planen igen.</string>
     <string name="session_customised">Ændret af dig</string>
+    <string name="programs_title">Færdige programmer</string>
+    <string name="programs_link">Start med et færdigt program</string>
+    <string name="program_days">%1$d dage om ugen</string>
+    <string name="program_minutes">%1$d min pr. pas</string>
+    <string name="program_level">Fra niveau: %1$s</string>
+    <string name="program_weekly_sets">Ugentlige sæt pr. muskel</string>
+    <string name="program_sample">Eksempelpas</string>
+    <string name="program_start">Start dette program</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">%1$s udført</string>
     <string name="workout_add_segment">Tilføj en del</string>

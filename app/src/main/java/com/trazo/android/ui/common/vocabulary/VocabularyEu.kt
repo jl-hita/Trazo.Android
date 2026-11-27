@@ -45,5 +45,5 @@ internal val VocabularyEu = Vocabulary(
             "lat-pulldown-machine" to "Tira-makina bularrerantz"
         ),
     difficulty = mapOf("Beginner" to "Hasiberria", "Intermediate" to "Tartekoa", "Advanced" to "Aurreratua", "Easy" to "Erraza", "Hard" to "Zaila"),
-    split = mapOf("Automatic" to "Automatikoa", "FullBody" to "Gorputz osoa", "UpperLower" to "Goiko / beheko gorputza", "PushPullLegs" to "Bultzatu / tiratu / hankak", "BroSplit" to "Giharte-taldeka")
+    split = mapOf("Automatic" to "Automatikoa", "FullBody" to "Gorputz osoa", "UpperLower" to "Goiko / beheko gorputza", "PushPullLegs" to "Bultzatu / tiratu / hankak", "Hybrid" to "Hibridoa", "BroSplit" to "Giharte-taldeka")
 )

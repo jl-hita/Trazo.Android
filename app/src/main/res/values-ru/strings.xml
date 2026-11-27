@@ -640,6 +640,14 @@
     <string name="session_edit_forget">Забыть мои постоянные изменения</string>
     <string name="session_edit_forgotten">Готово: новые блоки снова следуют плану.</string>
     <string name="session_customised">Изменено вами</string>
+    <string name="programs_title">Готовые программы</string>
+    <string name="programs_link">Начать с готовой программы</string>
+    <string name="program_days">Дней в неделю: %1$d</string>
+    <string name="program_minutes">%1$d мин на тренировку</string>
+    <string name="program_level">С уровня: %1$s</string>
+    <string name="program_weekly_sets">Подходов в неделю на мышцу</string>
+    <string name="program_sample">Пример тренировки</string>
+    <string name="program_start">Начать эту программу</string>
     <string name="workout_segment">Часть %1$d</string>
     <string name="workout_segment_done">Выполнено: %1$s</string>
     <string name="workout_add_segment">Добавить часть</string>

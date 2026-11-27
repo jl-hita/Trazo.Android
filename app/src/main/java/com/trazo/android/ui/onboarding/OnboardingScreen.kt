@@ -32,7 +32,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
     if (showEquipmentDialog && state.options != null) {
         val equipmentOptions = availableEquipmentOptions
         AlertDialog(
-            onDismissRequest = { showEquipmentDialog = false },
+            onDismissRequest = { showEquipmentDialog = false; viewModel.refreshProgram() },
             title = { Text(stringResource(R.string.onb_equipment)) },
             text = {
                 Column(
@@ -58,26 +58,32 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 }
             },
             confirmButton = {
-                TextButton(onClick = { showEquipmentDialog = false }) {
+                TextButton(onClick = { showEquipmentDialog = false; viewModel.refreshProgram() }) {
                     Text(stringResource(R.string.close))
                 }
             }
         )
     }
     Column(Modifier.fillMaxSize()) {
-        TrazoTopBar(stringResource(R.string.onb_title), onBack)
+        TrazoTopBar(state.program?.program?.name ?: stringResource(R.string.onb_title), onBack)
         val options = state.options
         when {
             state.loadingOptions -> LoadingBox()
             options == null -> ErrorBox(state.error ?: com.trazo.android.data.net.ApiError(com.trazo.android.data.net.ErrorKind.Unknown), viewModel::loadOptions)
             else -> Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.onb_intro), color = TrazoPalette.TextSecondary)
+                // A ready-made program says what it is instead of asking what it fixes.
+                val program = state.program
+                if (program != null) ProgramSheet(program)
+                else {
+                    Text(stringResource(R.string.onb_intro), color = TrazoPalette.TextSecondary)
 
-                SectionTitle(stringResource(R.string.onb_goal))
-                ChipGroup(options.goals, setOf(state.goal), Labels::goal, viewModel::setGoal)
+                    SectionTitle(stringResource(R.string.onb_goal))
+                    ChipGroup(options.goals, setOf(state.goal), Labels::goal, viewModel::setGoal)
+                }
 
                 SectionTitle(stringResource(R.string.onb_level))
-                ChipGroup(options.experience, setOf(state.experience), Labels::experience, viewModel::setExperience)
+                val levels = program?.let { p -> options.experience.drop(options.experience.indexOf(p.program.minimumExperience).coerceAtLeast(0)) }
+                ChipGroup(levels ?: options.experience, setOf(state.experience), Labels::experience, viewModel::setExperience)
 
                 // The starting point is only offered when the server announces the preparation.
                 options.preparation?.let { prep ->
@@ -118,7 +124,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                 }
 
                 // The mode is only offered when the server announces it, so an older server keeps the fixed-days flow.
-                if ("Sequence" in options.schedulingModes) {
+                if (program == null && "Sequence" in options.schedulingModes) {
                     val context = androidx.compose.ui.platform.LocalContext.current
                     SectionTitle(stringResource(R.string.onb_mode))
                     ChipGroup(
@@ -129,7 +135,9 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                     if (state.isSequence) Text(stringResource(R.string.onb_mode_sequence_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 }
 
-                if (state.isSequence) {
+                if (state.isSequence && program != null) {
+                    Text(stringResource(R.string.onb_mode_sequence_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                } else if (state.isSequence) {
                     SectionTitle(stringResource(R.string.onb_sessions_per_cycle))
                     Text(stringResource(R.string.onb_sessions_hint, options.minimumSessionsPerPeriod, options.maximumSessionsPerPeriod), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                     ChipGroup(
@@ -138,13 +146,19 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                     )
                 } else {
                     SectionTitle(stringResource(R.string.onb_days))
-                    Text(stringResource(R.string.onb_days_hint, options.minimumTrainingDays, options.maximumTrainingDays), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    Text(
+                        program?.let { stringResource(R.string.program_days, it.program.sessionsPerWeek) }
+                            ?: stringResource(R.string.onb_days_hint, options.minimumTrainingDays, options.maximumTrainingDays),
+                        color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
+                    )
                     DayPicker(options.days, state.days, viewModel::toggleDay)
                 }
 
-                SectionTitle(stringResource(R.string.onb_split))
-                Text(stringResource(R.string.onb_split_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-                ChipGroup((listOf("Automatic") + options.splits).distinct(), setOf(state.split), Labels::split, viewModel::setSplit)
+                if (program == null) {
+                    SectionTitle(stringResource(R.string.onb_split))
+                    Text(stringResource(R.string.onb_split_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    ChipGroup((listOf("Automatic") + options.splits).distinct(), setOf(state.split), Labels::split, viewModel::setSplit)
+                }
 
                 Row(Modifier.fillMaxWidth().heightIn(min = MinTouch), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
@@ -210,7 +224,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
                     if (area in state.limitations) viewModel.toggleLimitation(area) else health { viewModel.toggleLimitation(area) }
                 })
 
-                if (state.goal == "Hypertrophy") {
+                if (program == null && state.goal == "Hypertrophy") {
                     SectionTitle(stringResource(R.string.onb_priorities))
                     Text(stringResource(R.string.onb_priorities_hint, MusclePriorities.MAX_EMPHASIZED), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                     MusclePriorityEditor(state.musclePriorities, viewModel::setMusclePriority)
@@ -226,7 +240,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel, onBack: () -> Unit, onPremi
             TrazoButton(
                 onClick = viewModel::submit, enabled = state.canSubmit,
                 modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)
-            ) { Text(stringResource(if (state.submitting) R.string.onb_creating else R.string.onb_create)) }
+            ) { Text(stringResource(if (state.submitting) R.string.onb_creating else if (state.program != null) R.string.program_start else R.string.onb_create)) }
         }
     }
 }

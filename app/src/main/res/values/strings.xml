@@ -674,6 +674,14 @@
     <string name="session_edit_forget">Forget my lasting changes</string>
     <string name="session_edit_forgotten">Done: new blocks will follow the plan again.</string>
     <string name="session_customised">Changed by you</string>
+    <string name="programs_title">Ready-made programs</string>
+    <string name="programs_link">Start from a ready-made program</string>
+    <string name="program_days">%1$d days a week</string>
+    <string name="program_minutes">%1$d min per session</string>
+    <string name="program_level">From level: %1$s</string>
+    <string name="program_weekly_sets">Weekly sets per muscle</string>
+    <string name="program_sample">Sample session</string>
+    <string name="program_start">Start this program</string>
     <string name="workout_segment">Part %1$d</string>
     <string name="workout_segment_done">%1$s done</string>
     <string name="workout_add_segment">Add a part</string>

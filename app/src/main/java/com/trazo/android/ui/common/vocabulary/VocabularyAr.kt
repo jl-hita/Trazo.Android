@@ -45,5 +45,5 @@ internal val VocabularyAr = Vocabulary(
             "lat-pulldown-machine" to "جهاز السحب العلوي"
         ),
     difficulty = mapOf("Beginner" to "مبتدئ", "Intermediate" to "متوسط", "Advanced" to "متقدم", "Easy" to "سهل", "Hard" to "صعب"),
-    split = mapOf("Automatic" to "تلقائي", "FullBody" to "الجسم كله", "UpperLower" to "الجزء العلوي / السفلي", "PushPullLegs" to "دفع / سحب / ساقان", "BroSplit" to "حسب المجموعات العضلية")
+    split = mapOf("Automatic" to "تلقائي", "FullBody" to "الجسم كله", "UpperLower" to "الجزء العلوي / السفلي", "PushPullLegs" to "دفع / سحب / ساقان", "Hybrid" to "هجين", "BroSplit" to "حسب المجموعات العضلية")
 )

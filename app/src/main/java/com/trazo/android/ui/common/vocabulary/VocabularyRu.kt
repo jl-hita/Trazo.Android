@@ -45,5 +45,5 @@ internal val VocabularyRu = Vocabulary(
             "lat-pulldown-machine" to "Верхняя тяга (тренажёр)"
         ),
     difficulty = mapOf("Beginner" to "Новичок", "Intermediate" to "Средний уровень", "Advanced" to "Продвинутый", "Easy" to "Лёгкий", "Hard" to "Сложный"),
-    split = mapOf("Automatic" to "Автоматически", "FullBody" to "Всё тело", "UpperLower" to "Верх / низ", "PushPullLegs" to "Жим / тяга / ноги", "BroSplit" to "По группам мышц")
+    split = mapOf("Automatic" to "Автоматически", "FullBody" to "Всё тело", "UpperLower" to "Верх / низ", "PushPullLegs" to "Жим / тяга / ноги", "Hybrid" to "Гибридный", "BroSplit" to "По группам мышц")
 )

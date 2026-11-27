@@ -45,5 +45,5 @@ internal val VocabularyCa = Vocabulary(
             "lat-pulldown-machine" to "Màquina de tracció al pit"
         ),
     difficulty = mapOf("Beginner" to "Principiant", "Intermediate" to "Intermedi", "Advanced" to "Avançat", "Easy" to "Fàcil", "Hard" to "Difícil"),
-    split = mapOf("Automatic" to "Automàtic", "FullBody" to "Cos complet", "UpperLower" to "Tren superior / inferior", "PushPullLegs" to "Empenta / estirada / cames", "BroSplit" to "Per grups musculars")
+    split = mapOf("Automatic" to "Automàtic", "FullBody" to "Cos complet", "UpperLower" to "Tren superior / inferior", "PushPullLegs" to "Empenta / estirada / cames", "Hybrid" to "Híbrid", "BroSplit" to "Per grups musculars")
 )
