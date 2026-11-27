@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Unohda pysyvät muutokseni</string>
     <string name="session_edit_forgotten">Valmis: uudet jaksot noudattavat taas ohjelmaa.</string>
     <string name="session_customised">Sinun muokkaamasi</string>
+    <string name="overview_minutes_edit">Muuta harjoituksen kestoa</string>
+    <string name="overview_minutes_note">Tulee voimaan seuraavasta jaksosta; jo laaditut harjoitukset eivät muutu.</string>
     <string name="programs_title">Valmiit ohjelmat</string>
     <string name="programs_link">Aloita valmiista ohjelmasta</string>
     <string name="program_days">%1$d päivää viikossa</string>

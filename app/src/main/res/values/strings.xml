@@ -686,6 +686,8 @@
     <string name="session_edit_forget">Forget my lasting changes</string>
     <string name="session_edit_forgotten">Done: new blocks will follow the plan again.</string>
     <string name="session_customised">Changed by you</string>
+    <string name="overview_minutes_edit">Change the time per session</string>
+    <string name="overview_minutes_note">It applies from the next block; the sessions already written stay as they are.</string>
     <string name="programs_title">Ready-made programs</string>
     <string name="programs_link">Start from a ready-made program</string>
     <string name="program_days">%1$d days a week</string>

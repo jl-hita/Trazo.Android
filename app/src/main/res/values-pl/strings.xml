@@ -652,6 +652,8 @@
     <string name="session_edit_forget">Zapomnij moje trwałe zmiany</string>
     <string name="session_edit_forgotten">Gotowe: nowe bloki znów idą zgodnie z planem.</string>
     <string name="session_customised">Zmienione przez ciebie</string>
+    <string name="overview_minutes_edit">Zmień czas na trening</string>
+    <string name="overview_minutes_note">Obowiązuje od następnego bloku; zapisane już treningi się nie zmieniają.</string>
     <string name="programs_title">Gotowe programy</string>
     <string name="programs_link">Zacznij od gotowego programu</string>
     <string name="program_days">%1$d dni w tygodniu</string>

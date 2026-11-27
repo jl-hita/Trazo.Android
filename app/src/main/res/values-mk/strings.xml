@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Заборави ги трајните измени</string>
     <string name="session_edit_forgotten">Готово: новите блокови повторно го следат планот.</string>
     <string name="session_customised">Изменето од вас</string>
+    <string name="overview_minutes_edit">Смени време по тренинг</string>
+    <string name="overview_minutes_note">Важи од следниот блок; веќе напишаните тренинзи остануваат.</string>
     <string name="programs_title">Готови програми</string>
     <string name="programs_link">Почнете со готова програма</string>
     <string name="program_days">%1$d дена неделно</string>

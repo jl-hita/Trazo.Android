@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Meine dauerhaften Änderungen vergessen</string>
     <string name="session_edit_forgotten">Erledigt: Neue Blöcke folgen wieder dem Plan.</string>
     <string name="session_customised">Von dir geändert</string>
+    <string name="overview_minutes_edit">Zeit pro Einheit ändern</string>
+    <string name="overview_minutes_note">Gilt ab dem nächsten Block; bereits erstellte Einheiten bleiben.</string>
     <string name="programs_title">Fertige Programme</string>
     <string name="programs_link">Mit einem fertigen Programm starten</string>
     <string name="program_days">%1$d Tage pro Woche</string>

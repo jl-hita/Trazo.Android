@@ -116,6 +116,13 @@ class PlanRepository(
         return result
     }
 
+    /** Changes the time per session from the next block on, so the cached plan is refreshed and the week is kept. */
+    suspend fun updateSessionMinutes(minutes: Int): ApiResult<PlanView> {
+        val result = apiCall { api.sessionMinutes(SessionMinutesRequest(minutes)) }
+        if (result is ApiResult.Success) disk { cache.savePlan(result.value) }
+        return result
+    }
+
     /** Forgets the lasting changes: blocks generated from now on are the plan's own proposal again. */
     suspend fun clearAdjustments(): ApiResult<Unit> = apiCall { api.clearAdjustments() }
 

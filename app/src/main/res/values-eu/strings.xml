@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Ahaztu nire aldaketa iraunkorrak</string>
     <string name="session_edit_forgotten">Eginda: blok berriek planari jarraituko diote berriro.</string>
     <string name="session_customised">Zuk aldatua</string>
+    <string name="overview_minutes_edit">Aldatu saioko denbora</string>
+    <string name="overview_minutes_note">Hurrengo bloketik aplikatzen da; idatzitako saioak ez dira aldatzen.</string>
     <string name="programs_title">Prestatutako programak</string>
     <string name="programs_link">Hasi prestatutako programa batekin</string>
     <string name="program_days">%1$d egun astean</string>

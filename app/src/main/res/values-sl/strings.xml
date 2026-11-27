@@ -652,6 +652,8 @@
     <string name="session_edit_forget">Pozabi moje trajne spremembe</string>
     <string name="session_edit_forgotten">Končano: novi bloki spet sledijo načrtu.</string>
     <string name="session_customised">Spremenili ste vi</string>
+    <string name="overview_minutes_edit">Spremeni čas na vadbo</string>
+    <string name="overview_minutes_note">Velja od naslednjega bloka; že zapisane vadbe ostanejo enake.</string>
     <string name="programs_title">Pripravljeni programi</string>
     <string name="programs_link">Začni s pripravljenim programom</string>
     <string name="program_days">%1$d dni na teden</string>

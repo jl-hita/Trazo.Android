@@ -647,6 +647,8 @@
     <string name="session_edit_forget">Dimentica le mie modifiche permanenti</string>
     <string name="session_edit_forgotten">Fatto: i nuovi blocchi seguono di nuovo il piano.</string>
     <string name="session_customised">Modificata da te</string>
+    <string name="overview_minutes_edit">Cambia il tempo per seduta</string>
+    <string name="overview_minutes_note">Vale dal blocco successivo; le sedute già scritte non cambiano.</string>
     <string name="programs_title">Programmi pronti</string>
     <string name="programs_link">Inizia da un programma pronto</string>
     <string name="program_days">%1$d giorni a settimana</string>

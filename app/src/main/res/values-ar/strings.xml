@@ -662,6 +662,8 @@
     <string name="session_edit_forget">إلغاء تغييراتي الدائمة</string>
     <string name="session_edit_forgotten">تم: ستتبع المراحل الجديدة الخطة من جديد.</string>
     <string name="session_customised">عدّلتها أنت</string>
+    <string name="overview_minutes_edit">تغيير مدة الحصة</string>
+    <string name="overview_minutes_note">يُطبَّق من المرحلة التالية؛ وتبقى الحصص المكتوبة كما هي.</string>
     <string name="programs_title">برامج جاهزة</string>
     <string name="programs_link">ابدأ من برنامج جاهز</string>
     <string name="program_days">%1$d أيام في الأسبوع</string>

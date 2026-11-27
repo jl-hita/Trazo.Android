@@ -51,6 +51,11 @@ class FakePlansApi : PlansApi {
     }
     var adjustmentsCleared = 0
     override suspend fun recommendations(): Response<Recommendations> = Response.success(Recommendations(emptyList()))
+    var minutesSent: Int? = null
+    override suspend fun sessionMinutes(request: SessionMinutesRequest): Response<PlanView> {
+        minutesSent = request.minutes
+        return Response.success(samplePlan().copy(maxSessionMinutes = request.minutes))
+    }
     override suspend fun blockSummaries(): Response<BlockSummaries> = Response.success(BlockSummaries(
         listOf(1, 2).map { BlockSummary(it, false, it * 4 - 3, 4, 12, 10, listOf(BlockMuscle("Chest", 40.0, 36.0)), emptyList()) }))
     val program = ProgramView("full-body-3", "Full body", "x", "Beginner", 3, "Calendar", "FullBody", 60, 12)

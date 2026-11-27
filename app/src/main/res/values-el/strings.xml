@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Διαγραφή των μόνιμων αλλαγών μου</string>
     <string name="session_edit_forgotten">Έγινε: τα νέα μπλοκ ακολουθούν ξανά το πρόγραμμα.</string>
     <string name="session_customised">Αλλαγμένη από εσάς</string>
+    <string name="overview_minutes_edit">Αλλαγή χρόνου ανά προπόνηση</string>
+    <string name="overview_minutes_note">Ισχύει από το επόμενο μπλοκ· οι ήδη γραμμένες προπονήσεις δεν αλλάζουν.</string>
     <string name="programs_title">Έτοιμα προγράμματα</string>
     <string name="programs_link">Ξεκινήστε από έτοιμο πρόγραμμα</string>
     <string name="program_days">%1$d ημέρες την εβδομάδα</string>

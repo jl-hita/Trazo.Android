@@ -647,6 +647,8 @@
     <string name="session_edit_forget">Oblidar els meus canvis permanents</string>
     <string name="session_edit_forgotten">Fet: els blocs nous tornen a seguir el pla.</string>
     <string name="session_customised">Canviada per tu</string>
+    <string name="overview_minutes_edit">Canviar el temps per sessió</string>
+    <string name="overview_minutes_note">S\'aplica a partir del bloc següent; les sessions ja escrites no canvien.</string>
     <string name="programs_title">Programes preparats</string>
     <string name="programs_link">Comença amb un programa preparat</string>
     <string name="program_days">%1$d dies per setmana</string>

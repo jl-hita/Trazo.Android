@@ -652,6 +652,8 @@
     <string name="session_edit_forget">Забыть мои постоянные изменения</string>
     <string name="session_edit_forgotten">Готово: новые блоки снова следуют плану.</string>
     <string name="session_customised">Изменено вами</string>
+    <string name="overview_minutes_edit">Изменить время тренировки</string>
+    <string name="overview_minutes_note">Действует со следующего блока; уже составленные тренировки не меняются.</string>
     <string name="programs_title">Готовые программы</string>
     <string name="programs_link">Начать с готовой программы</string>
     <string name="program_days">Дней в неделю: %1$d</string>
