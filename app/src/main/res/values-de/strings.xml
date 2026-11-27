@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Supersatz %1$s</string>
     <string name="manual_rest_between">Pause zwischen den Übungen: %1$d s</string>
     <string name="manual_rest_after">Pause nach jeder Runde: %1$d s</string>
+    <string name="update_required_title">TRAZO aktualisieren</string>
+    <string name="update_required_body">Diese Version funktioniert nicht mehr. Aktualisiere die App, um fortzufahren. Auf diesem Telefon gespeicherte Trainings bleiben erhalten.</string>
+    <string name="update_available_title">Neue Version verfügbar</string>
+    <string name="update_available_body">Aktualisiere, um die neuesten Korrekturen und Verbesserungen zu erhalten.</string>
+    <string name="update_action">Aktualisieren</string>
+    <string name="update_later">Nicht jetzt</string>
 </resources>

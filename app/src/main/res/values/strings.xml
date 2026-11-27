@@ -722,4 +722,10 @@
     <string name="manual_superset_title">Superset %1$s</string>
     <string name="manual_rest_between">Rest between exercises: %1$d s</string>
     <string name="manual_rest_after">Rest after each round: %1$d s</string>
+    <string name="update_required_title">Update TRAZO</string>
+    <string name="update_required_body">This version no longer works. Update the app to continue. Workouts saved on this phone are kept.</string>
+    <string name="update_available_title">New version available</string>
+    <string name="update_available_body">Update to get the latest fixes and improvements.</string>
+    <string name="update_action">Update</string>
+    <string name="update_later">Not now</string>
 </resources>

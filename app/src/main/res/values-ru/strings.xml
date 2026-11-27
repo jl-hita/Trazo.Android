@@ -688,4 +688,10 @@
     <string name="manual_superset_title">Суперсет %1$s</string>
     <string name="manual_rest_between">Отдых между упражнениями: %1$d с</string>
     <string name="manual_rest_after">Отдых после каждого круга: %1$d с</string>
+    <string name="update_required_title">Обновите TRAZO</string>
+    <string name="update_required_body">Эта версия больше не работает. Обновите приложение, чтобы продолжить. Тренировки, сохранённые на телефоне, останутся.</string>
+    <string name="update_available_title">Доступна новая версия</string>
+    <string name="update_available_body">Обновите, чтобы получить последние исправления и улучшения.</string>
+    <string name="update_action">Обновить</string>
+    <string name="update_later">Не сейчас</string>
 </resources>

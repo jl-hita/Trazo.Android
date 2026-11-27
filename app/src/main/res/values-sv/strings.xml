@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Superset %1$s</string>
     <string name="manual_rest_between">Vila mellan övningar: %1$d s</string>
     <string name="manual_rest_after">Vila efter varje varv: %1$d s</string>
+    <string name="update_required_title">Uppdatera TRAZO</string>
+    <string name="update_required_body">Den här versionen fungerar inte längre. Uppdatera appen för att fortsätta. Pass som sparats i telefonen finns kvar.</string>
+    <string name="update_available_title">Ny version finns</string>
+    <string name="update_available_body">Uppdatera för att få de senaste rättningarna och förbättringarna.</string>
+    <string name="update_action">Uppdatera</string>
+    <string name="update_later">Inte nu</string>
 </resources>

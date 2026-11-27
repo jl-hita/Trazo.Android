@@ -688,4 +688,10 @@
     <string name="manual_superset_title">Supernizanje %1$s</string>
     <string name="manual_rest_between">Počitek med vajami: %1$d s</string>
     <string name="manual_rest_after">Počitek po vsakem krogu: %1$d s</string>
+    <string name="update_required_title">Posodobi TRAZO</string>
+    <string name="update_required_body">Ta različica ne deluje več. Za nadaljevanje posodobi aplikacijo. Treningi, shranjeni v telefonu, ostanejo.</string>
+    <string name="update_available_title">Na voljo je nova različica</string>
+    <string name="update_available_body">Posodobi za najnovejše popravke in izboljšave.</string>
+    <string name="update_action">Posodobi</string>
+    <string name="update_later">Ne zdaj</string>
 </resources>

@@ -698,4 +698,10 @@
     <string name="manual_superset_title">سوبر سيت %1$s</string>
     <string name="manual_rest_between">الراحة بين التمارين: %1$d ث</string>
     <string name="manual_rest_after">الراحة بعد كل جولة: %1$d ث</string>
+    <string name="update_required_title">حدّث TRAZO</string>
+    <string name="update_required_body">هذا الإصدار لم يعد يعمل. حدّث التطبيق للمتابعة. تُحفظ التمارين المخزنة على هذا الهاتف.</string>
+    <string name="update_available_title">يتوفر إصدار جديد</string>
+    <string name="update_available_body">حدّث للحصول على أحدث الإصلاحات والتحسينات.</string>
+    <string name="update_action">تحديث</string>
+    <string name="update_later">ليس الآن</string>
 </resources>

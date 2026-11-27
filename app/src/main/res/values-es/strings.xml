@@ -699,4 +699,10 @@
     <string name="manual_superset_title">Superserie %1$s</string>
     <string name="manual_rest_between">Descanso entre ejercicios: %1$d s</string>
     <string name="manual_rest_after">Descanso tras cada ronda: %1$d s</string>
+    <string name="update_required_title">Actualiza TRAZO</string>
+    <string name="update_required_body">Esta versión ya no funciona. Actualiza la app para continuar. Los entrenamientos guardados en este teléfono se conservan.</string>
+    <string name="update_available_title">Hay una versión nueva</string>
+    <string name="update_available_body">Actualiza para tener las últimas correcciones y mejoras.</string>
+    <string name="update_action">Actualizar</string>
+    <string name="update_later">Ahora no</string>
 </resources>

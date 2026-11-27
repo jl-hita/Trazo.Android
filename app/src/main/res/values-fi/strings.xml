@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Supersetti %1$s</string>
     <string name="manual_rest_between">Lepo liikkeiden välissä: %1$d s</string>
     <string name="manual_rest_after">Lepo jokaisen kierroksen jälkeen: %1$d s</string>
+    <string name="update_required_title">Päivitä TRAZO</string>
+    <string name="update_required_body">Tämä versio ei enää toimi. Päivitä sovellus jatkaaksesi. Puhelimeen tallennetut treenit säilyvät.</string>
+    <string name="update_available_title">Uusi versio saatavilla</string>
+    <string name="update_available_body">Päivitä saadaksesi uusimmat korjaukset ja parannukset.</string>
+    <string name="update_action">Päivitä</string>
+    <string name="update_later">Ei nyt</string>
 </resources>
