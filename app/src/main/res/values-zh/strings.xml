@@ -625,6 +625,14 @@
     <string name="session_edit_forget">清除我的长期修改</string>
     <string name="session_edit_forgotten">完成：新的训练阶段将重新按计划进行。</string>
     <string name="session_customised">你已修改</string>
+    <string name="programs_title">现成计划</string>
+    <string name="programs_link">从现成计划开始</string>
+    <string name="program_days">每周 %1$d 天</string>
+    <string name="program_minutes">每次 %1$d 分钟</string>
+    <string name="program_level">适合水平：%1$s 起</string>
+    <string name="program_weekly_sets">各肌群每周组数</string>
+    <string name="program_sample">示例训练</string>
+    <string name="program_start">开始此计划</string>
     <string name="workout_segment">分段 %1$d</string>
     <string name="workout_segment_done">%1$s 已完成</string>
     <string name="workout_add_segment">添加分段</string>

@@ -45,5 +45,5 @@ internal val VocabularyTr = Vocabulary(
             "lat-pulldown-machine" to "Lat pulldown makinesi"
         ),
     difficulty = mapOf("Beginner" to "Başlangıç", "Intermediate" to "Orta", "Advanced" to "İleri", "Easy" to "Kolay", "Hard" to "Zor"),
-    split = mapOf("Automatic" to "Otomatik", "FullBody" to "Tüm vücut", "UpperLower" to "Üst / alt vücut", "PushPullLegs" to "İtiş / çekiş / bacak", "BroSplit" to "Kas grubuna göre")
+    split = mapOf("Automatic" to "Otomatik", "FullBody" to "Tüm vücut", "UpperLower" to "Üst / alt vücut", "PushPullLegs" to "İtiş / çekiş / bacak", "Hybrid" to "Hibrit", "BroSplit" to "Kas grubuna göre")
 )

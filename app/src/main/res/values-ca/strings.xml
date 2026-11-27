@@ -635,6 +635,14 @@
     <string name="session_edit_forget">Oblidar els meus canvis permanents</string>
     <string name="session_edit_forgotten">Fet: els blocs nous tornen a seguir el pla.</string>
     <string name="session_customised">Canviada per tu</string>
+    <string name="programs_title">Programes preparats</string>
+    <string name="programs_link">Comença amb un programa preparat</string>
+    <string name="program_days">%1$d dies per setmana</string>
+    <string name="program_minutes">%1$d min per sessió</string>
+    <string name="program_level">A partir del nivell: %1$s</string>
+    <string name="program_weekly_sets">Sèries setmanals per múscul</string>
+    <string name="program_sample">Sessió d\'exemple</string>
+    <string name="program_start">Començar aquest programa</string>
     <string name="workout_segment">Part %1$d</string>
     <string name="workout_segment_done">%1$s feta</string>
     <string name="workout_add_segment">Afegeix una part</string>

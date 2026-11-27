@@ -640,6 +640,14 @@
     <string name="session_edit_forget">Zapomnij moje trwałe zmiany</string>
     <string name="session_edit_forgotten">Gotowe: nowe bloki znów idą zgodnie z planem.</string>
     <string name="session_customised">Zmienione przez ciebie</string>
+    <string name="programs_title">Gotowe programy</string>
+    <string name="programs_link">Zacznij od gotowego programu</string>
+    <string name="program_days">%1$d dni w tygodniu</string>
+    <string name="program_minutes">%1$d min na trening</string>
+    <string name="program_level">Od poziomu: %1$s</string>
+    <string name="program_weekly_sets">Serie tygodniowo na mięsień</string>
+    <string name="program_sample">Przykładowy trening</string>
+    <string name="program_start">Rozpocznij ten program</string>
     <string name="workout_segment">Część %1$d</string>
     <string name="workout_segment_done">Zrobione: %1$s</string>
     <string name="workout_add_segment">Dodaj część</string>

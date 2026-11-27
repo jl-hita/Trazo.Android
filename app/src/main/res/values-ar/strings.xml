@@ -650,6 +650,14 @@
     <string name="session_edit_forget">إلغاء تغييراتي الدائمة</string>
     <string name="session_edit_forgotten">تم: ستتبع المراحل الجديدة الخطة من جديد.</string>
     <string name="session_customised">عدّلتها أنت</string>
+    <string name="programs_title">برامج جاهزة</string>
+    <string name="programs_link">ابدأ من برنامج جاهز</string>
+    <string name="program_days">%1$d أيام في الأسبوع</string>
+    <string name="program_minutes">%1$d دقيقة للحصة</string>
+    <string name="program_level">من مستوى: %1$s</string>
+    <string name="program_weekly_sets">المجموعات الأسبوعية لكل عضلة</string>
+    <string name="program_sample">حصة نموذجية</string>
+    <string name="program_start">ابدأ هذا البرنامج</string>
     <string name="workout_segment">جزء %1$d</string>
     <string name="workout_segment_done">تم: %1$s</string>
     <string name="workout_add_segment">إضافة جزء</string>

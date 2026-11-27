@@ -78,6 +78,9 @@ object Routes {
     const val PROGRESS = "progress"
     const val REFERRALS = "referrals"
     const val DELETE_ACCOUNT = "account/delete"
+    const val PROGRAMS = "programs"
+    const val PROGRAM = "program/{id}"
+    fun program(id: String) = "program/$id"
     const val SESSION = "session/{id}"
     const val SESSION_EDIT = "session/{id}/edit"
     fun sessionEdit(id: String) = "session/$id/edit"
@@ -222,6 +225,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                         onEditPlan = { nav.navigate(Routes.MANUAL_EDIT) },
                         onCreatePlan = { if (access?.canUpgrade == true) premiumPrompt = true else nav.navigate(Routes.ONBOARDING) },
                         onCreateManualPlan = { nav.navigate(Routes.MANUAL_PLAN) },
+                        onPrograms = { nav.navigate(Routes.PROGRAMS) },
                         onPremium = { nav.navigate(Routes.premium("plan")) },
                         onSendPending = { planVm.sendPending() },
                         autoNeedsPremium = access?.canUpgrade == true
@@ -249,6 +253,15 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                     val milestone = rememberCoroutineScope()
                     val vm: OnboardingViewModel = containerViewModel { OnboardingViewModel(it.plans) }
                     OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("onboarding")) }, onManualPlan = { nav.popBackStack(); nav.navigate(Routes.MANUAL_PLAN) }, onCreated = { milestone.launch { c.referrals.onboardingCompleted() }; planVm.load(); nav.popBackStack() })
+                }
+                composable(Routes.PROGRAMS) {
+                    val vm: com.trazo.android.ui.onboarding.ProgramsViewModel = containerViewModel { com.trazo.android.ui.onboarding.ProgramsViewModel(it.plans) }
+                    com.trazo.android.ui.onboarding.ProgramsScreen(vm, onBack = { nav.popBackStack() }, onOpen = { nav.navigate(Routes.program(it)) })
+                }
+                composable(Routes.PROGRAM) { entry ->
+                    val id = entry.arguments?.getString("id").orEmpty()
+                    val vm: OnboardingViewModel = containerViewModel(key = "program-$id") { OnboardingViewModel(it.plans, id) }
+                    OnboardingScreen(vm, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("onboarding")) }, onManualPlan = { nav.navigate(Routes.MANUAL_PLAN) }, onCreated = { planVm.load(); nav.popBackStack(Routes.PLAN, false) })
                 }
                 composable(Routes.MANUAL_PLAN) {
                     val vm: ManualPlanViewModel = containerViewModel { ManualPlanViewModel(it.plans, it.exercises) }

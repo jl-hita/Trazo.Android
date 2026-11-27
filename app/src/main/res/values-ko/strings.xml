@@ -625,6 +625,14 @@
     <string name="session_edit_forget">계속 적용되는 변경 지우기</string>
     <string name="session_edit_forgotten">완료: 새 블록은 다시 계획을 따릅니다.</string>
     <string name="session_customised">직접 수정함</string>
+    <string name="programs_title">준비된 프로그램</string>
+    <string name="programs_link">준비된 프로그램으로 시작</string>
+    <string name="program_days">주 %1$d일</string>
+    <string name="program_minutes">세션당 %1$d분</string>
+    <string name="program_level">%1$s 수준부터</string>
+    <string name="program_weekly_sets">근육별 주간 세트</string>
+    <string name="program_sample">예시 세션</string>
+    <string name="program_start">이 프로그램 시작</string>
     <string name="workout_segment">파트 %1$d</string>
     <string name="workout_segment_done">%1$s 완료</string>
     <string name="workout_add_segment">파트 추가</string>

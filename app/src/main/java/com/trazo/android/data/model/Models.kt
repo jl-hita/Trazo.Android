@@ -183,6 +183,24 @@ data class PlanProfileRequest(
     val readiness: String? = null, val preparationWeeks: Int? = null
 )
 
+/** A ready-made program; [locked] says Premium is needed to start it. */
+data class ProgramView(
+    val id: String, val name: String, val description: String, val minimumExperience: String, val sessionsPerWeek: Int,
+    val schedulingMode: String, val split: String, val sessionMinutes: Int, val totalWeeks: Int,
+    val emphasisedMuscles: List<String> = emptyList(), val locked: Boolean = false
+)
+
+data class ProgramMuscleSets(val muscle: String, val weeklySets: Double)
+
+data class ProgramSampleExercise(val exerciseId: String, val name: String, val sets: Int, val minRepetitions: Int, val maxRepetitions: Int)
+
+data class ProgramSampleSession(val title: String, val estimatedDurationMinutes: Int, val exercises: List<ProgramSampleExercise>)
+
+/** A program as it would look for the equipment sent: nothing is created by reading it. */
+data class ProgramSheetView(
+    val program: ProgramView, val equipment: List<String>, val weeklySets: List<ProgramMuscleSets>, val sampleSession: ProgramSampleSession
+)
+
 /** Replaces every priority of the current plan: an empty map clears them. */
 /** The body areas the user cannot load now (an injury outside a session); an empty list means recovered. */
 data class UpdateLimitationsRequest(val limitations: List<String>)

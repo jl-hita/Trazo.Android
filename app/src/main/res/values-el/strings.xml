@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Διαγραφή των μόνιμων αλλαγών μου</string>
     <string name="session_edit_forgotten">Έγινε: τα νέα μπλοκ ακολουθούν ξανά το πρόγραμμα.</string>
     <string name="session_customised">Αλλαγμένη από εσάς</string>
+    <string name="programs_title">Έτοιμα προγράμματα</string>
+    <string name="programs_link">Ξεκινήστε από έτοιμο πρόγραμμα</string>
+    <string name="program_days">%1$d ημέρες την εβδομάδα</string>
+    <string name="program_minutes">%1$d λεπτά ανά προπόνηση</string>
+    <string name="program_level">Από επίπεδο: %1$s</string>
+    <string name="program_weekly_sets">Εβδομαδιαία σετ ανά μυ</string>
+    <string name="program_sample">Δείγμα προπόνησης</string>
+    <string name="program_start">Έναρξη αυτού του προγράμματος</string>
     <string name="workout_segment">Μέρος %1$d</string>
     <string name="workout_segment_done">Ολοκληρώθηκε: %1$s</string>
     <string name="workout_add_segment">Προσθήκη μέρους</string>

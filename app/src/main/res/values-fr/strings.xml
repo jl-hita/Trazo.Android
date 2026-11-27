@@ -635,6 +635,14 @@
     <string name="session_edit_forget">Oublier mes changements durables</string>
     <string name="session_edit_forgotten">C’est fait : les nouveaux blocs suivent à nouveau le programme.</string>
     <string name="session_customised">Modifiée par vous</string>
+    <string name="programs_title">Programmes prêts à l’emploi</string>
+    <string name="programs_link">Commencer avec un programme prêt à l’emploi</string>
+    <string name="program_days">%1$d jours par semaine</string>
+    <string name="program_minutes">%1$d min par séance</string>
+    <string name="program_level">À partir du niveau : %1$s</string>
+    <string name="program_weekly_sets">Séries hebdomadaires par muscle</string>
+    <string name="program_sample">Séance d’exemple</string>
+    <string name="program_start">Commencer ce programme</string>
     <string name="workout_segment">Partie %1$d</string>
     <string name="workout_segment_done">%1$s terminée</string>
     <string name="workout_add_segment">Ajouter une partie</string>

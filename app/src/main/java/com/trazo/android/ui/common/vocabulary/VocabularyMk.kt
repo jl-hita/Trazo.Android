@@ -45,5 +45,5 @@ internal val VocabularyMk = Vocabulary(
             "lat-pulldown-machine" to "Машина за влечење надолу"
         ),
     difficulty = mapOf("Beginner" to "Почетник", "Intermediate" to "Средно ниво", "Advanced" to "Напредно ниво", "Easy" to "Лесно", "Hard" to "Тешко"),
-    split = mapOf("Automatic" to "Автоматски", "FullBody" to "Цело тело", "UpperLower" to "Горен / долен дел од телото", "PushPullLegs" to "Туркање / влечење / нозе", "BroSplit" to "По мускулни групи")
+    split = mapOf("Automatic" to "Автоматски", "FullBody" to "Цело тело", "UpperLower" to "Горен / долен дел од телото", "PushPullLegs" to "Туркање / влечење / нозе", "Hybrid" to "Хибридно", "BroSplit" to "По мускулни групи")
 )

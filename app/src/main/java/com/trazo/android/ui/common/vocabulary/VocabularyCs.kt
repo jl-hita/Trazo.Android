@@ -45,5 +45,5 @@ internal val VocabularyCs = Vocabulary(
             "lat-pulldown-machine" to "Stahování horní kladky"
         ),
     difficulty = mapOf("Beginner" to "Začátečník", "Intermediate" to "Středně pokročilý", "Advanced" to "Pokročilý", "Easy" to "Snadný", "Hard" to "Těžký"),
-    split = mapOf("Automatic" to "Automaticky", "FullBody" to "Celé tělo", "UpperLower" to "Horní / dolní polovina těla", "PushPullLegs" to "Tlak / tah / nohy", "BroSplit" to "Po svalových partiích")
+    split = mapOf("Automatic" to "Automaticky", "FullBody" to "Celé tělo", "UpperLower" to "Horní / dolní polovina těla", "PushPullLegs" to "Tlak / tah / nohy", "Hybrid" to "Hybridní", "BroSplit" to "Po svalových partiích")
 )

@@ -45,5 +45,5 @@ internal val VocabularyFi = Vocabulary(
             "lat-pulldown-machine" to "Ylätalja"
         ),
     difficulty = mapOf("Beginner" to "Aloittelija", "Intermediate" to "Keskitaso", "Advanced" to "Edistynyt", "Easy" to "Helppo", "Hard" to "Vaikea"),
-    split = mapOf("Automatic" to "Automaattinen", "FullBody" to "Koko keho", "UpperLower" to "Ylä- ja alavartalo", "PushPullLegs" to "Työntö / veto / jalat", "BroSplit" to "Lihasryhmittäin")
+    split = mapOf("Automatic" to "Automaattinen", "FullBody" to "Koko keho", "UpperLower" to "Ylä- ja alavartalo", "PushPullLegs" to "Työntö / veto / jalat", "Hybrid" to "Hybridi", "BroSplit" to "Lihasryhmittäin")
 )

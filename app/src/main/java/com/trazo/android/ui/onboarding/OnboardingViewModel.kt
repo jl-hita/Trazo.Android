@@ -7,6 +7,7 @@ import com.trazo.android.diagnostics.launchGuarded
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.data.model.PlanOptions
 import com.trazo.android.data.model.PlanProfileRequest
+import com.trazo.android.data.model.ProgramSheetView
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.repo.PlanRepository
@@ -47,18 +48,21 @@ data class OnboardingState(
     val deloadEvery: Int? = null,
     val submitting: Boolean = false,
     val created: Boolean = false,
-    val error: ApiError? = null
+    val error: ApiError? = null,
+    /** Starting a ready-made program: what it fixes is not asked, and its sheet is shown. */
+    val program: ProgramSheetView? = null
 ) {
     val isSequence: Boolean get() = schedulingMode == "Sequence"
     val daysOk: Boolean get() = options?.let {
         if (isSequence) sessionsPerPeriod in it.minimumSessionsPerPeriod..it.maximumSessionsPerPeriod
+        else if (program != null) days.size == program.program.sessionsPerWeek
         else days.size in it.minimumTrainingDays..it.maximumTrainingDays
     } ?: false
     val canSubmit: Boolean get() = options != null && daysOk && !submitting
 }
 
 /** Collects the profile the plans API requires (goal, level, days, session length, equipment, limitations) and creates the plan. */
-class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
+class OnboardingViewModel(private val plans: PlanRepository, private val programId: String? = null) : ViewModel() {
     private val _state = MutableStateFlow(OnboardingState())
     val state: StateFlow<OnboardingState> = _state.asStateFlow()
 
@@ -68,7 +72,8 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
         _state.update { it.copy(loadingOptions = true, error = null) }
         viewModelScope.launchGuarded(R.string.feature_onboarding, onFailure = { _state.update { it.copy(loadingOptions = false, error = ApiError(ErrorKind.Unknown)) } }) {
             when (val result = plans.options()) {
-                is ApiResult.Success -> _state.update {
+                is ApiResult.Success -> {
+                _state.update {
                     val o = result.value
                     it.copy(
                         loadingOptions = false, options = o,
@@ -78,9 +83,39 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
                         sessionMinutes = it.sessionMinutes.coerceIn(o.minimumSessionMinutes, o.maximumSessionMinutes)
                     )
                 }
+                if (programId != null) loadSheet(programId, first = true)
+                }
                 is ApiResult.Failure -> _state.update { it.copy(loadingOptions = false, error = result.error) }
             }
         }
+    }
+
+    /** The sheet for the equipment chosen. The first time, what the program fixes becomes the form's starting values. */
+    private suspend fun loadSheet(id: String, first: Boolean) {
+        val s = _state.value
+        val options = s.options ?: return
+        val request = PlanProfileRequest(
+            goal = "Hypertrophy", experience = s.experience, availableEquipment = options.equipment.filter { it in s.equipment },
+            limitations = options.limitations.filter { it in s.limitations }
+        )
+        when (val result = plans.programSheet(id, request)) {
+            is ApiResult.Success -> _state.update {
+                val p = result.value.program
+                if (!first) it.copy(program = result.value, error = null)
+                else it.copy(
+                    program = result.value, goal = "Hypertrophy", experience = p.minimumExperience, schedulingMode = p.schedulingMode,
+                    sessionsPerPeriod = p.sessionsPerWeek, sessionMinutes = p.sessionMinutes, totalWeeks = p.totalWeeks,
+                    days = defaultDays(options.days, p.sessionsPerWeek)
+                )
+            }
+            is ApiResult.Failure -> _state.update { if (first) it.copy(options = null, error = result.error) else it.copy(error = result.error) }
+        }
+    }
+
+    /** After the equipment or the injured areas change. */
+    fun refreshProgram() {
+        val id = programId ?: return
+        viewModelScope.launchGuarded(R.string.feature_onboarding, onFailure = { }) { loadSheet(id, first = false) }
     }
 
     fun setGoal(value: String) = _state.update { it.copy(goal = value) }
@@ -114,7 +149,7 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
         _state.update { it.copy(submitting = true, error = null) }
         viewModelScope.launchGuarded(R.string.feature_onboarding, onFailure = { _state.update { it.copy(submitting = false, error = ApiError(ErrorKind.Unknown)) } }) {
             val request = buildRequest(s, options)
-            when (val result = plans.createPlan(request)) {
+            when (val result = if (programId != null) plans.createProgramPlan(programId, request) else plans.createPlan(request)) {
                 is ApiResult.Success -> _state.update { it.copy(submitting = false, created = true) }
                 is ApiResult.Failure -> _state.update { it.copy(submitting = false, error = result.error) }
             }
@@ -122,6 +157,12 @@ class OnboardingViewModel(private val plans: PlanRepository) : ViewModel() {
     }
 
     companion object {
+        /** Evenly spread days of the week for a program of [count] sessions. */
+        fun defaultDays(week: List<String>, count: Int): Set<String> {
+            val places = when (count) { 2 -> listOf(0, 3); 3 -> listOf(0, 2, 4); 4 -> listOf(0, 1, 3, 4); 5 -> listOf(0, 1, 3, 4, 5); else -> (0 until count).toList() }
+            return places.mapNotNull { week.getOrNull(it) }.toSet()
+        }
+
         /** Sets the starting point and its weeks (the suggestion unless [weeks] is given) and lengthens the plan when it would be too short. */
         fun applyPreparation(s: OnboardingState, readiness: String, longBreak: Boolean, weeks: Int?): OnboardingState {
             val prep = s.options?.preparation ?: return s

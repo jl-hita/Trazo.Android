@@ -45,5 +45,5 @@ internal val VocabularyPt = Vocabulary(
             "lat-pulldown-machine" to "Puxada alta na máquina"
         ),
     difficulty = mapOf("Beginner" to "Iniciante", "Intermediate" to "Intermediário", "Advanced" to "Avançado", "Easy" to "Fácil", "Hard" to "Difícil"),
-    split = mapOf("Automatic" to "Automático", "FullBody" to "Corpo inteiro", "UpperLower" to "Superior / inferior", "PushPullLegs" to "Empurrar / puxar / pernas", "BroSplit" to "Por grupos musculares")
+    split = mapOf("Automatic" to "Automático", "FullBody" to "Corpo inteiro", "UpperLower" to "Superior / inferior", "PushPullLegs" to "Empurrar / puxar / pernas", "Hybrid" to "Híbrido", "BroSplit" to "Por grupos musculares")
 )

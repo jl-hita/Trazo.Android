@@ -45,5 +45,5 @@ internal val VocabularyJa = Vocabulary(
             "lat-pulldown-machine" to "ラットプルダウンマシン"
         ),
     difficulty = mapOf("Beginner" to "初級", "Intermediate" to "中級", "Advanced" to "上級", "Easy" to "易しい", "Hard" to "難しい"),
-    split = mapOf("Automatic" to "自動", "FullBody" to "全身", "UpperLower" to "上半身／下半身", "PushPullLegs" to "プッシュ／プル／レッグ", "BroSplit" to "部位別")
+    split = mapOf("Automatic" to "自動", "FullBody" to "全身", "UpperLower" to "上半身／下半身", "PushPullLegs" to "プッシュ／プル／レッグ", "Hybrid" to "ハイブリッド", "BroSplit" to "部位別")
 )

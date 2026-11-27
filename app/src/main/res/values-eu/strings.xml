@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Ahaztu nire aldaketa iraunkorrak</string>
     <string name="session_edit_forgotten">Eginda: blok berriek planari jarraituko diote berriro.</string>
     <string name="session_customised">Zuk aldatua</string>
+    <string name="programs_title">Prestatutako programak</string>
+    <string name="programs_link">Hasi prestatutako programa batekin</string>
+    <string name="program_days">%1$d egun astean</string>
+    <string name="program_minutes">%1$d min saioko</string>
+    <string name="program_level">Maila honetatik: %1$s</string>
+    <string name="program_weekly_sets">Asteko serieak giharreko</string>
+    <string name="program_sample">Adibideko saioa</string>
+    <string name="program_start">Hasi programa hau</string>
     <string name="workout_segment">%1$d. zatia</string>
     <string name="workout_segment_done">Eginda: %1$s</string>
     <string name="workout_add_segment">Gehitu zati bat</string>

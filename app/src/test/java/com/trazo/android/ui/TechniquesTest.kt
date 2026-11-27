@@ -197,6 +197,23 @@ class TechniquesTest : ViewModelTestBase() {
         assertTrue(vm.state.value.forgotten)
     }
 
+    @Test fun `a program starts from its own values and asks only for as many days as sessions`() = runTest(dispatcher) {
+        val api = FakePlansApi()
+        val vm = com.trazo.android.ui.onboarding.OnboardingViewModel(plansRepo(api), "full-body-3")
+        advanceUntilIdle()
+        val s = vm.state.value
+        assertEquals(3, s.days.size)
+        assertEquals("Beginner", s.experience)
+        assertTrue(s.canSubmit)
+        vm.toggleDay(s.days.first())
+        assertFalse(vm.state.value.canSubmit)
+        vm.toggleDay(s.days.first())
+        vm.submit()
+        advanceUntilIdle()
+        assertEquals("full-body-3", api.programCreated!!.first)
+        assertEquals(3, api.programCreated!!.second.trainingDays!!.size)
+    }
+
     @Test fun `the technique dialog offers what the catalog admits`() = runTest(dispatcher) {
         val exercises = FakeExercisesApi()
         exercises.detailResponse = Response.success(exercises.detailResponse.body()!!.copy(allowedTechniques = listOf("DropSet", "MyoRepMatch")))

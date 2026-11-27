@@ -56,7 +56,8 @@ fun PlanScreen(
     onCreateManualPlan: () -> Unit,
     onPremium: () -> Unit,
     onSendPending: () -> Unit,
-    autoNeedsPremium: Boolean = false
+    autoNeedsPremium: Boolean = false,
+    onPrograms: () -> Unit = {}
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pending by viewModel.pendingLogs.collectAsStateWithLifecycle()
@@ -65,7 +66,7 @@ fun PlanScreen(
         val week = state.week
         when {
             state.loading && week == null -> LoadingBox()
-            state.needsOnboarding -> OnboardingPrompt(autoNeedsPremium, onCreatePlan, onCreateManualPlan)
+            state.needsOnboarding -> OnboardingPrompt(autoNeedsPremium, onCreatePlan, onCreateManualPlan, onPrograms)
             state.error != null && week == null -> ErrorBox(state.error!!, viewModel::load)
             week != null -> LazyColumn(
                 Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -155,7 +156,7 @@ fun PlanScreen(
  * [autoNeedsPremium] is true when the account has no Premium access: the automatic card then carries a Premium tag and its button offers Premium.
  */
 @Composable
-private fun OnboardingPrompt(autoNeedsPremium: Boolean, onCreatePlan: () -> Unit, onCreateManualPlan: () -> Unit) {
+private fun OnboardingPrompt(autoNeedsPremium: Boolean, onCreatePlan: () -> Unit, onCreateManualPlan: () -> Unit, onPrograms: () -> Unit) {
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -183,6 +184,7 @@ private fun OnboardingPrompt(autoNeedsPremium: Boolean, onCreatePlan: () -> Unit
             ChoiceBullet(stringResource(R.string.plan_choice_manual_b2))
             TrazoButton(onClick = onCreateManualPlan, secondary = true, modifier = Modifier.fillMaxWidth().padding(top = 10.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.manual_start)) }
         }
+        TrazoLink(onClick = onPrograms, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.programs_link)) }
         Text(stringResource(R.string.plan_choice_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
     }
 }

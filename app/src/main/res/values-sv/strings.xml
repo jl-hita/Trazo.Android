@@ -630,6 +630,14 @@
     <string name="session_edit_forget">Glöm mina bestående ändringar</string>
     <string name="session_edit_forgotten">Klart: nya block följer programmet igen.</string>
     <string name="session_customised">Ändrat av dig</string>
+    <string name="programs_title">Färdiga program</string>
+    <string name="programs_link">Börja med ett färdigt program</string>
+    <string name="program_days">%1$d dagar i veckan</string>
+    <string name="program_minutes">%1$d min per pass</string>
+    <string name="program_level">Från nivå: %1$s</string>
+    <string name="program_weekly_sets">Set per muskel och vecka</string>
+    <string name="program_sample">Exempelpass</string>
+    <string name="program_start">Starta det här programmet</string>
     <string name="workout_segment">Del %1$d</string>
     <string name="workout_segment_done">%1$s klart</string>
     <string name="workout_add_segment">Lägg till en del</string>
