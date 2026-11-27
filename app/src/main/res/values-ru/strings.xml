@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">Оценка 1ПМ %1$s кг</string>
     <string name="progress_best_reps">Лучший: %1$d повт.</string>
     <string name="progress_muscles">Подходы по мышцам</string>
-    <string name="progress_muscles_note">Эффективные подходы в неделю (основная мышца считается как 1 за подход, вспомогательная — 0,5). Зелёный столбец — эта неделя; остальные — предыдущие 7.</string>
+    <string name="progress_muscles_note">Каждый подход считается как 1 для каждой реально работающей мышцы; части подхода вместе добавляют 0,5. Зелёный столбец — эта неделя.</string>
+    <string name="progress_planned">По плану: %1$s в неделю</string>
+    <string name="progress_muscle_sessions">Тренировок на этой неделе: %1$d</string>
+    <string name="progress_blocks">По блокам</string>
+    <string name="progress_block_title">Блок %1$d · недели %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d из %2$d тренировок</string>
+    <string name="progress_block_sets">%1$s: %2$s из %3$s подходов</string>
+    <string name="progress_block_change">%1$s: %2$s%% расчётного 1ПМ</string>
+    <string name="progress_block_note">Веса сравниваются только в упражнениях, общих для двух тренировочных блоков. Это оценка, а не измерение мышц.</string>
     <string name="progress_sets_this_week">Подходов на этой неделе: %1$s</string>
     <string name="progress_exercises">По упражнениям</string>
     <string name="progress_sessions">Тренировок: %1$d</string>

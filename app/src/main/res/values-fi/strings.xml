@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">Arv. 1RM %1$s kg</string>
     <string name="progress_best_reps">Paras: %1$d toistoa</string>
     <string name="progress_muscles">Setit lihasta kohti</string>
-    <string name="progress_muscles_note">Tehokkaat setit viikossa (pääasiallinen lihas lasketaan 1 per setti, avustava 0,5). Vihreä palkki on tämä viikko; muut ovat edelliset 7.</string>
+    <string name="progress_muscles_note">Jokainen sarja on 1 jokaiselle todella työskentelevälle lihakselle; sarjan osat lisäävät yhteensä 0,5. Vihreä palkki on tämä viikko.</string>
+    <string name="progress_planned">Suunniteltu: %1$s viikossa</string>
+    <string name="progress_muscle_sessions">%1$d harjoitusta tällä viikolla</string>
+    <string name="progress_blocks">Jakso kerrallaan</string>
+    <string name="progress_block_title">Jakso %1$d · viikot %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d/%2$d harjoitusta</string>
+    <string name="progress_block_sets">%1$s: %2$s/%3$s sarjaa</string>
+    <string name="progress_block_change">%1$s: %2$s%% arvioitu 1RM</string>
+    <string name="progress_block_note">Kuormia verrataan vain liikkeissä, jotka kahdella harjoitusjaksolla ovat yhteisiä. Se on arvio, ei lihaksen mittaus.</string>
     <string name="progress_sets_this_week">%1$s settiä tällä viikolla</string>
     <string name="progress_exercises">Liikkeittäin</string>
     <string name="progress_sessions">%1$d treeniä</string>

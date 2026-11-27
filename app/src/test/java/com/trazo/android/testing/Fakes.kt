@@ -50,6 +50,8 @@ class FakePlansApi : PlansApi {
         return Response.success(sampleSession(sessionId).copy(customised = true))
     }
     var adjustmentsCleared = 0
+    override suspend fun blockSummaries(): Response<BlockSummaries> = Response.success(BlockSummaries(
+        listOf(1, 2).map { BlockSummary(it, false, it * 4 - 3, 4, 12, 10, listOf(BlockMuscle("Chest", 40.0, 36.0)), emptyList()) }))
     val program = ProgramView("full-body-3", "Full body", "x", "Beginner", 3, "Calendar", "FullBody", 60, 12)
     var programCreated: Pair<String, PlanProfileRequest>? = null
     override suspend fun programs(): Response<List<ProgramView>> = Response.success(listOf(program))

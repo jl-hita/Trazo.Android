@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">Εκτ. 1RM %1$s kg</string>
     <string name="progress_best_reps">Καλύτερο: %1$d επαν.</string>
     <string name="progress_muscles">Σετ ανά μυ</string>
-    <string name="progress_muscles_note">Αποτελεσματικά σετ ανά εβδομάδα (ένας κύριος μυς μετράει 1 ανά σετ, ένας δευτερεύων 0,5). Η πράσινη μπάρα είναι αυτή η εβδομάδα· οι άλλες είναι οι προηγούμενες 7.</string>
+    <string name="progress_muscles_note">Κάθε σετ μετρά 1 για κάθε μυ που πραγματικά δουλεύει· τα μέρη ενός σετ προσθέτουν 0,5 συνολικά. Η πράσινη μπάρα είναι αυτή η εβδομάδα.</string>
+    <string name="progress_planned">Προγραμματισμένα: %1$s την εβδομάδα</string>
+    <string name="progress_muscle_sessions">%1$d προπονήσεις αυτή την εβδομάδα</string>
+    <string name="progress_blocks">Μπλοκ προς μπλοκ</string>
+    <string name="progress_block_title">Μπλοκ %1$d · εβδομάδες %2$d–%3$d</string>
+    <string name="progress_block_sessions">%1$d από %2$d προπονήσεις</string>
+    <string name="progress_block_sets">%1$s: %2$s από %3$s σετ</string>
+    <string name="progress_block_change">%1$s: %2$s%% εκτιμώμενο 1RM</string>
+    <string name="progress_block_note">Τα φορτία συγκρίνονται μόνο σε ασκήσεις κοινές σε δύο μπλοκ προπόνησης. Είναι εκτίμηση, όχι μέτρηση μυός.</string>
     <string name="progress_sets_this_week">%1$s σετ αυτή την εβδομάδα</string>
     <string name="progress_exercises">Ανά άσκηση</string>
     <string name="progress_sessions">%1$d προπονήσεις</string>

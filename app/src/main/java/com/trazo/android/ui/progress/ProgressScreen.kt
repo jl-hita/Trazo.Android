@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.R
+import com.trazo.android.data.model.BlockSummary
 import com.trazo.android.data.model.ExercisePoint
 import com.trazo.android.data.model.ExerciseProgress
 import com.trazo.android.data.model.MuscleVolume
@@ -35,7 +36,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-data class ProgressUiState(val loading: Boolean = true, val progress: ProgressView? = null, val error: ApiError? = null)
+data class ProgressUiState(
+    val loading: Boolean = true, val progress: ProgressView? = null, val error: ApiError? = null,
+    /** The blocks of the active plan, newest first; empty without a plan or when they could not be read. */
+    val blocks: List<BlockSummary> = emptyList()
+)
 
 /** What the user has achieved over time, across every plan: records, exercise history, weekly sets per muscle and the streak. */
 class ProgressViewModel(private val plans: PlanRepository) : ViewModel() {
@@ -47,9 +52,11 @@ class ProgressViewModel(private val plans: PlanRepository) : ViewModel() {
         _state.value = _state.value.copy(loading = _state.value.progress == null, error = null)
         viewModelScope.launchGuarded(R.string.feature_progress, onFailure = { _state.value = ProgressUiState(false, error = ApiError(ErrorKind.Unknown)) }) {
             _state.value = when (val r = plans.progress()) {
-                is ApiResult.Success -> ProgressUiState(false, r.value)
-                is ApiResult.Failure -> ProgressUiState(false, _state.value.progress, r.error)
+                is ApiResult.Success -> ProgressUiState(false, r.value, blocks = _state.value.blocks)
+                is ApiResult.Failure -> ProgressUiState(false, _state.value.progress, r.error, _state.value.blocks)
             }
+            val summaries = plans.blockSummaries()
+            if (summaries is ApiResult.Success) _state.value = _state.value.copy(blocks = summaries.value.blocks.sortedByDescending { it.sequence })
         }
     }
 }
@@ -68,13 +75,13 @@ fun ProgressScreen(viewModel: ProgressViewModel) {
             state.loading && progress == null -> LoadingBox()
             progress == null -> ErrorBox(state.error ?: ApiError(ErrorKind.Unknown), viewModel::load)
             progress.summary.totalSessions == 0 -> EmptyBox(stringResource(R.string.progress_empty))
-            else -> ProgressContent(progress)
+            else -> ProgressContent(progress, state.blocks)
         }
     }
 }
 
 @Composable
-private fun ProgressContent(progress: ProgressView) {
+private fun ProgressContent(progress: ProgressView, blocks: List<BlockSummary>) {
     val s = progress.summary
     val records = progress.exercises.filter { it.newRecord }
     var open by rememberSaveable { mutableStateOf<String?>(null) }
@@ -111,6 +118,11 @@ private fun ProgressContent(progress: ProgressView) {
                 TrazoCard { progress.muscles.take(12).forEach { MuscleRow(it) } }
             }
         }
+        if (blocks.isNotEmpty()) {
+            item { SectionTitle(stringResource(R.string.progress_blocks)) }
+            item { Text(stringResource(R.string.progress_block_note), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall) }
+            items(blocks, key = { "block-" + it.sequence }) { BlockCard(it) }
+        }
         if (progress.exercises.isNotEmpty()) {
             item { SectionTitle(stringResource(R.string.progress_exercises)) }
             items(progress.exercises, key = { it.exerciseId }) { e ->
@@ -141,6 +153,11 @@ private fun MuscleRow(m: MuscleVolume) {
                 stringResource(R.string.progress_sets_this_week, formatKgText(m.setsByWeek.lastOrNull())),
                 color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
             )
+            val asked = m.prescribedPerSevenDays?.let { stringResource(R.string.progress_planned, formatKgText(it)) }
+            val times = m.sessionsByWeek?.lastOrNull()?.takeIf { it > 0 }?.let { stringResource(R.string.progress_muscle_sessions, it) }
+            listOfNotNull(asked, times).takeIf { it.isNotEmpty() }?.let {
+                Text(it.joinToString(" · "), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
+            }
         }
         Canvas(Modifier.width(120.dp).height(32.dp)) {
             val n = m.setsByWeek.size
@@ -149,6 +166,28 @@ private fun MuscleRow(m: MuscleVolume) {
                 val h = (v.toFloat() / top) * size.height
                 drawRect(if (i == n - 1) current else color.copy(alpha = 0.6f), Offset(slot * i + slot * 0.15f, size.height - h), Size(slot * 0.7f, h.coerceAtLeast(if (v > 0) 2f else 0f)))
             }
+        }
+    }
+}
+
+/** One block: sessions done, sets per muscle against what was asked and the exercises it shares with the one before. */
+@Composable
+private fun BlockCard(block: BlockSummary) {
+    TrazoCard(Modifier.fillMaxWidth()) {
+        Text(
+            stringResource(R.string.progress_block_title, block.sequence, block.startWeek, block.startWeek + block.weeks - 1),
+            style = MaterialTheme.typography.titleSmall
+        )
+        Text(stringResource(R.string.progress_block_sessions, block.sessionsDone, block.sessionsPlanned), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+        if (block.sessionsDone > 0) block.muscles.take(6).forEach {
+            Text(
+                stringResource(R.string.progress_block_sets, Labels.muscle(it.muscle), formatKgText(it.performedSets), formatKgText(it.prescribedSets)),
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+        block.exercises.forEach {
+            val change = (if (it.changePercent > 0) "+" else "") + formatKgText(it.changePercent)
+            Text(stringResource(R.string.progress_block_change, it.name, change), color = TrazoPalette.Link, style = MaterialTheme.typography.bodySmall)
         }
     }
 }

@@ -179,6 +179,9 @@ class PlanRepository(
     private var carried: SessionView? = null
     suspend fun progress(): ApiResult<ProgressView> = apiCall { api.progress() }
 
+    /** The blocks of the active plan, asked against done; it fails without a plan. */
+    suspend fun blockSummaries(): ApiResult<BlockSummaries> = apiCall { api.blockSummaries() }
+
     suspend fun history(take: Int = 30): ApiResult<List<HistoryItem>> = apiCall { api.history(take) }
 
     /** What the engine adjusted in the plan and why, newest first. */

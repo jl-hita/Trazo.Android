@@ -423,7 +423,15 @@
     <string name="progress_best_1rm">估算 1RM %1$s kg</string>
     <string name="progress_best_reps">最佳：%1$d 次</string>
     <string name="progress_muscles">各肌群组数</string>
-    <string name="progress_muscles_note">每周有效组数（主要肌群每组计 1，次要肌群计 0.5）。绿色柱为本周；其他为之前的 7 周。</string>
+    <string name="progress_muscles_note">每组对实际发力的每块肌肉计 1；一组中的附加部分合计加 0.5。绿色柱为本周。</string>
+    <string name="progress_planned">计划：每周 %1$s</string>
+    <string name="progress_muscle_sessions">本周训练 %1$d 次</string>
+    <string name="progress_blocks">按阶段查看</string>
+    <string name="progress_block_title">阶段 %1$d · 第 %2$d–%3$d 周</string>
+    <string name="progress_block_sessions">已完成 %1$d / %2$d 次</string>
+    <string name="progress_block_sets">%1$s：%2$s / %3$s 组</string>
+    <string name="progress_block_change">%1$s：估算 1RM %2$s%%</string>
+    <string name="progress_block_note">重量仅在两个训练阶段共有的动作上比较。这是估算值，并非肌肉测量。</string>
     <string name="progress_sets_this_week">本周 %1$s 组</string>
     <string name="progress_exercises">按动作</string>
     <string name="progress_sessions">%1$d 次训练</string>

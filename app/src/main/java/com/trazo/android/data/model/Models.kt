@@ -324,7 +324,26 @@ data class ExerciseProgress(
     val bestEstimatedOneRepMaxKg: Double?, val recordDate: String?, val newRecord: Boolean, val points: List<ExercisePoint>
 )
 /** Effective sets per week of one muscle (primary 1 per set, secondary 0.5), aligned with [ProgressView.weekStarts]. */
-data class MuscleVolume(val muscle: String, val setsByWeek: List<Double>)
+data class MuscleVolume(
+    val muscle: String, val setsByWeek: List<Double>,
+    /** Workouts of each week that really worked the muscle. */
+    val sessionsByWeek: List<Int>? = null,
+    /** What the active plan asks of it per seven days. */
+    val prescribedPerSevenDays: Double? = null
+)
+
+/** Effective sets of one muscle in a block: asked and done. */
+data class BlockMuscle(val muscle: String, val prescribedSets: Double, val performedSets: Double)
+
+/** An exercise shared with the previous training block and how its estimated maximum moved. */
+data class BlockExercise(val exerciseId: String, val name: String, val changePercent: Double)
+
+data class BlockSummary(
+    val sequence: Int, val isDeload: Boolean, val startWeek: Int, val weeks: Int, val sessionsPlanned: Int, val sessionsDone: Int,
+    val muscles: List<BlockMuscle>, val exercises: List<BlockExercise>
+)
+
+data class BlockSummaries(val blocks: List<BlockSummary>)
 data class ProgressView(val summary: ProgressSummary, val weekStarts: List<String>, val muscles: List<MuscleVolume>, val exercises: List<ExerciseProgress>)
 
 // Next session (GET api/v1/plans/current/next): the backend decides which session comes next and whether the muscles are recovered.
