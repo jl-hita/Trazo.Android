@@ -610,7 +610,7 @@
     <string name="account_deleted">Zure kontua ezabatu da.</string>
     <!-- Consent for health data -->
     <string name="health_title">Osasun-datuak</string>
-    <string name="health_text">TRAZOk lesio, min, ondoez eta gaixotasunei buruz kontatzen diozuna zure entrenamendua egokitzeko bakarrik erabiliko du, eta «Lagundu TRAZO hobetzen» ere aktibatzen baduzu, ondoeza planak nola hobetu aztertzeko ere bai. Aukerakoa da: hori gabe, gainerako guztiak berdin funtzionatzen du. Nahi duzunean ken dezakezu Kontua atalean, eta orduan datu horiek ezabatzen dira.</string>
+    <string name="health_text">TRAZOk lesio, min, ondoez eta gaixotasunei buruz kontatzen diozuna zure entrenamendua egokitzeko bakarrik erabiliko du, eta «Lagundu TRAZO hobetzen» ere aktibatzen baduzu, mina eta ondoeza planak nola hobetu aztertzeko ere bai. Aukerakoa da: hori gabe, gainerako guztiak berdin funtzionatzen du. Nahi duzunean ken dezakezu Kontua atalean, eta orduan datu horiek ezabatzen dira.</string>
     <string name="health_agree">Onartzen dut</string>
     <string name="health_decline">Ez, eskerrik asko</string>
     <string name="health_on">TRAZOri zure osasun-datuak erabiltzen uzten diozu.</string>
@@ -619,7 +619,7 @@
     <string name="health_withdraw_text">Zure lesioak, min eta ondoez markak eta gaixotasunagatiko arrazoiak ezabatuko dira. Entrenamenduen historia gorde egiten da. Zure planak ez ditu aurrerantzean markatu zenituen guneak saihestuko.</string>
     <string name="health_withdraw_confirm">Kendu eta ezabatu</string>
     <string name="research_title">Lagundu TRAZO hobetzen (aukerakoa)</string>
-    <string name="research_text">Aktibatzen baduzu, TRAZOk zure entrenamendu-datuak erabiliko ditu (planak, serieak, kargak, errepikapenak, ahalegina eta erregistratzen dituzun molestiak, zure izenik, helbide elektronikorik eta oharrik gabe) motorraren bertsioak alderatzeko eta planak nola hobetu aztertzeko. Datuak analisi bakoitzetik kanpo inor identifikatzen ez duten gakoekin ordezten dira, eta emaitzak multzoka aztertzen dira. Ez dira saltzen ez lagatzen. Kontua ezabatzen baduzu, gordetzen diren muskuluz muskuluko zifra anonimoak multzokatu ahal izango dira. Nahi duzunean desaktiba dezakezu: ez zara hurrengo analisietan sartuko. Ez du ezer aldatzen erabil dezakezunean.</string>
+    <string name="research_text">Aktibatzen baduzu, TRAZOk zure entrenamendu-datuak erabiliko ditu (planak, serieak, kargak, errepikapenak, ahalegina eta erregistratzen dituzun minak eta molestiak, zure izenik, helbide elektronikorik eta oharrik gabe) motorraren bertsioak alderatzeko eta planak nola hobetu aztertzeko. Datuak analisi bakoitzetik kanpo inor identifikatzen ez duten gakoekin ordezten dira, eta emaitzak multzoka aztertzen dira. Ez dira saltzen ez lagatzen. Kontua ezabatzen baduzu, gordetzen diren muskuluz muskuluko zifra anonimoak multzokatu ahal izango dira. Nahi duzunean desaktiba dezakezu: ez zara hurrengo analisietan sartuko. Ez du ezer aldatzen erabil dezakezunean.</string>
     <string name="technique_straight">Serie arruntak</string>
     <string name="technique_label">Teknika: %1$s</string>
     <string name="technique_drop_set">Drop set</string>

@@ -610,7 +610,7 @@
     <string name="account_deleted">A túa conta eliminouse.</string>
     <!-- Consent for health data -->
     <string name="health_title">Datos de saúde</string>
-    <string name="health_text">TRAZO usará o que lle contes sobre lesións, dor, molestias e enfermidade só para adaptar o teu adestramento e, se ademais activas «Axudar a mellorar TRAZO», as molestias tamén para estudar como mellorar os plans. É opcional: sen iso, todo o demais funciona igual. Podes retiralo cando queiras en Conta, e entón bórranse eses datos.</string>
+    <string name="health_text">TRAZO usará o que lle contes sobre lesións, dor, molestias e enfermidade só para adaptar o teu adestramento e, se ademais activas «Axudar a mellorar TRAZO», a dor e as molestias tamén para estudar como mellorar os plans. É opcional: sen iso, todo o demais funciona igual. Podes retiralo cando queiras en Conta, e entón bórranse eses datos.</string>
     <string name="health_agree">Acepto</string>
     <string name="health_decline">Non, grazas</string>
     <string name="health_on">Permites que TRAZO use os teus datos de saúde.</string>
@@ -619,7 +619,7 @@
     <string name="health_withdraw_text">Borraranse as túas lesións, as marcas de dor e molestias e os motivos por enfermidade. O teu historial de adestramentos consérvase. O teu plan deixará de evitar as zonas que marcaras.</string>
     <string name="health_withdraw_confirm">Retirar e borrar</string>
     <string name="research_title">Axudar a mellorar TRAZO (opcional)</string>
-    <string name="research_text">Se o activas, TRAZO usará os teus datos de adestramento (plans, series, cargas, repeticións, esforzo e molestias que rexistres, sen o teu nome, correo nin notas) para comparar versións do motor e estudar como mellorar os plans. Os datos substitúense por claves que non identifican ninguén fóra de cada análise e os resultados míranse agrupados. Non se venden nin se ceden. Se borras a túa conta, as cifras anónimas por músculo que se conservan poderán agruparse. Podes desactivalo cando queiras: deixarás de incluírte nas análises posteriores. Non cambia nada do que podes usar.</string>
+    <string name="research_text">Se o activas, TRAZO usará os teus datos de adestramento (plans, series, cargas, repeticións, esforzo, dor e molestias que rexistres, sen o teu nome, correo nin notas) para comparar versións do motor e estudar como mellorar os plans. Os datos substitúense por claves que non identifican ninguén fóra de cada análise e os resultados míranse agrupados. Non se venden nin se ceden. Se borras a túa conta, as cifras anónimas por músculo que se conservan poderán agruparse. Podes desactivalo cando queiras: deixarás de incluírte nas análises posteriores. Non cambia nada do que podes usar.</string>
     <string name="technique_straight">Series normais</string>
     <string name="technique_label">Técnica: %1$s</string>
     <string name="technique_drop_set">Drop set</string>
