@@ -610,7 +610,7 @@
     <string name="account_deleted">Ditt konto har raderats.</string>
     <!-- Consent for health data -->
     <string name="health_title">Hälsouppgifter</string>
-    <string name="health_text">TRAZO använder det du berättar om skador, smärta, obehag och sjukdom enbart för att anpassa din träning. Det är frivilligt: utan det fungerar allt annat likadant. Du kan när som helst återkalla det under Konto, och då raderas uppgifterna.</string>
+    <string name="health_text">TRAZO använder det du berättar om skador, smärta, obehag och sjukdom enbart för att anpassa din träning och, om du även slår på ”Hjälp till att förbättra TRAZO”, obehaget också för att studera hur programmen kan bli bättre. Det är frivilligt: utan det fungerar allt annat likadant. Du kan när som helst återkalla det under Konto, och då raderas uppgifterna.</string>
     <string name="health_agree">Jag godkänner</string>
     <string name="health_decline">Nej tack</string>
     <string name="health_on">Du låter TRAZO använda dina hälsouppgifter.</string>

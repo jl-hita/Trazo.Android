@@ -610,7 +610,7 @@
     <string name="account_deleted">Din konto er slettet.</string>
     <!-- Consent for health data -->
     <string name="health_title">Helbredsoplysninger</string>
-    <string name="health_text">TRAZO bruger kun det, du fortæller om skader, smerter, ubehag og sygdom, til at tilpasse din træning. Det er valgfrit: uden det virker alt andet på samme måde. Du kan altid trække det tilbage under Konto, og så slettes oplysningerne.</string>
+    <string name="health_text">TRAZO bruger kun det, du fortæller om skader, smerter, ubehag og sygdom, til at tilpasse din træning og, hvis du også slår “Hjælp med at gøre TRAZO bedre” til, også ubehaget til at undersøge, hvordan planerne kan blive bedre. Det er valgfrit: uden det virker alt andet på samme måde. Du kan altid trække det tilbage under Konto, og så slettes oplysningerne.</string>
     <string name="health_agree">Jeg accepterer</string>
     <string name="health_decline">Nej tak</string>
     <string name="health_on">Du tillader, at TRAZO bruger dine helbredsoplysninger.</string>

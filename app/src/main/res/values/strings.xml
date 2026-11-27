@@ -654,7 +654,7 @@
     <string name="account_deleted">Your account has been deleted.</string>
     <!-- Consent for health data -->
     <string name="health_title">Health data</string>
-    <string name="health_text">TRAZO will use what you tell it about injuries, pain, discomfort and illness only to adapt your training. It is optional: without it, everything else works the same. You can withdraw it at any time in Account, which erases that data.</string>
+    <string name="health_text">TRAZO will use what you tell it about injuries, pain, discomfort and illness only to adapt your training and, if you also turn on “Help improve TRAZO”, the discomfort too to study how to make plans better. It is optional: without it, everything else works the same. You can withdraw it at any time in Account, which erases that data.</string>
     <string name="health_agree">I agree</string>
     <string name="health_decline">No, thanks</string>
     <string name="health_on">You allow TRAZO to use your health data.</string>

@@ -610,7 +610,7 @@
     <string name="account_deleted">Je account is verwijderd.</string>
     <!-- Consent for health data -->
     <string name="health_title">Gezondheidsgegevens</string>
-    <string name="health_text">TRAZO gebruikt wat je vertelt over blessures, pijn, ongemak en ziekte alleen om je training aan te passen. Het is optioneel: zonder werkt al het andere hetzelfde. Je kunt de toestemming altijd intrekken bij Account, en dan worden die gegevens gewist.</string>
+    <string name="health_text">TRAZO gebruikt wat je vertelt over blessures, pijn, ongemak en ziekte alleen om je training aan te passen en, als je ook ‘Help TRAZO verbeteren’ aanzet, het ongemak ook om te onderzoeken hoe schema’s beter kunnen. Het is optioneel: zonder werkt al het andere hetzelfde. Je kunt de toestemming altijd intrekken bij Account, en dan worden die gegevens gewist.</string>
     <string name="health_agree">Ik ga akkoord</string>
     <string name="health_decline">Nee, bedankt</string>
     <string name="health_on">Je staat TRAZO toe je gezondheidsgegevens te gebruiken.</string>

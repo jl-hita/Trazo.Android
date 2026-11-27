@@ -610,7 +610,7 @@
     <string name="account_deleted">Dein Konto wurde gelöscht.</string>
     <!-- Consent for health data -->
     <string name="health_title">Gesundheitsdaten</string>
-    <string name="health_text">TRAZO nutzt deine Angaben zu Verletzungen, Schmerzen, Beschwerden und Krankheit nur, um dein Training anzupassen. Das ist freiwillig: Ohne sie funktioniert alles andere genauso. Du kannst die Einwilligung jederzeit unter Konto widerrufen, dann werden diese Daten gelöscht.</string>
+    <string name="health_text">TRAZO nutzt deine Angaben zu Verletzungen, Schmerzen, Beschwerden und Krankheit nur, um dein Training anzupassen, und, wenn du zusätzlich „TRAZO verbessern helfen“ aktivierst, die Beschwerden auch, um zu untersuchen, wie Pläne besser werden. Das ist freiwillig: Ohne sie funktioniert alles andere genauso. Du kannst die Einwilligung jederzeit unter Konto widerrufen, dann werden diese Daten gelöscht.</string>
     <string name="health_agree">Ich stimme zu</string>
     <string name="health_decline">Nein, danke</string>
     <string name="health_on">Du erlaubst TRAZO, deine Gesundheitsdaten zu nutzen.</string>

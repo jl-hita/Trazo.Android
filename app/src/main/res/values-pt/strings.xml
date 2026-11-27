@@ -615,7 +615,7 @@
     <string name="account_deleted">Sua conta foi excluída.</string>
     <!-- Consent for health data -->
     <string name="health_title">Dados de saúde</string>
-    <string name="health_text">O TRAZO vai usar o que você contar sobre lesões, dor, desconforto e doença apenas para adaptar seu treino. É opcional: sem isso, todo o resto funciona igual. Você pode retirar quando quiser em Conta, e então esses dados são apagados.</string>
+    <string name="health_text">O TRAZO vai usar o que você contar sobre lesões, dor, desconforto e doença apenas para adaptar seu treino e, se você também ativar “Ajudar a melhorar o TRAZO”, o desconforto também para estudar como melhorar os planos. É opcional: sem isso, todo o resto funciona igual. Você pode retirar quando quiser em Conta, e então esses dados são apagados.</string>
     <string name="health_agree">Aceito</string>
     <string name="health_decline">Não, obrigado</string>
     <string name="health_on">Você permite que o TRAZO use seus dados de saúde.</string>

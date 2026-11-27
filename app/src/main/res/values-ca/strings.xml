@@ -615,7 +615,7 @@
     <string name="account_deleted">El teu compte s\'ha eliminat.</string>
     <!-- Consent for health data -->
     <string name="health_title">Dades de salut</string>
-    <string name="health_text">TRAZO farà servir el que li expliquis sobre lesions, dolor, molèsties i malaltia només per adaptar el teu entrenament. És opcional: sense això, tota la resta funciona igual. Pots retirar-ho quan vulguis a Compte, i llavors s\'esborren aquestes dades.</string>
+    <string name="health_text">TRAZO farà servir el que li expliquis sobre lesions, dolor, molèsties i malaltia només per adaptar el teu entrenament i, si a més actives «Ajuda a millorar TRAZO», les molèsties també per estudiar com millorar els plans. És opcional: sense això, tota la resta funciona igual. Pots retirar-ho quan vulguis a Compte, i llavors s\'esborren aquestes dades.</string>
     <string name="health_agree">Accepto</string>
     <string name="health_decline">No, gràcies</string>
     <string name="health_on">Permets que TRAZO faci servir les teves dades de salut.</string>

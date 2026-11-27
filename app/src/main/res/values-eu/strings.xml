@@ -610,7 +610,7 @@
     <string name="account_deleted">Zure kontua ezabatu da.</string>
     <!-- Consent for health data -->
     <string name="health_title">Osasun-datuak</string>
-    <string name="health_text">TRAZOk lesio, min, ondoez eta gaixotasunei buruz kontatzen diozuna zure entrenamendua egokitzeko bakarrik erabiliko du. Aukerakoa da: hori gabe, gainerako guztiak berdin funtzionatzen du. Nahi duzunean ken dezakezu Kontua atalean, eta orduan datu horiek ezabatzen dira.</string>
+    <string name="health_text">TRAZOk lesio, min, ondoez eta gaixotasunei buruz kontatzen diozuna zure entrenamendua egokitzeko bakarrik erabiliko du, eta «Lagundu TRAZO hobetzen» ere aktibatzen baduzu, ondoeza planak nola hobetu aztertzeko ere bai. Aukerakoa da: hori gabe, gainerako guztiak berdin funtzionatzen du. Nahi duzunean ken dezakezu Kontua atalean, eta orduan datu horiek ezabatzen dira.</string>
     <string name="health_agree">Onartzen dut</string>
     <string name="health_decline">Ez, eskerrik asko</string>
     <string name="health_on">TRAZOri zure osasun-datuak erabiltzen uzten diozu.</string>

@@ -620,7 +620,7 @@
     <string name="account_deleted">Tvoj račun je izbrisan.</string>
     <!-- Consent for health data -->
     <string name="health_title">Zdravstveni podatki</string>
-    <string name="health_text">TRAZO bo to, kar mu poveš o poškodbah, bolečinah, nelagodju in bolezni, uporabil samo za prilagajanje treninga. Neobvezno je: brez tega vse drugo deluje enako. Privolitev lahko kadar koli prekličeš v razdelku Račun, takrat se ti podatki izbrišejo.</string>
+    <string name="health_text">TRAZO bo to, kar mu poveš o poškodbah, bolečinah, nelagodju in bolezni, uporabil samo za prilagajanje treninga, če vklopiš tudi „Pomagaj izboljšati TRAZO“, pa nelagodje tudi za preučevanje, kako izboljšati načrte. Neobvezno je: brez tega vse drugo deluje enako. Privolitev lahko kadar koli prekličeš v razdelku Račun, takrat se ti podatki izbrišejo.</string>
     <string name="health_agree">Strinjam se</string>
     <string name="health_decline">Ne, hvala</string>
     <string name="health_on">Dovoljuješ, da TRAZO uporablja tvoje zdravstvene podatke.</string>

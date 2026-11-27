@@ -615,7 +615,7 @@
     <string name="account_deleted">Tvoj je račun izbrisan.</string>
     <!-- Consent for health data -->
     <string name="health_title">Zdravstveni podaci</string>
-    <string name="health_text">TRAZO će ono što mu kažeš o ozljedama, boli, nelagodi i bolesti koristiti samo za prilagodbu treninga. To nije obavezno: bez toga sve ostalo radi jednako. Privolu možeš povući kad god želiš u Računu, a tada se ti podaci brišu.</string>
+    <string name="health_text">TRAZO će ono što mu kažeš o ozljedama, boli, nelagodi i bolesti koristiti samo za prilagodbu treninga, a ako uključiš i „Pomozi da TRAZO bude bolji”, nelagodu i za proučavanje kako poboljšati planove. To nije obavezno: bez toga sve ostalo radi jednako. Privolu možeš povući kad god želiš u Računu, a tada se ti podaci brišu.</string>
     <string name="health_agree">Pristajem</string>
     <string name="health_decline">Ne, hvala</string>
     <string name="health_on">Dopuštaš da TRAZO koristi tvoje zdravstvene podatke.</string>

@@ -620,7 +620,7 @@
     <string name="account_deleted">Tvoj účet bol vymazaný.</string>
     <!-- Consent for health data -->
     <string name="health_title">Údaje o zdraví</string>
-    <string name="health_text">TRAZO použije to, čo mu povieš o zraneniach, bolesti, nepohodlí a chorobe, len na prispôsobenie tréningu. Je to dobrovoľné: bez toho všetko ostatné funguje rovnako. Súhlas môžeš kedykoľvek odvolať v Účte a tieto údaje sa potom vymažú.</string>
+    <string name="health_text">TRAZO použije to, čo mu povieš o zraneniach, bolesti, nepohodlí a chorobe, len na prispôsobenie tréningu, a ak zapneš aj „Pomôž zlepšiť TRAZO“, nepohodlie aj na skúmanie, ako plány zlepšiť. Je to dobrovoľné: bez toho všetko ostatné funguje rovnako. Súhlas môžeš kedykoľvek odvolať v Účte a tieto údaje sa potom vymažú.</string>
     <string name="health_agree">Súhlasím</string>
     <string name="health_decline">Nie, ďakujem</string>
     <string name="health_on">Dovoľuješ TRAZO používať tvoje údaje o zdraví.</string>

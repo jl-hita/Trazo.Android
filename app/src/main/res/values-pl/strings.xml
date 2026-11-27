@@ -620,7 +620,7 @@
     <string name="account_deleted">Twoje konto zostało usunięte.</string>
     <!-- Consent for health data -->
     <string name="health_title">Dane o zdrowiu</string>
-    <string name="health_text">TRAZO wykorzysta to, co powiesz o kontuzjach, bólu, dyskomforcie i chorobie, wyłącznie do dostosowania treningu. To opcjonalne: bez tego cała reszta działa tak samo. Zgodę możesz wycofać w każdej chwili w sekcji Konto, a wtedy te dane zostaną usunięte.</string>
+    <string name="health_text">TRAZO wykorzysta to, co powiesz o kontuzjach, bólu, dyskomforcie i chorobie, wyłącznie do dostosowania treningu, a jeśli włączysz też „Pomóż ulepszać TRAZO”, informacje o dyskomforcie również do badania, jak ulepszać plany. To opcjonalne: bez tego cała reszta działa tak samo. Zgodę możesz wycofać w każdej chwili w sekcji Konto, a wtedy te dane zostaną usunięte.</string>
     <string name="health_agree">Zgadzam się</string>
     <string name="health_decline">Nie, dziękuję</string>
     <string name="health_on">Pozwalasz TRAZO korzystać z Twoich danych o zdrowiu.</string>

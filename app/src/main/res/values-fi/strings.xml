@@ -610,7 +610,7 @@
     <string name="account_deleted">Tilisi on poistettu.</string>
     <!-- Consent for health data -->
     <string name="health_title">Terveystiedot</string>
-    <string name="health_text">TRAZO käyttää kertomiasi tietoja vammoista, kivusta, vaivoista ja sairaudesta vain harjoittelusi mukauttamiseen. Se on vapaaehtoista: ilman sitä kaikki muu toimii samoin. Voit peruuttaa suostumuksen milloin tahansa Tili-sivulla, jolloin tiedot poistetaan.</string>
+    <string name="health_text">TRAZO käyttää kertomiasi tietoja vammoista, kivusta, vaivoista ja sairaudesta vain harjoittelusi mukauttamiseen ja, jos otat käyttöön myös kohdan ”Auta parantamaan TRAZOa”, vaivoja myös sen tutkimiseen, miten ohjelmia voisi parantaa. Se on vapaaehtoista: ilman sitä kaikki muu toimii samoin. Voit peruuttaa suostumuksen milloin tahansa Tili-sivulla, jolloin tiedot poistetaan.</string>
     <string name="health_agree">Hyväksyn</string>
     <string name="health_decline">Ei kiitos</string>
     <string name="health_on">Annat TRAZOn käyttää terveystietojasi.</string>

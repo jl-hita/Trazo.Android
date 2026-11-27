@@ -605,7 +605,7 @@
     <string name="account_deleted">你的账号已删除。</string>
     <!-- Consent for health data -->
     <string name="health_title">健康数据</string>
-    <string name="health_text">TRAZO 只会用你提供的伤病、疼痛、不适和生病信息来调整训练。这是可选的：不提供也不影响其他功能。你可以随时在账号中撤回同意，相关数据会随之删除。</string>
+    <string name="health_text">TRAZO 只会用你提供的伤病、疼痛、不适和生病信息来调整训练；如果你同时开启“帮助改进 TRAZO”，不适信息还会用于研究如何改进计划。这是可选的：不提供也不影响其他功能。你可以随时在账号中撤回同意，相关数据会随之删除。</string>
     <string name="health_agree">我同意</string>
     <string name="health_decline">不用了</string>
     <string name="health_on">你已允许 TRAZO 使用你的健康数据。</string>

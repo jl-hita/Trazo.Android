@@ -615,7 +615,7 @@
     <string name="account_deleted">Il tuo account è stato eliminato.</string>
     <!-- Consent for health data -->
     <string name="health_title">Dati sulla salute</string>
-    <string name="health_text">TRAZO userà ciò che gli dici su infortuni, dolore, fastidi e malattia solo per adattare il tuo allenamento. È facoltativo: senza, tutto il resto funziona allo stesso modo. Puoi revocarlo quando vuoi in Account, e quei dati vengono cancellati.</string>
+    <string name="health_text">TRAZO userà ciò che gli dici su infortuni, dolore, fastidi e malattia solo per adattare il tuo allenamento e, se attivi anche «Aiuta a migliorare TRAZO», i fastidi anche per studiare come migliorare i piani. È facoltativo: senza, tutto il resto funziona allo stesso modo. Puoi revocarlo quando vuoi in Account, e quei dati vengono cancellati.</string>
     <string name="health_agree">Accetto</string>
     <string name="health_decline">No, grazie</string>
     <string name="health_on">Consenti a TRAZO di usare i tuoi dati sulla salute.</string>
