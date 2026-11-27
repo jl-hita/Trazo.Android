@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s od %3$s serija</string>
     <string name="progress_block_change">%1$s: %2$s%% procenjenog 1RM</string>
     <string name="progress_block_note">Opterećenja se porede samo na vežbama koje dele dva trenažna bloka. To je procena, ne merenje mišića.</string>
+    <string name="advice_title">Vredi pogledati</string>
+    <string name="advice_confidence_low">Pouzdanost: niska</string>
+    <string name="advice_confidence_medium">Pouzdanost: srednja</string>
+    <string name="advice_open_session">Otvori trening</string>
     <string name="progress_sets_this_week">Serija ove nedelje: %1$s</string>
     <string name="progress_exercises">Po vežbi</string>
     <string name="progress_sessions">Treninga: %1$d</string>

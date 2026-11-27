@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s von %3$s Sätzen</string>
     <string name="progress_block_change">%1$s: %2$s%% geschätztes 1RM</string>
     <string name="progress_block_note">Gewichte werden nur bei Übungen verglichen, die zwei Trainingsblöcke gemeinsam haben. Das ist eine Schätzung, keine Muskelmessung.</string>
+    <string name="advice_title">Einen Blick wert</string>
+    <string name="advice_confidence_low">Sicherheit: gering</string>
+    <string name="advice_confidence_medium">Sicherheit: mittel</string>
+    <string name="advice_open_session">Einheit öffnen</string>
     <string name="progress_sets_this_week">%1$s Sätze diese Woche</string>
     <string name="progress_exercises">Nach Übung</string>
     <string name="progress_sessions">%1$d Trainings</string>

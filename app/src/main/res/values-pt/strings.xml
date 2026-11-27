@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s de %3$s séries</string>
     <string name="progress_block_change">%1$s: %2$s%% de 1RM estimado</string>
     <string name="progress_block_note">As cargas só se comparam nos exercícios comuns a dois blocos de treino. É uma estimativa, não uma medida do músculo.</string>
+    <string name="advice_title">Vale a pena rever</string>
+    <string name="advice_confidence_low">Confiança: baixa</string>
+    <string name="advice_confidence_medium">Confiança: média</string>
+    <string name="advice_open_session">Abrir a sessão</string>
     <string name="progress_sets_this_week">%1$s séries nesta semana</string>
     <string name="progress_exercises">Por exercício</string>
     <string name="progress_sessions">%1$d treinos</string>

@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s من %3$s مجموعة</string>
     <string name="progress_block_change">%1$s: %2$s%% في أقصى تكرار تقديري</string>
     <string name="progress_block_note">لا تُقارن الأحمال إلا في التمارين المشتركة بين مرحلتي تدريب. إنه تقدير وليس قياسًا للعضلة.</string>
+    <string name="advice_title">يستحق المراجعة</string>
+    <string name="advice_confidence_low">مستوى الثقة: منخفض</string>
+    <string name="advice_confidence_medium">مستوى الثقة: متوسط</string>
+    <string name="advice_open_session">افتح الحصة</string>
     <string name="progress_sets_this_week">%1$s مجموعات هذا الأسبوع</string>
     <string name="progress_exercises">حسب التمرين</string>
     <string name="progress_sessions">%1$d تمارين</string>

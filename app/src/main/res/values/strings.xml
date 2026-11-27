@@ -446,6 +446,10 @@
     <string name="progress_block_sets">%1$s: %2$s of %3$s sets</string>
     <string name="progress_block_change">%1$s: %2$s%% estimated 1RM</string>
     <string name="progress_block_note">Loads are compared only on exercises that two training blocks share. It is an estimate, not a measure of muscle.</string>
+    <string name="advice_title">Worth reviewing</string>
+    <string name="advice_confidence_low">Confidence: low</string>
+    <string name="advice_confidence_medium">Confidence: medium</string>
+    <string name="advice_open_session">Open the session</string>
     <string name="progress_sets_this_week">%1$s sets this week</string>
     <string name="progress_exercises">By exercise</string>
     <string name="progress_sessions">%1$d workouts</string>

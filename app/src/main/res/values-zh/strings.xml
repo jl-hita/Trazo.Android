@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s：%2$s / %3$s 组</string>
     <string name="progress_block_change">%1$s：估算 1RM %2$s%%</string>
     <string name="progress_block_note">重量仅在两个训练阶段共有的动作上比较。这是估算值，并非肌肉测量。</string>
+    <string name="advice_title">值得查看</string>
+    <string name="advice_confidence_low">可信度：低</string>
+    <string name="advice_confidence_medium">可信度：中</string>
+    <string name="advice_open_session">打开训练</string>
     <string name="progress_sets_this_week">本周 %1$s 组</string>
     <string name="progress_exercises">按动作</string>
     <string name="progress_sessions">%1$d 次训练</string>

@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s af %3$s sæt</string>
     <string name="progress_block_change">%1$s: %2$s%% estimeret 1RM</string>
     <string name="progress_block_note">Belastninger sammenlignes kun på øvelser, som to træningsblokke deler. Det er et skøn, ikke en måling af muskler.</string>
+    <string name="advice_title">Værd at se på</string>
+    <string name="advice_confidence_low">Sikkerhed: lav</string>
+    <string name="advice_confidence_medium">Sikkerhed: middel</string>
+    <string name="advice_open_session">Åbn passet</string>
     <string name="progress_sets_this_week">%1$s sæt denne uge</string>
     <string name="progress_exercises">Pr. øvelse</string>
     <string name="progress_sessions">%1$d træningspas</string>
