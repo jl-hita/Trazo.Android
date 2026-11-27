@@ -683,4 +683,10 @@
     <string name="manual_superset_title">Superset %1$s</string>
     <string name="manual_rest_between">Repos entre les exercices : %1$d s</string>
     <string name="manual_rest_after">Repos après chaque tour : %1$d s</string>
+    <string name="update_required_title">Mets TRAZO à jour</string>
+    <string name="update_required_body">Cette version ne fonctionne plus. Mets l\'application à jour pour continuer. Les séances enregistrées sur ce téléphone sont conservées.</string>
+    <string name="update_available_title">Nouvelle version disponible</string>
+    <string name="update_available_body">Mets à jour pour profiter des dernières corrections et améliorations.</string>
+    <string name="update_action">Mettre à jour</string>
+    <string name="update_later">Pas maintenant</string>
 </resources>

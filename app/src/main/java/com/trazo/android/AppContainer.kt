@@ -76,6 +76,12 @@ class AppContainer(context: Context) {
         CoroutineScope(SupervisorJob() + Dispatchers.IO)
     )
 
+    /** The oldest version the server still supports and the one it suggests (see [com.trazo.android.ui.common.UpdateGate]). */
+    val appVersions = com.trazo.android.data.repo.AppVersionRepository(
+        network.createAnonymous(com.trazo.android.data.api.AppVersionApi::class.java),
+        com.trazo.android.data.repo.SharedPreferencesAppVersionStore(appContext), BuildConfig.VERSION_CODE
+    )
+
     /** The invitation code waiting for a registration (from a link or the Play install referrer). */
     val pendingReferral = com.trazo.android.data.referral.SharedPreferencesPendingReferralStore(appContext)
     val auth = AuthRepository(network.create(AuthApi::class.java), tokens, pendingReferral)

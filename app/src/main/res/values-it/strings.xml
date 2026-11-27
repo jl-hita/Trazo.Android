@@ -683,4 +683,10 @@
     <string name="manual_superset_title">Superserie %1$s</string>
     <string name="manual_rest_between">Recupero tra gli esercizi: %1$d s</string>
     <string name="manual_rest_after">Recupero dopo ogni giro: %1$d s</string>
+    <string name="update_required_title">Aggiorna TRAZO</string>
+    <string name="update_required_body">Questa versione non funziona più. Aggiorna l\'app per continuare. Gli allenamenti salvati su questo telefono restano.</string>
+    <string name="update_available_title">Nuova versione disponibile</string>
+    <string name="update_available_body">Aggiorna per avere le ultime correzioni e novità.</string>
+    <string name="update_action">Aggiorna</string>
+    <string name="update_later">Non ora</string>
 </resources>

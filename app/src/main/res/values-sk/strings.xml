@@ -688,4 +688,10 @@
     <string name="manual_superset_title">Superset %1$s</string>
     <string name="manual_rest_between">Pauza medzi cvikmi: %1$d s</string>
     <string name="manual_rest_after">Pauza po každom kole: %1$d s</string>
+    <string name="update_required_title">Aktualizuj TRAZO</string>
+    <string name="update_required_body">Táto verzia už nefunguje. Ak chceš pokračovať, aktualizuj aplikáciu. Tréningy uložené v telefóne zostanú.</string>
+    <string name="update_available_title">Je dostupná nová verzia</string>
+    <string name="update_available_body">Aktualizuj a získaj najnovšie opravy a vylepšenia.</string>
+    <string name="update_action">Aktualizovať</string>
+    <string name="update_later">Teraz nie</string>
 </resources>

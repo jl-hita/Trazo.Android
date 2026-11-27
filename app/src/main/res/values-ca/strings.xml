@@ -683,4 +683,10 @@
     <string name="manual_superset_title">Supersèrie %1$s</string>
     <string name="manual_rest_between">Descans entre exercicis: %1$d s</string>
     <string name="manual_rest_after">Descans després de cada ronda: %1$d s</string>
+    <string name="update_required_title">Actualitza TRAZO</string>
+    <string name="update_required_body">Aquesta versió ja no funciona. Actualitza l\'app per continuar. Els entrenaments desats en aquest telèfon es conserven.</string>
+    <string name="update_available_title">Hi ha una versió nova</string>
+    <string name="update_available_body">Actualitza per tenir les últimes correccions i millores.</string>
+    <string name="update_action">Actualitza</string>
+    <string name="update_later">Ara no</string>
 </resources>

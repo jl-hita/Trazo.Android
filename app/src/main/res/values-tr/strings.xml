@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Süper set %1$s</string>
     <string name="manual_rest_between">Egzersizler arası dinlenme: %1$d sn</string>
     <string name="manual_rest_after">Her turdan sonra dinlenme: %1$d sn</string>
+    <string name="update_required_title">TRAZO\'yu güncelle</string>
+    <string name="update_required_body">Bu sürüm artık çalışmıyor. Devam etmek için uygulamayı güncelle. Bu telefonda kayıtlı antrenmanlar korunur.</string>
+    <string name="update_available_title">Yeni sürüm var</string>
+    <string name="update_available_body">En son düzeltmeler ve iyileştirmeler için güncelle.</string>
+    <string name="update_action">Güncelle</string>
+    <string name="update_later">Şimdi değil</string>
 </resources>

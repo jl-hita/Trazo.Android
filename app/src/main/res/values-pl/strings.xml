@@ -688,4 +688,10 @@
     <string name="manual_superset_title">Superseria %1$s</string>
     <string name="manual_rest_between">Przerwa między ćwiczeniami: %1$d s</string>
     <string name="manual_rest_after">Przerwa po każdej rundzie: %1$d s</string>
+    <string name="update_required_title">Zaktualizuj TRAZO</string>
+    <string name="update_required_body">Ta wersja już nie działa. Zaktualizuj aplikację, aby kontynuować. Treningi zapisane w telefonie zostają.</string>
+    <string name="update_available_title">Dostępna jest nowa wersja</string>
+    <string name="update_available_body">Zaktualizuj, aby mieć najnowsze poprawki i ulepszenia.</string>
+    <string name="update_action">Aktualizuj</string>
+    <string name="update_later">Nie teraz</string>
 </resources>

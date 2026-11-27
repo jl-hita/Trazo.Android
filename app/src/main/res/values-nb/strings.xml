@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Superset %1$s</string>
     <string name="manual_rest_between">Hvile mellom øvelser: %1$d s</string>
     <string name="manual_rest_after">Hvile etter hver runde: %1$d s</string>
+    <string name="update_required_title">Oppdater TRAZO</string>
+    <string name="update_required_body">Denne versjonen virker ikke lenger. Oppdater appen for å fortsette. Økter lagret på telefonen beholdes.</string>
+    <string name="update_available_title">Ny versjon tilgjengelig</string>
+    <string name="update_available_body">Oppdater for å få de siste rettelsene og forbedringene.</string>
+    <string name="update_action">Oppdater</string>
+    <string name="update_later">Ikke nå</string>
 </resources>

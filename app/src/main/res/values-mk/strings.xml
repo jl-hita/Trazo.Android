@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Суперсерија %1$s</string>
     <string name="manual_rest_between">Одмор меѓу вежбите: %1$d с</string>
     <string name="manual_rest_after">Одмор по секој круг: %1$d с</string>
+    <string name="update_required_title">Ажурирај го TRAZO</string>
+    <string name="update_required_body">Оваа верзија повеќе не работи. Ажурирај ја апликацијата за да продолжиш. Тренинзите зачувани на телефонот остануваат.</string>
+    <string name="update_available_title">Достапна е нова верзија</string>
+    <string name="update_available_body">Ажурирај за најновите поправки и подобрувања.</string>
+    <string name="update_action">Ажурирај</string>
+    <string name="update_later">Не сега</string>
 </resources>

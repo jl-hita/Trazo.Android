@@ -678,4 +678,10 @@
     <string name="manual_superset_title">%1$s superseria</string>
     <string name="manual_rest_between">Atsedena ariketen artean: %1$d s</string>
     <string name="manual_rest_after">Atsedena txanda bakoitzaren ondoren: %1$d s</string>
+    <string name="update_required_title">Eguneratu TRAZO</string>
+    <string name="update_required_body">Bertsio honek jada ez du funtzionatzen. Eguneratu aplikazioa jarraitzeko. Telefono honetan gordetako entrenamenduak mantentzen dira.</string>
+    <string name="update_available_title">Bertsio berria dago</string>
+    <string name="update_available_body">Eguneratu azken zuzenketak eta hobekuntzak izateko.</string>
+    <string name="update_action">Eguneratu</string>
+    <string name="update_later">Orain ez</string>
 </resources>

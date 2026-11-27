@@ -673,4 +673,10 @@
     <string name="manual_superset_title">슈퍼세트 %1$s</string>
     <string name="manual_rest_between">운동 사이 휴식: %1$d초</string>
     <string name="manual_rest_after">라운드 후 휴식: %1$d초</string>
+    <string name="update_required_title">TRAZO를 업데이트하세요</string>
+    <string name="update_required_body">이 버전은 더 이상 작동하지 않습니다. 계속하려면 앱을 업데이트하세요. 이 휴대전화에 저장된 운동 기록은 유지됩니다.</string>
+    <string name="update_available_title">새 버전이 있습니다</string>
+    <string name="update_available_body">업데이트하여 최신 수정 사항과 개선 사항을 이용하세요.</string>
+    <string name="update_action">업데이트</string>
+    <string name="update_later">나중에</string>
 </resources>

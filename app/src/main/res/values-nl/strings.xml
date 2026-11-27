@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Superset %1$s</string>
     <string name="manual_rest_between">Rust tussen oefeningen: %1$d s</string>
     <string name="manual_rest_after">Rust na elke ronde: %1$d s</string>
+    <string name="update_required_title">Werk TRAZO bij</string>
+    <string name="update_required_body">Deze versie werkt niet meer. Werk de app bij om door te gaan. Trainingen die op deze telefoon staan, blijven bewaard.</string>
+    <string name="update_available_title">Nieuwe versie beschikbaar</string>
+    <string name="update_available_body">Werk bij voor de nieuwste oplossingen en verbeteringen.</string>
+    <string name="update_action">Bijwerken</string>
+    <string name="update_later">Niet nu</string>
 </resources>

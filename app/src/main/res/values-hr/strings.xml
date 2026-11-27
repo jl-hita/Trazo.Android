@@ -683,4 +683,10 @@
     <string name="manual_superset_title">Superserija %1$s</string>
     <string name="manual_rest_between">Odmor između vježbi: %1$d s</string>
     <string name="manual_rest_after">Odmor nakon svakog kruga: %1$d s</string>
+    <string name="update_required_title">Ažuriraj TRAZO</string>
+    <string name="update_required_body">Ova verzija više ne radi. Ažuriraj aplikaciju za nastavak. Treninzi spremljeni na ovom telefonu ostaju.</string>
+    <string name="update_available_title">Dostupna je nova verzija</string>
+    <string name="update_available_body">Ažuriraj za najnovije ispravke i poboljšanja.</string>
+    <string name="update_action">Ažuriraj</string>
+    <string name="update_later">Ne sada</string>
 </resources>

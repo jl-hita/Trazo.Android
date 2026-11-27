@@ -678,4 +678,10 @@
     <string name="manual_superset_title">Σούπερσετ %1$s</string>
     <string name="manual_rest_between">Ξεκούραση μεταξύ ασκήσεων: %1$d δ</string>
     <string name="manual_rest_after">Ξεκούραση μετά από κάθε γύρο: %1$d δ</string>
+    <string name="update_required_title">Ενημέρωσε το TRAZO</string>
+    <string name="update_required_body">Αυτή η έκδοση δεν λειτουργεί πια. Ενημέρωσε την εφαρμογή για να συνεχίσεις. Οι προπονήσεις που είναι αποθηκευμένες στο τηλέφωνο διατηρούνται.</string>
+    <string name="update_available_title">Υπάρχει νέα έκδοση</string>
+    <string name="update_available_body">Ενημέρωσε για τις τελευταίες διορθώσεις και βελτιώσεις.</string>
+    <string name="update_action">Ενημέρωση</string>
+    <string name="update_later">Όχι τώρα</string>
 </resources>

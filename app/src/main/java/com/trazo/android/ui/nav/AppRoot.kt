@@ -118,11 +118,13 @@ fun AppRoot(actionType: String?, actionToken: String?, pushKind: String? = null,
         }
     }
     Surface(Modifier.fillMaxSize(), color = TrazoPalette.Background, contentColor = TrazoPalette.Text) {
-        when (val s = state) {
-            AppState.Loading -> LoadingBox()
-            AppState.SignedOut -> LoginScreen(c.auth, BuildConfig.GOOGLE_WEB_CLIENT_ID, actionType, actionToken, onSignedIn = app::onSignedIn)
-            is AppState.Ready -> com.trazo.android.ui.common.HealthGate(c.healthConsent) {
-                MainNavigation(s.user, s.status, onLogout = app::signOut, onAccountDeleted = app::onAccountDeleted, pushKind = pushKind, onPushHandled = onPushHandled)
+        com.trazo.android.ui.common.UpdateGate(c.appVersions) {
+            when (val s = state) {
+                AppState.Loading -> LoadingBox()
+                AppState.SignedOut -> LoginScreen(c.auth, BuildConfig.GOOGLE_WEB_CLIENT_ID, actionType, actionToken, onSignedIn = app::onSignedIn)
+                is AppState.Ready -> com.trazo.android.ui.common.HealthGate(c.healthConsent) {
+                    MainNavigation(s.user, s.status, onLogout = app::signOut, onAccountDeleted = app::onAccountDeleted, pushKind = pushKind, onPushHandled = onPushHandled)
+                }
             }
         }
     }
