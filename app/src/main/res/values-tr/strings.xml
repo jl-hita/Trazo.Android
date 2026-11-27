@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %3$s setten %2$s</string>
     <string name="progress_block_change">%1$s: tahmini 1RM %2$s%%</string>
     <string name="progress_block_note">Ağırlıklar yalnızca iki antrenman bloğunun ortak egzersizlerinde karşılaştırılır. Bu bir tahmindir, kas ölçümü değildir.</string>
+    <string name="advice_title">Gözden geçirmeye değer</string>
+    <string name="advice_confidence_low">Güven: düşük</string>
+    <string name="advice_confidence_medium">Güven: orta</string>
+    <string name="advice_open_session">Antrenmanı aç</string>
     <string name="progress_sets_this_week">Bu hafta %1$s set</string>
     <string name="progress_exercises">Egzersize göre</string>
     <string name="progress_sessions">%1$d antrenman</string>

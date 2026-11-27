@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s de %3$s sèries</string>
     <string name="progress_block_change">%1$s: %2$s%% d\'1RM estimat</string>
     <string name="progress_block_note">Les càrregues només es comparen en exercicis que comparteixen dos blocs d\'entrenament. És una estimació, no una mesura del múscul.</string>
+    <string name="advice_title">Val la pena revisar-ho</string>
+    <string name="advice_confidence_low">Confiança: baixa</string>
+    <string name="advice_confidence_medium">Confiança: mitjana</string>
+    <string name="advice_open_session">Obrir la sessió</string>
     <string name="progress_sets_this_week">%1$s sèries aquesta setmana</string>
     <string name="progress_exercises">Per exercici</string>
     <string name="progress_sessions">%1$d entrenaments</string>

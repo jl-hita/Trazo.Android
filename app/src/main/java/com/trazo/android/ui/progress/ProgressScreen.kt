@@ -24,6 +24,7 @@ import com.trazo.android.data.model.ExercisePoint
 import com.trazo.android.data.model.ExerciseProgress
 import com.trazo.android.data.model.MuscleVolume
 import com.trazo.android.data.model.ProgressView
+import com.trazo.android.data.model.Recommendation
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
 import com.trazo.android.data.net.ErrorKind
@@ -31,6 +32,7 @@ import com.trazo.android.data.repo.PlanRepository
 import com.trazo.android.diagnostics.launchGuarded
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.plan.formatDate
+import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,7 +41,9 @@ import kotlinx.coroutines.flow.asStateFlow
 data class ProgressUiState(
     val loading: Boolean = true, val progress: ProgressView? = null, val error: ApiError? = null,
     /** The blocks of the active plan, newest first; empty without a plan or when they could not be read. */
-    val blocks: List<BlockSummary> = emptyList()
+    val blocks: List<BlockSummary> = emptyList(),
+    /** What is worth reviewing; empty without a plan, without Premium or when it could not be read. */
+    val advice: List<Recommendation> = emptyList()
 )
 
 /** What the user has achieved over time, across every plan: records, exercise history, weekly sets per muscle and the streak. */
@@ -52,11 +56,13 @@ class ProgressViewModel(private val plans: PlanRepository) : ViewModel() {
         _state.value = _state.value.copy(loading = _state.value.progress == null, error = null)
         viewModelScope.launchGuarded(R.string.feature_progress, onFailure = { _state.value = ProgressUiState(false, error = ApiError(ErrorKind.Unknown)) }) {
             _state.value = when (val r = plans.progress()) {
-                is ApiResult.Success -> ProgressUiState(false, r.value, blocks = _state.value.blocks)
-                is ApiResult.Failure -> ProgressUiState(false, _state.value.progress, r.error, _state.value.blocks)
+                is ApiResult.Success -> ProgressUiState(false, r.value, blocks = _state.value.blocks, advice = _state.value.advice)
+                is ApiResult.Failure -> ProgressUiState(false, _state.value.progress, r.error, _state.value.blocks, _state.value.advice)
             }
             val summaries = plans.blockSummaries()
             if (summaries is ApiResult.Success) _state.value = _state.value.copy(blocks = summaries.value.blocks.sortedByDescending { it.sequence })
+            val advice = plans.recommendations()
+            if (advice is ApiResult.Success) _state.value = _state.value.copy(advice = advice.value.items)
         }
     }
 }
@@ -65,7 +71,7 @@ internal fun formatKgText(value: Double?): String =
     if (value == null) "–" else com.trazo.android.ui.common.Labels.decimal(value, maxDecimals = 1)
 
 @Composable
-fun ProgressScreen(viewModel: ProgressViewModel) {
+fun ProgressScreen(viewModel: ProgressViewModel, onOpenSession: (String) -> Unit = {}) {
     LaunchedEffect(Unit) { viewModel.load() }
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(Modifier.fillMaxSize()) {
@@ -75,13 +81,13 @@ fun ProgressScreen(viewModel: ProgressViewModel) {
             state.loading && progress == null -> LoadingBox()
             progress == null -> ErrorBox(state.error ?: ApiError(ErrorKind.Unknown), viewModel::load)
             progress.summary.totalSessions == 0 -> EmptyBox(stringResource(R.string.progress_empty))
-            else -> ProgressContent(progress, state.blocks)
+            else -> ProgressContent(progress, state.blocks, state.advice, onOpenSession)
         }
     }
 }
 
 @Composable
-private fun ProgressContent(progress: ProgressView, blocks: List<BlockSummary>) {
+private fun ProgressContent(progress: ProgressView, blocks: List<BlockSummary>, advice: List<Recommendation>, onOpenSession: (String) -> Unit) {
     val s = progress.summary
     val records = progress.exercises.filter { it.newRecord }
     var open by rememberSaveable { mutableStateOf<String?>(null) }
@@ -100,6 +106,10 @@ private fun ProgressContent(progress: ProgressView, blocks: List<BlockSummary>) 
                 StatCard(Modifier.weight(1f), stringResource(R.string.progress_last_30), s.sessionsLast30Days.toString())
                 StatCard(Modifier.weight(1f), stringResource(R.string.progress_volume), stringResource(R.string.progress_tons, s.totalVolumeKg / 1000.0))
             }
+        }
+        if (advice.isNotEmpty()) {
+            item { SectionTitle(stringResource(R.string.advice_title)) }
+            items(advice, key = { "advice-" + it.kind + (it.exerciseId ?: "") }) { AdviceCard(it, onOpenSession) }
         }
         if (records.isNotEmpty()) {
             item { SectionTitle(stringResource(R.string.progress_records)) }
@@ -166,6 +176,24 @@ private fun MuscleRow(m: MuscleVolume) {
                 val h = (v.toFloat() / top) * size.height
                 drawRect(if (i == n - 1) current else color.copy(alpha = 0.6f), Offset(slot * i + slot * 0.15f, size.height - h), Size(slot * 0.7f, h.coerceAtLeast(if (v > 0) 2f else 0f)))
             }
+        }
+    }
+}
+
+@Composable
+private fun AdviceCard(item: Recommendation, onOpenSession: (String) -> Unit) {
+    TrazoCard(Modifier.fillMaxWidth()) {
+        Text(item.title, style = MaterialTheme.typography.titleSmall)
+        item.exerciseName?.let { Text(it, color = TrazoPalette.Link) }
+        Text(item.why, style = MaterialTheme.typography.bodyMedium)
+        Text(item.suggestion, color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+        Text(
+            stringResource(if (item.confidence == "medium") R.string.advice_confidence_medium else R.string.advice_confidence_low),
+            color = TrazoPalette.Muted, style = MaterialTheme.typography.labelSmall
+        )
+        // The change itself is the user's, made in the session.
+        item.sessionId?.let { id ->
+            TrazoLink(onClick = { onOpenSession(id) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.advice_open_session)) }
         }
     }
 }

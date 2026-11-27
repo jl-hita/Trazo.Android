@@ -288,7 +288,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 }
                 composable(Routes.PROGRESS) {
                     val vm: com.trazo.android.ui.progress.ProgressViewModel = containerViewModel { com.trazo.android.ui.progress.ProgressViewModel(it.plans) }
-                    com.trazo.android.ui.progress.ProgressScreen(vm)
+                    com.trazo.android.ui.progress.ProgressScreen(vm, onOpenSession = { nav.navigate(Routes.session(it)) })
                 }
                 composable(Routes.ADJUSTMENTS) {
                     val vm: AdaptationsViewModel = containerViewModel { AdaptationsViewModel(it.plans) }

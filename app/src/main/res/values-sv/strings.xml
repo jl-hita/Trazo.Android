@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s av %3$s set</string>
     <string name="progress_block_change">%1$s: %2$s%% uppskattat 1RM</string>
     <string name="progress_block_note">Belastningar jämförs bara i övningar som två träningsblock har gemensamt. Det är en uppskattning, inte en muskelmätning.</string>
+    <string name="advice_title">Värt att se över</string>
+    <string name="advice_confidence_low">Säkerhet: låg</string>
+    <string name="advice_confidence_medium">Säkerhet: medel</string>
+    <string name="advice_open_session">Öppna passet</string>
     <string name="progress_sets_this_week">%1$s set den här veckan</string>
     <string name="progress_exercises">Per övning</string>
     <string name="progress_sessions">%1$d träningspass</string>

@@ -344,6 +344,14 @@ data class BlockSummary(
 )
 
 data class BlockSummaries(val blocks: List<BlockSummary>)
+
+/** Something worth reviewing: why, what could be done and how sure it is ("low" or "medium"). Nothing is applied. */
+data class Recommendation(
+    val kind: String, val title: String, val why: String, val suggestion: String, val confidence: String,
+    val exerciseId: String? = null, val exerciseName: String? = null, val sessionId: String? = null
+)
+
+data class Recommendations(val items: List<Recommendation>, val locked: Boolean = false)
 data class ProgressView(val summary: ProgressSummary, val weekStarts: List<String>, val muscles: List<MuscleVolume>, val exercises: List<ExerciseProgress>)
 
 // Next session (GET api/v1/plans/current/next): the backend decides which session comes next and whether the muscles are recovered.

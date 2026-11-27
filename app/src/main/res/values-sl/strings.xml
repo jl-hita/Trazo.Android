@@ -432,6 +432,10 @@
     <string name="progress_block_sets">%1$s: %2$s od %3$s serij</string>
     <string name="progress_block_change">%1$s: %2$s%% ocenjenega 1RM</string>
     <string name="progress_block_note">Bremena se primerjajo samo pri vajah, skupnih dvema vadbenima blokoma. To je ocena, ne meritev mišice.</string>
+    <string name="advice_title">Vredno preveriti</string>
+    <string name="advice_confidence_low">Zanesljivost: nizka</string>
+    <string name="advice_confidence_medium">Zanesljivost: srednja</string>
+    <string name="advice_open_session">Odpri vadbo</string>
     <string name="progress_sets_this_week">Serij ta teden: %1$s</string>
     <string name="progress_exercises">Po vajah</string>
     <string name="progress_sessions">Treningov: %1$d</string>
