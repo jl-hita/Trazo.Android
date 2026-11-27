@@ -242,6 +242,28 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
     val load by loadViewModel.state.collectAsStateWithLifecycle()
     var editPriorities by remember { mutableStateOf(false) }
     var editInjuries by remember { mutableStateOf(false) }
+    var editMinutes by remember { mutableStateOf(false) }
+    state.plan?.takeIf { editMinutes }?.let { plan ->
+        var draft by remember(plan.maxSessionMinutes) { mutableStateOf(plan.maxSessionMinutes) }
+        AlertDialog(
+            onDismissRequest = { editMinutes = false },
+            title = { Text(stringResource(R.string.overview_minutes_edit)) },
+            text = {
+                Column {
+                    Text(stringResource(R.string.overview_minutes_note), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                    Text(stringResource(R.string.onb_minutes, draft), modifier = Modifier.padding(top = 12.dp))
+                    Slider(value = draft.toFloat(), onValueChange = { draft = (it / 5).toInt() * 5 }, valueRange = 35f..180f, modifier = Modifier.heightIn(min = MinTouch))
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.updateSessionMinutes(draft); editMinutes = false },
+                    enabled = !state.savingMinutes, modifier = Modifier.heightIn(min = MinTouch)
+                ) { Text(stringResource(R.string.overview_priorities_save)) }
+            },
+            dismissButton = { TextButton(onClick = { editMinutes = false }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.cancel)) } }
+        )
+    }
     state.plan?.takeIf { editInjuries }?.let { plan ->
         var draft by remember(plan.limitations) { mutableStateOf(plan.limitations.toSet()) }
         AlertDialog(
@@ -305,6 +327,11 @@ fun PlanOverviewScreen(viewModel: PlanViewModel, loadViewModel: LoadViewModel, o
                         else stringResource(R.string.overview_cycles, plan.totalWeeks),
                         color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
                     )
+                }
+                if (plan.origin == "Generated") item {
+                    Text(stringResource(R.string.onb_minutes, plan.maxSessionMinutes))
+                    TrazoLink(onClick = { editMinutes = true }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.overview_minutes_edit)) }
+                    state.error?.let { InlineError(it) }
                 }
                 item {
                     SectionTitle(stringResource(if (load.load?.periodKind == "Rotation") R.string.overview_load_title_rotation else R.string.overview_load_title))

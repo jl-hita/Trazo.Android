@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Kalıcı değişikliklerimi unut</string>
     <string name="session_edit_forgotten">Tamam: yeni bloklar yeniden planı izleyecek.</string>
     <string name="session_customised">Sizin değiştirdiğiniz</string>
+    <string name="overview_minutes_edit">Antrenman süresini değiştir</string>
+    <string name="overview_minutes_note">Sonraki bloktan itibaren geçerlidir; yazılmış antrenmanlar değişmez.</string>
     <string name="programs_title">Hazır programlar</string>
     <string name="programs_link">Hazır bir programla başlayın</string>
     <string name="program_days">Haftada %1$d gün</string>

@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Glöm mina bestående ändringar</string>
     <string name="session_edit_forgotten">Klart: nya block följer programmet igen.</string>
     <string name="session_customised">Ändrat av dig</string>
+    <string name="overview_minutes_edit">Ändra tid per pass</string>
+    <string name="overview_minutes_note">Gäller från nästa block; redan skapade pass ändras inte.</string>
     <string name="programs_title">Färdiga program</string>
     <string name="programs_link">Börja med ett färdigt program</string>
     <string name="program_days">%1$d dagar i veckan</string>

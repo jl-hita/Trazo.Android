@@ -30,6 +30,8 @@ data class PlanUiState(
     val skipping: Boolean = false,
     /** Saving the muscle priorities is in progress. */
     val savingPriorities: Boolean = false,
+    /** Saving the time per session is in progress. */
+    val savingMinutes: Boolean = false,
     /** Saving the injured areas is in progress. */
     val savingLimitations: Boolean = false,
     val error: ApiError? = null
@@ -72,6 +74,18 @@ class PlanViewModel(private val plans: PlanRepository) : ViewModel() {
             when (val result = plans.updateMusclePriorities(priorities)) {
                 is ApiResult.Success -> _state.update { it.copy(savingPriorities = false, plan = result.value) }
                 is ApiResult.Failure -> _state.update { it.copy(savingPriorities = false, error = result.error) }
+            }
+        }
+    }
+
+    /** Changes the time per session of a generated plan; it applies from the next block on. */
+    fun updateSessionMinutes(minutes: Int) {
+        if (_state.value.savingMinutes) return
+        _state.update { it.copy(savingMinutes = true, error = null) }
+        viewModelScope.launchGuarded(R.string.feature_plan, onFailure = { _state.update { it.copy(savingMinutes = false, error = ApiError(ErrorKind.Unknown)) } }) {
+            when (val result = plans.updateSessionMinutes(minutes)) {
+                is ApiResult.Success -> _state.update { it.copy(savingMinutes = false, plan = result.value) }
+                is ApiResult.Failure -> _state.update { it.copy(savingMinutes = false, error = result.error) }
             }
         }
     }

@@ -637,6 +637,8 @@
     <string name="session_edit_forget">継続する変更を取り消す</string>
     <string name="session_edit_forgotten">完了しました。新しいブロックはプラン通りになります。</string>
     <string name="session_customised">あなたが変更</string>
+    <string name="overview_minutes_edit">1回の時間を変更</string>
+    <string name="overview_minutes_note">次のブロックから適用されます。作成済みのセッションは変わりません。</string>
     <string name="programs_title">用意されたプログラム</string>
     <string name="programs_link">用意されたプログラムから始める</string>
     <string name="program_days">週%1$d日</string>

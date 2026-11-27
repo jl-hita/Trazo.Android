@@ -652,6 +652,8 @@
     <string name="session_edit_forget">Zapomenout mé trvalé změny</string>
     <string name="session_edit_forgotten">Hotovo: nové bloky se znovu řídí plánem.</string>
     <string name="session_customised">Upraveno vámi</string>
+    <string name="overview_minutes_edit">Změnit délku tréninku</string>
+    <string name="overview_minutes_note">Platí od dalšího bloku; už sepsané tréninky zůstávají.</string>
     <string name="programs_title">Hotové programy</string>
     <string name="programs_link">Začít s hotovým programem</string>
     <string name="program_days">%1$d dny týdně</string>

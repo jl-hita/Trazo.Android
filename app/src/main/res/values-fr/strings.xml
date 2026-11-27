@@ -647,6 +647,8 @@
     <string name="session_edit_forget">Oublier mes changements durables</string>
     <string name="session_edit_forgotten">C’est fait : les nouveaux blocs suivent à nouveau le programme.</string>
     <string name="session_customised">Modifiée par vous</string>
+    <string name="overview_minutes_edit">Changer le temps par séance</string>
+    <string name="overview_minutes_note">S’applique à partir du bloc suivant ; les séances déjà écrites ne changent pas.</string>
     <string name="programs_title">Programmes prêts à l’emploi</string>
     <string name="programs_link">Commencer avec un programme prêt à l’emploi</string>
     <string name="program_days">%1$d jours par semaine</string>

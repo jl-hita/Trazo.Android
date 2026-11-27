@@ -642,6 +642,8 @@
     <string name="session_edit_forget">Mijn blijvende wijzigingen vergeten</string>
     <string name="session_edit_forgotten">Klaar: nieuwe blokken volgen weer het schema.</string>
     <string name="session_customised">Door jou gewijzigd</string>
+    <string name="overview_minutes_edit">Tijd per training wijzigen</string>
+    <string name="overview_minutes_note">Geldt vanaf het volgende blok; al gemaakte trainingen blijven zoals ze zijn.</string>
     <string name="programs_title">Kant-en-klare schema\'s</string>
     <string name="programs_link">Begin met een kant-en-klaar schema</string>
     <string name="program_days">%1$d dagen per week</string>

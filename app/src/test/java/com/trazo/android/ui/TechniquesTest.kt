@@ -214,6 +214,16 @@ class TechniquesTest : ViewModelTestBase() {
         assertEquals(3, api.programCreated!!.second.trainingDays!!.size)
     }
 
+    @Test fun `the time per session of a plan is saved and shown`() = runTest(dispatcher) {
+        val api = FakePlansApi()
+        val vm = com.trazo.android.ui.plan.PlanViewModel(plansRepo(api))
+        advanceUntilIdle()
+        vm.updateSessionMinutes(75)
+        advanceUntilIdle()
+        assertEquals(75, api.minutesSent)
+        assertEquals(75, vm.state.value.plan!!.maxSessionMinutes)
+    }
+
     @Test fun `the technique dialog offers what the catalog admits`() = runTest(dispatcher) {
         val exercises = FakeExercisesApi()
         exercises.detailResponse = Response.success(exercises.detailResponse.body()!!.copy(allowedTechniques = listOf("DropSet", "MyoRepMatch")))

@@ -637,6 +637,8 @@
     <string name="session_edit_forget">清除我的长期修改</string>
     <string name="session_edit_forgotten">完成：新的训练阶段将重新按计划进行。</string>
     <string name="session_customised">你已修改</string>
+    <string name="overview_minutes_edit">更改单次训练时长</string>
+    <string name="overview_minutes_note">从下一阶段开始生效；已生成的训练保持不变。</string>
     <string name="programs_title">现成计划</string>
     <string name="programs_link">从现成计划开始</string>
     <string name="program_days">每周 %1$d 天</string>
