@@ -148,7 +148,10 @@
     <string name="workout_finish">トレーニングを終了</string>
     <string name="workout_alternatives_title">代替種目</string>
     <string name="workout_alternatives_empty">お持ちの器具と制限では、この種目の代替はありません。</string>
-    <string name="workout_swap_block">ブロックの残りにも適用する</string>
+    <string name="workout_swap_scope_title">変更をどこに適用しますか？</string>
+    <string name="workout_swap_scope_session">このセッションのみ</string>
+    <string name="workout_swap_scope_block">このブロックの未実施セッションすべて</string>
+    <string name="workout_swap_scope_hint">実施済みのセッションとこれより前のセッションは変わりません。</string>
     <string name="workout_leave_title">トレーニングを終了しますか？</string>
     <string name="workout_leave_text">入力した内容はこの端末に保存され、あとで再開できます。</string>
     <string name="workout_leave">終了する</string>

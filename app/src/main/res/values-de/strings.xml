@@ -144,7 +144,10 @@
     <string name="workout_finish">Einheit beenden</string>
     <string name="workout_alternatives_title">Alternativen</string>
     <string name="workout_alternatives_empty">Mit deiner Ausrüstung und deinen Einschränkungen gibt es für diese Übung keine Alternativen.</string>
-    <string name="workout_swap_block">Auch auf den Rest des Blocks anwenden</string>
+    <string name="workout_swap_scope_title">Wo soll die Änderung gelten?</string>
+    <string name="workout_swap_scope_session">Nur diese Einheit</string>
+    <string name="workout_swap_scope_block">Alle offenen Einheiten dieses Blocks</string>
+    <string name="workout_swap_scope_hint">Absolvierte und frühere Einheiten bleiben unverändert.</string>
     <string name="workout_leave_title">Training verlassen?</string>
     <string name="workout_leave_text">Deine Eingaben werden auf diesem Gerät gespeichert, und du kannst das Training fortsetzen.</string>
     <string name="workout_leave">Verlassen</string>

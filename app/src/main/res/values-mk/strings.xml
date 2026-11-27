@@ -148,7 +148,10 @@
     <string name="workout_finish">Заврши го тренингот</string>
     <string name="workout_alternatives_title">Алтернативи</string>
     <string name="workout_alternatives_empty">Со твојата опрема и ограничувања нема алтернативи за оваа вежба.</string>
-    <string name="workout_swap_block">Примени и на остатокот од блокот</string>
+    <string name="workout_swap_scope_title">Каде да се примени промената?</string>
+    <string name="workout_swap_scope_session">Само на овој тренинг</string>
+    <string name="workout_swap_scope_block">На сите преостанати тренинзи од овој блок</string>
+    <string name="workout_swap_scope_hint">Завршените и претходните тренинзи не се менуваат.</string>
     <string name="workout_leave_title">Да го напуштиш тренингот?</string>
     <string name="workout_leave_text">Она што го внесе е зачувано на овој уред и можеш да продолжиш.</string>
     <string name="workout_leave">Напушти</string>

@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
+import com.trazo.android.data.model.AlternativeView
 import com.trazo.android.data.model.ExerciseFeedbackRequest
 import com.trazo.android.data.model.LastPerformanceView
 import com.trazo.android.ui.plan.formatDate
@@ -231,13 +232,24 @@ private fun AddExerciseDialog(state: AddExerciseState, vm: WorkoutViewModel) {
     )
 }
 
-/** The replacements the engine proposes for an exercise. Each one can be opened to read how it is done before choosing. */
+/**
+ * The replacements the engine proposes for an exercise. Each one can be opened to read how it is done before choosing. Choosing one
+ * asks how far the change reaches; nothing is sent until that is answered, and cancelling there closes the whole flow.
+ */
 @Composable
 fun AlternativesDialog(
     state: AlternativesState, swapError: com.trazo.android.data.net.ApiError?,
     onSwap: (exerciseId: String, replacementId: String, remainingBlock: Boolean) -> Unit, onDismiss: () -> Unit, onInfo: (String) -> Unit
 ) {
-    var remaining by remember { mutableStateOf(false) }
+    var chosen by remember(state.exerciseId) { mutableStateOf<AlternativeView?>(null) }
+    chosen?.let { replacement ->
+        SwapScopeDialog(
+            replacement.name, state.swapping, swapError,
+            onChoose = { remainingBlock -> onSwap(state.exerciseId, replacement.exerciseId, remainingBlock) },
+            onCancel = onDismiss
+        )
+        return
+    }
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.workout_alternatives_title)) },
@@ -248,13 +260,8 @@ fun AlternativesDialog(
                     state.error != null -> InlineError(state.error)
                     state.items.isEmpty() -> Text(state.message ?: stringResource(R.string.workout_alternatives_empty))
                     else -> {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Switch(checked = remaining, onCheckedChange = { remaining = it })
-                            Spacer(Modifier.width(8.dp))
-                            Text(stringResource(R.string.workout_swap_block), style = MaterialTheme.typography.bodySmall)
-                        }
                         state.items.forEach { alt ->
-                            TrazoCard(onClick = { onSwap(state.exerciseId, alt.exerciseId, remaining) }) {
+                            TrazoCard(onClick = { chosen = alt }) {
                                 Text(alt.name, style = MaterialTheme.typography.titleSmall)
                                 Text(Labels.muscles(alt.primaryMuscles) + " · " + Labels.pattern(alt.movementPattern), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                                 TrazoLink(onClick = { onInfo(alt.exerciseId) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.exercise_see_detail)) }
@@ -266,6 +273,34 @@ fun AlternativesDialog(
             }
         },
         confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.close)) } }
+    )
+}
+
+/** Asks whether a replacement is for this session only or also for the pending ones that follow it in the block. */
+@Composable
+private fun SwapScopeDialog(
+    replacement: String, swapping: Boolean, error: com.trazo.android.data.net.ApiError?,
+    onChoose: (remainingBlock: Boolean) -> Unit, onCancel: () -> Unit
+) {
+    AlertDialog(
+        // Once a choice is sent it cannot be taken back, so the dialog stays until the server answers.
+        onDismissRequest = { if (!swapping) onCancel() },
+        title = { Text(stringResource(R.string.workout_swap_scope_title)) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(replacement, style = MaterialTheme.typography.titleSmall)
+                TrazoButton(onClick = { onChoose(false) }, enabled = !swapping, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
+                    Text(stringResource(R.string.workout_swap_scope_session))
+                }
+                TrazoButton(onClick = { onChoose(true) }, enabled = !swapping, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) {
+                    Text(stringResource(R.string.workout_swap_scope_block))
+                }
+                Text(stringResource(R.string.workout_swap_scope_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+                if (swapping) LoadingBox(Modifier.height(60.dp))
+                error?.let { InlineError(it) }
+            }
+        },
+        confirmButton = { TextButton(onClick = onCancel, enabled = !swapping) { Text(stringResource(R.string.cancel)) } }
     )
 }
 

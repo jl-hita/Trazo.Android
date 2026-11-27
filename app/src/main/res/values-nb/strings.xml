@@ -148,7 +148,10 @@
     <string name="workout_finish">Avslutt økten</string>
     <string name="workout_alternatives_title">Alternativer</string>
     <string name="workout_alternatives_empty">Det finnes ingen alternativer til denne øvelsen med utstyret og begrensningene dine.</string>
-    <string name="workout_swap_block">Bruk også på resten av blokken</string>
+    <string name="workout_swap_scope_title">Hvor skal endringen gjelde?</string>
+    <string name="workout_swap_scope_session">Bare denne økten</string>
+    <string name="workout_swap_scope_block">Alle gjenstående økter i denne blokken</string>
+    <string name="workout_swap_scope_hint">Gjennomførte og tidligere økter endres ikke.</string>
     <string name="workout_leave_title">Forlate treningsøkten?</string>
     <string name="workout_leave_text">Det du har skrevet inn, lagres på denne enheten, og du kan fortsette senere.</string>
     <string name="workout_leave">Forlat</string>

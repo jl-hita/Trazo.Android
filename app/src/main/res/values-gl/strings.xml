@@ -148,7 +148,10 @@
     <string name="workout_finish">Rematar a sesión</string>
     <string name="workout_alternatives_title">Alternativas</string>
     <string name="workout_alternatives_empty">Non hai alternativas para este exercicio co teu material e as túas limitacións.</string>
-    <string name="workout_swap_block">Aplicar tamén ao resto do bloque</string>
+    <string name="workout_swap_scope_title">Onde aplicar o cambio?</string>
+    <string name="workout_swap_scope_session">Só esta sesión</string>
+    <string name="workout_swap_scope_block">Todas as sesións pendentes deste bloque</string>
+    <string name="workout_swap_scope_hint">As sesións xa feitas e as anteriores non cambian.</string>
     <string name="workout_leave_title">Saír do adestramento?</string>
     <string name="workout_leave_text">O que introduciches gárdase neste dispositivo e podes retomalo.</string>
     <string name="workout_leave">Saír</string>

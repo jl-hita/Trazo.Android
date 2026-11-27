@@ -144,7 +144,10 @@
     <string name="workout_finish">Acaba la sessió</string>
     <string name="workout_alternatives_title">Alternatives</string>
     <string name="workout_alternatives_empty">No hi ha alternatives per a aquest exercici amb el teu material i les teves limitacions.</string>
-    <string name="workout_swap_block">Aplica-ho també a la resta del bloc</string>
+    <string name="workout_swap_scope_title">On vols aplicar el canvi?</string>
+    <string name="workout_swap_scope_session">Només aquesta sessió</string>
+    <string name="workout_swap_scope_block">Totes les sessions pendents d\'aquest bloc</string>
+    <string name="workout_swap_scope_hint">Les sessions ja fetes i les anteriors no canvien.</string>
     <string name="workout_leave_title">Vols sortir de l\'entrenament?</string>
     <string name="workout_leave_text">El que has introduït es desa en aquest dispositiu i el pots reprendre.</string>
     <string name="workout_leave">Surt</string>

@@ -144,7 +144,10 @@
     <string name="workout_finish">Avsluta passet</string>
     <string name="workout_alternatives_title">Alternativ</string>
     <string name="workout_alternatives_empty">Det finns inga alternativ till den här övningen med din utrustning och dina begränsningar.</string>
-    <string name="workout_swap_block">Använd även för resten av blocket</string>
+    <string name="workout_swap_scope_title">Var ska ändringen gälla?</string>
+    <string name="workout_swap_scope_session">Bara det här passet</string>
+    <string name="workout_swap_scope_block">Alla kvarvarande pass i det här blocket</string>
+    <string name="workout_swap_scope_hint">Genomförda och tidigare pass ändras inte.</string>
     <string name="workout_leave_title">Lämna träningspasset?</string>
     <string name="workout_leave_text">Det du har angett sparas på den här enheten och du kan fortsätta senare.</string>
     <string name="workout_leave">Lämna</string>

@@ -144,7 +144,10 @@
     <string name="workout_finish">Seansı bitir</string>
     <string name="workout_alternatives_title">Alternatifler</string>
     <string name="workout_alternatives_empty">Ekipmanın ve kısıtlamalarınla bu egzersiz için alternatif yok.</string>
-    <string name="workout_swap_block">Bloğun geri kalanına da uygula</string>
+    <string name="workout_swap_scope_title">Değişiklik nereye uygulansın?</string>
+    <string name="workout_swap_scope_session">Yalnızca bu antrenman</string>
+    <string name="workout_swap_scope_block">Bu bloğun bekleyen tüm antrenmanları</string>
+    <string name="workout_swap_scope_hint">Yapılmış ve önceki antrenmanlar değişmez.</string>
     <string name="workout_leave_title">Antrenmandan çıkılsın mı?</string>
     <string name="workout_leave_text">Girdiklerin bu cihazda kayıtlı ve devam edebilirsin.</string>
     <string name="workout_leave">Çık</string>

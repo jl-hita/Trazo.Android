@@ -148,7 +148,10 @@
     <string name="workout_finish">Завершить тренировку</string>
     <string name="workout_alternatives_title">Альтернативы</string>
     <string name="workout_alternatives_empty">С вашим оборудованием и ограничениями для этого упражнения нет альтернатив.</string>
-    <string name="workout_swap_block">Применить и к остальной части блока</string>
+    <string name="workout_swap_scope_title">Где применить замену?</string>
+    <string name="workout_swap_scope_session">Только эта тренировка</string>
+    <string name="workout_swap_scope_block">Все оставшиеся тренировки этого блока</string>
+    <string name="workout_swap_scope_hint">Выполненные и более ранние тренировки не изменятся.</string>
     <string name="workout_leave_title">Выйти из тренировки?</string>
     <string name="workout_leave_text">Введённое сохранено на этом устройстве, и вы сможете продолжить.</string>
     <string name="workout_leave">Выйти</string>

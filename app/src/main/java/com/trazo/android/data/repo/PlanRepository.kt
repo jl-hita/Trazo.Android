@@ -259,7 +259,11 @@ class PlanRepository(
 
     suspend fun swap(sessionId: String, exerciseId: String, replacementId: String, remainingBlock: Boolean): ApiResult<SessionView> {
         val result = apiCall { api.swap(sessionId, exerciseId, SwapRequest(replacementId, remainingBlock)) }
-        if (result is ApiResult.Success) replaceSession(result.value)
+        if (result is ApiResult.Success) {
+            replaceSession(result.value)
+            // The answer holds only this session; the others the change reached are read again so the saved week does not keep the old exercise.
+            if (remainingBlock) currentWeek()
+        }
         return result
     }
 

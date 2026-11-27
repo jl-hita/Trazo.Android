@@ -148,7 +148,10 @@
     <string name="workout_finish">Lopeta treeni</string>
     <string name="workout_alternatives_title">Vaihtoehdot</string>
     <string name="workout_alternatives_empty">Tälle liikkeelle ei ole vaihtoehtoja välineilläsi ja rajoituksillasi.</string>
-    <string name="workout_swap_block">Käytä myös jakson loppuosaan</string>
+    <string name="workout_swap_scope_title">Mihin muutos tehdään?</string>
+    <string name="workout_swap_scope_session">Vain tähän treeniin</string>
+    <string name="workout_swap_scope_block">Kaikkiin tämän jakson tekemättömiin treeneihin</string>
+    <string name="workout_swap_scope_hint">Tehdyt ja aiemmat treenit eivät muutu.</string>
     <string name="workout_leave_title">Poistutaanko treenistä?</string>
     <string name="workout_leave_text">Syöttämäsi tiedot tallennetaan tälle laitteelle, ja voit jatkaa myöhemmin.</string>
     <string name="workout_leave">Poistu</string>

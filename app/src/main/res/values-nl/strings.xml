@@ -148,7 +148,10 @@
     <string name="workout_finish">Training afronden</string>
     <string name="workout_alternatives_title">Alternatieven</string>
     <string name="workout_alternatives_empty">Er zijn geen alternatieven voor deze oefening met jouw materiaal en beperkingen.</string>
-    <string name="workout_swap_block">Ook toepassen op de rest van het blok</string>
+    <string name="workout_swap_scope_title">Waar moet de wijziging gelden?</string>
+    <string name="workout_swap_scope_session">Alleen deze sessie</string>
+    <string name="workout_swap_scope_block">Alle openstaande sessies van dit blok</string>
+    <string name="workout_swap_scope_hint">Voltooide en eerdere sessies veranderen niet.</string>
     <string name="workout_leave_title">Training verlaten?</string>
     <string name="workout_leave_text">Wat je hebt ingevuld wordt op dit apparaat bewaard en je kunt later verdergaan.</string>
     <string name="workout_leave">Verlaten</string>

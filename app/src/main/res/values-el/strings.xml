@@ -148,7 +148,10 @@
     <string name="workout_finish">Τέλος προπόνησης</string>
     <string name="workout_alternatives_title">Εναλλακτικές</string>
     <string name="workout_alternatives_empty">Δεν υπάρχουν εναλλακτικές για αυτή την άσκηση με τον εξοπλισμό και τους περιορισμούς σου.</string>
-    <string name="workout_swap_block">Εφαρμογή και στο υπόλοιπο μπλοκ</string>
+    <string name="workout_swap_scope_title">Πού να εφαρμοστεί η αλλαγή;</string>
+    <string name="workout_swap_scope_session">Μόνο σε αυτή την προπόνηση</string>
+    <string name="workout_swap_scope_block">Σε όλες τις εκκρεμείς προπονήσεις αυτού του μπλοκ</string>
+    <string name="workout_swap_scope_hint">Οι ολοκληρωμένες και οι προηγούμενες προπονήσεις δεν αλλάζουν.</string>
     <string name="workout_leave_title">Έξοδος από την προπόνηση;</string>
     <string name="workout_leave_text">Ό,τι έχεις γράψει αποθηκεύεται σε αυτή τη συσκευή και μπορείς να συνεχίσεις.</string>
     <string name="workout_leave">Έξοδος</string>

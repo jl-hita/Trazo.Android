@@ -91,6 +91,8 @@ android {
   // The emulator CI uses for the instrumented tests; Gradle downloads and boots it.
   managedDevices.localDevices.create("pixelApi34") { device = "Pixel 6"; apiLevel = 34; systemImageSource = "aosp-atd" }
  }
+ // The fake APIs of the unit tests also drive the screens in the instrumented ones.
+ sourceSets { getByName("androidTest").java.srcDir("src/test/java/com/trazo/android/testing") }
  buildFeatures { compose = true; buildConfig = true }
  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
