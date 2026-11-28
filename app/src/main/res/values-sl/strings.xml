@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Ocenjeni 1RM (kg)</string>
     <string name="progress_chart_reps">Ponovitve</string>
     <string name="workout_superset">Supernizanje %1$s: nadaljuj z naslednjo vajo brez počitka</string>
+    <string name="workout_superset_short_rest">Supernizanje %1$s: vzemi kratek odmor in nadaljuj z naslednjo vajo</string>
+    <string name="workout_superset_last">Supernizanje %1$s: zadnja vaja kroga, počivaj in se vrni na prvo</string>
     <string name="manual_link">Supernizanje z naslednjo vajo</string>
     <string name="manual_unlink">Odstrani supernizanje z naslednjo</string>
     <string name="plan_edit_button">Uredi načrt</string>

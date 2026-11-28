@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">추정 1RM (kg)</string>
     <string name="progress_chart_reps">횟수</string>
     <string name="workout_superset">슈퍼세트 %1$s: 쉬지 않고 다음 운동으로 넘어가세요</string>
+    <string name="workout_superset_short_rest">슈퍼세트 %1$s: 짧게 쉬고 다음 운동으로 넘어가세요</string>
+    <string name="workout_superset_last">슈퍼세트 %1$s: 라운드의 마지막 운동입니다. 쉬고 첫 운동으로 돌아가세요</string>
     <string name="manual_link">다음 운동과 슈퍼세트</string>
     <string name="manual_unlink">다음 운동과의 슈퍼세트 해제</string>
     <string name="plan_edit_button">플랜 편집</string>

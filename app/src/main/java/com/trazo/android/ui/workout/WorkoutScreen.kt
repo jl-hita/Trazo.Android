@@ -25,6 +25,7 @@ import com.trazo.android.data.model.AlternativeView
 import com.trazo.android.data.model.ExerciseFeedbackRequest
 import com.trazo.android.data.model.LastPerformanceView
 import com.trazo.android.ui.plan.formatDate
+import com.trazo.android.ui.plan.supersetHint
 import com.trazo.android.ui.catalog.ExerciseInfoDialog
 import com.trazo.android.ui.common.*
 import com.trazo.android.ui.theme.TrazoButton
@@ -32,6 +33,7 @@ import com.trazo.android.ui.theme.TrazoField
 import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (String) -> Unit, onRestStarted: () -> Unit = {}) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -67,7 +69,8 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                             Text(entry.exercise.name, style = MaterialTheme.typography.titleMedium)
                             if (entry.exercise.isExtra) Text(stringResource(R.string.workout_extra_tag), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
                             entry.exercise.supersetGroup?.let { group ->
-                                Text(stringResource(R.string.workout_superset, group), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
+                                val next = state.entries.getOrNull(state.entries.indexOf(entry) + 1)?.exercise?.supersetGroup
+                                Text(supersetHint(group, next, state.session?.supersets), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
                                 state.session?.supersets?.firstOrNull { it.group == group }?.let {
                                     Text(stringResource(R.string.workout_superset_rounds, it.rounds), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
                                     techniqueReason(it.reason)?.let { why -> Text(why, color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall) }
@@ -121,9 +124,11 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
                 }
             }
         }
-        TrazoLink(onClick = viewModel::openAddExercise, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_add_exercise)) }
+        // While typing, the keyboard leaves little room: the actions that are not part of a set step aside.
+        val typing = WindowInsets.isImeVisible
+        if (!typing) TrazoLink(onClick = viewModel::openAddExercise, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_add_exercise)) }
         state.rest?.let { RestBar(it, viewModel::adjustRest, viewModel::skipRest) }
-        TrazoButton(onClick = { showFinish = true }, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_finish)) }
+        if (!typing) TrazoButton(onClick = { showFinish = true }, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_finish)) }
     }
 
     if (confirmLeave) AlertDialog(

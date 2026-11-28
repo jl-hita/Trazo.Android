@@ -3,7 +3,7 @@ package com.trazo.android.ui.plan
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,6 +14,7 @@ import com.trazo.android.R
 import com.trazo.android.data.model.ExerciseView
 import com.trazo.android.data.model.LoggedSetView
 import com.trazo.android.data.model.SessionView
+import com.trazo.android.data.model.SupersetView
 import com.trazo.android.data.model.WeekView
 import com.trazo.android.ui.catalog.ExerciseInfoDialog
 import com.trazo.android.ui.common.*
@@ -60,9 +61,10 @@ fun SessionScreen(
                 if (session.customised) Text(stringResource(R.string.session_customised), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
                 TrazoLink(onClick = { viewModel.forgetSwapped(); onEdit() }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.session_edit)) }
             }
-            items(session.exercises, key = { it.exerciseId }) { ex ->
+            itemsIndexed(session.exercises, key = { _, it -> it.exerciseId }) { index, ex ->
                 ExercisePrescription(
                     ex, onExercise,
+                    supersetText = ex.supersetGroup?.let { supersetHint(it, session.exercises.getOrNull(index + 1)?.supersetGroup, session.supersets) },
                     // A session already done keeps its exercises: what was done is shown instead of a swap.
                     onSwap = if (logged || current?.locked == true) null else ({ viewModel.showAlternatives(ex.exerciseId) }),
                     onInfo = { info = ex.exerciseId },
@@ -85,11 +87,24 @@ fun SessionScreen(
     info?.let { id -> ExerciseInfoDialog(id, viewModel.catalog, onDismiss = { info = null }) }
 }
 
+/** What to do after a set of a superset exercise: go on to the next one or, after the last, rest and start the round again. */
+@Composable
+fun supersetHint(group: String, nextGroup: String?, supersets: List<SupersetView>?): String = stringResource(
+    when {
+        nextGroup != group -> R.string.workout_superset_last
+        (supersets?.firstOrNull { it.group == group }?.restBetweenSeconds ?: 0) > 0 -> R.string.workout_superset_short_rest
+        else -> R.string.workout_superset
+    },
+    group
+)
+
 @Composable
 fun ExercisePrescription(
     ex: ExerciseView, onExercise: (String) -> Unit, onSwap: (() -> Unit)? = null, onInfo: (() -> Unit)? = null,
     /** The sets logged for this exercise when the session is done (weight, repetitions, reserve). */
-    done: List<LoggedSetView>? = null
+    done: List<LoggedSetView>? = null,
+    /** What the superset asks after a set of this exercise. */
+    supersetText: String? = null
 ) {
     TrazoCard {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
@@ -109,7 +124,7 @@ fun ExercisePrescription(
             add(stringResource(R.string.session_rest, Labels.clock(ex.restSeconds)))
         }
         Text(parts.joinToString(" · "))
-        ex.supersetGroup?.let { Text(stringResource(R.string.workout_superset, it), color = TrazoPalette.Link, style = MaterialTheme.typography.bodySmall) }
+        supersetText?.let { Text(it, color = TrazoPalette.Link, style = MaterialTheme.typography.bodySmall) }
         ex.technique?.let {
             Text(techniqueSummary(it), color = TrazoPalette.Link)
             Text(techniqueHelp(it), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)

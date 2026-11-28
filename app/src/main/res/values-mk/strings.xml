@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Проценет 1RM (kg)</string>
     <string name="progress_chart_reps">Повторувања</string>
     <string name="workout_superset">Суперсерија %1$s: помини на следната вежба без одмор</string>
+    <string name="workout_superset_short_rest">Суперсерија %1$s: направи кратка пауза и премини на следната вежба</string>
+    <string name="workout_superset_last">Суперсерија %1$s: последна вежба во кругот, одмори и врати се на првата</string>
     <string name="manual_link">Суперсерија со следната вежба</string>
     <string name="manual_unlink">Отстрани ја суперсеријата со следната</string>
     <string name="plan_edit_button">Уреди го планот</string>

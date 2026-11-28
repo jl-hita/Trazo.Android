@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Geschat 1RM (kg)</string>
     <string name="progress_chart_reps">Herhalingen</string>
     <string name="workout_superset">Superset %1$s: ga zonder rust door naar de volgende oefening</string>
+    <string name="workout_superset_short_rest">Superset %1$s: neem de korte rust en ga door naar de volgende oefening</string>
+    <string name="workout_superset_last">Superset %1$s: laatste oefening van de ronde, rust en begin weer bij de eerste</string>
     <string name="manual_link">Superset met de volgende oefening</string>
     <string name="manual_unlink">Superset met de volgende opheffen</string>
     <string name="plan_edit_button">Plan bewerken</string>

@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Geschätztes 1RM (kg)</string>
     <string name="progress_chart_reps">Wiederholungen</string>
     <string name="workout_superset">Supersatz %1$s: Mach ohne Pause mit der nächsten Übung weiter</string>
+    <string name="workout_superset_short_rest">Supersatz %1$s: Mach kurz Pause und wechsle zur nächsten Übung</string>
+    <string name="workout_superset_last">Supersatz %1$s: Letzte Übung der Runde, mach Pause und beginne wieder mit der ersten</string>
     <string name="manual_link">Supersatz mit der nächsten Übung</string>
     <string name="manual_unlink">Supersatz mit der nächsten Übung aufheben</string>
     <string name="plan_edit_button">Plan bearbeiten</string>

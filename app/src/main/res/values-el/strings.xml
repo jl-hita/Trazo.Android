@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Εκτιμώμενο 1RM (kg)</string>
     <string name="progress_chart_reps">Επαναλήψεις</string>
     <string name="workout_superset">Σούπερσετ %1$s: πέρασε στην επόμενη άσκηση χωρίς ξεκούραση</string>
+    <string name="workout_superset_short_rest">Σούπερσετ %1$s: κάνε το σύντομο διάλειμμα και πήγαινε στην επόμενη άσκηση</string>
+    <string name="workout_superset_last">Σούπερσετ %1$s: τελευταία άσκηση του γύρου, ξεκουράσου και γύρνα στην πρώτη</string>
     <string name="manual_link">Σούπερσετ με την επόμενη άσκηση</string>
     <string name="manual_unlink">Αφαίρεση σούπερσετ με την επόμενη</string>
     <string name="plan_edit_button">Επεξεργασία προγράμματος</string>

@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">估算 1RM（kg）</string>
     <string name="progress_chart_reps">次数</string>
     <string name="workout_superset">超级组 %1$s：不休息，直接进行下一个动作</string>
+    <string name="workout_superset_short_rest">超级组 %1$s：短暂休息后进行下一个动作</string>
+    <string name="workout_superset_last">超级组 %1$s：本轮最后一个动作，休息后回到第一个</string>
     <string name="manual_link">与下一个动作组成超级组</string>
     <string name="manual_unlink">取消与下一个动作的超级组</string>
     <string name="plan_edit_button">编辑计划</string>

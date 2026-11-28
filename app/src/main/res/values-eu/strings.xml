@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">1RM estimatua (kg)</string>
     <string name="progress_chart_reps">Errepikapenak</string>
     <string name="workout_superset">%1$s superseria: pasa hurrengo ariketara atseden hartu gabe</string>
+    <string name="workout_superset_short_rest">%1$s superseria: egin atseden laburra eta pasatu hurrengo ariketara</string>
+    <string name="workout_superset_last">%1$s superseria: itzuliko azken ariketa, hartu atseden eta itzuli lehenengora</string>
     <string name="manual_link">Superseria hurrengo ariketarekin</string>
     <string name="manual_unlink">Kendu hurrengoarekiko superseria</string>
     <string name="plan_edit_button">Editatu plana</string>

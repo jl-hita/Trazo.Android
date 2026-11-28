@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Оценка 1ПМ (кг)</string>
     <string name="progress_chart_reps">Повторения</string>
     <string name="workout_superset">Суперсет %1$s: переходите к следующему упражнению без отдыха</string>
+    <string name="workout_superset_short_rest">Суперсет %1$s: сделайте короткий отдых и переходите к следующему упражнению</string>
+    <string name="workout_superset_last">Суперсет %1$s: последнее упражнение круга, отдохните и вернитесь к первому</string>
     <string name="manual_link">Суперсет со следующим упражнением</string>
     <string name="manual_unlink">Убрать суперсет со следующим</string>
     <string name="plan_edit_button">Изменить план</string>
