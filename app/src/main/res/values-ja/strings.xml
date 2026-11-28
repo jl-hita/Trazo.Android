@@ -94,6 +94,9 @@
     <string name="rest_channel_description">アプリがバックグラウンドにあるとき、セット間の休憩が終わると通知します。</string>
     <string name="rest_over_title">休憩終了</string>
     <string name="rest_over_text">次のセットの時間です。</string>
+    <string name="rest_exact_hint">画面が消えていると、休憩終了の通知が遅れることがあります。時間どおりに受け取るには「アラームとリマインダー」を許可してください。</string>
+    <string name="rest_exact_allow">許可する</string>
+    <string name="rest_exact_decline">いいえ</string>
     <string name="onb_start_date">開始日</string>
     <string name="onb_weeks">プランの長さ：%1$d週間</string>
     <string name="onb_equipment">使える器具</string>

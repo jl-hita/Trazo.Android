@@ -401,6 +401,9 @@
     <string name="rest_channel_description">Alerts when your rest between sets is over while the app is in the background.</string>
     <string name="rest_over_title">Rest is over</string>
     <string name="rest_over_text">Time for your next set.</string>
+    <string name="rest_exact_hint">With the screen off, the end-of-rest alert may arrive late. Allow “Alarms &amp; reminders” to get it on time.</string>
+    <string name="rest_exact_allow">Allow</string>
+    <string name="rest_exact_decline">No, thanks</string>
     <string name="push_channel_name">Alerts</string>
     <string name="push_channel_description">Replies from the team to your reviews and TRAZO news.</string>
     <string name="push_review_reply">You have a message from the team.</string>

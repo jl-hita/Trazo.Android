@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Meldt wanneer je rust tussen sets voorbij is terwijl de app op de achtergrond draait.</string>
     <string name="rest_over_title">Rust is voorbij</string>
     <string name="rest_over_text">Tijd voor je volgende set.</string>
+    <string name="rest_exact_hint">Met het scherm uit kan de melding aan het einde van de rust te laat komen. Sta ‘Wekkers en herinneringen’ toe om ze op tijd te krijgen.</string>
+    <string name="rest_exact_allow">Toestaan</string>
+    <string name="rest_exact_decline">Nee, bedankt</string>
     <string name="onb_start_date">Startdatum</string>
     <string name="onb_weeks">Lengte van het plan: %1$d weken</string>
     <string name="onb_equipment">Beschikbaar materiaal</string>

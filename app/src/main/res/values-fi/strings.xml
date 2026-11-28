@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Ilmoittaa, kun sarjojen välinen lepo päättyy sovelluksen ollessa taustalla.</string>
     <string name="rest_over_title">Lepo on ohi</string>
     <string name="rest_over_text">Aika seuraavalle sarjalle.</string>
+    <string name="rest_exact_hint">Kun näyttö on sammutettu, ilmoitus levon päättymisestä voi myöhästyä. Salli ”Herätykset ja muistutukset”, niin se tulee ajallaan.</string>
+    <string name="rest_exact_allow">Salli</string>
+    <string name="rest_exact_decline">Ei kiitos</string>
     <string name="onb_start_date">Aloituspäivä</string>
     <string name="onb_weeks">Ohjelman pituus: %1$d viikkoa</string>
     <string name="onb_equipment">Käytettävissä olevat välineet</string>

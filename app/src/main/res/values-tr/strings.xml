@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Uygulama arka plandayken setler arası dinlenmen bittiğinde seni uyarır.</string>
     <string name="rest_over_title">Dinlenme bitti</string>
     <string name="rest_over_text">Sıradaki sete geçme zamanı.</string>
+    <string name="rest_exact_hint">Ekran kapalıyken dinlenme sonu bildirimi gecikebilir. Zamanında gelmesi için “Alarmlar ve hatırlatıcılar” iznini ver.</string>
+    <string name="rest_exact_allow">İzin ver</string>
+    <string name="rest_exact_decline">Hayır, teşekkürler</string>
     <string name="push_channel_name">Uyarılar</string>
     <string name="push_channel_description">Ekibin incelemelerine yanıtları ve TRAZO haberleri.</string>
     <string name="push_review_reply">Ekipten bir mesajın var.</string>

@@ -94,6 +94,9 @@
     <string name="rest_channel_description">앱이 백그라운드에 있을 때 세트 간 휴식이 끝나면 알려 줍니다.</string>
     <string name="rest_over_title">휴식 끝</string>
     <string name="rest_over_text">다음 세트를 할 시간입니다.</string>
+    <string name="rest_exact_hint">화면이 꺼져 있으면 휴식 종료 알림이 늦게 올 수 있습니다. 제때 받으려면 \'알람 및 리마인더\'를 허용하세요.</string>
+    <string name="rest_exact_allow">허용</string>
+    <string name="rest_exact_decline">괜찮아요</string>
     <string name="onb_start_date">시작일</string>
     <string name="onb_weeks">플랜 기간: %1$d주</string>
     <string name="onb_equipment">사용 가능한 장비</string>

@@ -67,6 +67,7 @@ class AppContainer(context: Context) {
     private val draftStore = JsonFileStore(File(appContext.filesDir, "drafts"), network.gson, localCipher)
     val drafts = WorkoutDraftStore(draftStore)
     val restAlarms: com.trazo.android.rest.RestAlarmScheduler = com.trazo.android.rest.AndroidRestAlarmScheduler(appContext)
+    val exactAlarmChoice by lazy { com.trazo.android.rest.ExactAlarmChoice(appContext) }
 
     /** Sends crashes and unexpected errors to the backend as anonymous tickets (see [ErrorReporter]). */
     val errorReporter = ErrorReporter(

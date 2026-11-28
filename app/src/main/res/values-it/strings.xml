@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Avvisa quando il recupero tra le serie è finito mentre l\'app è in background.</string>
     <string name="rest_over_title">Recupero finito</string>
     <string name="rest_over_text">È ora della prossima serie.</string>
+    <string name="rest_exact_hint">A schermo spento, l’avviso di fine recupero può arrivare in ritardo. Consenti «Sveglie e promemoria» per riceverlo in orario.</string>
+    <string name="rest_exact_allow">Consenti</string>
+    <string name="rest_exact_decline">No, grazie</string>
     <string name="push_channel_name">Avvisi</string>
     <string name="push_channel_description">Risposte del team alle tue revisioni e novità di TRAZO.</string>
     <string name="push_review_reply">Hai un messaggio dal team.</string>

@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Meldet, wenn deine Satzpause zu Ende ist, während die App im Hintergrund läuft.</string>
     <string name="rest_over_title">Pause vorbei</string>
     <string name="rest_over_text">Zeit für deinen nächsten Satz.</string>
+    <string name="rest_exact_hint">Bei ausgeschaltetem Bildschirm kann der Hinweis zum Pausenende verspätet kommen. Erlaube „Wecker und Erinnerungen“, damit er pünktlich kommt.</string>
+    <string name="rest_exact_allow">Erlauben</string>
+    <string name="rest_exact_decline">Nein danke</string>
     <string name="push_channel_name">Hinweise</string>
     <string name="push_channel_description">Antworten des Teams auf deine Prüfungen und Neuigkeiten von TRAZO.</string>
     <string name="push_review_reply">Du hast eine Nachricht vom Team.</string>

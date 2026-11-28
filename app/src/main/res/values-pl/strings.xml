@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Powiadamia o końcu przerwy między seriami, gdy aplikacja działa w tle.</string>
     <string name="rest_over_title">Koniec przerwy</string>
     <string name="rest_over_text">Czas na kolejną serię.</string>
+    <string name="rest_exact_hint">Przy wyłączonym ekranie powiadomienie o końcu przerwy może się spóźnić. Zezwól na „Alarmy i przypomnienia”, aby przychodziło na czas.</string>
+    <string name="rest_exact_allow">Zezwól</string>
+    <string name="rest_exact_decline">Nie, dziękuję</string>
     <string name="push_channel_name">Powiadomienia</string>
     <string name="push_channel_description">Odpowiedzi zespołu na Twoje przeglądy i nowości TRAZO.</string>
     <string name="push_review_reply">Masz wiadomość od zespołu.</string>

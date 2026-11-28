@@ -94,6 +94,9 @@
     <string name="rest_channel_description">ينبّه عند انتهاء الراحة بين المجموعات والتطبيق في الخلفية.</string>
     <string name="rest_over_title">انتهت الراحة</string>
     <string name="rest_over_text">حان وقت مجموعتك التالية.</string>
+    <string name="rest_exact_hint">عند إطفاء الشاشة قد يتأخر تنبيه انتهاء الراحة. فعّل «المنبّهات والتذكيرات» ليصلك في موعده.</string>
+    <string name="rest_exact_allow">سماح</string>
+    <string name="rest_exact_decline">لا، شكرًا</string>
     <string name="onb_start_date">تاريخ البدء</string>
     <string name="onb_weeks">مدة الخطة: %1$d أسابيع</string>
     <string name="onb_equipment">المعدات المتاحة</string>

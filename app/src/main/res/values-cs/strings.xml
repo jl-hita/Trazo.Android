@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Upozorní, když skončí odpočinek mezi sériemi, zatímco je aplikace na pozadí.</string>
     <string name="rest_over_title">Odpočinek skončil</string>
     <string name="rest_over_text">Čas na další sérii.</string>
+    <string name="rest_exact_hint">Při vypnuté obrazovce může upozornění na konec odpočinku přijít pozdě. Povol „Budíky a připomenutí“, ať přijde včas.</string>
+    <string name="rest_exact_allow">Povolit</string>
+    <string name="rest_exact_decline">Ne, děkuji</string>
     <string name="onb_start_date">Datum zahájení</string>
     <string name="onb_weeks">Délka plánu: %1$d týdnů</string>
     <string name="onb_equipment">Dostupné vybavení</string>

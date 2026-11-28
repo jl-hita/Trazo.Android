@@ -14,16 +14,19 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
 import com.trazo.android.data.model.AlternativeView
 import com.trazo.android.data.model.ExerciseFeedbackRequest
 import com.trazo.android.data.model.LastPerformanceView
+import com.trazo.android.rest.ExactAlarmOffer
 import com.trazo.android.ui.plan.formatDate
 import com.trazo.android.ui.plan.supersetHint
 import com.trazo.android.ui.catalog.ExerciseInfoDialog
@@ -33,12 +36,23 @@ import com.trazo.android.ui.theme.TrazoField
 import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (String) -> Unit, onRestStarted: () -> Unit = {}) {
+fun WorkoutScreen(
+    viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (String) -> Unit, onRestStarted: () -> Unit = {},
+    exactAlarm: ExactAlarmOffer? = null
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val resting = state.rest != null
     LaunchedEffect(resting) { if (resting) onRestStarted() }
+    var returns by remember { mutableIntStateOf(0) }
+    LifecycleResumeEffect(Unit) {
+        viewModel.replanRestAlert()
+        returns++
+        onPauseOrDispose {}
+    }
+    // Looked at when a rest starts and again on every return: the notification request or the settings switch may have changed it.
+    var exactAlarmDeclined by remember { mutableStateOf(false) }
+    val offerExactAlarm = remember(resting, returns) { resting && exactAlarm?.isDue?.invoke() == true } && !exactAlarmDeclined
     var confirmLeave by remember { mutableStateOf(false) }
     var showFinish by remember { mutableStateOf(false) }
     // The exercise whose explanation is open (steps and photos), reachable from the photo and from the swap picker.
@@ -125,8 +139,13 @@ fun WorkoutScreen(viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (
             }
         }
         // While typing, the keyboard leaves little room: the actions that are not part of a set step aside.
-        val typing = WindowInsets.isImeVisible
+        // The height, not WindowInsets.isImeVisible: that one says true until the system sends the insets, which on Android 14
+        // and older may never happen, and it hid these actions with no keyboard on the screen.
+        val typing = WindowInsets.ime.getBottom(LocalDensity.current) > 0
         if (!typing) TrazoLink(onClick = viewModel::openAddExercise, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_add_exercise)) }
+        if (!typing && offerExactAlarm && exactAlarm != null) ExactAlarmCard(
+            onAllow = exactAlarm.allow, onDecline = { exactAlarm.decline(); exactAlarmDeclined = true }
+        )
         state.rest?.let { RestBar(it, viewModel::adjustRest, viewModel::skipRest) }
         if (!typing) TrazoButton(onClick = { showFinish = true }, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_finish)) }
     }
@@ -181,6 +200,21 @@ private fun SetRow(title: String, markLabel: String, doneLabel: String, set: Set
                 checkedContainerColor = TrazoPalette.Ok, checkedContentColor = TrazoPalette.Background
             )
         ) { Icon(Icons.Filled.Check, contentDescription = null) }
+    }
+}
+
+@Composable
+private fun ExactAlarmCard(onAllow: () -> Unit, onDecline: () -> Unit) {
+    Surface(color = TrazoPalette.Sidebar, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+            Text(stringResource(R.string.rest_exact_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
+            Row {
+                TrazoLink(onClick = onAllow, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.rest_exact_allow)) }
+                Spacer(Modifier.weight(1f))
+                TrazoLink(onClick = onDecline, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.rest_exact_decline)) }
+            }
+        }
+        HorizontalDivider(color = TrazoPalette.Border)
     }
 }
 

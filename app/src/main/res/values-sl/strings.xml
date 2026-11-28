@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Obvesti, ko se počitek med serijami konča, medtem ko je aplikacija v ozadju.</string>
     <string name="rest_over_title">Počitek je končan</string>
     <string name="rest_over_text">Čas je za naslednjo serijo.</string>
+    <string name="rest_exact_hint">Pri izklopljenem zaslonu lahko obvestilo o koncu počitka zamuja. Dovoli »Alarmi in opomniki«, da pride pravočasno.</string>
+    <string name="rest_exact_allow">Dovoli</string>
+    <string name="rest_exact_decline">Ne, hvala</string>
     <string name="onb_start_date">Datum začetka</string>
     <string name="onb_weeks">Dolžina načrta: %1$d tednov</string>
     <string name="onb_equipment">Razpoložljiva oprema</string>

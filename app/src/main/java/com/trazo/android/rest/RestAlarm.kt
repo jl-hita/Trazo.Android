@@ -24,6 +24,8 @@ interface RestAlarmScheduler {
     /** Plans the alert for [atMillis] (wall clock), replacing any previous one: there is a single rest at a time. */
     fun schedule(atMillis: Long)
     fun cancel()
+    /** False while the phone only lets the app plan inexact alarms, so the alert may arrive late. */
+    fun canBeExact(): Boolean = true
 
     object None : RestAlarmScheduler {
         override fun schedule(atMillis: Long) {}
@@ -32,8 +34,8 @@ interface RestAlarmScheduler {
 }
 
 /**
- * Exact alarm that works in Doze. Since Android 12 the exact alarm permission can be revoked by the user: then the alert
- * still comes (an inexact alarm that is allowed while idle), a bit later, instead of not coming at all.
+ * Exact alarm that works in Doze. Since Android 12 it needs a permission that new installs do not have from Android 14 on:
+ * without it the alert still comes (an inexact alarm that is allowed while idle), a bit later, instead of not coming at all.
  */
 class AndroidRestAlarmScheduler(context: Context) : RestAlarmScheduler {
     private val app = context.applicationContext
@@ -44,12 +46,14 @@ class AndroidRestAlarmScheduler(context: Context) : RestAlarmScheduler {
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
 
+    override fun canBeExact(): Boolean = Build.VERSION.SDK_INT < 31 || alarms?.canScheduleExactAlarms() != false
+
     override fun schedule(atMillis: Long) {
         val manager = alarms ?: return
         val intent = pending()
         RestNotifier.dismiss(app)
         runCatching {
-            if (Build.VERSION.SDK_INT < 31 || manager.canScheduleExactAlarms()) manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, atMillis, intent)
+            if (canBeExact()) manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, atMillis, intent)
             else manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, atMillis, intent)
         }.onFailure {
             // The permission was revoked between the check and the call.

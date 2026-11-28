@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Giver besked, når hvilen mellem sæt er slut, mens appen er i baggrunden.</string>
     <string name="rest_over_title">Hvilen er slut</string>
     <string name="rest_over_text">Tid til dit næste sæt.</string>
+    <string name="rest_exact_hint">Når skærmen er slukket, kan beskeden om endt hvile komme for sent. Tillad “Alarmer og påmindelser”, så den kommer til tiden.</string>
+    <string name="rest_exact_allow">Tillad</string>
+    <string name="rest_exact_decline">Nej tak</string>
     <string name="onb_start_date">Startdato</string>
     <string name="onb_weeks">Planens længde: %1$d uger</string>
     <string name="onb_equipment">Tilgængeligt udstyr</string>

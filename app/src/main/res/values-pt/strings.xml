@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Avisa quando o teu descanso entre séries termina com a app em segundo plano.</string>
     <string name="rest_over_title">Descanso terminado</string>
     <string name="rest_over_text">É hora da tua próxima série.</string>
+    <string name="rest_exact_hint">Com a tela apagada, o aviso de fim do descanso pode chegar atrasado. Permita “Alarmes e lembretes” para recebê-lo na hora.</string>
+    <string name="rest_exact_allow">Permitir</string>
+    <string name="rest_exact_decline">Não, obrigado</string>
     <string name="push_channel_name">Avisos</string>
     <string name="push_channel_description">Respostas da equipe às suas revisões e novidades do TRAZO.</string>
     <string name="push_review_reply">Você tem uma mensagem da equipe.</string>

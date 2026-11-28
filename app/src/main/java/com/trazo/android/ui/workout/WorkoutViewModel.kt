@@ -103,6 +103,7 @@ class WorkoutViewModel(
     private val _state = MutableStateFlow(WorkoutState())
     val state: StateFlow<WorkoutState> = _state.asStateFlow()
     private var timer: Job? = null
+    private var restEndsAt = 0L
 
     /** Where the exercise explanations come from (null in tests that do not need them). */
     val catalog: ExerciseRepository? get() = exercises
@@ -188,7 +189,8 @@ class WorkoutViewModel(
         timer?.cancel()
         if (seconds <= 0) { alarms.cancel(); _state.update { it.copy(rest = null) }; return }
         _state.update { it.copy(rest = RestTimer(seconds, seconds)) }
-        alarms.schedule(clock() + seconds * 1000L)
+        restEndsAt = clock() + seconds * 1000L
+        alarms.schedule(restEndsAt)
         timer = viewModelScope.launchGuarded(R.string.feature_workout) {
             var left = seconds
             while (left > 0) {
@@ -202,6 +204,11 @@ class WorkoutViewModel(
     fun adjustRest(deltaSeconds: Int) {
         val rest = _state.value.rest ?: return
         startRest((rest.remainingSeconds + deltaSeconds).coerceAtLeast(0).coerceAtMost(900))
+    }
+
+    /** Plans the alert again on coming back to the screen: the user may have just allowed exact alarms. */
+    fun replanRestAlert() {
+        if (_state.value.rest != null && restEndsAt > clock()) alarms.schedule(restEndsAt)
     }
 
     fun skipRest() { timer?.cancel(); alarms.cancel(); _state.update { it.copy(rest = null) } }

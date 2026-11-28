@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Уведомляет об окончании отдыха между подходами, когда приложение работает в фоне.</string>
     <string name="rest_over_title">Отдых окончен</string>
     <string name="rest_over_text">Пора делать следующий подход.</string>
+    <string name="rest_exact_hint">При выключенном экране уведомление об окончании отдыха может опаздывать. Разрешите «Будильники и напоминания», чтобы оно приходило вовремя.</string>
+    <string name="rest_exact_allow">Разрешить</string>
+    <string name="rest_exact_decline">Нет, спасибо</string>
     <string name="onb_start_date">Дата начала</string>
     <string name="onb_weeks">Длительность плана: %1$d нед.</string>
     <string name="onb_equipment">Доступное оборудование</string>
