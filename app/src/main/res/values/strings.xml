@@ -738,4 +738,9 @@
     <string name="feedback_message">Your message</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_sent">Thank you. We have received it.</string>
+    <string name="export_title">Your data</string>
+    <string name="export_note">A file with what TRAZO keeps about your account. It may include health data: save it where only you can see it.</string>
+    <string name="export_button">Download my data</string>
+    <string name="export_saved">File saved.</string>
+    <string name="export_save_failed">The file could not be saved.</string>
 </resources>

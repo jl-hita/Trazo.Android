@@ -694,4 +694,9 @@
     <string name="feedback_message">Твојата порака</string>
     <string name="feedback_send">Испрати</string>
     <string name="feedback_sent">Благодариме. Го примивме.</string>
+    <string name="export_title">Твоите податоци</string>
+    <string name="export_note">Датотека со она што TRAZO го чува за твојата сметка. Може да содржи здравствени податоци: зачувај ја каде што ја гледаш само ти.</string>
+    <string name="export_button">Преземи ги моите податоци</string>
+    <string name="export_saved">Датотеката е зачувана.</string>
+    <string name="export_save_failed">Датотеката не можеше да се зачува.</string>
 </resources>

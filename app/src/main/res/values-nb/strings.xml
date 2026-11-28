@@ -694,4 +694,9 @@
     <string name="feedback_message">Meldingen din</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_sent">Takk. Vi har mottatt den.</string>
+    <string name="export_title">Dine data</string>
+    <string name="export_note">En fil med det TRAZO lagrer om kontoen din. Den kan inneholde helseopplysninger: lagre den der bare du kan se den.</string>
+    <string name="export_button">Last ned mine data</string>
+    <string name="export_saved">Filen er lagret.</string>
+    <string name="export_save_failed">Filen kunne ikke lagres.</string>
 </resources>

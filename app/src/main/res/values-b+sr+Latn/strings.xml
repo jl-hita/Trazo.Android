@@ -699,4 +699,9 @@
     <string name="feedback_message">Tvoja poruka</string>
     <string name="feedback_send">Pošalji</string>
     <string name="feedback_sent">Hvala. Primili smo.</string>
+    <string name="export_title">Tvoji podaci</string>
+    <string name="export_note">Datoteka sa onim što TRAZO čuva o tvom nalogu. Može sadržati zdravstvene podatke: sačuvaj je tamo gde je vidiš samo ti.</string>
+    <string name="export_button">Preuzmi moje podatke</string>
+    <string name="export_saved">Datoteka je sačuvana.</string>
+    <string name="export_save_failed">Datoteka nije mogla da se sačuva.</string>
 </resources>

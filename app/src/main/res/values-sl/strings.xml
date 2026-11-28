@@ -704,4 +704,9 @@
     <string name="feedback_message">Tvoje sporočilo</string>
     <string name="feedback_send">Pošlji</string>
     <string name="feedback_sent">Hvala. Prejeli smo.</string>
+    <string name="export_title">Tvoji podatki</string>
+    <string name="export_note">Datoteka s tem, kar TRAZO hrani o tvojem računu. Lahko vsebuje zdravstvene podatke: shrani jo tja, kjer jo vidiš le ti.</string>
+    <string name="export_button">Prenesi moje podatke</string>
+    <string name="export_saved">Datoteka shranjena.</string>
+    <string name="export_save_failed">Datoteke ni bilo mogoče shraniti.</string>
 </resources>

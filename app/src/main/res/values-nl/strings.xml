@@ -694,4 +694,9 @@
     <string name="feedback_message">Je bericht</string>
     <string name="feedback_send">Versturen</string>
     <string name="feedback_sent">Bedankt. We hebben het ontvangen.</string>
+    <string name="export_title">Je gegevens</string>
+    <string name="export_note">Een bestand met wat TRAZO over je account bewaart. Het kan gezondheidsgegevens bevatten: bewaar het waar alleen jij het kunt zien.</string>
+    <string name="export_button">Mijn gegevens downloaden</string>
+    <string name="export_saved">Bestand opgeslagen.</string>
+    <string name="export_save_failed">Het bestand kon niet worden opgeslagen.</string>
 </resources>

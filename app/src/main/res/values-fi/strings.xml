@@ -694,4 +694,9 @@
     <string name="feedback_message">Viestisi</string>
     <string name="feedback_send">Lähetä</string>
     <string name="feedback_sent">Kiitos. Saimme sen.</string>
+    <string name="export_title">Tietosi</string>
+    <string name="export_note">Tiedosto, jossa on TRAZOn tallentamat tiedot tilistäsi. Se voi sisältää terveystietoja: tallenna se paikkaan, jonka näet vain sinä.</string>
+    <string name="export_button">Lataa tietoni</string>
+    <string name="export_saved">Tiedosto tallennettu.</string>
+    <string name="export_save_failed">Tiedostoa ei voitu tallentaa.</string>
 </resources>

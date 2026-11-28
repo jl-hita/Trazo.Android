@@ -704,4 +704,9 @@
     <string name="feedback_message">Ваше сообщение</string>
     <string name="feedback_send">Отправить</string>
     <string name="feedback_sent">Спасибо. Мы получили.</string>
+    <string name="export_title">Ваши данные</string>
+    <string name="export_note">Файл с тем, что TRAZO хранит о вашем аккаунте. Он может содержать данные о здоровье: сохраните его там, где его увидите только вы.</string>
+    <string name="export_button">Скачать мои данные</string>
+    <string name="export_saved">Файл сохранён.</string>
+    <string name="export_save_failed">Не удалось сохранить файл.</string>
 </resources>

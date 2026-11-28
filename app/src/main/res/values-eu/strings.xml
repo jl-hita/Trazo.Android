@@ -694,4 +694,9 @@
     <string name="feedback_message">Zure mezua</string>
     <string name="feedback_send">Bidali</string>
     <string name="feedback_sent">Eskerrik asko. Jaso dugu.</string>
+    <string name="export_title">Zure datuak</string>
+    <string name="export_note">TRAZOk zure kontuari buruz gordetzen duena biltzen duen fitxategia. Osasun-datuak izan ditzake: gorde zuk bakarrik ikus dezakezun lekuan.</string>
+    <string name="export_button">Deskargatu nire datuak</string>
+    <string name="export_saved">Fitxategia gordeta.</string>
+    <string name="export_save_failed">Ezin izan da fitxategia gorde.</string>
 </resources>

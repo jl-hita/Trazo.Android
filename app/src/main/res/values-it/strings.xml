@@ -699,4 +699,9 @@
     <string name="feedback_message">Il tuo messaggio</string>
     <string name="feedback_send">Invia</string>
     <string name="feedback_sent">Grazie. L\'abbiamo ricevuto.</string>
+    <string name="export_title">I tuoi dati</string>
+    <string name="export_note">Un file con ciò che TRAZO conserva sul tuo account. Può contenere dati sanitari: salvalo dove solo tu puoi vederlo.</string>
+    <string name="export_button">Scarica i miei dati</string>
+    <string name="export_saved">File salvato.</string>
+    <string name="export_save_failed">Impossibile salvare il file.</string>
 </resources>

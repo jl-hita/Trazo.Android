@@ -699,4 +699,9 @@
     <string name="feedback_message">El teu missatge</string>
     <string name="feedback_send">Envia</string>
     <string name="feedback_sent">Gràcies. L\'hem rebut.</string>
+    <string name="export_title">Les teves dades</string>
+    <string name="export_note">Un fitxer amb el que TRAZO desa del teu compte. Pot incloure dades de salut: desa\'l on només el puguis veure tu.</string>
+    <string name="export_button">Baixa les meves dades</string>
+    <string name="export_saved">Fitxer desat.</string>
+    <string name="export_save_failed">No s\'ha pogut desar el fitxer.</string>
 </resources>

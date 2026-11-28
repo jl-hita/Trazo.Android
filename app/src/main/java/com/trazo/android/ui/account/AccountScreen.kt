@@ -43,6 +43,7 @@ fun AccountScreen(
     onLanguageChanged: () -> Unit = {},
     onReferrals: () -> Unit = {},
     onFeedback: () -> Unit = {},
+    dataExport: @Composable () -> Unit = {},
     onDeleteAccount: () -> Unit = {},
     health: @Composable () -> Unit = {},
     research: @Composable () -> Unit = {}
@@ -155,6 +156,8 @@ fun AccountScreen(
             health()
 
             research()
+
+            dataExport()
 
             SectionTitle(stringResource(R.string.legal_section))
             LegalLinks()

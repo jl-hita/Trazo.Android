@@ -689,4 +689,9 @@
     <string name="feedback_message">메시지</string>
     <string name="feedback_send">보내기</string>
     <string name="feedback_sent">감사합니다. 잘 받았습니다.</string>
+    <string name="export_title">내 데이터</string>
+    <string name="export_note">TRAZO가 계정에 대해 보관하는 내용을 담은 파일입니다. 건강 정보가 포함될 수 있으니 본인만 볼 수 있는 곳에 저장하세요.</string>
+    <string name="export_button">내 데이터 다운로드</string>
+    <string name="export_saved">파일을 저장했습니다.</string>
+    <string name="export_save_failed">파일을 저장할 수 없습니다.</string>
 </resources>
