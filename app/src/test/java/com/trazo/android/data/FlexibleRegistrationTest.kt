@@ -193,7 +193,7 @@ class FlexibleRegistrationTest {
         assertFalse(json.has("trainingDays"))
         assertEquals("Sequence", json["schedulingMode"].asString)
         assertEquals(5, json["sessionsPerPeriod"].asInt)
-        assertEquals("PushPullLegs", sequence.split) // five sessions per cycle ask for the same split as five days
+        assertEquals("Hybrid", sequence.split) // five sessions per cycle ask for the same split as five days
 
         val calendar = com.google.gson.JsonParser.parseString(
             gson.toJson(OnboardingViewModel.buildRequest(OnboardingState(options = options, days = setOf("Monday", "Thursday")), options))

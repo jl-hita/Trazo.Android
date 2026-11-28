@@ -250,10 +250,12 @@ class OnboardingViewModelTest : ViewModelTestBase() {
         assertEquals("Automatic", sent.split)
     }
 
-    @Test fun `five or more days use push pull legs because automatic only covers 2 to 4`() = runTest(dispatcher) {
+    @Test fun `five days ask for the hybrid week and six for push pull legs because automatic only covers 2 to 4`() = runTest(dispatcher) {
         val vm = OnboardingViewModel(plansRepo(FakePlansApi()))
         advanceUntilIdle()
         listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday").forEach(vm::toggleDay)
+        assertEquals("Hybrid", OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).split)
+        vm.toggleDay("Saturday")
         assertEquals("PushPullLegs", OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).split)
     }
 
