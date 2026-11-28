@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Procenjeni 1RM (kg)</string>
     <string name="progress_chart_reps">Ponavljanja</string>
     <string name="workout_superset">Superserija %1$s: pređi na sledeću vežbu bez odmora</string>
+    <string name="workout_superset_short_rest">Superserija %1$s: napravi kratku pauzu i pređi na sledeću vežbu</string>
+    <string name="workout_superset_last">Superserija %1$s: poslednja vežba u krugu, odmori i vrati se na prvu</string>
     <string name="manual_link">Superserija sa sledećom vežbom</string>
     <string name="manual_unlink">Ukloni superseriju sa sledećom</string>
     <string name="plan_edit_button">Izmeni plan</string>

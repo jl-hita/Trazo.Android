@@ -473,6 +473,8 @@
     <string name="progress_chart_1rm">1RM estimado (kg)</string>
     <string name="progress_chart_reps">Repeticiones</string>
     <string name="workout_superset">Superserie %1$s: sigue con el siguiente ejercicio sin descanso</string>
+    <string name="workout_superset_short_rest">Superserie %1$s: haz el descanso corto y pasa al siguiente ejercicio</string>
+    <string name="workout_superset_last">Superserie %1$s: último ejercicio de la ronda, descansa y vuelve al primero</string>
     <string name="manual_link">Unir en superserie con el siguiente</string>
     <string name="manual_unlink">Quitar la superserie con el siguiente</string>
     <string name="plan_edit_button">Editar el plan</string>

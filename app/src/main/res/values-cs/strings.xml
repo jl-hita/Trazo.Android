@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Odhadované 1RM (kg)</string>
     <string name="progress_chart_reps">Opakování</string>
     <string name="workout_superset">Superset %1$s: pokračuj dalším cvikem bez pauzy</string>
+    <string name="workout_superset_short_rest">Superset %1$s: krátce si odpočiň a přejdi na další cvik</string>
+    <string name="workout_superset_last">Superset %1$s: poslední cvik kola, odpočiň si a vrať se k prvnímu</string>
     <string name="manual_link">Superset s dalším cvikem</string>
     <string name="manual_unlink">Zrušit superset s dalším</string>
     <string name="plan_edit_button">Upravit plán</string>

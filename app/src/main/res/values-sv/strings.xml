@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">Uppskattad 1RM (kg)</string>
     <string name="progress_chart_reps">Repetitioner</string>
     <string name="workout_superset">Superset %1$s: gå vidare till nästa övning utan vila</string>
+    <string name="workout_superset_short_rest">Superset %1$s: ta den korta vilan och gå vidare till nästa övning</string>
+    <string name="workout_superset_last">Superset %1$s: varvets sista övning, vila och börja om med den första</string>
     <string name="manual_link">Superset med nästa övning</string>
     <string name="manual_unlink">Ta bort supersetet med nästa</string>
     <string name="plan_edit_button">Redigera planen</string>

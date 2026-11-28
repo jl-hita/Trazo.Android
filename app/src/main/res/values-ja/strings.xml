@@ -456,6 +456,8 @@
     <string name="progress_chart_1rm">推定1RM（kg）</string>
     <string name="progress_chart_reps">回数</string>
     <string name="workout_superset">スーパーセット%1$s：休憩せずに次の種目へ</string>
+    <string name="workout_superset_short_rest">スーパーセット%1$s：短く休んでから次の種目へ</string>
+    <string name="workout_superset_last">スーパーセット%1$s：ラウンド最後の種目です。休憩して最初の種目に戻ります</string>
     <string name="manual_link">次の種目とスーパーセットにする</string>
     <string name="manual_unlink">次の種目とのスーパーセットを解除</string>
     <string name="plan_edit_button">プランを編集</string>
