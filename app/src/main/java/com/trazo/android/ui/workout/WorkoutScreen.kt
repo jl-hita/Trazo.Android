@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -24,7 +25,6 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.trazo.android.R
 import com.trazo.android.data.model.AlternativeView
-import com.trazo.android.data.model.ExerciseFeedbackRequest
 import com.trazo.android.data.model.LastPerformanceView
 import com.trazo.android.rest.ExactAlarmOffer
 import com.trazo.android.ui.plan.formatDate
@@ -60,6 +60,7 @@ fun WorkoutScreen(
     val done = state.finish as? FinishState.Done
 
     BackHandler(enabled = done == null) { confirmLeave = true }
+    val health = com.trazo.android.ui.common.LocalHealthGate.current
 
     if (done != null) { FinishedScreen(done, onExit); return }
 
@@ -100,6 +101,15 @@ fun WorkoutScreen(
                         color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall
                     )
                     ex.lastPerformance?.let { LastTimeInfo(it, ex.targetLoadKg == null) }
+                    val position = state.entries.indexOf(entry)
+                    WorkoutViewModel.recoveryQuestions(state.entries, position).forEach { muscle ->
+                        MuscleQuestion(
+                            stringResource(R.string.mq_recovery, Labels.muscle(muscle)), RECOVERY_ANSWERS,
+                            state.muscles[muscle]?.recovery
+                        ) { viewModel.answerRecovery(muscle, it) }
+                    }
+                    // Said once, with the first questions of the session.
+                    if (position == 0) Text(stringResource(R.string.fb_hint), color = TrazoPalette.Muted, style = MaterialTheme.typography.bodySmall)
                     ex.technique?.let {
                         Text(techniqueSummary(it), color = TrazoPalette.Link, style = MaterialTheme.typography.labelMedium)
                         Text(techniqueHelp(it), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
@@ -130,6 +140,17 @@ fun WorkoutScreen(
                                 Text(stringResource(R.string.workout_add_segment))
                             }
                         }
+                    }
+                    WorkoutViewModel.workloadQuestions(state.entries, position).forEach { muscle ->
+                        MuscleQuestion(
+                            stringResource(R.string.mq_workload, Labels.muscle(muscle)), WORKLOAD_ANSWERS,
+                            state.muscles[muscle]?.workload
+                        ) { viewModel.answerWorkload(muscle, it) }
+                    }
+                    DiscomfortQuestion(state.discomfort[ex.exerciseId]) { value ->
+                        // Marking it needs the consent; taking a mark away never does.
+                        if (state.discomfort[ex.exerciseId] == value) viewModel.toggleDiscomfort(ex.exerciseId, value)
+                        else health { viewModel.toggleDiscomfort(ex.exerciseId, value) }
                     }
                     Row {
                         TrazoLink(onClick = { viewModel.showAlternatives(ex.exerciseId) }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_swap)) }
@@ -344,22 +365,25 @@ private fun SwapScopeDialog(
 }
 
 private val RECOVERIES = listOf("Unknown", "Good", "Partial", "Insufficient")
-private val STIMULUS = listOf("low", "adequate", "high")
-private val DISCOMFORT = listOf("none", "mild", "strong")
-private val PRE_FATIGUE = listOf("recovered", "loaded")
+private val RECOVERY_ANSWERS = listOf("recovered" to R.string.mq_fresh, "justRecovered" to R.string.mq_ready, "notRecovered" to R.string.mq_sore)
+private val WORKLOAD_ANSWERS = listOf("low" to R.string.fb_low, "adequate" to R.string.mq_right, "high" to R.string.mq_too_much)
+private val DISCOMFORT_ANSWERS = listOf("mild" to R.string.fb_mild, "strong" to R.string.fb_strong)
 
-private fun fbLabel(context: android.content.Context, value: String): String = context.getString(
-    when (value) {
-        "low" -> R.string.fb_low
-        "adequate" -> R.string.fb_adequate
-        "high" -> R.string.fb_high
-        "none" -> R.string.fb_none
-        "mild" -> R.string.fb_mild
-        "strong" -> R.string.fb_strong
-        "recovered" -> R.string.fb_recovered
-        else -> R.string.fb_loaded
-    }
-)
+/** One optional question about a muscle, answered with a single tap. */
+@Composable
+private fun MuscleQuestion(question: String, answers: List<Pair<String, Int>>, selected: String?, onAnswer: (String) -> Unit) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    Text(question, style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
+    ChipGroup(answers.map { it.first }, setOfNotNull(selected), { value -> context.getString(answers.first { it.first == value }.second) }, onAnswer)
+}
+
+/** Discomfort is only asked about when there is some: a link until the user opens it or has marked it. */
+@Composable
+private fun DiscomfortQuestion(selected: String?, onChoose: (String) -> Unit) {
+    var open by rememberSaveable { mutableStateOf(false) }
+    if (open || selected != null) MuscleQuestion(stringResource(R.string.fb_discomfort), DISCOMFORT_ANSWERS, selected, onChoose)
+    else TrazoLink(onClick = { open = true }, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.mq_mark_discomfort)) }
+}
 
 private val REASONS = listOf("Time", "Fatigue", "Equipment", "Motivation", "Illness", "Other")
 
@@ -371,9 +395,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
     var notes by remember { mutableStateOf("") }
     // No answer is assumed: the reason changes what the plan does next (fatigue holds progression), so the person picks it.
     var reason by remember { mutableStateOf<String?>(null) }
-    var feedback by remember { mutableStateOf<Map<String, ExerciseFeedbackRequest>>(emptyMap()) }
     var performedOn by remember { mutableStateOf<java.time.LocalDate?>(null) }
-    val context = androidx.compose.ui.platform.LocalContext.current
     val health = com.trazo.android.ui.common.LocalHealthGate.current
     val incomplete = state.doneSets < state.allSets
     val sending = state.finish is FinishState.Sending
@@ -398,27 +420,6 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
                     Spacer(Modifier.width(8.dp))
                     Text(stringResource(R.string.finish_pain))
                 }
-                val answered = state.entries.filter { e -> e.sets.any { it.done } }
-                if (answered.isNotEmpty()) {
-                    Text(stringResource(R.string.fb_title))
-                    Text(stringResource(R.string.fb_hint), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
-                    answered.forEach { e ->
-                        val id = e.exercise.exerciseId
-                        val current = feedback[id] ?: ExerciseFeedbackRequest()
-                        fun update(next: ExerciseFeedbackRequest) { feedback = feedback + (id to next) }
-                        Text(e.exercise.name, style = MaterialTheme.typography.titleSmall)
-                        Text(stringResource(R.string.fb_stimulus), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
-                        ChipGroup(STIMULUS, setOfNotNull(current.stimulus), { fbLabel(context, it) }, { v -> update(current.copy(stimulus = v.takeUnless { it == current.stimulus })) })
-                        Text(stringResource(R.string.fb_discomfort), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
-                        ChipGroup(DISCOMFORT, setOfNotNull(current.discomfort), { fbLabel(context, it) }, { v ->
-                            // Read the answers again when it runs: the consent question may have been on screen meanwhile.
-                            fun set(value: String?) { val latest = feedback[id] ?: ExerciseFeedbackRequest(); update(latest.copy(discomfort = value)) }
-                            if (v == current.discomfort) set(null) else health { set(v) }
-                        })
-                        Text(stringResource(R.string.fb_prefatigue), style = MaterialTheme.typography.bodySmall, color = TrazoPalette.TextSecondary)
-                        ChipGroup(PRE_FATIGUE, setOfNotNull(current.preFatigue), { fbLabel(context, it) }, { v -> update(current.copy(preFatigue = v.takeUnless { it == current.preFatigue })) })
-                    }
-                }
                 OutlinedTextField(notes, { notes = it.take(1000) }, label = { Text(stringResource(R.string.finish_notes)) }, modifier = Modifier.fillMaxWidth())
                 (state.finish as? FinishState.Failed)?.let { InlineError(it.error) }
             }
@@ -426,7 +427,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
         confirmButton = {
             TextButton(
                 enabled = !sending && (!incomplete || reason != null), modifier = Modifier.heightIn(min = MinTouch),
-                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, reason?.takeIf { incomplete } ?: "None", feedback, performedOn)) }
+                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, reason?.takeIf { incomplete } ?: "None", performedOn)) }
             ) { Text(stringResource(if (sending) R.string.finish_sending else R.string.finish_send)) }
         },
         dismissButton = { TextButton(enabled = !sending, onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }

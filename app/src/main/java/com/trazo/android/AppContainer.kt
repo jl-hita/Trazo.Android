@@ -96,7 +96,13 @@ class AppContainer(context: Context) {
     val account = com.trazo.android.data.repo.AccountRepository(network.create(com.trazo.android.data.api.AccountApi::class.java))
     val plans: PlanRepository = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext),
         // Never over what the user typed since: the draft is only rebuilt when there is none.
-        restoreDraft = { log -> if (drafts.load(log.sessionId) == null) drafts.save(log.sessionId, com.trazo.android.ui.workout.WorkoutViewModel.draftOf(log.request)) },
+        restoreDraft = { log ->
+            if (drafts.load(log.sessionId) == null) drafts.save(
+                log.sessionId, com.trazo.android.ui.workout.WorkoutViewModel.draftOf(log.request),
+                log.request.muscleFeedback.orEmpty(), com.trazo.android.ui.workout.WorkoutViewModel.discomfortOf(log.request)
+            )
+        },
+        forgetDraftHealthData = drafts::forgetHealthData,
         deleteDraft = drafts::delete, beforeHealthData = { healthConsent.sync() })
     val researchConsent = com.trazo.android.data.repo.ResearchConsentRepository(
         network.create(com.trazo.android.data.api.AccountApi::class.java)

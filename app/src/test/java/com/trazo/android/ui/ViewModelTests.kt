@@ -179,20 +179,6 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         assertEquals(90, monday.exercises[0].restSeconds)
     }
 
-    @Test fun `only answered questions of exercises with done sets are sent`() {
-        val a = WorkoutViewModel.freshEntry(sampleExercise("a")).let { e -> e.copy(sets = e.sets.mapIndexed { i, s -> if (i == 0) s.copy(reps = "10", done = true) else s }) }
-        val b = WorkoutViewModel.freshEntry(sampleExercise("b")) // nothing done
-        val form = FinishForm(feedback = mapOf(
-            "a" to com.trazo.android.data.model.ExerciseFeedbackRequest(stimulus = "low", discomfort = "none"),
-            "b" to com.trazo.android.data.model.ExerciseFeedbackRequest(stimulus = "high"),
-            "c" to com.trazo.android.data.model.ExerciseFeedbackRequest()
-        ))
-        val request = WorkoutViewModel.buildLogRequest(listOf(a, b), form)
-        assertEquals(setOf("a"), request.exerciseFeedback!!.keys)
-        assertEquals("low", request.exerciseFeedback!!.getValue("a").stimulus)
-        assertNull(WorkoutViewModel.buildLogRequest(listOf(a, b), FinishForm()).exerciseFeedback)
-    }
-
     @Test fun `unfinished sets make a partial log with the skip reason`() {
         val entries = listOf(WorkoutViewModel.freshEntry(sampleExercise()).let { e ->
             e.copy(sets = e.sets.mapIndexed { i, s -> if (i == 0) s.copy(reps = "10", done = true) else s })

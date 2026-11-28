@@ -45,6 +45,7 @@ class PlanRepository(
     /** Puts the sets of a rejected log back in the workout screen, so it can be corrected. */
     private val restoreDraft: (PendingLog) -> Unit = {},
     private val deleteDraft: (String) -> Unit = {},
+    private val forgetDraftHealthData: () -> Unit = {},
     /**
      * Runs before anything that may carry health data is sent: a consent given without a connection must reach the server first,
      * or the server leaves that data out.
@@ -79,6 +80,7 @@ class PlanRepository(
     suspend fun forgetHealthData() {
         disk {
             queue.all().forEach { queue.replace(it.withoutHealthData()) }
+            forgetDraftHealthData()
             cache.clear()
         }
         publishQueue()

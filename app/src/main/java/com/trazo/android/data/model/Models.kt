@@ -221,7 +221,9 @@ data class LogSessionRequest(
     /** When the workout happened (ISO instant). Fixed once, when the workout ends, so a retry or a queued send never changes it. */
     val performedAt: String? = null,
     /** Identifies this request: sending it again (lost answer, queue, second device) returns the saved result. */
-    val clientRequestId: String? = null
+    val clientRequestId: String? = null,
+    /** The questions about each muscle trained, by the muscle name of the prescription; only answered ones are sent. */
+    val muscleFeedback: Map<String, MuscleFeedbackRequest>? = null
 )
 
 fun LogSessionRequest.withoutHealthData() = copy(
@@ -230,6 +232,14 @@ fun LogSessionRequest.withoutHealthData() = copy(
     sets = sets.map { it.copy(painReported = false, skippedReason = if (it.skippedReason == "pain" || it.skippedReason == "illness") "other" else it.skippedReason) },
     exerciseFeedback = exerciseFeedback?.mapValues { it.value.copy(discomfort = null) }?.filterValues { !it.isEmpty }
 )
+
+/**
+ * recovery: recovered|justRecovered|notRecovered, asked before the first exercise of the muscle; workload: low|adequate|high, asked
+ * after its last one. Each may be null (not answered).
+ */
+data class MuscleFeedbackRequest(val recovery: String? = null, val workload: String? = null) {
+    val isEmpty: Boolean get() = recovery == null && workload == null
+}
 
 /** stimulus: low|adequate|high, discomfort: none|mild|strong, preFatigue: recovered|loaded. Each may be null (not answered). */
 data class ExerciseFeedbackRequest(val stimulus: String? = null, val discomfort: String? = null, val preFatigue: String? = null) {

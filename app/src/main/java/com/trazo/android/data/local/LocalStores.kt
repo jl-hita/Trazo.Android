@@ -81,6 +81,7 @@ class JsonFileStore(
 
     @Synchronized
     fun delete(name: String) { File(dir, name).delete() }
+    fun names(): List<String> = dir.listFiles()?.map { it.name }.orEmpty()
 
     @Synchronized
     fun clear() { dir.listFiles()?.forEach { it.delete() } }
@@ -204,11 +205,26 @@ class DraftSet(
     /** 0 for the main set (and for drafts written before segments existed). */
     val segment: Int = 0
 )
-class WorkoutDraft(val sessionId: String, val sets: List<DraftSet>, val savedAtMillis: Long)
+class WorkoutDraft(
+    val sessionId: String, val sets: List<DraftSet>, val savedAtMillis: Long,
+    /** The answers about each muscle; absent in drafts written before they existed. */
+    val muscles: Map<String, com.trazo.android.data.model.MuscleFeedbackRequest>? = null,
+    /** Discomfort reported by exercise id: "mild" or "strong". */
+    val discomfort: Map<String, String>? = null
+)
 
 /** The sets typed so far in a workout, so an interrupted session (app killed, call received) is not lost. */
 class WorkoutDraftStore(private val store: JsonFileStore, private val now: () -> Long = System::currentTimeMillis) {
-    fun save(sessionId: String, sets: List<DraftSet>) = store.write(name(sessionId), WorkoutDraft(sessionId, sets, now()))
+    fun save(
+        sessionId: String, sets: List<DraftSet>,
+        muscles: Map<String, com.trazo.android.data.model.MuscleFeedbackRequest> = emptyMap(), discomfort: Map<String, String> = emptyMap()
+    ) = store.write(name(sessionId), WorkoutDraft(sessionId, sets, now(), muscles.ifEmpty { null }, discomfort.ifEmpty { null }))
+
+    /** For someone who withdrew the consent for health data: the unfinished workouts stay, without their discomfort marks. */
+    fun forgetHealthData() = store.names().filter { it.startsWith("draft_") }.forEach { file ->
+        val draft = store.read<WorkoutDraft>(file, WorkoutDraft::class.java) ?: return@forEach
+        if (draft.discomfort != null) store.write(file, WorkoutDraft(draft.sessionId, draft.sets, draft.savedAtMillis, draft.muscles))
+    }
     /** A draft written by a build whose fields were renamed (or that is damaged) is dropped instead of crashing the session. */
     fun load(sessionId: String): WorkoutDraft? {
         val draft = store.read<WorkoutDraft>(name(sessionId), WorkoutDraft::class.java) ?: return null
