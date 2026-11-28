@@ -44,7 +44,12 @@ class PlanRepository(
     private val sync: SyncScheduler = SyncScheduler.None,
     /** Puts the sets of a rejected log back in the workout screen, so it can be corrected. */
     private val restoreDraft: (PendingLog) -> Unit = {},
-    private val deleteDraft: (String) -> Unit = {}
+    private val deleteDraft: (String) -> Unit = {},
+    /**
+     * Runs before anything that may carry health data is sent: a consent given without a connection must reach the server first,
+     * or the server leaves that data out.
+     */
+    private val beforeHealthData: suspend () -> Unit = {}
 ) {
     /** Cache and queue are JSON files: reading or writing them must never happen on the main thread. */
     private suspend fun <T> disk(block: () -> T): T = withContext(io) { block() }
@@ -96,6 +101,7 @@ class PlanRepository(
     suspend fun options(): ApiResult<PlanOptions> = apiCall { api.options() }
 
     suspend fun createPlan(request: PlanProfileRequest): ApiResult<PlanView> {
+        beforeHealthData()
         val result = apiCall { api.create(request) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
         return result
@@ -131,6 +137,7 @@ class PlanRepository(
     suspend fun programSheet(id: String, request: PlanProfileRequest): ApiResult<ProgramSheetView> = apiCall { api.programSheet(id, request) }
 
     suspend fun createProgramPlan(id: String, request: PlanProfileRequest): ApiResult<PlanView> {
+        beforeHealthData()
         val result = apiCall { api.createProgram(id, request) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
         return result
@@ -223,6 +230,7 @@ class PlanRepository(
 
     /** Replaces the injured areas; the backend swaps what they rule out in the pending sessions, so the cached week is dropped and the plan refreshed. */
     suspend fun updateLimitations(areas: List<String>): ApiResult<PlanView> {
+        beforeHealthData()
         val result = apiCall { api.updateLimitations(UpdateLimitationsRequest(areas)) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear(); cache.savePlan(result.value) } }
         return result
@@ -237,6 +245,7 @@ class PlanRepository(
 
     /** Omits a pending session on purpose; the cached week is dropped so the next read shows it resolved. */
     suspend fun skip(sessionId: String, reason: String): ApiResult<SkipResult> {
+        beforeHealthData()
         val result = apiCall { api.skip(sessionId, SkipSessionRequest(reason)) }
         if (result is ApiResult.Success) { _week.value = null; disk { cache.clear() } }
         return result
@@ -281,6 +290,7 @@ class PlanRepository(
         var answered = false
         try {
             return flushLock.withLock {
+                beforeHealthData()
                 when (val result = apiCall { api.log(sessionId, entry.request) }) {
                     is ApiResult.Success -> {
                         answered = true
@@ -322,6 +332,7 @@ class PlanRepository(
     suspend fun flushPending(): Int = flushLock.withLock {
         var settled = 0
         for (item in disk { queue.all() }.filterNot { it.isRejected }.sortedBy { it.createdAtMillis }) {
+            beforeHealthData()
             // Logs queued by an older version have no date: the moment they were queued is when the workout ended.
             val result = apiCall { api.log(item.sessionId, stamp(item.sessionId, item.request, item.createdAtMillis)) }
             if (result is ApiResult.Success) {

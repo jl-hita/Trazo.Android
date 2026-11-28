@@ -93,14 +93,14 @@ class AppContainer(context: Context) {
     private val referralAnonymous = network.createAnonymous(com.trazo.android.data.referral.ReferralAnonymousApi::class.java)
     val language = com.trazo.android.data.repo.LanguageRepository(network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.local.SharedPreferencesLanguageStore(appContext))
     val account = com.trazo.android.data.repo.AccountRepository(network.create(com.trazo.android.data.api.AccountApi::class.java))
-    val plans = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext),
+    val plans: PlanRepository = PlanRepository(network.create(PlansApi::class.java), PlanCache(cacheStore), PendingLogQueue(queueStore), clearDrafts = drafts::clear, sync = WorkManagerSyncScheduler(appContext),
         // Never over what the user typed since: the draft is only rebuilt when there is none.
         restoreDraft = { log -> if (drafts.load(log.sessionId) == null) drafts.save(log.sessionId, com.trazo.android.ui.workout.WorkoutViewModel.draftOf(log.request)) },
-        deleteDraft = drafts::delete)
+        deleteDraft = drafts::delete, beforeHealthData = { healthConsent.sync() })
     val researchConsent = com.trazo.android.data.repo.ResearchConsentRepository(
         network.create(com.trazo.android.data.api.AccountApi::class.java)
     )
-    val healthConsent = com.trazo.android.data.repo.HealthConsentRepository(
+    val healthConsent: com.trazo.android.data.repo.HealthConsentRepository = com.trazo.android.data.repo.HealthConsentRepository(
         network.create(com.trazo.android.data.api.AccountApi::class.java), com.trazo.android.data.repo.SharedPreferencesHealthConsentStore(appContext),
         beforeWithdraw = { plans.flushPending() }, afterWithdraw = { plans.forgetHealthData() }
     )
