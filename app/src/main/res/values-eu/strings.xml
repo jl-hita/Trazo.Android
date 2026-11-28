@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZOk saio hau berrikusi du eta zure plana den bezala jarraitzen du: ez zen ezer aldatu behar izan.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d ariketa</string>
-    <string name="plan_pending_logs">%1$d entrenamendu konexioaren zain daude bidaltzeko.</string>
+    <string name="plan_pending_logs">Bidaltzeko dauden entrenamenduak: %1$d</string>
     <string name="plan_send_now">Bidali orain</string>
     <string name="plan_next_plan">Sortu hurrengo plana</string>
     <string name="status_planned">Zain</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Zure plana sortzen…</string>
     <!-- Session and workout -->
     <string name="session_start">Hasi entrenamendua</string>
+    <string name="session_resume">Jarraitu entrenamendua</string>
+    <string name="session_queued">Bidaltzeke</string>
     <string name="session_done">Saioa erregistratuta</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Sartutakoa gailu honetan gordetzen da eta berriro hasi dezakezu.</string>
     <string name="workout_leave">Irten</string>
     <string name="finish_title">Itxi saioa</string>
-    <string name="finish_recovery">Zein errekuperatuta iritsi zinen?</string>
     <string name="finish_rpe">Saioaren esfortzua: %1$s / 10</string>
     <string name="finish_pain">Mina sentitu dut</string>
     <string name="finish_reason">Zergatik ez da osatu?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Aldaketak gaurtik aurrera aplikatzen dira. Dagoeneko erregistratutakoa eta iraganeko egunak dauden bezala geratzen dira; TRAZOk hurrengo saioetarako doitutako kargak berrezartzen dira.</string>
     <string name="manual_save">Gorde aldaketak</string>
     <string name="manual_saving">Gordetzen…</string>
-    <string name="fb_title">Nola joan da ariketa bakoitza?</string>
     <string name="fb_hint">Aukerakoa. Premium-ekin, TRAZOk zure serieak doitzen ditu erantzunen arabera; deserosotasuna ez da inoiz automatizatzen: markatu egiten dugu berrikus dezazun.</string>
-    <string name="fb_stimulus">Giharreko estimulua</string>
+    <string name="mq_recovery">%1$s: azken aldiaz geroztik errekuperatu zara?</string>
+    <string name="mq_fresh">Guztiz</string>
+    <string name="mq_ready">Justu</string>
+    <string name="mq_sore">Oraindik ez</string>
+    <string name="mq_workload">%1$s: nolakoa izan da lana?</string>
+    <string name="mq_right">Egokia</string>
+    <string name="mq_too_much">Gehiegi</string>
+    <string name="mq_mark_discomfort">Ondoeza adierazi</string>
     <string name="fb_discomfort">Deserosotasuna</string>
-    <string name="fb_prefatigue">Ariketa hastean</string>
     <string name="fb_low">Baxua</string>
-    <string name="fb_adequate">Egokia</string>
-    <string name="fb_high">Altua</string>
-    <string name="fb_none">Batere ez</string>
     <string name="fb_mild">Arina</string>
     <string name="fb_strong">Indartsua</string>
-    <string name="fb_recovered">Errekuperatuta</string>
-    <string name="fb_loaded">Kargatuta</string>
     <string name="plan_cycle_of">%1$d. zikloa, %2$d-tik</string>
     <string name="plan_block_cycle">%1$d. blokea · %2$s · %3$d. zikloa, %4$d-tik</string>
     <string name="session_cycle_position">%1$d. zikloa · %2$d. saioa</string>

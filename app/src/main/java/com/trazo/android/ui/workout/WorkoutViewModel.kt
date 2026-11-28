@@ -69,19 +69,21 @@ data class WorkoutState(
     val swapError: ApiError? = null,
     /** The picker that adds an exercise to this session only. */
     val adding: AddExerciseState? = null,
-    val finish: FinishState = FinishState.Idle
+    val finish: FinishState = FinishState.Idle,
+    /** The answers about each muscle, by muscle name. */
+    val muscles: Map<String, MuscleFeedbackRequest> = emptyMap(),
+    /** Discomfort reported by exercise id: "mild" or "strong". */
+    val discomfort: Map<String, String> = emptyMap()
 ) {
     val allSets: Int get() = entries.sumOf { it.sets.size }
     val doneSets: Int get() = entries.sumOf { e -> e.sets.count { it.done } }
 }
 
 class FinishForm(
-    val recovery: String = "Unknown",
     val sessionRpe: Double? = null,
     val pain: Boolean = false,
     val notes: String = "",
     val reason: String = "None",
-    val feedback: Map<String, ExerciseFeedbackRequest> = emptyMap(),
     /** The day the workout happened when it was not today (a late registration); null means now. */
     val performedOn: java.time.LocalDate? = null
 )
@@ -105,12 +107,46 @@ class WorkoutViewModel(
     private var timer: Job? = null
     private var restEndsAt = 0L
 
+    /** Whether anything was ever logged, as far as the phone knows; when it cannot tell, it says yes and the question is asked. */
+    val hasTrainedBefore: Boolean
+        get() {
+            val week = plans.week.value ?: return true
+            if (week.weekNumber > 1 || week.sessions.any { it.log != null }) return true
+            return _state.value.entries.any { it.exercise.lastPerformance != null }
+        }
+
     /** Where the exercise explanations come from (null in tests that do not need them). */
     val catalog: ExerciseRepository? get() = exercises
 
     init {
         val session = plans.session(sessionId)
-        if (session != null) _state.value = WorkoutState(session, buildEntries(session, drafts.load(sessionId)?.sets.orEmpty()))
+        if (session != null) {
+            val draft = drafts.load(sessionId)
+            _state.value = WorkoutState(
+                session, buildEntries(session, draft?.sets.orEmpty()),
+                muscles = draft?.muscles.orEmpty(), discomfort = draft?.discomfort.orEmpty()
+            )
+        }
+    }
+
+    /** Choosing the selected answer again removes it: every question can be left unanswered. */
+    fun answerRecovery(muscle: String, value: String) = answer(muscle) { it.copy(recovery = value.takeUnless { v -> v == it.recovery }) }
+
+    fun answerWorkload(muscle: String, value: String) = answer(muscle) { it.copy(workload = value.takeUnless { v -> v == it.workload }) }
+
+    private fun answer(muscle: String, change: (MuscleFeedbackRequest) -> MuscleFeedbackRequest) {
+        _state.update { s ->
+            val next = change(s.muscles[muscle] ?: MuscleFeedbackRequest())
+            s.copy(muscles = if (next.isEmpty) s.muscles - muscle else s.muscles + (muscle to next))
+        }
+        saveDraft()
+    }
+
+    fun toggleDiscomfort(exerciseId: String, value: String) {
+        _state.update { s ->
+            s.copy(discomfort = if (s.discomfort[exerciseId] == value) s.discomfort - exerciseId else s.discomfort + (exerciseId to value))
+        }
+        saveDraft()
     }
 
     fun updateSet(exerciseId: String, index: Int, transform: (SetEntry) -> SetEntry) {
@@ -300,7 +336,7 @@ class WorkoutViewModel(
         if (s.finish is FinishState.Sending) return
         _state.update { it.copy(finish = FinishState.Sending) }
         viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { _state.update { it.copy(finish = FinishState.Failed(ApiError(ErrorKind.Unknown))) } }) {
-            val request = buildLogRequest(s.entries, form)
+            val request = buildLogRequest(s.entries, form, muscles = s.muscles, discomfort = s.discomfort)
             val outcome = plans.submitLog(session.id, request)
             val next = when (outcome) {
                 is LogOutcome.Sent -> FinishState.Done(outcome.result, queued = false)
@@ -315,14 +351,15 @@ class WorkoutViewModel(
     fun dismissFinishError() = _state.update { it.copy(finish = FinishState.Idle) }
 
     private fun saveDraft() {
-        val sets = _state.value.entries.flatMap { e ->
+        val state = _state.value
+        val sets = state.entries.flatMap { e ->
             e.sets.flatMapIndexed { i, set ->
                 listOf(DraftSet(e.exercise.exerciseId, i + 1, set.weight, set.reps, set.rir, set.done)) +
                     set.segments.mapIndexed { k, s -> DraftSet(e.exercise.exerciseId, i + 1, s.weight, s.reps, s.rir, s.done, k + 1) }
             }
         }
         // Not tied to viewModelScope: leaving the screen right after typing must still persist the last edit.
-        CoroutineScope(draftWriter).launchGuarded(R.string.feature_workout) { drafts.save(sessionId, sets) }
+        CoroutineScope(draftWriter).launchGuarded(R.string.feature_workout) { drafts.save(sessionId, sets, state.muscles, state.discomfort) }
     }
 
     override fun onCleared() { timer?.cancel(); alarms.cancel() }
@@ -361,6 +398,36 @@ class WorkoutViewModel(
             ex.targetLoadKg ?: ex.lastPerformance?.let { last ->
                 last.suggestedLoadKg ?: last.sets.mapNotNull { it.weightKg }.maxOrNull()
             }
+
+        /** The muscles whose recovery is asked on the exercise at [index]: those no earlier exercise of the session trains. */
+        fun recoveryQuestions(entries: List<ExerciseEntry>, index: Int): List<String> {
+            val earlier = entries.take(index).flatMap { it.exercise.primaryMuscles }.toSet()
+            return entries.getOrNull(index)?.exercise?.primaryMuscles.orEmpty().distinct().filterNot { it in earlier }
+        }
+
+        /** The muscles whose work is asked on the exercise at [index]: it is their last one and every set of them is done. */
+        fun workloadQuestions(entries: List<ExerciseEntry>, index: Int): List<String> {
+            val later = entries.drop(index + 1).flatMap { it.exercise.primaryMuscles }.toSet()
+            return entries.getOrNull(index)?.exercise?.primaryMuscles.orEmpty().distinct().filter { muscle ->
+                muscle !in later && entries.filter { muscle in it.exercise.primaryMuscles }.all { e -> e.sets.all { it.done } }
+            }
+        }
+
+        /**
+         * The answers that are sent. How recovered a muscle was counts even when its exercises were then left undone (it may be
+         * why); how much work it was only once something of it was done.
+         */
+        fun muscleFeedbackFor(entries: List<ExerciseEntry>, muscles: Map<String, MuscleFeedbackRequest>): Map<String, MuscleFeedbackRequest>? =
+            muscles.mapNotNull { (muscle, answer) ->
+                val own = entries.filter { muscle in it.exercise.primaryMuscles }
+                if (own.isEmpty()) return@mapNotNull null
+                val kept = if (own.any { e -> e.sets.any { it.done } }) answer else answer.copy(workload = null)
+                if (kept.isEmpty) null else muscle to kept
+            }.toMap().ifEmpty { null }
+
+        /** The discomfort of a log as the workout screen keeps it. */
+        fun discomfortOf(request: LogSessionRequest): Map<String, String> = request.exerciseFeedback.orEmpty()
+            .mapNotNull { (id, answer) -> answer.discomfort?.takeIf { it != "none" }?.let { id to it } }.toMap()
 
         /** The sets of a log as the workout screen keeps them while they are edited. */
         fun draftOf(request: LogSessionRequest): List<DraftSet> = request.sets.map {
@@ -405,7 +472,10 @@ class WorkoutViewModel(
             return day.atTime(now.toLocalTime()).atZone(now.zone).toInstant().toString()
         }
 
-        fun buildLogRequest(entries: List<ExerciseEntry>, form: FinishForm, now: java.time.ZonedDateTime = java.time.ZonedDateTime.now()): LogSessionRequest {
+        fun buildLogRequest(
+            entries: List<ExerciseEntry>, form: FinishForm, now: java.time.ZonedDateTime = java.time.ZonedDateTime.now(),
+            muscles: Map<String, MuscleFeedbackRequest> = emptyMap(), discomfort: Map<String, String> = emptyMap()
+        ): LogSessionRequest {
             val total = entries.sumOf { it.sets.size }
             val done = entries.sumOf { e -> e.sets.count { it.done } }
             val outcome = when {
@@ -433,16 +503,15 @@ class WorkoutViewModel(
             return LogSessionRequest(
                 outcome = outcome,
                 nonCompletionReason = reason,
-                recovery = form.recovery,
                 sessionRpe = form.sessionRpe,
                 painReported = form.pain,
                 notes = form.notes.trim().take(1000).ifEmpty { null },
                 sets = sets,
                 performedAt = performedAtFor(form.performedOn, now),
-                // Only exercises with at least one completed set are asked about, and only answered questions are sent.
-                exerciseFeedback = form.feedback.filter { (id, answer) ->
-                    !answer.isEmpty && entries.any { e -> e.exercise.exerciseId == id && e.sets.any { it.done } }
-                }.ifEmpty { null }
+                // Only what was really trained is told about, and only answered questions are sent.
+                exerciseFeedback = discomfort.filterKeys { id -> entries.any { e -> e.exercise.exerciseId == id && e.sets.any { it.done } } }
+                    .mapValues { ExerciseFeedbackRequest(discomfort = it.value) }.ifEmpty { null },
+                muscleFeedback = muscleFeedbackFor(entries, muscles)
             )
         }
     }

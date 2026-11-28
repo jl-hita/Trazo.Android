@@ -5,7 +5,6 @@ internal val VocabularyEl = Vocabulary(
     goal = mapOf("GeneralFitness" to "Γενική φυσική κατάσταση", "Hypertrophy" to "Μυϊκή ανάπτυξη", "Strength" to "Δύναμη"),
     experience = mapOf("Beginner" to "Αρχάριος", "Intermediate" to "Μέσος", "Advanced" to "Προχωρημένος"),
     limitation = mapOf("Knee" to "Γόνατο", "Shoulder" to "Ώμος", "LowerBack" to "Μέση", "Wrist" to "Καρπός", "Elbow" to "Αγκώνας"),
-    recovery = mapOf("Unknown" to "Προτιμώ να μην το πω", "Good" to "Καλά ανακτημένος", "Partial" to "Μερικώς ανακτημένος", "Insufficient" to "Ελάχιστα ανακτημένος"),
     reason = mapOf("Time" to "Έλλειψη χρόνου", "Fatigue" to "Κούραση", "Equipment" to "Εξοπλισμός", "Motivation" to "Κίνητρο", "Illness" to "Ασθένεια", "Other" to "Άλλο"),
     phase = mapOf("accumulation" to "Συσσώρευση", "intensification" to "Εντατικοποίηση", "deload" to "Αποφόρτιση", "preparation" to "Προετοιμασία"),
     pattern = mapOf(

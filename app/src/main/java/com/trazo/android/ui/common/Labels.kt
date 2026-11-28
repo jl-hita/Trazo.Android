@@ -34,7 +34,6 @@ object Labels {
     private val goal = Dict { it.goal }
     private val experience = Dict { it.experience }
     private val limitation = Dict { it.limitation }
-    private val recovery = Dict { it.recovery }
     private val reason = Dict { it.reason }
     private val phase = Dict { it.phase }
     private val pattern = Dict { it.pattern }
@@ -80,7 +79,6 @@ object Labels {
         return days.sortedBy { rank(it) }
     }
     fun limitation(v: String) = lookup(limitation, v)
-    fun recovery(v: String) = lookup(recovery, v)
     fun reason(v: String) = lookup(reason, v)
     fun phase(v: String) = lookup(phase, v.lowercase())
     fun pattern(v: String) = lookup(pattern, v)

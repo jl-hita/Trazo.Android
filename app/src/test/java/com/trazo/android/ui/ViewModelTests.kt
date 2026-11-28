@@ -120,12 +120,12 @@ class WorkoutViewModelTest : ViewModelTestBase() {
             vm.updateSet("db-bench-press", i) { it.copy(reps = "10", rir = "2") }
             vm.toggleDone("db-bench-press", i)
         }
-        vm.finish(FinishForm(recovery = "Good", sessionRpe = 7.0))
+        vm.finish(FinishForm(sessionRpe = 7.0))
         advanceUntilIdle()
         val request = api.logCalls.single().second
         assertEquals("Completed", request.outcome)
         assertEquals("None", request.nonCompletionReason)
-        assertEquals("Good", request.recovery)
+        assertEquals("Unknown", request.recovery)
         assertEquals(3, request.sets.count { it.completed })
         assertEquals(22.5, request.sets[0].weightKg!!, 0.0)
         assertEquals(2.0, request.sets[0].rir!!, 0.0)
@@ -177,20 +177,6 @@ class WorkoutViewModelTest : ViewModelTestBase() {
         assertEquals("Empuje", monday.title)
         assertEquals(listOf(true, false, false), monday.exercises.map { it.linkedToNext })
         assertEquals(90, monday.exercises[0].restSeconds)
-    }
-
-    @Test fun `only answered questions of exercises with done sets are sent`() {
-        val a = WorkoutViewModel.freshEntry(sampleExercise("a")).let { e -> e.copy(sets = e.sets.mapIndexed { i, s -> if (i == 0) s.copy(reps = "10", done = true) else s }) }
-        val b = WorkoutViewModel.freshEntry(sampleExercise("b")) // nothing done
-        val form = FinishForm(feedback = mapOf(
-            "a" to com.trazo.android.data.model.ExerciseFeedbackRequest(stimulus = "low", discomfort = "none"),
-            "b" to com.trazo.android.data.model.ExerciseFeedbackRequest(stimulus = "high"),
-            "c" to com.trazo.android.data.model.ExerciseFeedbackRequest()
-        ))
-        val request = WorkoutViewModel.buildLogRequest(listOf(a, b), form)
-        assertEquals(setOf("a"), request.exerciseFeedback!!.keys)
-        assertEquals("low", request.exerciseFeedback!!.getValue("a").stimulus)
-        assertNull(WorkoutViewModel.buildLogRequest(listOf(a, b), FinishForm()).exerciseFeedback)
     }
 
     @Test fun `unfinished sets make a partial log with the skip reason`() {
@@ -264,10 +250,12 @@ class OnboardingViewModelTest : ViewModelTestBase() {
         assertEquals("Automatic", sent.split)
     }
 
-    @Test fun `five or more days use push pull legs because automatic only covers 2 to 4`() = runTest(dispatcher) {
+    @Test fun `five days ask for the hybrid week and six for push pull legs because automatic only covers 2 to 4`() = runTest(dispatcher) {
         val vm = OnboardingViewModel(plansRepo(FakePlansApi()))
         advanceUntilIdle()
         listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday").forEach(vm::toggleDay)
+        assertEquals("Hybrid", OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).split)
+        vm.toggleDay("Saturday")
         assertEquals("PushPullLegs", OnboardingViewModel.buildRequest(vm.state.value, vm.state.value.options!!).split)
     }
 

@@ -60,7 +60,7 @@
     <string name="finish_reviewed_kept">TRAZO reviewed this session and your plan stays as it is: nothing needed to change.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d exercises</string>
-    <string name="plan_pending_logs">%1$d workouts are waiting for a connection to be sent.</string>
+    <string name="plan_pending_logs">Workouts waiting to be sent: %1$d</string>
     <string name="plan_send_now">Send now</string>
     <string name="plan_next_plan">Create the next plan</string>
     <string name="status_planned">Pending</string>
@@ -123,6 +123,8 @@
 
     <!-- Session and workout -->
     <string name="session_start">Start workout</string>
+    <string name="session_resume">Resume workout</string>
+    <string name="session_queued">To be sent</string>
     <string name="session_done">Session logged</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">What you entered is saved on this device and you can resume it.</string>
     <string name="workout_leave">Leave</string>
     <string name="finish_title">Close the session</string>
-    <string name="finish_recovery">How recovered did you arrive?</string>
     <string name="finish_rpe">Session effort: %1$s out of 10</string>
     <string name="finish_pain">I felt pain</string>
     <string name="finish_reason">Why wasn\'t it completed?</string>
@@ -482,19 +483,19 @@
     <string name="manual_edit_note">Changes apply from today. What you already logged and past days stay as they are; loads TRAZO had adjusted for the coming sessions are reset.</string>
     <string name="manual_save">Save changes</string>
     <string name="manual_saving">Saving…</string>
-    <string name="fb_title">How did each exercise go?</string>
     <string name="fb_hint">Optional. With Premium, TRAZO adjusts your sets from your answers; discomfort is never automated: we flag it so you can review it.</string>
-    <string name="fb_stimulus">Stimulus in the muscle</string>
+    <string name="mq_recovery">%1$s: recovered since last time?</string>
+    <string name="mq_fresh">Fully</string>
+    <string name="mq_ready">Just about</string>
+    <string name="mq_sore">Not yet</string>
+    <string name="mq_workload">%1$s: how was the work?</string>
+    <string name="mq_right">About right</string>
+    <string name="mq_too_much">Too much</string>
+    <string name="mq_mark_discomfort">Report discomfort</string>
     <string name="fb_discomfort">Discomfort</string>
-    <string name="fb_prefatigue">When starting the exercise</string>
     <string name="fb_low">Low</string>
-    <string name="fb_adequate">Just right</string>
-    <string name="fb_high">High</string>
-    <string name="fb_none">None</string>
     <string name="fb_mild">Mild</string>
     <string name="fb_strong">Strong</string>
-    <string name="fb_recovered">Recovered</string>
-    <string name="fb_loaded">Loaded</string>
     <string name="plan_cycle_of">Cycle %1$d of %2$d</string>
     <string name="plan_block_cycle">Block %1$d · %2$s · cycle %3$d of %4$d</string>
     <string name="session_cycle_position">Cycle %1$d · session %2$d</string>

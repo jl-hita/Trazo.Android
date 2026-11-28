@@ -5,7 +5,6 @@ internal val VocabularyTr = Vocabulary(
     goal = mapOf("GeneralFitness" to "Genel kondisyon", "Hypertrophy" to "Kas gelişimi", "Strength" to "Güç"),
     experience = mapOf("Beginner" to "Başlangıç", "Intermediate" to "Orta", "Advanced" to "İleri"),
     limitation = mapOf("Knee" to "Diz", "Shoulder" to "Omuz", "LowerBack" to "Bel", "Wrist" to "Bilek", "Elbow" to "Dirsek"),
-    recovery = mapOf("Unknown" to "Söylemek istemiyorum", "Good" to "İyi dinlenmiş", "Partial" to "Kısmen dinlenmiş", "Insufficient" to "Az dinlenmiş"),
     reason = mapOf("Time" to "Zaman yetersizliği", "Fatigue" to "Yorgunluk", "Equipment" to "Ekipman", "Motivation" to "Motivasyon", "Illness" to "Hastalık", "Other" to "Diğer"),
     phase = mapOf("accumulation" to "Birikim", "intensification" to "Yoğunlaştırma", "deload" to "Hafifletme", "preparation" to "Hazırlık"),
     pattern = mapOf(

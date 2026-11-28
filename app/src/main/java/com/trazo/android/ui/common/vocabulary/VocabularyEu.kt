@@ -5,7 +5,6 @@ internal val VocabularyEu = Vocabulary(
     goal = mapOf("GeneralFitness" to "Forma fisiko orokorra", "Hypertrophy" to "Hipertrofia", "Strength" to "Indarra"),
     experience = mapOf("Beginner" to "Hasiberria", "Intermediate" to "Tartekoa", "Advanced" to "Aurreratua"),
     limitation = mapOf("Knee" to "Belauna", "Shoulder" to "Sorbalda", "LowerBack" to "Gerri aldea", "Wrist" to "Eskumuturra", "Elbow" to "Ukondoa"),
-    recovery = mapOf("Unknown" to "Nahiago dut ez esan", "Good" to "Ondo errekuperatua", "Partial" to "Neurri batean errekuperatua", "Insufficient" to "Gutxi errekuperatua"),
     reason = mapOf("Time" to "Denbora faltan", "Fatigue" to "Nekea", "Equipment" to "Materiala", "Motivation" to "Motibazioa", "Illness" to "Gaixotasuna", "Other" to "Beste bat"),
     phase = mapOf("accumulation" to "Metaketa", "intensification" to "Intentsifikazioa", "deload" to "Arintze", "preparation" to "Prestakuntza"),
     pattern = mapOf(

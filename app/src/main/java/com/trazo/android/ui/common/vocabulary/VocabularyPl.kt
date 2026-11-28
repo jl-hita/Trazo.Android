@@ -5,7 +5,6 @@ internal val VocabularyPl = Vocabulary(
     goal = mapOf("GeneralFitness" to "Ogólna sprawność", "Hypertrophy" to "Hipertrofia", "Strength" to "Siła"),
     experience = mapOf("Beginner" to "Początkujący", "Intermediate" to "Średniozaawansowany", "Advanced" to "Zaawansowany"),
     limitation = mapOf("Knee" to "Kolano", "Shoulder" to "Bark", "LowerBack" to "Odcinek lędźwiowy", "Wrist" to "Nadgarstek", "Elbow" to "Łokieć"),
-    recovery = mapOf("Unknown" to "Wolę nie mówić", "Good" to "Dobrze zregenerowany", "Partial" to "Częściowo zregenerowany", "Insufficient" to "Słabo zregenerowany"),
     reason = mapOf("Time" to "Brak czasu", "Fatigue" to "Zmęczenie", "Equipment" to "Sprzęt", "Motivation" to "Motywacja", "Illness" to "Choroba", "Other" to "Inne"),
     phase = mapOf("accumulation" to "Akumulacja", "intensification" to "Intensyfikacja", "deload" to "Odciążenie", "preparation" to "Przygotowanie"),
     pattern = mapOf(

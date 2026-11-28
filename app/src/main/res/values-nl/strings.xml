@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO heeft deze training beoordeeld en je plan blijft zoals het is: er hoefde niets te veranderen.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d oefeningen</string>
-    <string name="plan_pending_logs">%1$d trainingen wachten op een verbinding om verzonden te worden.</string>
+    <string name="plan_pending_logs">Trainingen die nog verzonden moeten worden: %1$d</string>
     <string name="plan_send_now">Nu verzenden</string>
     <string name="plan_next_plan">Maak het volgende plan</string>
     <string name="status_planned">Gepland</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Je plan wordt gemaakt…</string>
     <!-- Session and workout -->
     <string name="session_start">Training starten</string>
+    <string name="session_resume">Training hervatten</string>
+    <string name="session_queued">Te verzenden</string>
     <string name="session_done">Training vastgelegd</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Wat je hebt ingevuld wordt op dit apparaat bewaard en je kunt later verdergaan.</string>
     <string name="workout_leave">Verlaten</string>
     <string name="finish_title">Training afsluiten</string>
-    <string name="finish_recovery">Hoe hersteld kwam je aan?</string>
     <string name="finish_rpe">Inspanning van de training: %1$s van 10</string>
     <string name="finish_pain">Ik voelde pijn</string>
     <string name="finish_reason">Waarom is ze niet afgemaakt?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Wijzigingen gelden vanaf vandaag. Wat je al hebt vastgelegd en vorige dagen blijven zoals ze zijn; gewichten die TRAZO voor de komende trainingen had aangepast, worden teruggezet.</string>
     <string name="manual_save">Wijzigingen opslaan</string>
     <string name="manual_saving">Opslaan…</string>
-    <string name="fb_title">Hoe ging elke oefening?</string>
     <string name="fb_hint">Optioneel. Met Premium past TRAZO je sets aan op basis van je antwoorden; ongemak wordt nooit geautomatiseerd: we markeren het zodat je het kunt bekijken.</string>
-    <string name="fb_stimulus">Prikkel in de spier</string>
+    <string name="mq_recovery">%1$s: hersteld sinds de vorige keer?</string>
+    <string name="mq_fresh">Ruimschoots</string>
+    <string name="mq_ready">Net</string>
+    <string name="mq_sore">Nog niet</string>
+    <string name="mq_workload">%1$s: hoe was het werk?</string>
+    <string name="mq_right">Goed</string>
+    <string name="mq_too_much">Te veel</string>
+    <string name="mq_mark_discomfort">Ongemak melden</string>
     <string name="fb_discomfort">Ongemak</string>
-    <string name="fb_prefatigue">Bij het begin van de oefening</string>
     <string name="fb_low">Laag</string>
-    <string name="fb_adequate">Precies goed</string>
-    <string name="fb_high">Hoog</string>
-    <string name="fb_none">Geen</string>
     <string name="fb_mild">Licht</string>
     <string name="fb_strong">Sterk</string>
-    <string name="fb_recovered">Hersteld</string>
-    <string name="fb_loaded">Belast</string>
     <string name="plan_cycle_of">Cyclus %1$d van %2$d</string>
     <string name="plan_block_cycle">Blok %1$d · %2$s · cyclus %3$d van %4$d</string>
     <string name="session_cycle_position">Cyclus %1$d · training %2$d</string>

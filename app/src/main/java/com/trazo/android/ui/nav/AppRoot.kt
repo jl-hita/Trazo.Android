@@ -322,7 +322,7 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 }
                 composable(Routes.SESSION, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
-                    val vm: SessionViewModel = containerViewModel(key = "session-$id") { SessionViewModel(it.plans, it.exercises, id) }
+                    val vm: SessionViewModel = containerViewModel(key = "session-$id") { SessionViewModel(it.plans, it.exercises, id, it.drafts) }
                     SessionScreen(vm, c.plans.week, id, lookup = c.plans::session, onBack = { nav.popBackStack() }, onPremium = { nav.navigate(Routes.premium("session")) }, onStart = { nav.navigate(Routes.workout(id)) }, onExercise = { nav.navigate(Routes.exercise(it)) }, onEdit = { nav.navigate(Routes.sessionEdit(id)) })
                 }
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->

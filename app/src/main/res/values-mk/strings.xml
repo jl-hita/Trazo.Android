@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO го прегледа овој тренинг и твојот план останува каков што е: не требаше ништо да се менува.</string>
     <string name="plan_session_minutes">%1$d мин</string>
     <string name="plan_session_exercises">%1$d вежби</string>
-    <string name="plan_pending_logs">%1$d тренинзи чекаат врска за да бидат испратени.</string>
+    <string name="plan_pending_logs">Тренинзи што чекаат испраќање: %1$d</string>
     <string name="plan_send_now">Испрати сега</string>
     <string name="plan_next_plan">Создади го следниот план</string>
     <string name="status_planned">На чекање</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Се создава твојот план…</string>
     <!-- Session and workout -->
     <string name="session_start">Започни тренинг</string>
+    <string name="session_resume">Продолжи го тренингот</string>
+    <string name="session_queued">Чека испраќање</string>
     <string name="session_done">Тренингот е евидентиран</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Она што го внесе е зачувано на овој уред и можеш да продолжиш.</string>
     <string name="workout_leave">Напушти</string>
     <string name="finish_title">Затвори го тренингот</string>
-    <string name="finish_recovery">Колку одморен дојде?</string>
     <string name="finish_rpe">Напор на тренингот: %1$s од 10</string>
     <string name="finish_pain">Почувствував болка</string>
     <string name="finish_reason">Зошто не беше завршен?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Промените важат од денес. Она што веќе си го евидентирал и поминатите денови остануваат како што се; тежините што TRAZO ги прилагодил за следните тренинзи се ресетираат.</string>
     <string name="manual_save">Зачувај ги промените</string>
     <string name="manual_saving">Се зачувува…</string>
-    <string name="fb_title">Како помина секоја вежба?</string>
     <string name="fb_hint">Незадолжително. Со Premium, TRAZO ги прилагодува твоите серии според одговорите; непријатноста никогаш не се автоматизира: ја означуваме за да можеш да ја прегледаш.</string>
-    <string name="fb_stimulus">Стимул во мускулот</string>
+    <string name="mq_recovery">%1$s: дали се опоравивте од минатиот пат?</string>
+    <string name="mq_fresh">Целосно</string>
+    <string name="mq_ready">Тукушто</string>
+    <string name="mq_sore">Сè уште не</string>
+    <string name="mq_workload">%1$s: каква беше работата?</string>
+    <string name="mq_right">Соодветна</string>
+    <string name="mq_too_much">Премногу</string>
+    <string name="mq_mark_discomfort">Пријави непријатност</string>
     <string name="fb_discomfort">Непријатност</string>
-    <string name="fb_prefatigue">На почетокот на вежбата</string>
     <string name="fb_low">Низок</string>
-    <string name="fb_adequate">Таман</string>
-    <string name="fb_high">Висок</string>
-    <string name="fb_none">Никаква</string>
     <string name="fb_mild">Лесна</string>
     <string name="fb_strong">Силна</string>
-    <string name="fb_recovered">Одморен</string>
-    <string name="fb_loaded">Оптоварен</string>
     <string name="plan_cycle_of">Циклус %1$d од %2$d</string>
     <string name="plan_block_cycle">Блок %1$d · %2$s · циклус %3$d од %4$d</string>
     <string name="session_cycle_position">Циклус %1$d · тренинг %2$d</string>

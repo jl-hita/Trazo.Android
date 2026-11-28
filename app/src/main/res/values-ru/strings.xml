@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO проверил эту тренировку, и ваш план остаётся прежним: менять ничего не потребовалось.</string>
     <string name="plan_session_minutes">%1$d мин</string>
     <string name="plan_session_exercises">Упражнений: %1$d</string>
-    <string name="plan_pending_logs">Тренировок, ожидающих сети для отправки: %1$d.</string>
+    <string name="plan_pending_logs">Тренировок ожидает отправки: %1$d</string>
     <string name="plan_send_now">Отправить сейчас</string>
     <string name="plan_next_plan">Создать следующий план</string>
     <string name="status_planned">Ожидает</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Создаём ваш план…</string>
     <!-- Session and workout -->
     <string name="session_start">Начать тренировку</string>
+    <string name="session_resume">Продолжить тренировку</string>
+    <string name="session_queued">Ожидает отправки</string>
     <string name="session_done">Тренировка записана</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Введённое сохранено на этом устройстве, и вы сможете продолжить.</string>
     <string name="workout_leave">Выйти</string>
     <string name="finish_title">Завершить тренировку</string>
-    <string name="finish_recovery">Насколько вы восстановились к началу?</string>
     <string name="finish_rpe">Нагрузка тренировки: %1$s из 10</string>
     <string name="finish_pain">Я почувствовал боль</string>
     <string name="finish_reason">Почему тренировка не завершена?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Изменения действуют с сегодняшнего дня. Записанное ранее и прошедшие дни остаются как есть; веса, которые TRAZO подобрал для ближайших тренировок, сбрасываются.</string>
     <string name="manual_save">Сохранить изменения</string>
     <string name="manual_saving">Сохранение…</string>
-    <string name="fb_title">Как прошло каждое упражнение?</string>
     <string name="fb_hint">Необязательно. С Premium TRAZO подстраивает ваши подходы по ответам; дискомфорт никогда не автоматизируется: мы отмечаем его, чтобы вы могли обратить на него внимание.</string>
-    <string name="fb_stimulus">Стимул в мышце</string>
+    <string name="mq_recovery">%1$s: восстановились после прошлого раза?</string>
+    <string name="mq_fresh">Полностью</string>
+    <string name="mq_ready">Едва</string>
+    <string name="mq_sore">Ещё нет</string>
+    <string name="mq_workload">%1$s: какой была нагрузка?</string>
+    <string name="mq_right">В самый раз</string>
+    <string name="mq_too_much">Слишком большая</string>
+    <string name="mq_mark_discomfort">Отметить дискомфорт</string>
     <string name="fb_discomfort">Дискомфорт</string>
-    <string name="fb_prefatigue">В начале упражнения</string>
     <string name="fb_low">Низкий</string>
-    <string name="fb_adequate">В самый раз</string>
-    <string name="fb_high">Высокий</string>
-    <string name="fb_none">Нет</string>
     <string name="fb_mild">Лёгкий</string>
     <string name="fb_strong">Сильный</string>
-    <string name="fb_recovered">Восстановлен</string>
-    <string name="fb_loaded">Нагружен</string>
     <string name="plan_cycle_of">Цикл %1$d из %2$d</string>
     <string name="plan_block_cycle">Блок %1$d · %2$s · цикл %3$d из %4$d</string>
     <string name="session_cycle_position">Цикл %1$d · тренировка %2$d</string>

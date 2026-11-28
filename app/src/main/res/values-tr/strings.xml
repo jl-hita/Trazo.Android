@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO bu seansı inceledi ve planın olduğu gibi kalıyor: hiçbir şeyin değişmesi gerekmedi.</string>
     <string name="plan_session_minutes">%1$d dk</string>
     <string name="plan_session_exercises">%1$d egzersiz</string>
-    <string name="plan_pending_logs">%1$d antrenman gönderilmek için bağlantı bekliyor.</string>
+    <string name="plan_pending_logs">Gönderilmeyi bekleyen antrenmanlar: %1$d</string>
     <string name="plan_send_now">Şimdi gönder</string>
     <string name="plan_next_plan">Sonraki planı oluştur</string>
     <string name="status_planned">Bekliyor</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Planın oluşturuluyor…</string>
     <!-- Session and workout -->
     <string name="session_start">Antrenmanı başlat</string>
+    <string name="session_resume">Antrenmana devam et</string>
+    <string name="session_queued">Gönderilecek</string>
     <string name="session_done">Seans kaydedildi</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -152,7 +154,6 @@
     <string name="workout_leave_text">Girdiklerin bu cihazda kayıtlı ve devam edebilirsin.</string>
     <string name="workout_leave">Çık</string>
     <string name="finish_title">Seansı kapat</string>
-    <string name="finish_recovery">Ne kadar dinlenmiş geldin?</string>
     <string name="finish_rpe">Seans eforu: 10 üzerinden %1$s</string>
     <string name="finish_pain">Ağrı hissettim</string>
     <string name="finish_reason">Neden tamamlanmadı?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Değişiklikler bugünden itibaren geçerli. Daha önce kaydettiklerin ve geçmiş günler olduğu gibi kalır; TRAZO\'nun yaklaşan seanslar için ayarladığı yükler sıfırlanır.</string>
     <string name="manual_save">Değişiklikleri kaydet</string>
     <string name="manual_saving">Kaydediliyor…</string>
-    <string name="fb_title">Her egzersiz nasıl geçti?</string>
     <string name="fb_hint">İsteğe bağlı. Premium ile TRAZO setlerini yanıtlarına göre ayarlar; rahatsızlık asla otomatikleştirilmez: incelemen için işaretleriz.</string>
-    <string name="fb_stimulus">Kasta uyarım</string>
+    <string name="mq_recovery">%1$s: son seferden beri toparlandın mı?</string>
+    <string name="mq_fresh">Tamamen</string>
+    <string name="mq_ready">Ancak</string>
+    <string name="mq_sore">Henüz değil</string>
+    <string name="mq_workload">%1$s: çalışma nasıldı?</string>
+    <string name="mq_right">Yerinde</string>
+    <string name="mq_too_much">Çok fazla</string>
+    <string name="mq_mark_discomfort">Rahatsızlık bildir</string>
     <string name="fb_discomfort">Rahatsızlık</string>
-    <string name="fb_prefatigue">Egzersize başlarken</string>
     <string name="fb_low">Düşük</string>
-    <string name="fb_adequate">Tam kararında</string>
-    <string name="fb_high">Yüksek</string>
-    <string name="fb_none">Yok</string>
     <string name="fb_mild">Hafif</string>
     <string name="fb_strong">Şiddetli</string>
-    <string name="fb_recovered">Dinlenmiş</string>
-    <string name="fb_loaded">Yorgun</string>
     <string name="plan_cycle_of">Döngü %1$d / %2$d</string>
     <string name="plan_block_cycle">Blok %1$d · %2$s · döngü %3$d / %4$d</string>
     <string name="session_cycle_position">Döngü %1$d · seans %2$d</string>

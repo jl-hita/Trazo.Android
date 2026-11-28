@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">Το TRAZO έλεγξε αυτή την προπόνηση και το πρόγραμμά σου μένει όπως είναι: δεν χρειάστηκε να αλλάξει τίποτα.</string>
     <string name="plan_session_minutes">%1$d λεπτά</string>
     <string name="plan_session_exercises">%1$d ασκήσεις</string>
-    <string name="plan_pending_logs">%1$d προπονήσεις περιμένουν σύνδεση για να σταλούν.</string>
+    <string name="plan_pending_logs">Προπονήσεις προς αποστολή: %1$d</string>
     <string name="plan_send_now">Αποστολή τώρα</string>
     <string name="plan_next_plan">Δημιούργησε το επόμενο πρόγραμμα</string>
     <string name="status_planned">Σε αναμονή</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Δημιουργείται το πρόγραμμά σου…</string>
     <!-- Session and workout -->
     <string name="session_start">Έναρξη προπόνησης</string>
+    <string name="session_resume">Συνέχιση προπόνησης</string>
+    <string name="session_queued">Προς αποστολή</string>
     <string name="session_done">Η προπόνηση καταγράφηκε</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Ό,τι έχεις γράψει αποθηκεύεται σε αυτή τη συσκευή και μπορείς να συνεχίσεις.</string>
     <string name="workout_leave">Έξοδος</string>
     <string name="finish_title">Κλείσιμο προπόνησης</string>
-    <string name="finish_recovery">Πόσο ξεκούραστος ήρθες;</string>
     <string name="finish_rpe">Προσπάθεια προπόνησης: %1$s στα 10</string>
     <string name="finish_pain">Ένιωσα πόνο</string>
     <string name="finish_reason">Γιατί δεν ολοκληρώθηκε;</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Οι αλλαγές ισχύουν από σήμερα. Ό,τι έχεις ήδη καταγράψει και οι περασμένες ημέρες μένουν όπως είναι· τα βάρη που είχε προσαρμόσει το TRAZO για τις επόμενες προπονήσεις επανέρχονται.</string>
     <string name="manual_save">Αποθήκευση αλλαγών</string>
     <string name="manual_saving">Αποθήκευση…</string>
-    <string name="fb_title">Πώς πήγε κάθε άσκηση;</string>
     <string name="fb_hint">Προαιρετικό. Με το Premium, το TRAZO προσαρμόζει τα σετ σου με βάση τις απαντήσεις σου· η δυσφορία δεν αυτοματοποιείται ποτέ: την επισημαίνουμε για να την εξετάσεις.</string>
-    <string name="fb_stimulus">Ερέθισμα στον μυ</string>
+    <string name="mq_recovery">%1$s: είχατε αποκατασταθεί από την προηγούμενη φορά;</string>
+    <string name="mq_fresh">Πλήρως</string>
+    <string name="mq_ready">Οριακά</string>
+    <string name="mq_sore">Όχι ακόμη</string>
+    <string name="mq_workload">%1$s: πώς ήταν η δουλειά;</string>
+    <string name="mq_right">Όση πρέπει</string>
+    <string name="mq_too_much">Υπερβολική</string>
+    <string name="mq_mark_discomfort">Αναφορά ενόχλησης</string>
     <string name="fb_discomfort">Δυσφορία</string>
-    <string name="fb_prefatigue">Στην αρχή της άσκησης</string>
     <string name="fb_low">Χαμηλό</string>
-    <string name="fb_adequate">Ακριβώς</string>
-    <string name="fb_high">Υψηλό</string>
-    <string name="fb_none">Καθόλου</string>
     <string name="fb_mild">Ήπια</string>
     <string name="fb_strong">Έντονη</string>
-    <string name="fb_recovered">Ξεκούραστος</string>
-    <string name="fb_loaded">Φορτωμένος</string>
     <string name="plan_cycle_of">Κύκλος %1$d από %2$d</string>
     <string name="plan_block_cycle">Μπλοκ %1$d · %2$s · κύκλος %3$d από %4$d</string>
     <string name="session_cycle_position">Κύκλος %1$d · προπόνηση %2$d</string>

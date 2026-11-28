@@ -173,7 +173,10 @@ class OnboardingViewModel(private val plans: PlanRepository, private val program
                 totalWeeks = maxOf(s.totalWeeks, min))
         }
 
-        /** An explicit split is sent as chosen. "Automatic" only covers 2-4 days, so 5-6 days ask for Push/Pull/Legs; the server may still refine the rest. */
+        /**
+         * An explicit split is sent as chosen. "Automatic" only covers 2-4 days, so five ask for the hybrid week (upper, lower,
+         * push, legs, pull: every muscle twice) and six for Push/Pull/Legs; the server may still refine the rest.
+         */
         fun buildRequest(s: OnboardingState, options: PlanOptions) = PlanProfileRequest(
             goal = s.goal,
             experience = s.experience,
@@ -194,7 +197,12 @@ class OnboardingViewModel(private val plans: PlanRepository, private val program
             // Only a server that offers the preparation understands it; a regular plan sends nothing.
             readiness = s.readiness.takeIf { options.preparation != null && s.preparationWeeks > 0 },
             preparationWeeks = s.preparationWeeks.takeIf { options.preparation != null && it > 0 },
-            split = if (s.split == "Automatic" && (if (s.isSequence) s.sessionsPerPeriod else s.days.size) > 4) "PushPullLegs" else s.split
+            split = when {
+                s.split != "Automatic" -> s.split
+                (if (s.isSequence) s.sessionsPerPeriod else s.days.size) == 5 -> "Hybrid"
+                (if (s.isSequence) s.sessionsPerPeriod else s.days.size) > 5 -> "PushPullLegs"
+                else -> s.split
+            }
         )
     }
 }

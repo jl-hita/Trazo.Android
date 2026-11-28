@@ -61,6 +61,7 @@ fun PlanScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val pending by viewModel.pendingLogs.collectAsStateWithLifecycle()
+    val queued by viewModel.queuedSessions.collectAsStateWithLifecycle()
     val rejected by viewModel.rejectedLogs.collectAsStateWithLifecycle()
     state.archiveQuestion?.let { ArchiveReasonDialog(it, onAnswer = viewModel::archiveBecause, onCancel = viewModel::cancelArchive) }
     Column(Modifier.fillMaxSize().statusBarsPadding()) {
@@ -90,7 +91,7 @@ fun PlanScreen(
                     TrazoButton(onClick = onPremium, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
                 }
                 if (week.sessions.isEmpty() && week.timeline != "Finished" && !week.locked) item { EmptyBox(stringResource(R.string.plan_no_sessions), Modifier.height(120.dp)) }
-                items(week.sessions, key = { it.id }) { SessionCard(it) { onOpenSession(it.id) } }
+                items(week.sessions, key = { it.id }) { SessionCard(it, queued = it.log == null && it.id in queued) { onOpenSession(it.id) } }
                 // Editing rewrites the routines: by weekday in a calendar plan, in rotation order in a sequence plan.
                 if (state.plan?.origin == "Manual") item {
                     TrazoButton(onClick = onEditPlan, secondary = true, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_edit_button)) }
@@ -213,7 +214,7 @@ private fun WeekHeader(plan: PlanView?, week: WeekView) {
 }
 
 @Composable
-private fun SessionCard(session: SessionView, onClick: () -> Unit) {
+private fun SessionCard(session: SessionView, queued: Boolean = false, onClick: () -> Unit) {
     TrazoCard(onClick = onClick) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
@@ -222,8 +223,8 @@ private fun SessionCard(session: SessionView, onClick: () -> Unit) {
             }
             val done = session.log != null
             Text(
-                statusLabel(session.log?.outcome ?: session.status),
-                color = if (done) TrazoPalette.Ok else TrazoPalette.Muted, style = MaterialTheme.typography.labelLarge
+                if (queued) stringResource(R.string.session_queued) else statusLabel(session.log?.outcome ?: session.status),
+                color = if (done || queued) TrazoPalette.Ok else TrazoPalette.Muted, style = MaterialTheme.typography.labelLarge
             )
         }
         Text(

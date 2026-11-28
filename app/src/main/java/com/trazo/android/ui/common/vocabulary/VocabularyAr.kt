@@ -5,7 +5,6 @@ internal val VocabularyAr = Vocabulary(
     goal = mapOf("GeneralFitness" to "لياقة عامة", "Hypertrophy" to "بناء العضلات", "Strength" to "القوة"),
     experience = mapOf("Beginner" to "مبتدئ", "Intermediate" to "متوسط", "Advanced" to "متقدم"),
     limitation = mapOf("Knee" to "الركبة", "Shoulder" to "الكتف", "LowerBack" to "أسفل الظهر", "Wrist" to "الرسغ", "Elbow" to "المرفق"),
-    recovery = mapOf("Unknown" to "أفضّل ألا أقول", "Good" to "متعافٍ جيدًا", "Partial" to "متعافٍ جزئيًا", "Insufficient" to "متعافٍ قليلًا"),
     reason = mapOf("Time" to "ضيق الوقت", "Fatigue" to "الإرهاق", "Equipment" to "المعدات", "Motivation" to "الدافع", "Illness" to "المرض", "Other" to "أخرى"),
     phase = mapOf("accumulation" to "التراكم", "intensification" to "التكثيف", "deload" to "التخفيف", "preparation" to "التحضير"),
     pattern = mapOf(

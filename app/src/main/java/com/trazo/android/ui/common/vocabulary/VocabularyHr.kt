@@ -5,7 +5,6 @@ internal val VocabularyHr = Vocabulary(
     goal = mapOf("GeneralFitness" to "Opća kondicija", "Hypertrophy" to "Rast mišića", "Strength" to "Snaga"),
     experience = mapOf("Beginner" to "Početnik", "Intermediate" to "Srednja razina", "Advanced" to "Napredni"),
     limitation = mapOf("Knee" to "Koljeno", "Shoulder" to "Rame", "LowerBack" to "Donji dio leđa", "Wrist" to "Zglob šake", "Elbow" to "Lakat"),
-    recovery = mapOf("Unknown" to "Radije ne bih rekao", "Good" to "Dobro oporavljen", "Partial" to "Djelomično oporavljen", "Insufficient" to "Slabo oporavljen"),
     reason = mapOf("Time" to "Nedostatak vremena", "Fatigue" to "Umor", "Equipment" to "Oprema", "Motivation" to "Motivacija", "Illness" to "Bolest", "Other" to "Ostalo"),
     phase = mapOf("accumulation" to "Akumulacija", "intensification" to "Intenzifikacija", "deload" to "Rasterećenje", "preparation" to "Priprema"),
     pattern = mapOf(

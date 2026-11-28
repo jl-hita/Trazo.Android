@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO har gennemgået dette pas, og din plan forbliver, som den er: intet behøvede at ændres.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d øvelser</string>
-    <string name="plan_pending_logs">%1$d træningspas venter på forbindelse for at blive sendt.</string>
+    <string name="plan_pending_logs">Træninger, der venter på at blive sendt: %1$d</string>
     <string name="plan_send_now">Send nu</string>
     <string name="plan_next_plan">Opret den næste plan</string>
     <string name="status_planned">Afventer</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Opretter din plan…</string>
     <!-- Session and workout -->
     <string name="session_start">Start træningspas</string>
+    <string name="session_resume">Fortsæt træningen</string>
+    <string name="session_queued">Skal sendes</string>
     <string name="session_done">Pas registreret</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Det, du har indtastet, gemmes på denne enhed, og du kan genoptage det.</string>
     <string name="workout_leave">Forlad</string>
     <string name="finish_title">Afslut passet</string>
-    <string name="finish_recovery">Hvor restitueret var du, da du kom?</string>
     <string name="finish_rpe">Passets anstrengelse: %1$s af 10</string>
     <string name="finish_pain">Jeg mærkede smerte</string>
     <string name="finish_reason">Hvorfor blev det ikke gennemført?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Ændringer gælder fra i dag. Det, du allerede har registreret, og tidligere dage forbliver, som de er; vægte, TRAZO havde justeret til de kommende pas, nulstilles.</string>
     <string name="manual_save">Gem ændringer</string>
     <string name="manual_saving">Gemmer…</string>
-    <string name="fb_title">Hvordan gik hver øvelse?</string>
     <string name="fb_hint">Valgfrit. Med Premium justerer TRAZO dine sæt ud fra dine svar; ubehag automatiseres aldrig: vi markerer det, så du kan se på det.</string>
-    <string name="fb_stimulus">Stimulus i musklen</string>
+    <string name="mq_recovery">%1$s: var du restitueret siden sidst?</string>
+    <string name="mq_fresh">Helt</string>
+    <string name="mq_ready">Lige akkurat</string>
+    <string name="mq_sore">Ikke endnu</string>
+    <string name="mq_workload">%1$s: hvordan var arbejdet?</string>
+    <string name="mq_right">Passende</string>
+    <string name="mq_too_much">For meget</string>
+    <string name="mq_mark_discomfort">Angiv ubehag</string>
     <string name="fb_discomfort">Ubehag</string>
-    <string name="fb_prefatigue">Ved starten af øvelsen</string>
     <string name="fb_low">Lav</string>
-    <string name="fb_adequate">Lige tilpas</string>
-    <string name="fb_high">Høj</string>
-    <string name="fb_none">Ingen</string>
     <string name="fb_mild">Let</string>
     <string name="fb_strong">Kraftigt</string>
-    <string name="fb_recovered">Restitueret</string>
-    <string name="fb_loaded">Belastet</string>
     <string name="plan_cycle_of">Cyklus %1$d af %2$d</string>
     <string name="plan_block_cycle">Blok %1$d · %2$s · cyklus %3$d af %4$d</string>
     <string name="session_cycle_position">Cyklus %1$d · pas %2$d</string>

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO je pregledao ovaj trening i tvoj plan ostaje kakav je: nije trebalo ništa mijenjati.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">Vježbi: %1$d</string>
-    <string name="plan_pending_logs">Treninga koji čekaju vezu za slanje: %1$d.</string>
+    <string name="plan_pending_logs">Treninzi koji čekaju slanje: %1$d</string>
     <string name="plan_send_now">Pošalji sada</string>
     <string name="plan_next_plan">Izradi sljedeći plan</string>
     <string name="status_planned">Na čekanju</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Izrada tvog plana…</string>
     <!-- Session and workout -->
     <string name="session_start">Započni trening</string>
+    <string name="session_resume">Nastavi trening</string>
+    <string name="session_queued">Čeka slanje</string>
     <string name="session_done">Trening zabilježen</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Ono što si unio spremljeno je na ovom uređaju i možeš nastaviti.</string>
     <string name="workout_leave">Napusti</string>
     <string name="finish_title">Zatvori trening</string>
-    <string name="finish_recovery">Koliko si odmoran stigao?</string>
     <string name="finish_rpe">Napor treninga: %1$s od 10</string>
     <string name="finish_pain">Osjetio sam bol</string>
     <string name="finish_reason">Zašto nije dovršen?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Promjene vrijede od danas. Ono što si već zabilježio i prošli dani ostaju kakvi jesu; težine koje je TRAZO prilagodio za nadolazeće treninge vraćaju se na početno.</string>
     <string name="manual_save">Spremi promjene</string>
     <string name="manual_saving">Spremanje…</string>
-    <string name="fb_title">Kako je prošla svaka vježba?</string>
     <string name="fb_hint">Neobavezno. S Premiumom TRAZO prilagođava tvoje serije prema odgovorima; nelagoda se nikad ne automatizira: označimo je da je možeš pregledati.</string>
-    <string name="fb_stimulus">Podražaj u mišiću</string>
+    <string name="mq_recovery">%1$s: jeste li se oporavili od prošlog puta?</string>
+    <string name="mq_fresh">Potpuno</string>
+    <string name="mq_ready">Taman</string>
+    <string name="mq_sore">Još ne</string>
+    <string name="mq_workload">%1$s: koliki je bio rad?</string>
+    <string name="mq_right">Taman koliko treba</string>
+    <string name="mq_too_much">Previše</string>
+    <string name="mq_mark_discomfort">Prijavi nelagodu</string>
     <string name="fb_discomfort">Nelagoda</string>
-    <string name="fb_prefatigue">Na početku vježbe</string>
     <string name="fb_low">Nizak</string>
-    <string name="fb_adequate">Taman</string>
-    <string name="fb_high">Visok</string>
-    <string name="fb_none">Nikakva</string>
     <string name="fb_mild">Blaga</string>
     <string name="fb_strong">Jaka</string>
-    <string name="fb_recovered">Oporavljen</string>
-    <string name="fb_loaded">Opterećen</string>
     <string name="plan_cycle_of">Ciklus %1$d od %2$d</string>
     <string name="plan_block_cycle">Blok %1$d · %2$s · ciklus %3$d od %4$d</string>
     <string name="session_cycle_position">Ciklus %1$d · trening %2$d</string>

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">راجع TRAZO هذا التمرين وتبقى خطتك كما هي: لم يكن هناك ما يحتاج إلى تغيير.</string>
     <string name="plan_session_minutes">%1$d د</string>
     <string name="plan_session_exercises">%1$d تمرين</string>
-    <string name="plan_pending_logs">%1$d تمارين تنتظر الاتصال ليتم إرسالها.</string>
+    <string name="plan_pending_logs">تمارين بانتظار الإرسال: %1$d</string>
     <string name="plan_send_now">إرسال الآن</string>
     <string name="plan_next_plan">إنشاء الخطة التالية</string>
     <string name="status_planned">قيد الانتظار</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">جارٍ إنشاء خطتك…</string>
     <!-- Session and workout -->
     <string name="session_start">ابدأ التمرين</string>
+    <string name="session_resume">متابعة التمرين</string>
+    <string name="session_queued">بانتظار الإرسال</string>
     <string name="session_done">تم تسجيل التمرين</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">ما أدخلته محفوظ على هذا الجهاز ويمكنك استئنافه.</string>
     <string name="workout_leave">مغادرة</string>
     <string name="finish_title">إغلاق التمرين</string>
-    <string name="finish_recovery">ما مدى تعافيك عند وصولك؟</string>
     <string name="finish_rpe">جهد التمرين: %1$s من 10</string>
     <string name="finish_pain">شعرت بألم</string>
     <string name="finish_reason">لماذا لم يكتمل؟</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">تسري التغييرات من اليوم. ما سجّلته مسبقًا والأيام الماضية يبقيان كما هما؛ وتُعاد تهيئة الأوزان التي عدّلها TRAZO للتمارين القادمة.</string>
     <string name="manual_save">حفظ التغييرات</string>
     <string name="manual_saving">جارٍ الحفظ…</string>
-    <string name="fb_title">كيف سار كل تمرين؟</string>
     <string name="fb_hint">اختياري. مع Premium يعدّل TRAZO مجموعاتك بناءً على إجاباتك؛ أما الانزعاج فلا يُؤتمت أبدًا: نُشير إليه لتراجعه بنفسك.</string>
-    <string name="fb_stimulus">التحفيز في العضلة</string>
+    <string name="mq_recovery">%1$s: هل تعافيت منذ المرة السابقة؟</string>
+    <string name="mq_fresh">تمامًا</string>
+    <string name="mq_ready">بالكاد</string>
+    <string name="mq_sore">ليس بعد</string>
+    <string name="mq_workload">%1$s: كيف كان حجم العمل؟</string>
+    <string name="mq_right">مناسب</string>
+    <string name="mq_too_much">أكثر من اللازم</string>
+    <string name="mq_mark_discomfort">الإبلاغ عن انزعاج</string>
     <string name="fb_discomfort">الانزعاج</string>
-    <string name="fb_prefatigue">عند بدء التمرين</string>
     <string name="fb_low">منخفض</string>
-    <string name="fb_adequate">مناسب</string>
-    <string name="fb_high">مرتفع</string>
-    <string name="fb_none">لا يوجد</string>
     <string name="fb_mild">خفيف</string>
     <string name="fb_strong">شديد</string>
-    <string name="fb_recovered">متعافٍ</string>
-    <string name="fb_loaded">مُجهَد</string>
     <string name="plan_cycle_of">الدورة %1$d من %2$d</string>
     <string name="plan_block_cycle">الكتلة %1$d · %2$s · الدورة %3$d من %4$d</string>
     <string name="session_cycle_position">الدورة %1$d · التمرين %2$d</string>

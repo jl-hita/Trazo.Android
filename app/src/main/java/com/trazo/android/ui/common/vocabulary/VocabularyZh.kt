@@ -5,7 +5,6 @@ internal val VocabularyZh = Vocabulary(
     goal = mapOf("GeneralFitness" to "综合健身", "Hypertrophy" to "增肌", "Strength" to "力量"),
     experience = mapOf("Beginner" to "初级", "Intermediate" to "中级", "Advanced" to "高级"),
     limitation = mapOf("Knee" to "膝盖", "Shoulder" to "肩部", "LowerBack" to "下背部", "Wrist" to "手腕", "Elbow" to "肘部"),
-    recovery = mapOf("Unknown" to "不想说", "Good" to "恢复良好", "Partial" to "部分恢复", "Insufficient" to "恢复不足"),
     reason = mapOf("Time" to "时间不足", "Fatigue" to "疲劳", "Equipment" to "器材", "Motivation" to "动力不足", "Illness" to "生病", "Other" to "其他"),
     phase = mapOf("accumulation" to "积累期", "intensification" to "强化期", "deload" to "减负周", "preparation" to "准备期"),
     pattern = mapOf(

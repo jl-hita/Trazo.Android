@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO ha revisat aquesta sessió i el teu pla es manté tal com està: no ha calgut canviar res.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d exercicis</string>
-    <string name="plan_pending_logs">%1$d entrenaments esperen connexió per enviar-se.</string>
+    <string name="plan_pending_logs">Entrenaments pendents d’enviar: %1$d</string>
     <string name="plan_send_now">Envia ara</string>
     <string name="plan_next_plan">Crea el pla següent</string>
     <string name="status_planned">Pendent</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Generant el teu pla…</string>
     <!-- Session and workout -->
     <string name="session_start">Comença l\'entrenament</string>
+    <string name="session_resume">Continua l’entrenament</string>
+    <string name="session_queued">Per enviar</string>
     <string name="session_done">Sessió registrada</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -152,7 +154,6 @@
     <string name="workout_leave_text">El que has introduït es desa en aquest dispositiu i el pots reprendre.</string>
     <string name="workout_leave">Surt</string>
     <string name="finish_title">Tanca la sessió</string>
-    <string name="finish_recovery">Com de recuperat has arribat?</string>
     <string name="finish_rpe">Esforç de la sessió: %1$s sobre 10</string>
     <string name="finish_pain">He notat dolor</string>
     <string name="finish_reason">Per què no s\'ha completat?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Els canvis s\'apliquen des d\'avui. El que ja has registrat i els dies passats es queden com estan; les càrregues que TRAZO havia ajustat per a les properes sessions es restableixen.</string>
     <string name="manual_save">Desa els canvis</string>
     <string name="manual_saving">Desant…</string>
-    <string name="fb_title">Com ha anat cada exercici?</string>
     <string name="fb_hint">Opcional. Amb Premium, TRAZO ajusta les teves sèries segons les respostes; les molèsties no s\'automatitzen mai: te les assenyalem perquè les revisis.</string>
-    <string name="fb_stimulus">Estímul al múscul</string>
+    <string name="mq_recovery">%1$s: t\'havies recuperat des de l\'última vegada?</string>
+    <string name="mq_fresh">De sobres</string>
+    <string name="mq_ready">Just</string>
+    <string name="mq_sore">Encara no</string>
+    <string name="mq_workload">%1$s: com ha estat la feina?</string>
+    <string name="mq_right">Adequat</string>
+    <string name="mq_too_much">Massa</string>
+    <string name="mq_mark_discomfort">Marcar molèsties</string>
     <string name="fb_discomfort">Molèstia</string>
-    <string name="fb_prefatigue">En començar l\'exercici</string>
     <string name="fb_low">Baix</string>
-    <string name="fb_adequate">Just</string>
-    <string name="fb_high">Alt</string>
-    <string name="fb_none">Cap</string>
     <string name="fb_mild">Lleu</string>
     <string name="fb_strong">Forta</string>
-    <string name="fb_recovered">Recuperat</string>
-    <string name="fb_loaded">Carregat</string>
     <string name="plan_cycle_of">Cicle %1$d de %2$d</string>
     <string name="plan_block_cycle">Bloc %1$d · %2$s · cicle %3$d de %4$d</string>
     <string name="session_cycle_position">Cicle %1$d · sessió %2$d</string>

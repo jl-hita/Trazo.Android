@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO hat diese Einheit geprüft, und dein Plan bleibt unverändert: Es musste nichts angepasst werden.</string>
     <string name="plan_session_minutes">%1$d Min.</string>
     <string name="plan_session_exercises">%1$d Übungen</string>
-    <string name="plan_pending_logs">%1$d Trainings warten auf eine Verbindung, um gesendet zu werden.</string>
+    <string name="plan_pending_logs">Noch zu sendende Trainings: %1$d</string>
     <string name="plan_send_now">Jetzt senden</string>
     <string name="plan_next_plan">Nächsten Plan erstellen</string>
     <string name="status_planned">Offen</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Dein Plan wird erstellt…</string>
     <!-- Session and workout -->
     <string name="session_start">Training starten</string>
+    <string name="session_resume">Training fortsetzen</string>
+    <string name="session_queued">Noch zu senden</string>
     <string name="session_done">Einheit erfasst</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -152,7 +154,6 @@
     <string name="workout_leave_text">Deine Eingaben werden auf diesem Gerät gespeichert, und du kannst das Training fortsetzen.</string>
     <string name="workout_leave">Verlassen</string>
     <string name="finish_title">Einheit abschließen</string>
-    <string name="finish_recovery">Wie erholt bist du gekommen?</string>
     <string name="finish_rpe">Anstrengung der Einheit: %1$s von 10</string>
     <string name="finish_pain">Ich hatte Schmerzen</string>
     <string name="finish_reason">Warum wurde sie nicht abgeschlossen?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Änderungen gelten ab heute. Bereits Erfasstes und vergangene Tage bleiben unverändert; Gewichte, die TRAZO für die kommenden Einheiten angepasst hatte, werden zurückgesetzt.</string>
     <string name="manual_save">Änderungen speichern</string>
     <string name="manual_saving">Wird gespeichert…</string>
-    <string name="fb_title">Wie lief jede Übung?</string>
     <string name="fb_hint">Optional. Mit Premium passt TRAZO deine Sätze anhand deiner Antworten an; Beschwerden werden nie automatisiert: Wir markieren sie, damit du sie prüfen kannst.</string>
-    <string name="fb_stimulus">Reiz im Muskel</string>
+    <string name="mq_recovery">%1$s: seit dem letzten Mal erholt?</string>
+    <string name="mq_fresh">Vollständig</string>
+    <string name="mq_ready">Gerade so</string>
+    <string name="mq_sore">Noch nicht</string>
+    <string name="mq_workload">%1$s: wie war das Pensum?</string>
+    <string name="mq_right">Passend</string>
+    <string name="mq_too_much">Zu viel</string>
+    <string name="mq_mark_discomfort">Beschwerden angeben</string>
     <string name="fb_discomfort">Beschwerden</string>
-    <string name="fb_prefatigue">Zu Beginn der Übung</string>
     <string name="fb_low">Niedrig</string>
-    <string name="fb_adequate">Genau richtig</string>
-    <string name="fb_high">Hoch</string>
-    <string name="fb_none">Keine</string>
     <string name="fb_mild">Leicht</string>
     <string name="fb_strong">Stark</string>
-    <string name="fb_recovered">Erholt</string>
-    <string name="fb_loaded">Belastet</string>
     <string name="plan_cycle_of">Zyklus %1$d von %2$d</string>
     <string name="plan_block_cycle">Block %1$d · %2$s · Zyklus %3$d von %4$d</string>
     <string name="session_cycle_position">Zyklus %1$d · Einheit %2$d</string>

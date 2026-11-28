@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZOはこのトレーニングを確認しました。プランはそのままで、変更の必要はありませんでした。</string>
     <string name="plan_session_minutes">%1$d分</string>
     <string name="plan_session_exercises">%1$d種目</string>
-    <string name="plan_pending_logs">%1$d件のトレーニングが送信待ちです（接続が必要です）。</string>
+    <string name="plan_pending_logs">送信待ちのトレーニング: %1$d</string>
     <string name="plan_send_now">今すぐ送信</string>
     <string name="plan_next_plan">次のプランを作成</string>
     <string name="status_planned">予定</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">プランを作成中…</string>
     <!-- Session and workout -->
     <string name="session_start">トレーニング開始</string>
+    <string name="session_resume">トレーニングを再開</string>
+    <string name="session_queued">送信待ち</string>
     <string name="session_done">トレーニングを記録しました</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">入力した内容はこの端末に保存され、あとで再開できます。</string>
     <string name="workout_leave">終了する</string>
     <string name="finish_title">トレーニングを締める</string>
-    <string name="finish_recovery">開始時の回復具合はどうでしたか？</string>
     <string name="finish_rpe">トレーニングのきつさ：10段階中%1$s</string>
     <string name="finish_pain">痛みを感じた</string>
     <string name="finish_reason">なぜ完了しなかったのですか？</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">変更は今日から適用されます。すでに記録した内容と過去の日はそのままです。TRAZOが今後のトレーニング向けに調整した重量はリセットされます。</string>
     <string name="manual_save">変更を保存</string>
     <string name="manual_saving">保存中…</string>
-    <string name="fb_title">各種目はどうでしたか？</string>
     <string name="fb_hint">任意です。Premiumなら、TRAZOが回答をもとにセット数を調整します。不快感は自動化されることはありません。確認できるよう印を付けてお知らせします。</string>
-    <string name="fb_stimulus">筋肉への刺激</string>
+    <string name="mq_recovery">%1$s：前回から回復していましたか？</string>
+    <string name="mq_fresh">十分に</string>
+    <string name="mq_ready">ぎりぎり</string>
+    <string name="mq_sore">まだ</string>
+    <string name="mq_workload">%1$s：作業量はどうでしたか？</string>
+    <string name="mq_right">ちょうどよい</string>
+    <string name="mq_too_much">多すぎる</string>
+    <string name="mq_mark_discomfort">違和感を記録</string>
     <string name="fb_discomfort">不快感</string>
-    <string name="fb_prefatigue">種目開始時</string>
     <string name="fb_low">低い</string>
-    <string name="fb_adequate">ちょうど良い</string>
-    <string name="fb_high">高い</string>
-    <string name="fb_none">なし</string>
     <string name="fb_mild">軽い</string>
     <string name="fb_strong">強い</string>
-    <string name="fb_recovered">回復済み</string>
-    <string name="fb_loaded">疲労あり</string>
     <string name="plan_cycle_of">サイクル%1$d／%2$d</string>
     <string name="plan_block_cycle">ブロック%1$d · %2$s · サイクル%3$d／%4$d</string>
     <string name="session_cycle_position">サイクル%1$d · トレーニング%2$d</string>

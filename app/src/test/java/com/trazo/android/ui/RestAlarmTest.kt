@@ -99,7 +99,7 @@ class RestAlarmTest : ViewModelTestBase() {
     @Test fun `finishing the workout withdraws the alert`() = runTest(dispatcher) {
         val vm = vm()
         repeat(3) { vm.doSet(it) }
-        vm.finish(FinishForm(recovery = "Good", sessionRpe = 7.0))
+        vm.finish(FinishForm(sessionRpe = 7.0))
         advanceUntilIdle()
         assertNull(alarms.at)
     }

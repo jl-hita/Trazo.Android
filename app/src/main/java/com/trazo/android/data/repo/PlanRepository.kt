@@ -45,6 +45,7 @@ class PlanRepository(
     /** Puts the sets of a rejected log back in the workout screen, so it can be corrected. */
     private val restoreDraft: (PendingLog) -> Unit = {},
     private val deleteDraft: (String) -> Unit = {},
+    private val forgetDraftHealthData: () -> Unit = {},
     /**
      * Runs before anything that may carry health data is sent: a consent given without a connection must reach the server first,
      * or the server leaves that data out.
@@ -61,6 +62,11 @@ class PlanRepository(
 
     private val _pending = MutableStateFlow(0)
     val pendingCount: StateFlow<Int> = _pending.asStateFlow()
+
+    private val _queued = MutableStateFlow<Set<String>>(emptySet())
+
+    /** The sessions whose log waits on the phone to be sent: done for the user, still pending for the server. */
+    val queuedSessions: StateFlow<Set<String>> = _queued.asStateFlow()
 
     private val _rejected = MutableStateFlow<List<PendingLog>>(emptyList())
 
@@ -79,6 +85,7 @@ class PlanRepository(
     suspend fun forgetHealthData() {
         disk {
             queue.all().forEach { queue.replace(it.withoutHealthData()) }
+            forgetDraftHealthData()
             cache.clear()
         }
         publishQueue()
@@ -86,6 +93,7 @@ class PlanRepository(
 
     private fun publish(entries: List<PendingLog>) {
         _pending.value = entries.count { !it.isRejected }
+        _queued.value = entries.filterNot { it.isRejected }.map { it.sessionId }.toSet()
         _rejected.value = entries.filter { it.isRejected }
     }
 

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO tento tréning skontrolovalo a tvoj plán zostáva bez zmeny: nebolo treba nič meniť.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">Cvikov: %1$d</string>
-    <string name="plan_pending_logs">Tréningov čakajúcich na pripojenie na odoslanie: %1$d.</string>
+    <string name="plan_pending_logs">Tréningy čakajúce na odoslanie: %1$d</string>
     <string name="plan_send_now">Odoslať teraz</string>
     <string name="plan_next_plan">Vytvoriť ďalší plán</string>
     <string name="status_planned">Čaká</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Vytvára sa tvoj plán…</string>
     <!-- Session and workout -->
     <string name="session_start">Začať tréning</string>
+    <string name="session_resume">Pokračovať v tréningu</string>
+    <string name="session_queued">Na odoslanie</string>
     <string name="session_done">Tréning zapísaný</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -159,7 +161,6 @@
     <string name="workout_leave_text">Čo si zadal(a), je uložené v tomto zariadení a môžeš pokračovať.</string>
     <string name="workout_leave">Opustiť</string>
     <string name="finish_title">Uzavrieť tréning</string>
-    <string name="finish_recovery">Aký odpočinutý(á) si prišiel(a)?</string>
     <string name="finish_rpe">Náročnosť tréningu: %1$s z 10</string>
     <string name="finish_pain">Cítil(a) som bolesť</string>
     <string name="finish_reason">Prečo nebol dokončený?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Zmeny platia od dnes. Čo si už zapísal(a), a minulé dni zostanú bez zmeny; záťaže, ktoré TRAZO upravilo pre nadchádzajúce tréningy, sa vynulujú.</string>
     <string name="manual_save">Uložiť zmeny</string>
     <string name="manual_saving">Ukladá sa…</string>
-    <string name="fb_title">Ako sa ti darilo pri každom cviku?</string>
     <string name="fb_hint">Voliteľné. S Premium TRAZO upravuje tvoje série podľa odpovedí; nepohodlie sa nikdy neautomatizuje: označíme ho, aby si ho mohol(a) posúdiť.</string>
-    <string name="fb_stimulus">Stimul vo svale</string>
+    <string name="mq_recovery">%1$s: zotavili ste sa od minula?</string>
+    <string name="mq_fresh">Úplne</string>
+    <string name="mq_ready">Tak akurát</string>
+    <string name="mq_sore">Ešte nie</string>
+    <string name="mq_workload">%1$s: aká bola záťaž?</string>
+    <string name="mq_right">Primeraná</string>
+    <string name="mq_too_much">Priveľká</string>
+    <string name="mq_mark_discomfort">Nahlásiť nepohodlie</string>
     <string name="fb_discomfort">Nepohodlie</string>
-    <string name="fb_prefatigue">Na začiatku cviku</string>
     <string name="fb_low">Nízky</string>
-    <string name="fb_adequate">Akurát</string>
-    <string name="fb_high">Vysoký</string>
-    <string name="fb_none">Žiadne</string>
     <string name="fb_mild">Mierne</string>
     <string name="fb_strong">Silné</string>
-    <string name="fb_recovered">Zotavený</string>
-    <string name="fb_loaded">Zaťažený</string>
     <string name="plan_cycle_of">Cyklus %1$d z %2$d</string>
     <string name="plan_block_cycle">Blok %1$d · %2$s · cyklus %3$d z %4$d</string>
     <string name="session_cycle_position">Cyklus %1$d · tréning %2$d</string>

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO sprawdziło tę sesję i Twój plan pozostaje bez zmian: nic nie trzeba było poprawiać.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">Ćwiczenia: %1$d</string>
-    <string name="plan_pending_logs">Treningi czekające na połączenie, aby zostać wysłane: %1$d.</string>
+    <string name="plan_pending_logs">Treningi oczekujące na wysłanie: %1$d</string>
     <string name="plan_send_now">Wyślij teraz</string>
     <string name="plan_next_plan">Utwórz następny plan</string>
     <string name="status_planned">Oczekuje</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Tworzenie Twojego planu…</string>
     <!-- Session and workout -->
     <string name="session_start">Rozpocznij trening</string>
+    <string name="session_resume">Wznów trening</string>
+    <string name="session_queued">Do wysłania</string>
     <string name="session_done">Sesja zapisana</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
@@ -152,7 +154,6 @@
     <string name="workout_leave_text">To, co wpisałeś, jest zapisane na tym urządzeniu i możesz do tego wrócić.</string>
     <string name="workout_leave">Wyjdź</string>
     <string name="finish_title">Zamknij sesję</string>
-    <string name="finish_recovery">Jak bardzo byłeś zregenerowany?</string>
     <string name="finish_rpe">Wysiłek w sesji: %1$s na 10</string>
     <string name="finish_pain">Czułem ból</string>
     <string name="finish_reason">Dlaczego nie została ukończona?</string>
@@ -468,19 +469,19 @@
     <string name="manual_edit_note">Zmiany obowiązują od dziś. To, co już zapisałeś, i minione dni pozostają bez zmian; obciążenia, które TRAZO dostosowało na nadchodzące sesje, są zerowane.</string>
     <string name="manual_save">Zapisz zmiany</string>
     <string name="manual_saving">Zapisywanie…</string>
-    <string name="fb_title">Jak poszło każde ćwiczenie?</string>
     <string name="fb_hint">Opcjonalnie. Z Premium TRAZO dostosowuje Twoje serie na podstawie odpowiedzi; dyskomfort nigdy nie jest automatyzowany: oznaczamy go, abyś mógł go sprawdzić.</string>
-    <string name="fb_stimulus">Bodziec w mięśniu</string>
+    <string name="mq_recovery">%1$s: czy była regeneracja od ostatniego razu?</string>
+    <string name="mq_fresh">Pełna</string>
+    <string name="mq_ready">Ledwo</string>
+    <string name="mq_sore">Jeszcze nie</string>
+    <string name="mq_workload">%1$s: jaka była praca?</string>
+    <string name="mq_right">W sam raz</string>
+    <string name="mq_too_much">Za dużo</string>
+    <string name="mq_mark_discomfort">Zgłoś dyskomfort</string>
     <string name="fb_discomfort">Dyskomfort</string>
-    <string name="fb_prefatigue">Na początku ćwiczenia</string>
     <string name="fb_low">Niski</string>
-    <string name="fb_adequate">W sam raz</string>
-    <string name="fb_high">Wysoki</string>
-    <string name="fb_none">Brak</string>
     <string name="fb_mild">Lekki</string>
     <string name="fb_strong">Silny</string>
-    <string name="fb_recovered">Zregenerowany</string>
-    <string name="fb_loaded">Obciążony</string>
     <string name="plan_cycle_of">Cykl %1$d z %2$d</string>
     <string name="plan_block_cycle">Blok %1$d · %2$s · cykl %3$d z %4$d</string>
     <string name="session_cycle_position">Cykl %1$d · sesja %2$d</string>

@@ -42,6 +42,8 @@ fun SessionScreen(
     val current by week.collectAsStateWithLifecycle()
     val ui by viewModel.state.collectAsStateWithLifecycle()
     var info by remember { mutableStateOf<String?>(null) }
+    val queued by viewModel.queuedSessions.collectAsStateWithLifecycle()
+    LaunchedEffect(sessionId) { viewModel.checkDraft() }
     val session = ui.swapped ?: current?.sessions?.firstOrNull { it.id == sessionId } ?: lookup(sessionId) ?: ui.found
     Column(Modifier.fillMaxSize()) {
         TrazoTopBar(session?.title ?: stringResource(R.string.workout_title), onBack)
@@ -77,8 +79,13 @@ fun SessionScreen(
                 Notice(stringResource(R.string.plan_generated_premium_locked))
                 TrazoButton(onClick = onPremium, modifier = Modifier.padding(top = 8.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
             }
+        } else if (session.log == null && sessionId in queued) {
+            // Already trained and waiting to be sent: starting it again would record it twice.
+            Text(stringResource(R.string.finish_queued), color = TrazoPalette.Ok, modifier = Modifier.padding(16.dp))
         } else if (session.log == null) {
-            TrazoButton(onClick = onStart, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.session_start)) }
+            TrazoButton(onClick = onStart, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) {
+                Text(stringResource(if (ui.started) R.string.session_resume else R.string.session_start))
+            }
         } else {
             Text(stringResource(R.string.session_done), color = TrazoPalette.Ok, modifier = Modifier.padding(16.dp))
         }

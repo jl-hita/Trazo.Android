@@ -5,7 +5,6 @@ internal val VocabularyMk = Vocabulary(
     goal = mapOf("GeneralFitness" to "Општа кондиција", "Hypertrophy" to "Раст на мускули", "Strength" to "Сила"),
     experience = mapOf("Beginner" to "Почетник", "Intermediate" to "Средно ниво", "Advanced" to "Напредно ниво"),
     limitation = mapOf("Knee" to "Колено", "Shoulder" to "Рамо", "LowerBack" to "Долен дел од грбот", "Wrist" to "Зглоб на раката", "Elbow" to "Лакт"),
-    recovery = mapOf("Unknown" to "Претпочитам да не кажам", "Good" to "Добро одморен", "Partial" to "Делумно одморен", "Insufficient" to "Слабо одморен"),
     reason = mapOf("Time" to "Недостиг на време", "Fatigue" to "Замор", "Equipment" to "Опрема", "Motivation" to "Мотивација", "Illness" to "Болест", "Other" to "Друго"),
     phase = mapOf("accumulation" to "Акумулација", "intensification" to "Интензификација", "deload" to "Растоварување", "preparation" to "Подготовка"),
     pattern = mapOf(
