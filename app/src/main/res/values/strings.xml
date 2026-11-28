@@ -729,4 +729,13 @@
     <string name="update_later">Not now</string>
     <string name="finish_rpe_none">Session effort: not set</string>
     <string name="finish_reason_required">Choose a reason to send</string>
+    <string name="feedback_open">Send feedback</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_note">It is sent with your account, the app version, your phone model and the screen you came from. Do not write health data.</string>
+    <string name="feedback_bug">Something fails</string>
+    <string name="feedback_idea">Idea</string>
+    <string name="feedback_other">Other</string>
+    <string name="feedback_message">Your message</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_sent">Thank you. We have received it.</string>
 </resources>

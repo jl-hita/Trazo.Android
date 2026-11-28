@@ -685,4 +685,13 @@
     <string name="update_later">Niet nu</string>
     <string name="finish_rpe_none">Inspanning van de training: niet ingesteld</string>
     <string name="finish_reason_required">Kies een reden om te versturen</string>
+    <string name="feedback_open">Feedback sturen</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_note">Wordt verzonden met je account, de appversie, je telefoonmodel en het scherm waar je vandaan komt. Schrijf geen gezondheidsgegevens.</string>
+    <string name="feedback_bug">Er werkt iets niet</string>
+    <string name="feedback_idea">Idee</string>
+    <string name="feedback_other">Anders</string>
+    <string name="feedback_message">Je bericht</string>
+    <string name="feedback_send">Versturen</string>
+    <string name="feedback_sent">Bedankt. We hebben het ontvangen.</string>
 </resources>

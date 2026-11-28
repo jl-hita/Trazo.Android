@@ -695,4 +695,13 @@
     <string name="update_later">Не сейчас</string>
     <string name="finish_rpe_none">Нагрузка тренировки: не указано</string>
     <string name="finish_reason_required">Выберите причину, чтобы отправить</string>
+    <string name="feedback_open">Отправить отзыв</string>
+    <string name="feedback_title">Отзывы</string>
+    <string name="feedback_note">Отправляется вместе с вашим аккаунтом, версией приложения, моделью телефона и экраном, с которого вы пришли. Не пишите данные о здоровье.</string>
+    <string name="feedback_bug">Что-то не работает</string>
+    <string name="feedback_idea">Идея</string>
+    <string name="feedback_other">Другое</string>
+    <string name="feedback_message">Ваше сообщение</string>
+    <string name="feedback_send">Отправить</string>
+    <string name="feedback_sent">Спасибо. Мы получили.</string>
 </resources>

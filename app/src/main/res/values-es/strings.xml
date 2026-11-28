@@ -706,4 +706,13 @@
     <string name="update_later">Ahora no</string>
     <string name="finish_rpe_none">Esfuerzo de la sesión: sin indicar</string>
     <string name="finish_reason_required">Elige un motivo para enviar</string>
+    <string name="feedback_open">Enviar comentarios</string>
+    <string name="feedback_title">Comentarios</string>
+    <string name="feedback_note">Se envía con tu cuenta, la versión de la app, el modelo de tu teléfono y la pantalla desde la que vienes. No escribas datos de salud.</string>
+    <string name="feedback_bug">Algo falla</string>
+    <string name="feedback_idea">Idea</string>
+    <string name="feedback_other">Otro</string>
+    <string name="feedback_message">Tu mensaje</string>
+    <string name="feedback_send">Enviar</string>
+    <string name="feedback_sent">Gracias. Lo hemos recibido.</string>
 </resources>

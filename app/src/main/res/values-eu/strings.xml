@@ -685,4 +685,13 @@
     <string name="update_later">Orain ez</string>
     <string name="finish_rpe_none">Saioaren esfortzua: zehaztu gabe</string>
     <string name="finish_reason_required">Aukeratu arrazoi bat bidaltzeko</string>
+    <string name="feedback_open">Bidali iruzkinak</string>
+    <string name="feedback_title">Iruzkinak</string>
+    <string name="feedback_note">Zure kontuarekin, aplikazioaren bertsioarekin, telefonoaren ereduarekin eta zatozen pantailarekin bidaltzen da. Ez idatzi osasun-daturik.</string>
+    <string name="feedback_bug">Zerbait ez dabil</string>
+    <string name="feedback_idea">Ideia</string>
+    <string name="feedback_other">Bestelakoa</string>
+    <string name="feedback_message">Zure mezua</string>
+    <string name="feedback_send">Bidali</string>
+    <string name="feedback_sent">Eskerrik asko. Jaso dugu.</string>
 </resources>

@@ -690,4 +690,13 @@
     <string name="update_later">Ne sada</string>
     <string name="finish_rpe_none">Napor treninga: nije postavljeno</string>
     <string name="finish_reason_required">Odaberi razlog za slanje</string>
+    <string name="feedback_open">Pošalji komentar</string>
+    <string name="feedback_title">Komentari</string>
+    <string name="feedback_note">Šalje se uz tvoj račun, verziju aplikacije, model telefona i zaslon s kojeg dolaziš. Ne piši zdravstvene podatke.</string>
+    <string name="feedback_bug">Nešto ne radi</string>
+    <string name="feedback_idea">Ideja</string>
+    <string name="feedback_other">Ostalo</string>
+    <string name="feedback_message">Tvoja poruka</string>
+    <string name="feedback_send">Pošalji</string>
+    <string name="feedback_sent">Hvala. Primili smo.</string>
 </resources>

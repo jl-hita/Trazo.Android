@@ -680,4 +680,13 @@
     <string name="update_later">後で</string>
     <string name="finish_rpe_none">トレーニングのきつさ：未設定</string>
     <string name="finish_reason_required">送信するには理由を選んでください</string>
+    <string name="feedback_open">フィードバックを送る</string>
+    <string name="feedback_title">フィードバック</string>
+    <string name="feedback_note">アカウント、アプリのバージョン、端末の機種、直前の画面と一緒に送信されます。健康に関する情報は書かないでください。</string>
+    <string name="feedback_bug">不具合</string>
+    <string name="feedback_idea">アイデア</string>
+    <string name="feedback_other">その他</string>
+    <string name="feedback_message">メッセージ</string>
+    <string name="feedback_send">送信</string>
+    <string name="feedback_sent">ありがとうございます。受け取りました。</string>
 </resources>

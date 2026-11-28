@@ -695,4 +695,13 @@
     <string name="update_later">Teď ne</string>
     <string name="finish_rpe_none">Náročnost tréninku: nezadáno</string>
     <string name="finish_reason_required">Pro odeslání vyber důvod</string>
+    <string name="feedback_open">Poslat zpětnou vazbu</string>
+    <string name="feedback_title">Zpětná vazba</string>
+    <string name="feedback_note">Odesílá se s tvým účtem, verzí aplikace, modelem telefonu a obrazovkou, ze které přicházíš. Nepiš zdravotní údaje.</string>
+    <string name="feedback_bug">Něco nefunguje</string>
+    <string name="feedback_idea">Nápad</string>
+    <string name="feedback_other">Jiné</string>
+    <string name="feedback_message">Tvoje zpráva</string>
+    <string name="feedback_send">Odeslat</string>
+    <string name="feedback_sent">Děkujeme. Dostali jsme to.</string>
 </resources>

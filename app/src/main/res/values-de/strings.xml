@@ -685,4 +685,13 @@
     <string name="update_later">Nicht jetzt</string>
     <string name="finish_rpe_none">Anstrengung der Einheit: nicht angegeben</string>
     <string name="finish_reason_required">Wähle einen Grund, um zu senden</string>
+    <string name="feedback_open">Feedback senden</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_note">Wird mit deinem Konto, der App-Version, deinem Telefonmodell und dem Bildschirm gesendet, von dem du kommst. Schreib keine Gesundheitsdaten.</string>
+    <string name="feedback_bug">Etwas funktioniert nicht</string>
+    <string name="feedback_idea">Idee</string>
+    <string name="feedback_other">Sonstiges</string>
+    <string name="feedback_message">Deine Nachricht</string>
+    <string name="feedback_send">Senden</string>
+    <string name="feedback_sent">Danke. Wir haben es erhalten.</string>
 </resources>

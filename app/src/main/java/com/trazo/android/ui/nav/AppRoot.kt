@@ -78,6 +78,7 @@ object Routes {
     const val BLOCK = "block"
     const val PROGRESS = "progress"
     const val REFERRALS = "referrals"
+    const val FEEDBACK = "feedback"
     const val DELETE_ACCOUNT = "account/delete"
     const val PROGRAMS = "programs"
     const val PROGRAM = "program/{id}"
@@ -153,6 +154,9 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
     // A free account that taps "automatic plan" is told what it can do instead of filling in the form to get a refusal.
     var premiumPrompt by rememberSaveable { mutableStateOf(false) }
     val route =nav.currentBackStackEntryAsState().value?.destination?.route
+    // Where the person was before opening Account: it travels with a comment (the route pattern, never an id).
+    var cameFrom by rememberSaveable { mutableStateOf<String?>(null) }
+    LaunchedEffect(route) { if (route != null && route != Routes.ACCOUNT && route != Routes.FEEDBACK) cameFrom = route }
     val context = LocalContext.current
     // Signing in on another device: the language the user chose there is adopted here, and the screen is rebuilt in it.
     LaunchedEffect(user?.language) {
@@ -243,11 +247,17 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                     val vm: AccountViewModel = containerViewModel { AccountViewModel(it.subscription, it.plans, it.researchConsent::archiveQuestion) }
                     val planState by planVm.state.collectAsStateWithLifecycle()
                     LaunchedEffect(subscriptionVersion) { if (subscriptionVersion > 0) vm.load() }
-                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, generatedPlan = planState.plan?.origin == "Generated", planId = planState.week?.planId ?: planState.plan?.id, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() }, onReferrals = { nav.navigate(Routes.REFERRALS) }, onDeleteAccount = { nav.navigate(Routes.DELETE_ACCOUNT) }, health = { com.trazo.android.ui.account.HealthSection(c.healthConsent, onWithdrawn = { planVm.load() }) }, research = { com.trazo.android.ui.account.ResearchSection(c.researchConsent) })
+                    AccountScreen(vm, c.auth, c.language, user, hasPlan = planState.week != null || planState.plan != null, generatedPlan = planState.plan?.origin == "Generated", planId = planState.week?.planId ?: planState.plan?.id, onLogout = onLogout, onPremium = { nav.navigate(Routes.premium("account")) }, onPlanArchived = { planVm.load(); nav.navigateTab(Routes.PLAN) }, onLanguageChanged = { planVm.load() }, onReferrals = { nav.navigate(Routes.REFERRALS) }, onFeedback = { nav.navigate(Routes.FEEDBACK) }, onDeleteAccount = { nav.navigate(Routes.DELETE_ACCOUNT) }, health = { com.trazo.android.ui.account.HealthSection(c.healthConsent, onWithdrawn = { planVm.load() }) }, research = { com.trazo.android.ui.account.ResearchSection(c.researchConsent) })
                 }
                 composable(Routes.DELETE_ACCOUNT) {
                     val vm: com.trazo.android.ui.account.DeleteAccountViewModel = containerViewModel { com.trazo.android.ui.account.DeleteAccountViewModel(it.account) }
                     com.trazo.android.ui.account.DeleteAccountScreen(vm, c.auth, onBack = { nav.popBackStack() }, onDeleted = onAccountDeleted)
+                }
+                composable(Routes.FEEDBACK) {
+                    val vm: com.trazo.android.ui.account.FeedbackViewModel = containerViewModel {
+                        com.trazo.android.ui.account.FeedbackViewModel(it.feedback, cameFrom, "${Build.MANUFACTURER} ${Build.MODEL} · Android ${Build.VERSION.RELEASE}")
+                    }
+                    com.trazo.android.ui.account.FeedbackScreen(vm, onBack = { nav.popBackStack() })
                 }
                 composable(Routes.REFERRALS) {
                     val vm: com.trazo.android.ui.referral.ReferralViewModel = containerViewModel { com.trazo.android.ui.referral.ReferralViewModel(it.referrals) }

@@ -685,4 +685,13 @@
     <string name="update_later">Ikke nu</string>
     <string name="finish_rpe_none">Passets anstrengelse: ikke angivet</string>
     <string name="finish_reason_required">Vælg en årsag for at sende</string>
+    <string name="feedback_open">Send feedback</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_note">Sendes med din konto, appversionen, telefonmodellen og den skærm, du kom fra. Skriv ikke helbredsoplysninger.</string>
+    <string name="feedback_bug">Noget fejler</string>
+    <string name="feedback_idea">Idé</string>
+    <string name="feedback_other">Andet</string>
+    <string name="feedback_message">Din besked</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_sent">Tak. Vi har modtaget den.</string>
 </resources>

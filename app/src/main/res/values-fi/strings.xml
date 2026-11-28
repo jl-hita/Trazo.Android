@@ -685,4 +685,13 @@
     <string name="update_later">Ei nyt</string>
     <string name="finish_rpe_none">Treenin rasittavuus: ei asetettu</string>
     <string name="finish_reason_required">Valitse syy lähettääksesi</string>
+    <string name="feedback_open">Lähetä palautetta</string>
+    <string name="feedback_title">Palaute</string>
+    <string name="feedback_note">Mukana lähetetään tilisi, sovelluksen versio, puhelimen malli ja näkymä, josta tulit. Älä kirjoita terveystietoja.</string>
+    <string name="feedback_bug">Jokin ei toimi</string>
+    <string name="feedback_idea">Idea</string>
+    <string name="feedback_other">Muu</string>
+    <string name="feedback_message">Viestisi</string>
+    <string name="feedback_send">Lähetä</string>
+    <string name="feedback_sent">Kiitos. Saimme sen.</string>
 </resources>
