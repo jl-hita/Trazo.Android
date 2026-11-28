@@ -5,7 +5,6 @@ internal val VocabularyJa = Vocabulary(
     goal = mapOf("GeneralFitness" to "総合的な体力づくり", "Hypertrophy" to "筋肥大", "Strength" to "筋力"),
     experience = mapOf("Beginner" to "初級", "Intermediate" to "中級", "Advanced" to "上級"),
     limitation = mapOf("Knee" to "膝", "Shoulder" to "肩", "LowerBack" to "腰", "Wrist" to "手首", "Elbow" to "肘"),
-    recovery = mapOf("Unknown" to "答えたくない", "Good" to "十分に回復", "Partial" to "半分ほど回復", "Insufficient" to "あまり回復していない"),
     reason = mapOf("Time" to "時間がない", "Fatigue" to "疲労", "Equipment" to "器具", "Motivation" to "やる気", "Illness" to "体調不良", "Other" to "その他"),
     phase = mapOf("accumulation" to "蓄積期", "intensification" to "強化期", "deload" to "ディロード", "preparation" to "準備期"),
     pattern = mapOf(

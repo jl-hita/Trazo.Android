@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Wat je hebt ingevuld wordt op dit apparaat bewaard en je kunt later verdergaan.</string>
     <string name="workout_leave">Verlaten</string>
     <string name="finish_title">Training afsluiten</string>
-    <string name="finish_recovery">Hoe hersteld kwam je aan?</string>
     <string name="finish_rpe">Inspanning van de training: %1$s van 10</string>
     <string name="finish_pain">Ik voelde pijn</string>
     <string name="finish_reason">Waarom is ze niet afgemaakt?</string>

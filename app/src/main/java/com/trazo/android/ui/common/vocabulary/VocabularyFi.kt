@@ -5,7 +5,6 @@ internal val VocabularyFi = Vocabulary(
     goal = mapOf("GeneralFitness" to "Yleiskunto", "Hypertrophy" to "Lihasmassan kasvatus", "Strength" to "Voima"),
     experience = mapOf("Beginner" to "Aloittelija", "Intermediate" to "Keskitaso", "Advanced" to "Edistynyt"),
     limitation = mapOf("Knee" to "Polvi", "Shoulder" to "Olkapää", "LowerBack" to "Alaselkä", "Wrist" to "Ranne", "Elbow" to "Kyynärpää"),
-    recovery = mapOf("Unknown" to "En halua sanoa", "Good" to "Hyvin palautunut", "Partial" to "Osittain palautunut", "Insufficient" to "Huonosti palautunut"),
     reason = mapOf("Time" to "Ajanpuute", "Fatigue" to "Väsymys", "Equipment" to "Välineet", "Motivation" to "Motivaatio", "Illness" to "Sairaus", "Other" to "Muu"),
     phase = mapOf("accumulation" to "Kasvatusvaihe", "intensification" to "Tehostusvaihe", "deload" to "Kevennys", "preparation" to "Valmistelu"),
     pattern = mapOf(

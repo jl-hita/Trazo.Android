@@ -152,7 +152,6 @@
     <string name="workout_leave_text">To, co wpisałeś, jest zapisane na tym urządzeniu i możesz do tego wrócić.</string>
     <string name="workout_leave">Wyjdź</string>
     <string name="finish_title">Zamknij sesję</string>
-    <string name="finish_recovery">Jak bardzo byłeś zregenerowany?</string>
     <string name="finish_rpe">Wysiłek w sesji: %1$s na 10</string>
     <string name="finish_pain">Czułem ból</string>
     <string name="finish_reason">Dlaczego nie została ukończona?</string>

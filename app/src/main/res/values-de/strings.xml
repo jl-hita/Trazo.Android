@@ -152,7 +152,6 @@
     <string name="workout_leave_text">Deine Eingaben werden auf diesem Gerät gespeichert, und du kannst das Training fortsetzen.</string>
     <string name="workout_leave">Verlassen</string>
     <string name="finish_title">Einheit abschließen</string>
-    <string name="finish_recovery">Wie erholt bist du gekommen?</string>
     <string name="finish_rpe">Anstrengung der Einheit: %1$s von 10</string>
     <string name="finish_pain">Ich hatte Schmerzen</string>
     <string name="finish_reason">Warum wurde sie nicht abgeschlossen?</string>

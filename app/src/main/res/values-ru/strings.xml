@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Введённое сохранено на этом устройстве, и вы сможете продолжить.</string>
     <string name="workout_leave">Выйти</string>
     <string name="finish_title">Завершить тренировку</string>
-    <string name="finish_recovery">Насколько вы восстановились к началу?</string>
     <string name="finish_rpe">Нагрузка тренировки: %1$s из 10</string>
     <string name="finish_pain">Я почувствовал боль</string>
     <string name="finish_reason">Почему тренировка не завершена?</string>

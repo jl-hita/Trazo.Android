@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Co jsi zadal(a), je uloženo v tomto zařízení a můžeš pokračovat.</string>
     <string name="workout_leave">Opustit</string>
     <string name="finish_title">Uzavřít trénink</string>
-    <string name="finish_recovery">Jak odpočatý(á) jsi přišel(a)?</string>
     <string name="finish_rpe">Náročnost tréninku: %1$s z 10</string>
     <string name="finish_pain">Cítil(a) jsem bolest</string>
     <string name="finish_reason">Proč nebyl dokončen?</string>

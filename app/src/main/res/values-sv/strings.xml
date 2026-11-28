@@ -152,7 +152,6 @@
     <string name="workout_leave_text">Det du har angett sparas på den här enheten och du kan fortsätta senare.</string>
     <string name="workout_leave">Lämna</string>
     <string name="finish_title">Avsluta passet</string>
-    <string name="finish_recovery">Hur återhämtad var du när du kom?</string>
     <string name="finish_rpe">Passets ansträngning: %1$s av 10</string>
     <string name="finish_pain">Jag kände smärta</string>
     <string name="finish_reason">Varför slutfördes det inte?</string>

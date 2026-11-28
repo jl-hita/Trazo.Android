@@ -152,7 +152,6 @@
     <string name="workout_leave_text">El que has introduït es desa en aquest dispositiu i el pots reprendre.</string>
     <string name="workout_leave">Surt</string>
     <string name="finish_title">Tanca la sessió</string>
-    <string name="finish_recovery">Com de recuperat has arribat?</string>
     <string name="finish_rpe">Esforç de la sessió: %1$s sobre 10</string>
     <string name="finish_pain">He notat dolor</string>
     <string name="finish_reason">Per què no s\'ha completat?</string>

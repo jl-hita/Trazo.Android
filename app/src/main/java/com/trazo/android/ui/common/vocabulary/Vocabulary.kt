@@ -8,7 +8,6 @@ internal class Vocabulary(
     val goal: Map<String, String>,
     val experience: Map<String, String>,
     val limitation: Map<String, String>,
-    val recovery: Map<String, String>,
     val reason: Map<String, String>,
     val phase: Map<String, String>,
     val pattern: Map<String, String>,

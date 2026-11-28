@@ -5,7 +5,6 @@ internal val VocabularyKo = Vocabulary(
     goal = mapOf("GeneralFitness" to "일반 체력", "Hypertrophy" to "근비대", "Strength" to "근력"),
     experience = mapOf("Beginner" to "초급", "Intermediate" to "중급", "Advanced" to "고급"),
     limitation = mapOf("Knee" to "무릎", "Shoulder" to "어깨", "LowerBack" to "허리", "Wrist" to "손목", "Elbow" to "팔꿈치"),
-    recovery = mapOf("Unknown" to "말하고 싶지 않음", "Good" to "잘 회복됨", "Partial" to "일부 회복됨", "Insufficient" to "회복이 부족함"),
     reason = mapOf("Time" to "시간 부족", "Fatigue" to "피로", "Equipment" to "장비", "Motivation" to "의욕", "Illness" to "질병", "Other" to "기타"),
     phase = mapOf("accumulation" to "축적기", "intensification" to "강화기", "deload" to "디로드", "preparation" to "준비기"),
     pattern = mapOf(

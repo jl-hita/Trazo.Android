@@ -5,7 +5,6 @@ internal val VocabularyRu = Vocabulary(
     goal = mapOf("GeneralFitness" to "Общая физическая форма", "Hypertrophy" to "Рост мышц", "Strength" to "Сила"),
     experience = mapOf("Beginner" to "Новичок", "Intermediate" to "Средний уровень", "Advanced" to "Продвинутый"),
     limitation = mapOf("Knee" to "Колено", "Shoulder" to "Плечо", "LowerBack" to "Поясница", "Wrist" to "Запястье", "Elbow" to "Локоть"),
-    recovery = mapOf("Unknown" to "Не хочу говорить", "Good" to "Хорошо восстановился", "Partial" to "Восстановился частично", "Insufficient" to "Плохо восстановился"),
     reason = mapOf("Time" to "Нехватка времени", "Fatigue" to "Усталость", "Equipment" to "Оборудование", "Motivation" to "Мотивация", "Illness" to "Болезнь", "Other" to "Другое"),
     phase = mapOf("accumulation" to "Накопление", "intensification" to "Интенсификация", "deload" to "Разгрузка", "preparation" to "Подготовка"),
     pattern = mapOf(

@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Kar si vnesel, je shranjeno v tej napravi in lahko nadaljuješ.</string>
     <string name="workout_leave">Zapusti</string>
     <string name="finish_title">Zaključi trening</string>
-    <string name="finish_recovery">Kako spočit si prišel?</string>
     <string name="finish_rpe">Napor treninga: %1$s od 10</string>
     <string name="finish_pain">Čutil sem bolečino</string>
     <string name="finish_reason">Zakaj ni bil dokončan?</string>

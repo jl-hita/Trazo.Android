@@ -5,7 +5,6 @@ internal val VocabularySv = Vocabulary(
     goal = mapOf("GeneralFitness" to "Allmän fitness", "Hypertrophy" to "Muskeltillväxt", "Strength" to "Styrka"),
     experience = mapOf("Beginner" to "Nybörjare", "Intermediate" to "Medel", "Advanced" to "Avancerad"),
     limitation = mapOf("Knee" to "Knä", "Shoulder" to "Axel", "LowerBack" to "Nedre rygg", "Wrist" to "Handled", "Elbow" to "Armbåge"),
-    recovery = mapOf("Unknown" to "Vill helst inte säga", "Good" to "Väl återhämtad", "Partial" to "Delvis återhämtad", "Insufficient" to "Dåligt återhämtad"),
     reason = mapOf("Time" to "Tidsbrist", "Fatigue" to "Trötthet", "Equipment" to "Utrustning", "Motivation" to "Motivation", "Illness" to "Sjukdom", "Other" to "Annat"),
     phase = mapOf("accumulation" to "Uppbyggnad", "intensification" to "Intensifiering", "deload" to "Avlastning", "preparation" to "Förberedelse"),
     pattern = mapOf(

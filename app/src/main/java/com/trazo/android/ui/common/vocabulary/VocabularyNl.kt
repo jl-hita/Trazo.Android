@@ -5,7 +5,6 @@ internal val VocabularyNl = Vocabulary(
     goal = mapOf("GeneralFitness" to "Algemene fitheid", "Hypertrophy" to "Spieropbouw", "Strength" to "Kracht"),
     experience = mapOf("Beginner" to "Beginner", "Intermediate" to "Gemiddeld", "Advanced" to "Gevorderd"),
     limitation = mapOf("Knee" to "Knie", "Shoulder" to "Schouder", "LowerBack" to "Onderrug", "Wrist" to "Pols", "Elbow" to "Elleboog"),
-    recovery = mapOf("Unknown" to "Zeg ik liever niet", "Good" to "Goed hersteld", "Partial" to "Gedeeltelijk hersteld", "Insufficient" to "Slecht hersteld"),
     reason = mapOf("Time" to "Tijdgebrek", "Fatigue" to "Vermoeidheid", "Equipment" to "Materiaal", "Motivation" to "Motivatie", "Illness" to "Ziekte", "Other" to "Anders"),
     phase = mapOf("accumulation" to "Opbouw", "intensification" to "Intensivering", "deload" to "Deload", "preparation" to "Voorbereiding"),
     pattern = mapOf(

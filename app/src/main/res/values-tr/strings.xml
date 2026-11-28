@@ -152,7 +152,6 @@
     <string name="workout_leave_text">Girdiklerin bu cihazda kayıtlı ve devam edebilirsin.</string>
     <string name="workout_leave">Çık</string>
     <string name="finish_title">Seansı kapat</string>
-    <string name="finish_recovery">Ne kadar dinlenmiş geldin?</string>
     <string name="finish_rpe">Seans eforu: 10 üzerinden %1$s</string>
     <string name="finish_pain">Ağrı hissettim</string>
     <string name="finish_reason">Neden tamamlanmadı?</string>

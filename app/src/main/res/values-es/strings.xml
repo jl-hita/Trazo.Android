@@ -157,7 +157,6 @@
     <string name="workout_leave_text">Lo que has anotado se guarda en este dispositivo y podrás retomarlo.</string>
     <string name="workout_leave">Salir</string>
     <string name="finish_title">Cerrar la sesión</string>
-    <string name="finish_recovery">¿Cómo llegaste de recuperación?</string>
     <string name="finish_rpe">Esfuerzo de la sesión: %1$s de 10</string>
     <string name="finish_pain">He notado dolor</string>
     <string name="finish_reason">¿Por qué no se completó?</string>

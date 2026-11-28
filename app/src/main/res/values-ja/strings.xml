@@ -159,7 +159,6 @@
     <string name="workout_leave_text">入力した内容はこの端末に保存され、あとで再開できます。</string>
     <string name="workout_leave">終了する</string>
     <string name="finish_title">トレーニングを締める</string>
-    <string name="finish_recovery">開始時の回復具合はどうでしたか？</string>
     <string name="finish_rpe">トレーニングのきつさ：10段階中%1$s</string>
     <string name="finish_pain">痛みを感じた</string>
     <string name="finish_reason">なぜ完了しなかったのですか？</string>

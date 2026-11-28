@@ -152,7 +152,6 @@
     <string name="workout_leave_text">Ce que tu as saisi est enregistré sur cet appareil et tu pourras le reprendre.</string>
     <string name="workout_leave">Quitter</string>
     <string name="finish_title">Clôturer la séance</string>
-    <string name="finish_recovery">À quel point étais-tu récupéré ?</string>
     <string name="finish_rpe">Effort de la séance : %1$s sur 10</string>
     <string name="finish_pain">J\'ai ressenti de la douleur</string>
     <string name="finish_reason">Pourquoi n\'a-t-elle pas été terminée ?</string>

@@ -159,7 +159,6 @@
     <string name="workout_leave_text">O que introduciches gárdase neste dispositivo e podes retomalo.</string>
     <string name="workout_leave">Saír</string>
     <string name="finish_title">Pechar a sesión</string>
-    <string name="finish_recovery">Que tal recuperado chegaches?</string>
     <string name="finish_rpe">Esforzo da sesión: %1$s sobre 10</string>
     <string name="finish_pain">Sentín dor</string>
     <string name="finish_reason">Por que non se completou?</string>

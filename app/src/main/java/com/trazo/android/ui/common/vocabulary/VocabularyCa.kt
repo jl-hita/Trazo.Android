@@ -5,7 +5,6 @@ internal val VocabularyCa = Vocabulary(
     goal = mapOf("GeneralFitness" to "Forma general", "Hypertrophy" to "Hipertròfia", "Strength" to "Força"),
     experience = mapOf("Beginner" to "Principiant", "Intermediate" to "Intermedi", "Advanced" to "Avançat"),
     limitation = mapOf("Knee" to "Genoll", "Shoulder" to "Espatlla", "LowerBack" to "Zona lumbar", "Wrist" to "Canell", "Elbow" to "Colze"),
-    recovery = mapOf("Unknown" to "Prefereixo no dir-ho", "Good" to "Ben recuperat", "Partial" to "A mitges", "Insufficient" to "Poc recuperat"),
     reason = mapOf("Time" to "Falta de temps", "Fatigue" to "Fatiga", "Equipment" to "Material", "Motivation" to "Motivació", "Illness" to "Malaltia", "Other" to "Altre"),
     phase = mapOf("accumulation" to "Acumulació", "intensification" to "Intensificació", "deload" to "Descàrrega", "preparation" to "Preparació"),
     pattern = mapOf(

@@ -44,16 +44,24 @@ class MuscleQuestionsTest {
         assertEquals(listOf("Chest"), WorkoutViewModel.workloadQuestions(finished, 1))
     }
 
-    @Test fun `only answers about what was trained are sent`() {
+    @Test fun `recovery is sent for every muscle of the session and work only for what was trained`() {
         val entries = listOf(entry("bench", "Chest", done = true), entry("curl", "Biceps"))
 
         val request = WorkoutViewModel.buildLogRequest(
             entries, FinishForm(),
-            muscles = mapOf("Chest" to MuscleFeedbackRequest("recovered", "low"), "Biceps" to MuscleFeedbackRequest(recovery = "notRecovered")),
+            muscles = mapOf(
+                "Chest" to MuscleFeedbackRequest("recovered", "low"), "Biceps" to MuscleFeedbackRequest("notRecovered", "high"),
+                "Calves" to MuscleFeedbackRequest("recovered")
+            ),
             discomfort = mapOf("bench" to "mild", "curl" to "strong")
         )
 
-        assertEquals(mapOf("Chest" to MuscleFeedbackRequest("recovered", "low")), request.muscleFeedback)
+        assertEquals(
+            mapOf("Chest" to MuscleFeedbackRequest("recovered", "low"), "Biceps" to MuscleFeedbackRequest("notRecovered")),
+            request.muscleFeedback
+        )
+        // The app no longer asks about the recovery of the whole session.
+        assertEquals("Unknown", request.recovery)
         assertEquals(mapOf("bench" to ExerciseFeedbackRequest(discomfort = "mild")), request.exerciseFeedback)
         assertEquals(mapOf("bench" to "mild"), WorkoutViewModel.discomfortOf(request))
         // The answers about the muscles say nothing about health and stay; the discomfort does not.

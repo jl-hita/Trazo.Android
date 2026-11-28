@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Syöttämäsi tiedot tallennetaan tälle laitteelle, ja voit jatkaa myöhemmin.</string>
     <string name="workout_leave">Poistu</string>
     <string name="finish_title">Päätä treeni</string>
-    <string name="finish_recovery">Kuinka levänneenä tulit?</string>
     <string name="finish_rpe">Treenin rasittavuus: %1$s / 10</string>
     <string name="finish_pain">Tunsin kipua</string>
     <string name="finish_reason">Miksi sitä ei tehty loppuun?</string>

@@ -5,7 +5,6 @@ internal val VocabularyCs = Vocabulary(
     goal = mapOf("GeneralFitness" to "Celková kondice", "Hypertrophy" to "Nárůst svalů", "Strength" to "Síla"),
     experience = mapOf("Beginner" to "Začátečník", "Intermediate" to "Středně pokročilý", "Advanced" to "Pokročilý"),
     limitation = mapOf("Knee" to "Koleno", "Shoulder" to "Rameno", "LowerBack" to "Dolní část zad", "Wrist" to "Zápěstí", "Elbow" to "Loket"),
-    recovery = mapOf("Unknown" to "Raději neříkat", "Good" to "Dobře zregenerovaný", "Partial" to "Částečně zregenerovaný", "Insufficient" to "Špatně zregenerovaný"),
     reason = mapOf("Time" to "Nedostatek času", "Fatigue" to "Únava", "Equipment" to "Vybavení", "Motivation" to "Motivace", "Illness" to "Nemoc", "Other" to "Jiné"),
     phase = mapOf("accumulation" to "Akumulace", "intensification" to "Intenzifikace", "deload" to "Odlehčení", "preparation" to "Příprava"),
     pattern = mapOf(

@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Она што го внесе е зачувано на овој уред и можеш да продолжиш.</string>
     <string name="workout_leave">Напушти</string>
     <string name="finish_title">Затвори го тренингот</string>
-    <string name="finish_recovery">Колку одморен дојде?</string>
     <string name="finish_rpe">Напор на тренингот: %1$s од 10</string>
     <string name="finish_pain">Почувствував болка</string>
     <string name="finish_reason">Зошто не беше завршен?</string>

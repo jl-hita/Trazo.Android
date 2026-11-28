@@ -364,7 +364,6 @@ private fun SwapScopeDialog(
     )
 }
 
-private val RECOVERIES = listOf("Unknown", "Good", "Partial", "Insufficient")
 private val RECOVERY_ANSWERS = listOf("recovered" to R.string.mq_fresh, "justRecovered" to R.string.mq_ready, "notRecovered" to R.string.mq_sore)
 private val WORKLOAD_ANSWERS = listOf("low" to R.string.fb_low, "adequate" to R.string.mq_right, "high" to R.string.mq_too_much)
 private val DISCOMFORT_ANSWERS = listOf("mild" to R.string.fb_mild, "strong" to R.string.fb_strong)
@@ -389,7 +388,6 @@ private val REASONS = listOf("Time", "Fatigue", "Equipment", "Motivation", "Illn
 
 @Composable
 private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (FinishForm) -> Unit) {
-    var recovery by remember { mutableStateOf("Unknown") }
     var rpe by remember { mutableStateOf<Float?>(null) }
     var pain by remember { mutableStateOf(false) }
     var notes by remember { mutableStateOf("") }
@@ -411,8 +409,6 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
                     ChipGroup(REASONS, setOfNotNull(reason), Labels::reason, { value -> if (value == "Illness") health { reason = value } else reason = value })
                     if (reason == null) Text(stringResource(R.string.finish_reason_required), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 }
-                Text(stringResource(R.string.finish_recovery))
-                ChipGroup(RECOVERIES, setOf(recovery), Labels::recovery, { recovery = it })
                 Text(rpe?.let { stringResource(R.string.finish_rpe, it.toInt().toString()) } ?: stringResource(R.string.finish_rpe_none))
                 Slider(value = rpe ?: 5f, onValueChange = { rpe = it.toInt().toFloat() }, valueRange = 0f..10f, steps = 9, modifier = Modifier.heightIn(min = MinTouch))
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -427,7 +423,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
         confirmButton = {
             TextButton(
                 enabled = !sending && (!incomplete || reason != null), modifier = Modifier.heightIn(min = MinTouch),
-                onClick = { onSend(FinishForm(recovery, rpe?.toDouble(), pain, notes, reason?.takeIf { incomplete } ?: "None", performedOn)) }
+                onClick = { onSend(FinishForm(rpe?.toDouble(), pain, notes, reason?.takeIf { incomplete } ?: "None", performedOn)) }
             ) { Text(stringResource(if (sending) R.string.finish_sending else R.string.finish_send)) }
         },
         dismissButton = { TextButton(enabled = !sending, onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }

@@ -159,7 +159,6 @@
     <string name="workout_leave_text">ما أدخلته محفوظ على هذا الجهاز ويمكنك استئنافه.</string>
     <string name="workout_leave">مغادرة</string>
     <string name="finish_title">إغلاق التمرين</string>
-    <string name="finish_recovery">ما مدى تعافيك عند وصولك؟</string>
     <string name="finish_rpe">جهد التمرين: %1$s من 10</string>
     <string name="finish_pain">شعرت بألم</string>
     <string name="finish_reason">لماذا لم يكتمل؟</string>

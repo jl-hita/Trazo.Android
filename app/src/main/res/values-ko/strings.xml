@@ -159,7 +159,6 @@
     <string name="workout_leave_text">입력한 내용은 이 기기에 저장되어 나중에 이어서 할 수 있습니다.</string>
     <string name="workout_leave">나가기</string>
     <string name="finish_title">운동 마무리</string>
-    <string name="finish_recovery">시작할 때 회복 상태는 어땠나요?</string>
     <string name="finish_rpe">운동 강도: 10점 만점에 %1$s</string>
     <string name="finish_pain">통증을 느꼈어요</string>
     <string name="finish_reason">왜 끝까지 하지 못했나요?</string>

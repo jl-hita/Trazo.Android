@@ -120,12 +120,12 @@ class WorkoutViewModelTest : ViewModelTestBase() {
             vm.updateSet("db-bench-press", i) { it.copy(reps = "10", rir = "2") }
             vm.toggleDone("db-bench-press", i)
         }
-        vm.finish(FinishForm(recovery = "Good", sessionRpe = 7.0))
+        vm.finish(FinishForm(sessionRpe = 7.0))
         advanceUntilIdle()
         val request = api.logCalls.single().second
         assertEquals("Completed", request.outcome)
         assertEquals("None", request.nonCompletionReason)
-        assertEquals("Good", request.recovery)
+        assertEquals("Unknown", request.recovery)
         assertEquals(3, request.sets.count { it.completed })
         assertEquals(22.5, request.sets[0].weightKg!!, 0.0)
         assertEquals(2.0, request.sets[0].rir!!, 0.0)

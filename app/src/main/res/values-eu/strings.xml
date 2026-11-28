@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Sartutakoa gailu honetan gordetzen da eta berriro hasi dezakezu.</string>
     <string name="workout_leave">Irten</string>
     <string name="finish_title">Itxi saioa</string>
-    <string name="finish_recovery">Zein errekuperatuta iritsi zinen?</string>
     <string name="finish_rpe">Saioaren esfortzua: %1$s / 10</string>
     <string name="finish_pain">Mina sentitu dut</string>
     <string name="finish_reason">Zergatik ez da osatu?</string>

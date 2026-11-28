@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Det du har skrevet inn, lagres på denne enheten, og du kan fortsette senere.</string>
     <string name="workout_leave">Forlat</string>
     <string name="finish_title">Avslutt økten</string>
-    <string name="finish_recovery">Hvor uthvilt var du da du kom?</string>
     <string name="finish_rpe">Øktens anstrengelse: %1$s av 10</string>
     <string name="finish_pain">Jeg kjente smerte</string>
     <string name="finish_reason">Hvorfor ble den ikke fullført?</string>

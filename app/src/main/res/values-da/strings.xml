@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Det, du har indtastet, gemmes på denne enhed, og du kan genoptage det.</string>
     <string name="workout_leave">Forlad</string>
     <string name="finish_title">Afslut passet</string>
-    <string name="finish_recovery">Hvor restitueret var du, da du kom?</string>
     <string name="finish_rpe">Passets anstrengelse: %1$s af 10</string>
     <string name="finish_pain">Jeg mærkede smerte</string>
     <string name="finish_reason">Hvorfor blev det ikke gennemført?</string>

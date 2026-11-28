@@ -80,7 +80,6 @@ data class WorkoutState(
 }
 
 class FinishForm(
-    val recovery: String = "Unknown",
     val sessionRpe: Double? = null,
     val pain: Boolean = false,
     val notes: String = "",
@@ -406,6 +405,18 @@ class WorkoutViewModel(
             }
         }
 
+        /**
+         * The answers that are sent. How recovered a muscle was counts even when its exercises were then left undone (it may be
+         * why); how much work it was only once something of it was done.
+         */
+        fun muscleFeedbackFor(entries: List<ExerciseEntry>, muscles: Map<String, MuscleFeedbackRequest>): Map<String, MuscleFeedbackRequest>? =
+            muscles.mapNotNull { (muscle, answer) ->
+                val own = entries.filter { muscle in it.exercise.primaryMuscles }
+                if (own.isEmpty()) return@mapNotNull null
+                val kept = if (own.any { e -> e.sets.any { it.done } }) answer else answer.copy(workload = null)
+                if (kept.isEmpty) null else muscle to kept
+            }.toMap().ifEmpty { null }
+
         /** The discomfort of a log as the workout screen keeps it. */
         fun discomfortOf(request: LogSessionRequest): Map<String, String> = request.exerciseFeedback.orEmpty()
             .mapNotNull { (id, answer) -> answer.discomfort?.takeIf { it != "none" }?.let { id to it } }.toMap()
@@ -484,7 +495,6 @@ class WorkoutViewModel(
             return LogSessionRequest(
                 outcome = outcome,
                 nonCompletionReason = reason,
-                recovery = form.recovery,
                 sessionRpe = form.sessionRpe,
                 painReported = form.pain,
                 notes = form.notes.trim().take(1000).ifEmpty { null },
@@ -493,9 +503,7 @@ class WorkoutViewModel(
                 // Only what was really trained is told about, and only answered questions are sent.
                 exerciseFeedback = discomfort.filterKeys { id -> entries.any { e -> e.exercise.exerciseId == id && e.sets.any { it.done } } }
                     .mapValues { ExerciseFeedbackRequest(discomfort = it.value) }.ifEmpty { null },
-                muscleFeedback = muscles.filter { (muscle, answer) ->
-                    !answer.isEmpty && entries.any { e -> muscle in e.exercise.primaryMuscles && e.sets.any { it.done } }
-                }.ifEmpty { null }
+                muscleFeedback = muscleFeedbackFor(entries, muscles)
             )
         }
     }

@@ -159,7 +159,6 @@
     <string name="workout_leave_text">Ό,τι έχεις γράψει αποθηκεύεται σε αυτή τη συσκευή και μπορείς να συνεχίσεις.</string>
     <string name="workout_leave">Έξοδος</string>
     <string name="finish_title">Κλείσιμο προπόνησης</string>
-    <string name="finish_recovery">Πόσο ξεκούραστος ήρθες;</string>
     <string name="finish_rpe">Προσπάθεια προπόνησης: %1$s στα 10</string>
     <string name="finish_pain">Ένιωσα πόνο</string>
     <string name="finish_reason">Γιατί δεν ολοκληρώθηκε;</string>

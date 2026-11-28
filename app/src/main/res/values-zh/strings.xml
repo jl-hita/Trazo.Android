@@ -152,7 +152,6 @@
     <string name="workout_leave_text">你输入的内容已保存在此设备上，之后可以继续。</string>
     <string name="workout_leave">离开</string>
     <string name="finish_title">结束本次训练</string>
-    <string name="finish_recovery">你训练前恢复得如何？</string>
     <string name="finish_rpe">本次训练强度：%1$s / 10</string>
     <string name="finish_pain">我感到疼痛</string>
     <string name="finish_reason">为什么没有完成？</string>
