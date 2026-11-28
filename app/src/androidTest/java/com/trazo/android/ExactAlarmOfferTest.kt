@@ -56,14 +56,18 @@ class ExactAlarmOfferTest {
 
     private fun rest(viewModel: WorkoutViewModel) {
         compose.runOnUiThread { viewModel.startRest(90) }
-        compose.waitUntil(10_000) { compose.onAllNodes(hasText(context.getString(R.string.workout_rest_skip))).fetchSemanticsNodes().isNotEmpty() }
+        waitFor(context.getString(R.string.workout_rest_skip))
         compose.waitForIdle()
     }
+
+    private fun waitFor(text: String) =
+        compose.waitUntil(10_000) { compose.onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty() }
 
     @Test fun offeredWhileRestingAndAllowOpensTheSettings() {
         val viewModel = show(due = true)
         compose.onNodeWithText(hint).assertDoesNotExist()
         rest(viewModel)
+        waitFor(hint)
         compose.onNodeWithText(hint).assertIsDisplayed()
         compose.onNodeWithText(context.getString(R.string.rest_exact_allow)).performClick()
         assertEquals(1 to 0, allowed to declined)
@@ -71,6 +75,7 @@ class ExactAlarmOfferTest {
 
     @Test fun turningItDownRemovesIt() {
         rest(show(due = true))
+        waitFor(hint)
         compose.onNodeWithText(context.getString(R.string.rest_exact_decline)).performClick()
         compose.onNodeWithText(hint).assertDoesNotExist()
         assertEquals(0 to 1, allowed to declined)

@@ -44,13 +44,15 @@ fun WorkoutScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val resting = state.rest != null
     LaunchedEffect(resting) { if (resting) onRestStarted() }
-    var offerExactAlarm by remember { mutableStateOf(false) }
-    // Looked at again on every return: the answer to the notification request, or the switch in the settings, may have changed it.
-    LifecycleResumeEffect(resting) {
+    var returns by remember { mutableIntStateOf(0) }
+    LifecycleResumeEffect(Unit) {
         viewModel.replanRestAlert()
-        offerExactAlarm = resting && exactAlarm?.isDue?.invoke() == true
+        returns++
         onPauseOrDispose {}
     }
+    // Looked at when a rest starts and again on every return: the notification request or the settings switch may have changed it.
+    var exactAlarmDeclined by remember { mutableStateOf(false) }
+    val offerExactAlarm = remember(resting, returns) { resting && exactAlarm?.isDue?.invoke() == true } && !exactAlarmDeclined
     var confirmLeave by remember { mutableStateOf(false) }
     var showFinish by remember { mutableStateOf(false) }
     // The exercise whose explanation is open (steps and photos), reachable from the photo and from the swap picker.
@@ -139,8 +141,8 @@ fun WorkoutScreen(
         // While typing, the keyboard leaves little room: the actions that are not part of a set step aside.
         val typing = WindowInsets.isImeVisible
         if (!typing) TrazoLink(onClick = viewModel::openAddExercise, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_add_exercise)) }
-        if (!typing && resting && offerExactAlarm && exactAlarm != null) ExactAlarmCard(
-            onAllow = exactAlarm.allow, onDecline = { exactAlarm.decline(); offerExactAlarm = false }
+        if (!typing && offerExactAlarm && exactAlarm != null) ExactAlarmCard(
+            onAllow = exactAlarm.allow, onDecline = { exactAlarm.decline(); exactAlarmDeclined = true }
         )
         state.rest?.let { RestBar(it, viewModel::adjustRest, viewModel::skipRest) }
         if (!typing) TrazoButton(onClick = { showFinish = true }, modifier = Modifier.fillMaxWidth().padding(16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_finish)) }
