@@ -685,4 +685,13 @@
     <string name="update_later">Не сега</string>
     <string name="finish_rpe_none">Напор на тренингот: не е поставено</string>
     <string name="finish_reason_required">Избери причина за да испратиш</string>
+    <string name="feedback_open">Испрати коментар</string>
+    <string name="feedback_title">Коментари</string>
+    <string name="feedback_note">Се испраќа со твојата сметка, верзијата на апликацијата, моделот на телефонот и екранот од кој доаѓаш. Не пишувај здравствени податоци.</string>
+    <string name="feedback_bug">Нешто не работи</string>
+    <string name="feedback_idea">Идеја</string>
+    <string name="feedback_other">Друго</string>
+    <string name="feedback_message">Твојата порака</string>
+    <string name="feedback_send">Испрати</string>
+    <string name="feedback_sent">Благодариме. Го примивме.</string>
 </resources>

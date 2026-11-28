@@ -690,4 +690,13 @@
     <string name="update_later">Non ora</string>
     <string name="finish_rpe_none">Sforzo della sessione: non indicato</string>
     <string name="finish_reason_required">Scegli un motivo per inviare</string>
+    <string name="feedback_open">Invia un commento</string>
+    <string name="feedback_title">Commenti</string>
+    <string name="feedback_note">Viene inviato con il tuo account, la versione dell\'app, il modello del telefono e la schermata da cui arrivi. Non scrivere dati sanitari.</string>
+    <string name="feedback_bug">Qualcosa non va</string>
+    <string name="feedback_idea">Idea</string>
+    <string name="feedback_other">Altro</string>
+    <string name="feedback_message">Il tuo messaggio</string>
+    <string name="feedback_send">Invia</string>
+    <string name="feedback_sent">Grazie. L\'abbiamo ricevuto.</string>
 </resources>

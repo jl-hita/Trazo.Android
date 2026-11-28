@@ -705,4 +705,13 @@
     <string name="update_later">ليس الآن</string>
     <string name="finish_rpe_none">جهد التمرين: غير محدد</string>
     <string name="finish_reason_required">اختر سببًا للإرسال</string>
+    <string name="feedback_open">إرسال ملاحظات</string>
+    <string name="feedback_title">ملاحظات</string>
+    <string name="feedback_note">تُرسل مع حسابك وإصدار التطبيق وطراز هاتفك والشاشة التي جئت منها. لا تكتب بيانات صحية.</string>
+    <string name="feedback_bug">شيء لا يعمل</string>
+    <string name="feedback_idea">فكرة</string>
+    <string name="feedback_other">أخرى</string>
+    <string name="feedback_message">رسالتك</string>
+    <string name="feedback_send">إرسال</string>
+    <string name="feedback_sent">شكرًا. لقد استلمناها.</string>
 </resources>

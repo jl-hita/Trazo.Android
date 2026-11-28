@@ -685,4 +685,13 @@
     <string name="update_later">Inte nu</string>
     <string name="finish_rpe_none">Passets ansträngning: inte angiven</string>
     <string name="finish_reason_required">Välj en orsak för att skicka</string>
+    <string name="feedback_open">Skicka feedback</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_note">Skickas med ditt konto, appens version, din telefonmodell och skärmen du kom från. Skriv inga hälsouppgifter.</string>
+    <string name="feedback_bug">Något fungerar inte</string>
+    <string name="feedback_idea">Idé</string>
+    <string name="feedback_other">Annat</string>
+    <string name="feedback_message">Ditt meddelande</string>
+    <string name="feedback_send">Skicka</string>
+    <string name="feedback_sent">Tack. Vi har tagit emot det.</string>
 </resources>

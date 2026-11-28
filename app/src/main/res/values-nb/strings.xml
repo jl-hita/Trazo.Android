@@ -685,4 +685,13 @@
     <string name="update_later">Ikke nå</string>
     <string name="finish_rpe_none">Øktens anstrengelse: ikke angitt</string>
     <string name="finish_reason_required">Velg en grunn for å sende</string>
+    <string name="feedback_open">Send tilbakemelding</string>
+    <string name="feedback_title">Tilbakemelding</string>
+    <string name="feedback_note">Sendes med kontoen din, appversjonen, telefonmodellen og skjermen du kom fra. Ikke skriv helseopplysninger.</string>
+    <string name="feedback_bug">Noe virker ikke</string>
+    <string name="feedback_idea">Idé</string>
+    <string name="feedback_other">Annet</string>
+    <string name="feedback_message">Meldingen din</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_sent">Takk. Vi har mottatt den.</string>
 </resources>

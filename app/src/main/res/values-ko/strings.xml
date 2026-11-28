@@ -680,4 +680,13 @@
     <string name="update_later">나중에</string>
     <string name="finish_rpe_none">운동 강도: 설정 안 함</string>
     <string name="finish_reason_required">보내려면 이유를 선택하세요</string>
+    <string name="feedback_open">의견 보내기</string>
+    <string name="feedback_title">의견</string>
+    <string name="feedback_note">계정, 앱 버전, 휴대전화 모델, 이전 화면 정보와 함께 전송됩니다. 건강 정보는 적지 마세요.</string>
+    <string name="feedback_bug">오류</string>
+    <string name="feedback_idea">아이디어</string>
+    <string name="feedback_other">기타</string>
+    <string name="feedback_message">메시지</string>
+    <string name="feedback_send">보내기</string>
+    <string name="feedback_sent">감사합니다. 잘 받았습니다.</string>
 </resources>

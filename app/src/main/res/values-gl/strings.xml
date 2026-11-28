@@ -685,4 +685,13 @@
     <string name="update_later">Agora non</string>
     <string name="finish_rpe_none">Esforzo da sesión: sen indicar</string>
     <string name="finish_reason_required">Elixe un motivo para enviar</string>
+    <string name="feedback_open">Enviar comentarios</string>
+    <string name="feedback_title">Comentarios</string>
+    <string name="feedback_note">Envíase coa túa conta, a versión da app, o modelo do teléfono e a pantalla desde a que vés. Non escribas datos de saúde.</string>
+    <string name="feedback_bug">Algo falla</string>
+    <string name="feedback_idea">Idea</string>
+    <string name="feedback_other">Outro</string>
+    <string name="feedback_message">A túa mensaxe</string>
+    <string name="feedback_send">Enviar</string>
+    <string name="feedback_sent">Grazas. Recibímolo.</string>
 </resources>

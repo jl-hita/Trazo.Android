@@ -685,4 +685,13 @@
     <string name="update_later">Şimdi değil</string>
     <string name="finish_rpe_none">Seans eforu: belirtilmedi</string>
     <string name="finish_reason_required">Göndermek için bir neden seç</string>
+    <string name="feedback_open">Geri bildirim gönder</string>
+    <string name="feedback_title">Geri bildirim</string>
+    <string name="feedback_note">Hesabın, uygulama sürümü, telefon modeli ve geldiğin ekranla birlikte gönderilir. Sağlık verisi yazma.</string>
+    <string name="feedback_bug">Bir şey çalışmıyor</string>
+    <string name="feedback_idea">Fikir</string>
+    <string name="feedback_other">Diğer</string>
+    <string name="feedback_message">Mesajın</string>
+    <string name="feedback_send">Gönder</string>
+    <string name="feedback_sent">Teşekkürler. Aldık.</string>
 </resources>

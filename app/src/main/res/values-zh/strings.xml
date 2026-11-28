@@ -680,4 +680,13 @@
     <string name="update_later">暂不</string>
     <string name="finish_rpe_none">本次训练强度：未设置</string>
     <string name="finish_reason_required">请选择原因后发送</string>
+    <string name="feedback_open">发送反馈</string>
+    <string name="feedback_title">反馈</string>
+    <string name="feedback_note">将连同你的账户、应用版本、手机型号和你之前所在的页面一起发送。请不要填写健康信息。</string>
+    <string name="feedback_bug">出现问题</string>
+    <string name="feedback_idea">建议</string>
+    <string name="feedback_other">其他</string>
+    <string name="feedback_message">你的留言</string>
+    <string name="feedback_send">发送</string>
+    <string name="feedback_sent">谢谢，我们已收到。</string>
 </resources>

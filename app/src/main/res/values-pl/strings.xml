@@ -695,4 +695,13 @@
     <string name="update_later">Nie teraz</string>
     <string name="finish_rpe_none">Wysiłek w sesji: nie podano</string>
     <string name="finish_reason_required">Wybierz powód, aby wysłać</string>
+    <string name="feedback_open">Wyślij opinię</string>
+    <string name="feedback_title">Opinie</string>
+    <string name="feedback_note">Wysyłane razem z twoim kontem, wersją aplikacji, modelem telefonu i ekranem, z którego przychodzisz. Nie wpisuj danych o zdrowiu.</string>
+    <string name="feedback_bug">Coś nie działa</string>
+    <string name="feedback_idea">Pomysł</string>
+    <string name="feedback_other">Inne</string>
+    <string name="feedback_message">Twoja wiadomość</string>
+    <string name="feedback_send">Wyślij</string>
+    <string name="feedback_sent">Dziękujemy. Otrzymaliśmy ją.</string>
 </resources>

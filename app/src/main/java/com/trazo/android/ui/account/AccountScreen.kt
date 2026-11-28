@@ -42,6 +42,7 @@ fun AccountScreen(
     /** The texts the server sent are in the old language: ask again. */
     onLanguageChanged: () -> Unit = {},
     onReferrals: () -> Unit = {},
+    onFeedback: () -> Unit = {},
     onDeleteAccount: () -> Unit = {},
     health: @Composable () -> Unit = {},
     research: @Composable () -> Unit = {}
@@ -89,6 +90,7 @@ fun AccountScreen(
                 TrazoButton(onClick = onPremium, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.premium_get)) }
             }
             TrazoButton(onClick = onReferrals, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.referral_open)) }
+            TrazoButton(onClick = onFeedback, secondary = true, modifier = Modifier.fillMaxWidth().heightIn(min = MinTouch)) { Text(stringResource(R.string.feedback_open)) }
             if (state.pendingLogs > 0) {
                 Notice(stringResource(R.string.plan_pending_logs, state.pendingLogs))
                 TrazoLink(onClick = viewModel::sendPending, modifier = Modifier.heightIn(min = MinTouch)) { Text(stringResource(R.string.plan_send_now)) }

@@ -685,4 +685,13 @@
     <string name="update_later">Όχι τώρα</string>
     <string name="finish_rpe_none">Προσπάθεια προπόνησης: δεν ορίστηκε</string>
     <string name="finish_reason_required">Διάλεξε έναν λόγο για αποστολή</string>
+    <string name="feedback_open">Αποστολή σχολίων</string>
+    <string name="feedback_title">Σχόλια</string>
+    <string name="feedback_note">Στέλνεται με τον λογαριασμό σου, την έκδοση της εφαρμογής, το μοντέλο του τηλεφώνου και την οθόνη από την οποία ήρθες. Μη γράφεις δεδομένα υγείας.</string>
+    <string name="feedback_bug">Κάτι δεν δουλεύει</string>
+    <string name="feedback_idea">Ιδέα</string>
+    <string name="feedback_other">Άλλο</string>
+    <string name="feedback_message">Το μήνυμά σου</string>
+    <string name="feedback_send">Αποστολή</string>
+    <string name="feedback_sent">Ευχαριστούμε. Το λάβαμε.</string>
 </resources>

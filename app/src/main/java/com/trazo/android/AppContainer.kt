@@ -82,6 +82,8 @@ class AppContainer(context: Context) {
         com.trazo.android.data.repo.SharedPreferencesAppVersionStore(appContext), BuildConfig.VERSION_CODE
     )
 
+    val feedback: com.trazo.android.data.api.FeedbackApi = network.create(com.trazo.android.data.api.FeedbackApi::class.java)
+
     /** The invitation code waiting for a registration (from a link or the Play install referrer). */
     val pendingReferral = com.trazo.android.data.referral.SharedPreferencesPendingReferralStore(appContext)
     val auth = AuthRepository(network.create(AuthApi::class.java), tokens, pendingReferral)
