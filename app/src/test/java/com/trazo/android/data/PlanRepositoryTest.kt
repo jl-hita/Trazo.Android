@@ -43,6 +43,19 @@ class PlanRepositoryTest {
 
     private fun ok(): Response<LogResult> = Response.success(LogResult(sampleSession(), sampleReport()))
 
+    @Test fun `a pending consent reaches the server before a workout, now or from the queue`() = runTest {
+        var told = 0
+        val gated = PlanRepository(api, cache, queue, beforeHealthData = { told++ })
+        api.logResponse = { _, _ -> networkFailure() }
+        gated.submitLog("s1", LogSessionRequest("Completed", "None", "Good", null, true, null, emptyList()))
+        assertEquals(1, told)
+
+        api.logResponse = { _, _ -> ok() }
+        gated.flushPending()
+
+        assertEquals(2, told)
+    }
+
     @Test fun `no review request yet is a success with nothing`() = runTest {
         assertNull((repo.reviewRequest() as ApiResult.Success).value)
     }
