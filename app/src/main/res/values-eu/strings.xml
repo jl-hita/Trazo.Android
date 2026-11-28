@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Aplikazioa atzeko planoan dagoenean, serieen arteko atsedena amaitzean abisatzen du.</string>
     <string name="rest_over_title">Atsedena amaitu da</string>
     <string name="rest_over_text">Hurrengo seriearen ordua da.</string>
+    <string name="rest_exact_hint">Pantaila itzalita dagoenean, atsedenaren amaierako abisua berandu irits daiteke. Baimendu «Alarmak eta abisuak», garaiz irits dadin.</string>
+    <string name="rest_exact_allow">Baimendu</string>
+    <string name="rest_exact_decline">Ez, eskerrik asko</string>
     <string name="onb_start_date">Hasiera-data</string>
     <string name="onb_weeks">Planaren iraupena: %1$d aste</string>
     <string name="onb_equipment">Eskuragarri dagoen materiala</string>

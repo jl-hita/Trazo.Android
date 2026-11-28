@@ -388,6 +388,9 @@
     <string name="rest_channel_description">应用在后台时，组间休息结束会提醒你。</string>
     <string name="rest_over_title">休息结束</string>
     <string name="rest_over_text">该做下一组了。</string>
+    <string name="rest_exact_hint">屏幕关闭时，休息结束提醒可能会延迟。请允许“闹钟和提醒”，以便准时收到。</string>
+    <string name="rest_exact_allow">允许</string>
+    <string name="rest_exact_decline">不用了</string>
     <string name="push_channel_name">提醒</string>
     <string name="push_channel_description">团队对你审核申请的回复以及 TRAZO 的最新消息。</string>
     <string name="push_review_reply">你有一条来自团队的消息。</string>

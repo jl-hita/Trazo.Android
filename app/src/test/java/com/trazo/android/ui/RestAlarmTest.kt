@@ -57,6 +57,30 @@ class RestAlarmTest : ViewModelTestBase() {
         assertEquals(now + 90_000, alarms.at)
     }
 
+    @Test fun `coming back plans the same alert again, so a new permission applies to it`() = runTest(dispatcher) {
+        val vm = vm()
+        vm.doSet(0)
+        val end = now + 90_000
+        now += 30_000
+        alarms.events.clear()
+        vm.replanRestAlert()
+        assertEquals(listOf("schedule:$end"), alarms.events)
+    }
+
+    @Test fun `coming back after the rest, or after skipping it, plans nothing`() = runTest(dispatcher) {
+        val vm = vm()
+        vm.replanRestAlert()
+        vm.doSet(0)
+        now += 90_000
+        alarms.events.clear()
+        vm.replanRestAlert()
+        now -= 80_000
+        vm.skipRest()
+        alarms.events.clear()
+        vm.replanRestAlert()
+        assertEquals(emptyList<String>(), alarms.events)
+    }
+
     @Test fun `skipping the rest withdraws the alert`() = runTest(dispatcher) {
         val vm = vm()
         vm.doSet(0)

@@ -328,7 +328,15 @@ private fun MainNavigation(user: UserSummary?, status: SubscriptionStatus?, onLo
                 composable(Routes.WORKOUT, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()
                     val vm: WorkoutViewModel = containerViewModel(key = "workout-$id") { WorkoutViewModel(it.plans, it.drafts, id, exercises = it.exercises, alarms = it.restAlarms) }
-                    WorkoutScreen(vm, onRestStarted = askRestNotifications, onExit = { planVm.load(); nav.popBackStack(Routes.PLAN, inclusive = false) }, onExercise = { nav.navigate(Routes.exercise(it)) })
+                    // Without notifications there is no alert to be late, so the offer waits for them.
+                    val exactAlarm = remember {
+                        com.trazo.android.rest.ExactAlarmOffer(
+                            isDue = { !c.exactAlarmChoice.declined && !c.restAlarms.canBeExact() && PushNotifier.canPost(context) },
+                            allow = { com.trazo.android.rest.openExactAlarmSettings(context) },
+                            decline = { c.exactAlarmChoice.declined = true }
+                        )
+                    }
+                    WorkoutScreen(vm, onRestStarted = askRestNotifications, exactAlarm = exactAlarm, onExit = { planVm.load(); nav.popBackStack(Routes.PLAN, inclusive = false) }, onExercise = { nav.navigate(Routes.exercise(it)) })
                 }
                 composable(Routes.EXERCISE, listOf(navArgument("id") { type = NavType.StringType })) { entry ->
                     val id = entry.arguments?.getString("id").orEmpty()

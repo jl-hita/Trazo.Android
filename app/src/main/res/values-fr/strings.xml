@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Prévient quand ton repos entre les séries est terminé, l\'app étant en arrière-plan.</string>
     <string name="rest_over_title">Repos terminé</string>
     <string name="rest_over_text">C\'est l\'heure de ta prochaine série.</string>
+    <string name="rest_exact_hint">Écran éteint, l’alerte de fin de repos peut arriver en retard. Autorisez « Alarmes et rappels » pour la recevoir à l’heure.</string>
+    <string name="rest_exact_allow">Autoriser</string>
+    <string name="rest_exact_decline">Non, merci</string>
     <string name="push_channel_name">Alertes</string>
     <string name="push_channel_description">Réponses de l\'équipe à tes révisions et nouveautés de TRAZO.</string>
     <string name="push_review_reply">Tu as un message de l\'équipe.</string>

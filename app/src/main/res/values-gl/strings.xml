@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Avisa cando remata o teu descanso entre series coa app en segundo plano.</string>
     <string name="rest_over_title">Descanso rematado</string>
     <string name="rest_over_text">É hora da túa seguinte serie.</string>
+    <string name="rest_exact_hint">Coa pantalla apagada, o aviso de fin de descanso pode chegar tarde. Permite «Alarmas e recordatorios» para que chegue á súa hora.</string>
+    <string name="rest_exact_allow">Permitir</string>
+    <string name="rest_exact_decline">Non, grazas</string>
     <string name="onb_start_date">Data de inicio</string>
     <string name="onb_weeks">Duración do plan: %1$d semanas</string>
     <string name="onb_equipment">Material dispoñible</string>

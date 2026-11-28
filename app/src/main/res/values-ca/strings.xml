@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Avisa quan acaba el teu descans entre sèries amb l\'app en segon pla.</string>
     <string name="rest_over_title">Descans acabat</string>
     <string name="rest_over_text">És hora de la teva següent sèrie.</string>
+    <string name="rest_exact_hint">Amb la pantalla apagada, l’avís de final de descans pot arribar tard. Permet «Alarmes i recordatoris» perquè arribi a l’hora.</string>
+    <string name="rest_exact_allow">Permet</string>
+    <string name="rest_exact_decline">No, gràcies</string>
     <string name="push_channel_name">Avisos</string>
     <string name="push_channel_description">Respostes de l\'equip a les teves revisions i novetats de TRAZO.</string>
     <string name="push_review_reply">Tens un missatge de l\'equip.</string>

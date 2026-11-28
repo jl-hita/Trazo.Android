@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Varsler når hvilen mellom sett er over mens appen er i bakgrunnen.</string>
     <string name="rest_over_title">Hvilen er over</string>
     <string name="rest_over_text">På tide med neste sett.</string>
+    <string name="rest_exact_hint">Med skjermen av kan varselet om at hvilen er over komme sent. Tillat «Alarmer og påminnelser» så det kommer i tide.</string>
+    <string name="rest_exact_allow">Tillat</string>
+    <string name="rest_exact_decline">Nei takk</string>
     <string name="onb_start_date">Startdato</string>
     <string name="onb_weeks">Planens lengde: %1$d uker</string>
     <string name="onb_equipment">Tilgjengelig utstyr</string>

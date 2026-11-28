@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Известува кога ќе заврши одморот помеѓу сериите додека апликацијата е во заднина.</string>
     <string name="rest_over_title">Одморот заврши</string>
     <string name="rest_over_text">Време е за следната серија.</string>
+    <string name="rest_exact_hint">Кога екранот е исклучен, известувањето за крај на одморот може да задоцни. Дозволи „Аларми и потсетници“ за да стигнува навреме.</string>
+    <string name="rest_exact_allow">Дозволи</string>
+    <string name="rest_exact_decline">Не, благодарам</string>
     <string name="onb_start_date">Датум на почеток</string>
     <string name="onb_weeks">Должина на планот: %1$d недели</string>
     <string name="onb_equipment">Достапна опрема</string>

@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Obavještava kada odmor između serija završi dok je aplikacija u pozadini.</string>
     <string name="rest_over_title">Odmor je završen</string>
     <string name="rest_over_text">Vrijeme je za sljedeću seriju.</string>
+    <string name="rest_exact_hint">Kada je zaslon isključen, obavijest o kraju odmora može kasniti. Dopusti „Alarmi i podsjetnici” kako bi stizala na vrijeme.</string>
+    <string name="rest_exact_allow">Dopusti</string>
+    <string name="rest_exact_decline">Ne, hvala</string>
     <string name="onb_start_date">Datum početka</string>
     <string name="onb_weeks">Duljina plana: %1$d tjedana</string>
     <string name="onb_equipment">Dostupna oprema</string>

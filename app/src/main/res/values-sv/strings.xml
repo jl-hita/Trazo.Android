@@ -388,6 +388,9 @@
     <string name="rest_channel_description">Meddelar när din vila mellan seten är slut medan appen är i bakgrunden.</string>
     <string name="rest_over_title">Vilan är slut</string>
     <string name="rest_over_text">Dags för nästa set.</string>
+    <string name="rest_exact_hint">När skärmen är släckt kan aviseringen om att vilan är slut komma sent. Tillåt ”Alarm och påminnelser” så att den kommer i tid.</string>
+    <string name="rest_exact_allow">Tillåt</string>
+    <string name="rest_exact_decline">Nej tack</string>
     <string name="push_channel_name">Aviseringar</string>
     <string name="push_channel_description">Teamets svar på dina granskningar och nyheter från TRAZO.</string>
     <string name="push_review_reply">Du har ett meddelande från teamet.</string>

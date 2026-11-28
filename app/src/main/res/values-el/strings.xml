@@ -94,6 +94,9 @@
     <string name="rest_channel_description">Ειδοποιεί όταν τελειώσει η ανάπαυση μεταξύ σειρών ενώ η εφαρμογή είναι στο παρασκήνιο.</string>
     <string name="rest_over_title">Η ανάπαυση τελείωσε</string>
     <string name="rest_over_text">Ώρα για την επόμενη σειρά.</string>
+    <string name="rest_exact_hint">Με σβηστή οθόνη, η ειδοποίηση τέλους ανάπαυσης μπορεί να αργήσει. Επίτρεψε τις «Ξυπνητήρια και υπενθυμίσεις» για να έρχεται στην ώρα της.</string>
+    <string name="rest_exact_allow">Επιτρέπω</string>
+    <string name="rest_exact_decline">Όχι, ευχαριστώ</string>
     <string name="onb_start_date">Ημερομηνία έναρξης</string>
     <string name="onb_weeks">Διάρκεια προγράμματος: %1$d εβδομάδες</string>
     <string name="onb_equipment">Διαθέσιμος εξοπλισμός</string>
