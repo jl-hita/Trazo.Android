@@ -14,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -35,7 +36,6 @@ import com.trazo.android.ui.theme.TrazoField
 import com.trazo.android.ui.theme.TrazoLink
 import com.trazo.android.ui.theme.TrazoPalette
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WorkoutScreen(
     viewModel: WorkoutViewModel, onExit: () -> Unit, onExercise: (String) -> Unit, onRestStarted: () -> Unit = {},
@@ -139,7 +139,9 @@ fun WorkoutScreen(
             }
         }
         // While typing, the keyboard leaves little room: the actions that are not part of a set step aside.
-        val typing = WindowInsets.isImeVisible
+        // The height, not WindowInsets.isImeVisible: that one says true until the system sends the insets, which on Android 14
+        // and older may never happen, and it hid these actions with no keyboard on the screen.
+        val typing = WindowInsets.ime.getBottom(LocalDensity.current) > 0
         if (!typing) TrazoLink(onClick = viewModel::openAddExercise, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = MinTouch)) { Text(stringResource(R.string.workout_add_exercise)) }
         if (!typing && offerExactAlarm && exactAlarm != null) ExactAlarmCard(
             onAllow = exactAlarm.allow, onDecline = { exactAlarm.decline(); exactAlarmDeclined = true }

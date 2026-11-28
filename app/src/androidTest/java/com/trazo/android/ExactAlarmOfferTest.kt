@@ -27,7 +27,7 @@ import java.io.File
 import java.time.LocalDate
 import java.util.UUID
 
-/** The offer to allow exact alarms: only while resting and only when due, and each button does its own thing. */
+/** The bottom of the workout screen: its actions, and the offer to allow exact alarms (only while resting and when due). */
 @RunWith(AndroidJUnit4::class)
 class ExactAlarmOfferTest {
     @get:Rule val compose = createComposeRule()
@@ -62,6 +62,14 @@ class ExactAlarmOfferTest {
 
     private fun waitFor(text: String) =
         compose.waitUntil(10_000) { compose.onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty() }
+
+    /** Without a keyboard the actions under the list are there: the session can always be finished. */
+    @Test fun theSessionCanBeFinishedWithoutAKeyboard() {
+        show(due = false)
+        waitFor(context.getString(R.string.workout_finish))
+        compose.onNodeWithText(context.getString(R.string.workout_finish)).assertIsDisplayed()
+        compose.onNodeWithText(context.getString(R.string.workout_add_exercise)).assertIsDisplayed()
+    }
 
     @Test fun offeredWhileRestingAndAllowOpensTheSettings() {
         val viewModel = show(due = true)
