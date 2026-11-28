@@ -133,11 +133,20 @@ jobs:
           test -s "$MAPPING_FILE"
           echo "R8 mapping size: $(wc -c < "$MAPPING_FILE") bytes"
           ENCODED_VERSION="${APP_VERSION//+/%2B}"
-          curl --fail --silent --show-error \
+          # Compressed: the mapping is close to the request limit, and text shrinks to a fraction of its size.
+          COMPRESSED_FILE="$RUNNER_TEMP/mapping.txt.gz"
+          gzip -9 -c "$MAPPING_FILE" > "$COMPRESSED_FILE"
+          echo "R8 mapping compressed: $(wc -c < "$COMPRESSED_FILE") bytes"
+          RESPONSE="$(curl --fail --silent --show-error \
             -H "X-Trazo-Diagnostics-Key: $TRAZO_DIAGNOSTICS_UPLOAD_KEY" \
             -H "Content-Type: text/plain" \
-            --data-binary "@app/build/outputs/mapping/release/mapping.txt" \
-            "$API_BASE_URL/api/internal/diagnostics/mappings?appVersion=$ENCODED_VERSION"
+            -H "Content-Encoding: gzip" \
+            --data-binary "@$COMPRESSED_FILE" \
+            "$API_BASE_URL/api/internal/diagnostics/mappings?appVersion=$ENCODED_VERSION")"
+          echo "$RESPONSE"
+          # The server answers with the checksum of what it stored.
+          EXPECTED="$(sha256sum "$MAPPING_FILE" | cut -d' ' -f1)"
+          grep -q "\"sha256\":\"$EXPECTED\"" <<< "$RESPONSE" || { echo "::error::The stored mapping does not match the built one."; exit 1; }
 
       - name: Preserve AAB and R8 mapping
         if: always() && steps.build.outcome == 'success'
