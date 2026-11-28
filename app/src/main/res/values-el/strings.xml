@@ -694,4 +694,9 @@
     <string name="feedback_message">Το μήνυμά σου</string>
     <string name="feedback_send">Αποστολή</string>
     <string name="feedback_sent">Ευχαριστούμε. Το λάβαμε.</string>
+    <string name="export_title">Τα δεδομένα σου</string>
+    <string name="export_note">Ένα αρχείο με όσα κρατά το TRAZO για τον λογαριασμό σου. Μπορεί να περιέχει δεδομένα υγείας: αποθήκευσέ το όπου το βλέπεις μόνο εσύ.</string>
+    <string name="export_button">Λήψη των δεδομένων μου</string>
+    <string name="export_saved">Το αρχείο αποθηκεύτηκε.</string>
+    <string name="export_save_failed">Δεν ήταν δυνατή η αποθήκευση του αρχείου.</string>
 </resources>

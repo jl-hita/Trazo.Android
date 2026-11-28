@@ -714,4 +714,9 @@
     <string name="feedback_message">رسالتك</string>
     <string name="feedback_send">إرسال</string>
     <string name="feedback_sent">شكرًا. لقد استلمناها.</string>
+    <string name="export_title">بياناتك</string>
+    <string name="export_note">ملف يحتوي على ما يحتفظ به TRAZO عن حسابك. قد يتضمن بيانات صحية: احفظه حيث لا يراه غيرك.</string>
+    <string name="export_button">تنزيل بياناتي</string>
+    <string name="export_saved">تم حفظ الملف.</string>
+    <string name="export_save_failed">تعذر حفظ الملف.</string>
 </resources>

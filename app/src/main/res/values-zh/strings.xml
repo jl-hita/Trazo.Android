@@ -689,4 +689,9 @@
     <string name="feedback_message">你的留言</string>
     <string name="feedback_send">发送</string>
     <string name="feedback_sent">谢谢，我们已收到。</string>
+    <string name="export_title">你的数据</string>
+    <string name="export_note">包含 TRAZO 为你的账户保存内容的文件。其中可能有健康信息：请保存在只有你能看到的位置。</string>
+    <string name="export_button">下载我的数据</string>
+    <string name="export_saved">文件已保存。</string>
+    <string name="export_save_failed">无法保存文件。</string>
 </resources>

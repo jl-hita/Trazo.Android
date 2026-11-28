@@ -694,4 +694,9 @@
     <string name="feedback_message">Din besked</string>
     <string name="feedback_send">Send</string>
     <string name="feedback_sent">Tak. Vi har modtaget den.</string>
+    <string name="export_title">Dine data</string>
+    <string name="export_note">En fil med det, TRAZO gemmer om din konto. Den kan indeholde helbredsoplysninger: gem den, hvor kun du kan se den.</string>
+    <string name="export_button">Download mine data</string>
+    <string name="export_saved">Filen er gemt.</string>
+    <string name="export_save_failed">Filen kunne ikke gemmes.</string>
 </resources>

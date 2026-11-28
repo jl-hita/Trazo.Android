@@ -704,4 +704,9 @@
     <string name="feedback_message">Twoja wiadomość</string>
     <string name="feedback_send">Wyślij</string>
     <string name="feedback_sent">Dziękujemy. Otrzymaliśmy ją.</string>
+    <string name="export_title">Twoje dane</string>
+    <string name="export_note">Plik z tym, co TRAZO przechowuje o twoim koncie. Może zawierać dane o zdrowiu: zapisz go tam, gdzie widzisz go tylko ty.</string>
+    <string name="export_button">Pobierz moje dane</string>
+    <string name="export_saved">Plik zapisany.</string>
+    <string name="export_save_failed">Nie udało się zapisać pliku.</string>
 </resources>

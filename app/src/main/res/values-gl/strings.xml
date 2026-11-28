@@ -694,4 +694,9 @@
     <string name="feedback_message">A túa mensaxe</string>
     <string name="feedback_send">Enviar</string>
     <string name="feedback_sent">Grazas. Recibímolo.</string>
+    <string name="export_title">Os teus datos</string>
+    <string name="export_note">Un ficheiro co que TRAZO garda da túa conta. Pode incluír datos de saúde: gárdao onde só o poidas ver ti.</string>
+    <string name="export_button">Descargar os meus datos</string>
+    <string name="export_saved">Ficheiro gardado.</string>
+    <string name="export_save_failed">Non se puido gardar o ficheiro.</string>
 </resources>

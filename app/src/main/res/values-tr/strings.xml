@@ -694,4 +694,9 @@
     <string name="feedback_message">Mesajın</string>
     <string name="feedback_send">Gönder</string>
     <string name="feedback_sent">Teşekkürler. Aldık.</string>
+    <string name="export_title">Verilerin</string>
+    <string name="export_note">TRAZO\'nun hesabın hakkında sakladıklarını içeren bir dosya. Sağlık verileri içerebilir: yalnızca senin görebileceğin bir yere kaydet.</string>
+    <string name="export_button">Verilerimi indir</string>
+    <string name="export_saved">Dosya kaydedildi.</string>
+    <string name="export_save_failed">Dosya kaydedilemedi.</string>
 </resources>

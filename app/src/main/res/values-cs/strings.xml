@@ -704,4 +704,9 @@
     <string name="feedback_message">Tvoje zpráva</string>
     <string name="feedback_send">Odeslat</string>
     <string name="feedback_sent">Děkujeme. Dostali jsme to.</string>
+    <string name="export_title">Tvoje data</string>
+    <string name="export_note">Soubor s tím, co TRAZO uchovává o tvém účtu. Může obsahovat zdravotní údaje: ulož ho tam, kde ho uvidíš jen ty.</string>
+    <string name="export_button">Stáhnout moje data</string>
+    <string name="export_saved">Soubor uložen.</string>
+    <string name="export_save_failed">Soubor se nepodařilo uložit.</string>
 </resources>

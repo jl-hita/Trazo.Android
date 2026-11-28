@@ -694,4 +694,9 @@
     <string name="feedback_message">Ditt meddelande</string>
     <string name="feedback_send">Skicka</string>
     <string name="feedback_sent">Tack. Vi har tagit emot det.</string>
+    <string name="export_title">Dina uppgifter</string>
+    <string name="export_note">En fil med det TRAZO sparar om ditt konto. Den kan innehålla hälsouppgifter: spara den där bara du kan se den.</string>
+    <string name="export_button">Ladda ner mina uppgifter</string>
+    <string name="export_saved">Filen har sparats.</string>
+    <string name="export_save_failed">Filen kunde inte sparas.</string>
 </resources>
