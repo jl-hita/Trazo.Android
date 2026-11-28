@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZOはこのトレーニングを確認しました。プランはそのままで、変更の必要はありませんでした。</string>
     <string name="plan_session_minutes">%1$d分</string>
     <string name="plan_session_exercises">%1$d種目</string>
-    <string name="plan_pending_logs">%1$d件のトレーニングが送信待ちです（接続が必要です）。</string>
+    <string name="plan_pending_logs">送信待ちのトレーニング: %1$d</string>
     <string name="plan_send_now">今すぐ送信</string>
     <string name="plan_next_plan">次のプランを作成</string>
     <string name="status_planned">予定</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">プランを作成中…</string>
     <!-- Session and workout -->
     <string name="session_start">トレーニング開始</string>
+    <string name="session_resume">トレーニングを再開</string>
+    <string name="session_queued">送信待ち</string>
     <string name="session_done">トレーニングを記録しました</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

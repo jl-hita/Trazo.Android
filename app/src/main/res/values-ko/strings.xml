@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO가 이 운동을 검토했고 플랜은 그대로입니다. 바꿀 필요가 없었습니다.</string>
     <string name="plan_session_minutes">%1$d분</string>
     <string name="plan_session_exercises">운동 %1$d개</string>
-    <string name="plan_pending_logs">운동 %1$d건이 전송을 위해 연결을 기다리고 있습니다.</string>
+    <string name="plan_pending_logs">전송 대기 중인 운동: %1$d</string>
     <string name="plan_send_now">지금 전송</string>
     <string name="plan_next_plan">다음 플랜 만들기</string>
     <string name="status_planned">대기 중</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">플랜을 만드는 중…</string>
     <!-- Session and workout -->
     <string name="session_start">운동 시작</string>
+    <string name="session_resume">운동 이어서 하기</string>
+    <string name="session_queued">전송 대기</string>
     <string name="session_done">운동이 기록되었습니다</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

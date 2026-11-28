@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO ha revisat aquesta sessió i el teu pla es manté tal com està: no ha calgut canviar res.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d exercicis</string>
-    <string name="plan_pending_logs">%1$d entrenaments esperen connexió per enviar-se.</string>
+    <string name="plan_pending_logs">Entrenaments pendents d’enviar: %1$d</string>
     <string name="plan_send_now">Envia ara</string>
     <string name="plan_next_plan">Crea el pla següent</string>
     <string name="status_planned">Pendent</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Generant el teu pla…</string>
     <!-- Session and workout -->
     <string name="session_start">Comença l\'entrenament</string>
+    <string name="session_resume">Continua l’entrenament</string>
+    <string name="session_queued">Per enviar</string>
     <string name="session_done">Sessió registrada</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

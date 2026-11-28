@@ -63,6 +63,11 @@ class PlanRepository(
     private val _pending = MutableStateFlow(0)
     val pendingCount: StateFlow<Int> = _pending.asStateFlow()
 
+    private val _queued = MutableStateFlow<Set<String>>(emptySet())
+
+    /** The sessions whose log waits on the phone to be sent: done for the user, still pending for the server. */
+    val queuedSessions: StateFlow<Set<String>> = _queued.asStateFlow()
+
     private val _rejected = MutableStateFlow<List<PendingLog>>(emptyList())
 
     /** Logs the server refused. They stay on the phone until the user sends them again, corrects them or deletes them. */
@@ -88,6 +93,7 @@ class PlanRepository(
 
     private fun publish(entries: List<PendingLog>) {
         _pending.value = entries.count { !it.isRejected }
+        _queued.value = entries.filterNot { it.isRejected }.map { it.sessionId }.toSet()
         _rejected.value = entries.filter { it.isRejected }
     }
 

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">راجع TRAZO هذا التمرين وتبقى خطتك كما هي: لم يكن هناك ما يحتاج إلى تغيير.</string>
     <string name="plan_session_minutes">%1$d د</string>
     <string name="plan_session_exercises">%1$d تمرين</string>
-    <string name="plan_pending_logs">%1$d تمارين تنتظر الاتصال ليتم إرسالها.</string>
+    <string name="plan_pending_logs">تمارين بانتظار الإرسال: %1$d</string>
     <string name="plan_send_now">إرسال الآن</string>
     <string name="plan_next_plan">إنشاء الخطة التالية</string>
     <string name="status_planned">قيد الانتظار</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">جارٍ إنشاء خطتك…</string>
     <!-- Session and workout -->
     <string name="session_start">ابدأ التمرين</string>
+    <string name="session_resume">متابعة التمرين</string>
+    <string name="session_queued">بانتظار الإرسال</string>
     <string name="session_done">تم تسجيل التمرين</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

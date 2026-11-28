@@ -98,9 +98,11 @@ fun TrazoField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = true,
-    minLines: Int = 1
+    minLines: Int = 1,
+    isError: Boolean = false
 ) = OutlinedTextField(
     value = value,
+    isError = isError,
     onValueChange = onValueChange,
     modifier = modifier,
     label = label,

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZOk saio hau berrikusi du eta zure plana den bezala jarraitzen du: ez zen ezer aldatu behar izan.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d ariketa</string>
-    <string name="plan_pending_logs">%1$d entrenamendu konexioaren zain daude bidaltzeko.</string>
+    <string name="plan_pending_logs">Bidaltzeko dauden entrenamenduak: %1$d</string>
     <string name="plan_send_now">Bidali orain</string>
     <string name="plan_next_plan">Sortu hurrengo plana</string>
     <string name="status_planned">Zain</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Zure plana sortzen…</string>
     <!-- Session and workout -->
     <string name="session_start">Hasi entrenamendua</string>
+    <string name="session_resume">Jarraitu entrenamendua</string>
+    <string name="session_queued">Bidaltzeke</string>
     <string name="session_done">Saioa erregistratuta</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

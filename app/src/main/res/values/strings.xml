@@ -60,7 +60,7 @@
     <string name="finish_reviewed_kept">TRAZO reviewed this session and your plan stays as it is: nothing needed to change.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d exercises</string>
-    <string name="plan_pending_logs">%1$d workouts are waiting for a connection to be sent.</string>
+    <string name="plan_pending_logs">Workouts waiting to be sent: %1$d</string>
     <string name="plan_send_now">Send now</string>
     <string name="plan_next_plan">Create the next plan</string>
     <string name="status_planned">Pending</string>
@@ -123,6 +123,8 @@
 
     <!-- Session and workout -->
     <string name="session_start">Start workout</string>
+    <string name="session_resume">Resume workout</string>
+    <string name="session_queued">To be sent</string>
     <string name="session_done">Session logged</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO revisou esta sesión e o teu plan mantense tal como está: non foi preciso cambiar nada.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d exercicios</string>
-    <string name="plan_pending_logs">%1$d adestramentos esperan conexión para seren enviados.</string>
+    <string name="plan_pending_logs">Adestramentos pendentes de envío: %1$d</string>
     <string name="plan_send_now">Enviar agora</string>
     <string name="plan_next_plan">Crear o seguinte plan</string>
     <string name="status_planned">Pendente</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Xerando o teu plan…</string>
     <!-- Session and workout -->
     <string name="session_start">Comezar o adestramento</string>
+    <string name="session_resume">Continuar o adestramento</string>
+    <string name="session_queued">Por enviar</string>
     <string name="session_done">Sesión rexistrada</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

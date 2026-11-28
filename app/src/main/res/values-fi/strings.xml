@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO tarkisti tämän treenin, ja ohjelmasi pysyy ennallaan: mitään ei tarvinnut muuttaa.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d liikettä</string>
-    <string name="plan_pending_logs">%1$d treeniä odottaa yhteyttä lähetettäväksi.</string>
+    <string name="plan_pending_logs">Lähetystä odottavat treenit: %1$d</string>
     <string name="plan_send_now">Lähetä nyt</string>
     <string name="plan_next_plan">Luo seuraava ohjelma</string>
     <string name="status_planned">Odottaa</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Luodaan ohjelmaasi…</string>
     <!-- Session and workout -->
     <string name="session_start">Aloita treeni</string>
+    <string name="session_resume">Jatka treeniä</string>
+    <string name="session_queued">Odottaa lähetystä</string>
     <string name="session_done">Treeni kirjattu</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

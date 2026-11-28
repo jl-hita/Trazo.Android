@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO bu seansı inceledi ve planın olduğu gibi kalıyor: hiçbir şeyin değişmesi gerekmedi.</string>
     <string name="plan_session_minutes">%1$d dk</string>
     <string name="plan_session_exercises">%1$d egzersiz</string>
-    <string name="plan_pending_logs">%1$d antrenman gönderilmek için bağlantı bekliyor.</string>
+    <string name="plan_pending_logs">Gönderilmeyi bekleyen antrenmanlar: %1$d</string>
     <string name="plan_send_now">Şimdi gönder</string>
     <string name="plan_next_plan">Sonraki planı oluştur</string>
     <string name="status_planned">Bekliyor</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Planın oluşturuluyor…</string>
     <!-- Session and workout -->
     <string name="session_start">Antrenmanı başlat</string>
+    <string name="session_resume">Antrenmana devam et</string>
+    <string name="session_queued">Gönderilecek</string>
     <string name="session_done">Seans kaydedildi</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

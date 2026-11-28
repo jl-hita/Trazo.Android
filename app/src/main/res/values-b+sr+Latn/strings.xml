@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO je pregledao ovaj trening i tvoj plan ostaje kakav jeste: ništa nije trebalo menjati.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">Vežbi: %1$d</string>
-    <string name="plan_pending_logs">Treninga koji čekaju vezu za slanje: %1$d.</string>
+    <string name="plan_pending_logs">Treninzi koji čekaju slanje: %1$d</string>
     <string name="plan_send_now">Pošalji sada</string>
     <string name="plan_next_plan">Napravi sledeći plan</string>
     <string name="status_planned">Na čekanju</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Pravimo tvoj plan…</string>
     <!-- Session and workout -->
     <string name="session_start">Započni trening</string>
+    <string name="session_resume">Nastavi trening</string>
+    <string name="session_queued">Čeka slanje</string>
     <string name="session_done">Trening zabeležen</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

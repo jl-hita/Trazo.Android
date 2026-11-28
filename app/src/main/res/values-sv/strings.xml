@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO har gått igenom det här passet och din plan förblir som den är: inget behövde ändras.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d övningar</string>
-    <string name="plan_pending_logs">%1$d träningspass väntar på uppkoppling för att skickas.</string>
+    <string name="plan_pending_logs">Pass som väntar på att skickas: %1$d</string>
     <string name="plan_send_now">Skicka nu</string>
     <string name="plan_next_plan">Skapa nästa plan</string>
     <string name="status_planned">Väntar</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Skapar din plan…</string>
     <!-- Session and workout -->
     <string name="session_start">Starta träningspasset</string>
+    <string name="session_resume">Fortsätt passet</string>
+    <string name="session_queued">Ska skickas</string>
     <string name="session_done">Pass loggat</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

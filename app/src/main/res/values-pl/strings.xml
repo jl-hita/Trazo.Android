@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO sprawdziło tę sesję i Twój plan pozostaje bez zmian: nic nie trzeba było poprawiać.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">Ćwiczenia: %1$d</string>
-    <string name="plan_pending_logs">Treningi czekające na połączenie, aby zostać wysłane: %1$d.</string>
+    <string name="plan_pending_logs">Treningi oczekujące na wysłanie: %1$d</string>
     <string name="plan_send_now">Wyślij teraz</string>
     <string name="plan_next_plan">Utwórz następny plan</string>
     <string name="status_planned">Oczekuje</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">Tworzenie Twojego planu…</string>
     <!-- Session and workout -->
     <string name="session_start">Rozpocznij trening</string>
+    <string name="session_resume">Wznów trening</string>
+    <string name="session_queued">Do wysłania</string>
     <string name="session_done">Sesja zapisana</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

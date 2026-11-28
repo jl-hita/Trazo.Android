@@ -51,6 +51,7 @@ class PlanViewModel(
     private val _state = MutableStateFlow(PlanUiState())
     val state: StateFlow<PlanUiState> = _state.asStateFlow()
     val pendingLogs: StateFlow<Int> = plans.pendingCount
+    val queuedSessions: StateFlow<Set<String>> = plans.queuedSessions
     val rejectedLogs: StateFlow<List<com.trazo.android.data.local.PendingLog>> = plans.rejected
 
     init { load() }

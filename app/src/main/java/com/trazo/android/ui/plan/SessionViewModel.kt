@@ -3,6 +3,7 @@ package com.trazo.android.ui.plan
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trazo.android.R
+import com.trazo.android.data.local.WorkoutDraftStore
 import com.trazo.android.data.model.SessionView
 import com.trazo.android.data.net.ApiError
 import com.trazo.android.data.net.ApiResult
@@ -11,10 +12,13 @@ import com.trazo.android.data.repo.ExerciseRepository
 import com.trazo.android.data.repo.PlanRepository
 import com.trazo.android.diagnostics.launchGuarded
 import com.trazo.android.ui.workout.AlternativesState
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.withContext
 
 data class SessionUiState(
     /** A session the cached week does not hold (a past one): found in the block, with what was logged in it. */
@@ -25,15 +29,21 @@ data class SessionUiState(
     val alternatives: AlternativesState? = null,
     val swapError: ApiError? = null,
     /** A generated plan: its pending sessions can be edited. */
-    val generated: Boolean = false
+    val generated: Boolean = false,
+    /** Something of this session was noted and not sent yet: the workout can be taken up where it was left. */
+    val started: Boolean = false
 )
 
 /** What the session screen does besides showing the prescription: finds past sessions and swaps an exercise before the workout starts. */
 class SessionViewModel(
     private val plans: PlanRepository,
     val catalog: ExerciseRepository,
-    private val sessionId: String
+    private val sessionId: String,
+    private val drafts: WorkoutDraftStore? = null,
+    private val io: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
+    val queuedSessions: StateFlow<Set<String>> = plans.queuedSessions
+
     private val _state = MutableStateFlow(SessionUiState())
     val state: StateFlow<SessionUiState> = _state.asStateFlow()
 
@@ -42,6 +52,19 @@ class SessionViewModel(
         viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { }) {
             val plan = (plans.currentPlan() as? ApiResult.Success)?.value?.value
             _state.update { it.copy(generated = plan?.origin == "Generated") }
+        }
+    }
+
+    /** Read every time the screen is shown: the user may be coming back from the workout. */
+    fun checkDraft() {
+        val store = drafts ?: return
+        viewModelScope.launchGuarded(R.string.feature_workout, onFailure = { }) {
+            val started = withContext(io) {
+                store.load(sessionId)?.let { draft ->
+                    draft.sets.any { it.done || it.reps.isNotBlank() } || draft.muscles != null || draft.discomfort != null
+                } == true
+            }
+            _state.update { it.copy(started = started) }
         }
     }
 

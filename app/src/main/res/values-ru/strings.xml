@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO проверил эту тренировку, и ваш план остаётся прежним: менять ничего не потребовалось.</string>
     <string name="plan_session_minutes">%1$d мин</string>
     <string name="plan_session_exercises">Упражнений: %1$d</string>
-    <string name="plan_pending_logs">Тренировок, ожидающих сети для отправки: %1$d.</string>
+    <string name="plan_pending_logs">Тренировок ожидает отправки: %1$d</string>
     <string name="plan_send_now">Отправить сейчас</string>
     <string name="plan_next_plan">Создать следующий план</string>
     <string name="status_planned">Ожидает</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Создаём ваш план…</string>
     <!-- Session and workout -->
     <string name="session_start">Начать тренировку</string>
+    <string name="session_resume">Продолжить тренировку</string>
+    <string name="session_queued">Ожидает отправки</string>
     <string name="session_done">Тренировка записана</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

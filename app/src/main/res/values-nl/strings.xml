@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO heeft deze training beoordeeld en je plan blijft zoals het is: er hoefde niets te veranderen.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">%1$d oefeningen</string>
-    <string name="plan_pending_logs">%1$d trainingen wachten op een verbinding om verzonden te worden.</string>
+    <string name="plan_pending_logs">Trainingen die nog verzonden moeten worden: %1$d</string>
     <string name="plan_send_now">Nu verzenden</string>
     <string name="plan_next_plan">Maak het volgende plan</string>
     <string name="status_planned">Gepland</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Je plan wordt gemaakt…</string>
     <!-- Session and workout -->
     <string name="session_start">Training starten</string>
+    <string name="session_resume">Training hervatten</string>
+    <string name="session_queued">Te verzenden</string>
     <string name="session_done">Training vastgelegd</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

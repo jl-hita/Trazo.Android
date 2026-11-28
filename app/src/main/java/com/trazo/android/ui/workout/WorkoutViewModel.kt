@@ -107,6 +107,14 @@ class WorkoutViewModel(
     private var timer: Job? = null
     private var restEndsAt = 0L
 
+    /** Whether anything was ever logged, as far as the phone knows; when it cannot tell, it says yes and the question is asked. */
+    val hasTrainedBefore: Boolean
+        get() {
+            val week = plans.week.value ?: return true
+            if (week.weekNumber > 1 || week.sessions.any { it.log != null }) return true
+            return _state.value.entries.any { it.exercise.lastPerformance != null }
+        }
+
     /** Where the exercise explanations come from (null in tests that do not need them). */
     val catalog: ExerciseRepository? get() = exercises
 

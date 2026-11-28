@@ -71,6 +71,7 @@ fun WorkoutScreen(
             stringResource(R.string.workout_progress, state.doneSets, state.allSets),
             color = TrazoPalette.TextSecondary, modifier = Modifier.padding(horizontal = 16.dp)
         )
+        val askRecovery = viewModel.hasTrainedBefore
         LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(state.entries, key = { it.exercise.exerciseId }) { entry ->
                 TrazoCard {
@@ -102,7 +103,8 @@ fun WorkoutScreen(
                     )
                     ex.lastPerformance?.let { LastTimeInfo(it, ex.targetLoadKg == null) }
                     val position = state.entries.indexOf(entry)
-                    WorkoutViewModel.recoveryQuestions(state.entries, position).forEach { muscle ->
+                    // Before anything was ever logged there is no "last time" to have recovered from.
+                    if (askRecovery) WorkoutViewModel.recoveryQuestions(state.entries, position).forEach { muscle ->
                         MuscleQuestion(
                             stringResource(R.string.mq_recovery, Labels.muscle(muscle)), RECOVERY_ANSWERS,
                             state.muscles[muscle]?.recovery
@@ -209,9 +211,13 @@ private fun LastTimeInfo(last: LastPerformanceView, showProposal: Boolean) {
 private fun SetRow(title: String, markLabel: String, doneLabel: String, set: SetEntry, onChange: ((SetEntry) -> SetEntry) -> Unit, onToggle: () -> Unit) {
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         Text(title, Modifier.width(52.dp), style = MaterialTheme.typography.bodySmall)
-        TrazoField(set.weight, { v -> onChange { it.copy(weight = v) } }, Modifier.weight(1.2f), { Text(stringResource(R.string.workout_weight), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal))
-        TrazoField(set.reps, { v -> onChange { it.copy(reps = v.filter(Char::isDigit).take(3)) } }, Modifier.weight(0.9f), { Text(stringResource(R.string.workout_reps), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Number))
-        TrazoField(set.rir, { v -> onChange { it.copy(rir = v) } }, Modifier.weight(0.8f), { Text(stringResource(R.string.workout_rir), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal))
+        // A value out of range is not sent: it is shown as wrong instead of being dropped without a word.
+        TrazoField(set.weight, { v -> onChange { it.copy(weight = v) } }, Modifier.weight(1.2f), { Text(stringResource(R.string.workout_weight), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            isError = set.weight.isNotBlank() && WorkoutViewModel.parseWeight(set.weight) == null)
+        TrazoField(set.reps, { v -> onChange { it.copy(reps = v.filter(Char::isDigit).take(3)) } }, Modifier.weight(0.9f), { Text(stringResource(R.string.workout_reps), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Number),
+            isError = set.reps.isNotBlank() && WorkoutViewModel.parseReps(set.reps) == null)
+        TrazoField(set.rir, { v -> onChange { it.copy(rir = v) } }, Modifier.weight(0.8f), { Text(stringResource(R.string.workout_rir), maxLines = 1) }, KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            isError = set.rir.isNotBlank() && WorkoutViewModel.parseRir(set.rir) == null)
         val label = if (set.done) doneLabel else markLabel
         FilledIconToggleButton(
             checked = set.done, onCheckedChange = { onToggle() },
@@ -410,7 +416,7 @@ private fun FinishDialog(state: WorkoutState, onDismiss: () -> Unit, onSend: (Fi
                     if (reason == null) Text(stringResource(R.string.finish_reason_required), color = TrazoPalette.TextSecondary, style = MaterialTheme.typography.bodySmall)
                 }
                 Text(rpe?.let { stringResource(R.string.finish_rpe, it.toInt().toString()) } ?: stringResource(R.string.finish_rpe_none))
-                Slider(value = rpe ?: 5f, onValueChange = { rpe = it.toInt().toFloat() }, valueRange = 0f..10f, steps = 9, modifier = Modifier.heightIn(min = MinTouch))
+                Slider(value = rpe ?: 0f, onValueChange = { rpe = it.toInt().toFloat() }, valueRange = 0f..10f, steps = 9, modifier = Modifier.heightIn(min = MinTouch))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Switch(checked = pain, onCheckedChange = { on -> if (on) health { pain = true } else pain = false })
                     Spacer(Modifier.width(8.dp))

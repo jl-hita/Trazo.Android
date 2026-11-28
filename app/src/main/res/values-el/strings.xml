@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">Το TRAZO έλεγξε αυτή την προπόνηση και το πρόγραμμά σου μένει όπως είναι: δεν χρειάστηκε να αλλάξει τίποτα.</string>
     <string name="plan_session_minutes">%1$d λεπτά</string>
     <string name="plan_session_exercises">%1$d ασκήσεις</string>
-    <string name="plan_pending_logs">%1$d προπονήσεις περιμένουν σύνδεση για να σταλούν.</string>
+    <string name="plan_pending_logs">Προπονήσεις προς αποστολή: %1$d</string>
     <string name="plan_send_now">Αποστολή τώρα</string>
     <string name="plan_next_plan">Δημιούργησε το επόμενο πρόγραμμα</string>
     <string name="status_planned">Σε αναμονή</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Δημιουργείται το πρόγραμμά σου…</string>
     <!-- Session and workout -->
     <string name="session_start">Έναρξη προπόνησης</string>
+    <string name="session_resume">Συνέχιση προπόνησης</string>
+    <string name="session_queued">Προς αποστολή</string>
     <string name="session_done">Η προπόνηση καταγράφηκε</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO 已检查本次训练，你的计划保持不变：无需任何更改。</string>
     <string name="plan_session_minutes">%1$d 分钟</string>
     <string name="plan_session_exercises">%1$d 个动作</string>
-    <string name="plan_pending_logs">有 %1$d 次训练正在等待网络以便发送。</string>
+    <string name="plan_pending_logs">等待发送的训练：%1$d</string>
     <string name="plan_send_now">立即发送</string>
     <string name="plan_next_plan">创建下一个计划</string>
     <string name="status_planned">待完成</string>
@@ -116,6 +116,8 @@
     <string name="onb_creating">正在生成你的计划…</string>
     <!-- Session and workout -->
     <string name="session_start">开始训练</string>
+    <string name="session_resume">继续训练</string>
+    <string name="session_queued">待发送</string>
     <string name="session_done">训练已记录</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>

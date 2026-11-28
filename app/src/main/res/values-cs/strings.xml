@@ -56,7 +56,7 @@
     <string name="finish_reviewed_kept">TRAZO tento trénink zkontrolovalo a tvůj plán zůstává beze změny: nebylo třeba nic měnit.</string>
     <string name="plan_session_minutes">%1$d min</string>
     <string name="plan_session_exercises">Cviků: %1$d</string>
-    <string name="plan_pending_logs">Tréninků čekajících na připojení k odeslání: %1$d.</string>
+    <string name="plan_pending_logs">Tréninky čekající na odeslání: %1$d</string>
     <string name="plan_send_now">Odeslat teď</string>
     <string name="plan_next_plan">Vytvořit další plán</string>
     <string name="status_planned">Čeká</string>
@@ -123,6 +123,8 @@
     <string name="onb_creating">Vytváření tvého plánu…</string>
     <!-- Session and workout -->
     <string name="session_start">Zahájit trénink</string>
+    <string name="session_resume">Pokračovat v tréninku</string>
+    <string name="session_queued">K odeslání</string>
     <string name="session_done">Trénink zapsán</string>
     <string name="session_sets_reps">%1$d × %2$d–%3$d</string>
     <string name="session_rir">RIR %1$s</string>
